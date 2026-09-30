@@ -1,0 +1,20 @@
+step=s3_preproc_arrays_free
+run=2
+date_utc=2026-08-15T19:33:24Z
+machine=palma:bigsmp node=r05n01
+slurm_job_id=46150708
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth=5
+attrib_host=pmrec_pagemap
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/bolt/sif/bolt-s3_preproc_arrays_free.sif
+image_digest=d1ce98b2bead8e83b7f28445caf05dac373a5e2f21e5ce45d85629fc3da5c537
+omp_num_threads=4
+snni_seed=0x5EED
+bolt_sample_id=0
+bolt_port=8708
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base seq=128 layers=12 num_class=2 (SST-2 quantised weights)
+protocol=BOLT 2PC, HE backend SEAL 4.1.1 (BFV), OT via SCI/KKOT, bitlength 37, NL_SCALE 12
+role=BOTH parties (ALICE r=1 weights, BOB r=2 input), measured together on one node

@@ -1,0 +1,197 @@
+--- a/libspu/mpc/cheetah/arith/cheetah_dot.cc (as of b1)
++++ b/libspu/mpc/cheetah/arith/cheetah_dot.cc (b2)
+@@ -95,10 +95,16 @@
+                               bool is_self_lhs, CipherPackingType cptype,
+                               yacl::link::Context *conn);
+ 
++  // `num_packed` doubles as the permission to pack inside this call (campaign step
++  // b2_result_ct_pack_free). A caller that passes nullptr gets the stock behaviour: the raw
++  // result ciphertexts come back unpacked and the send step packs them. A caller that passes a
++  // pointer allows the packing to be fused into the slice loop, and receives the number of packed
++  // ciphertexts, which is what the send step would otherwise have computed for itself.
+   void doDotOLEReceiverRecvStep(const NdArrayRef &prv_mat, const Shape3D &dim3,
+                                 bool is_self_lhs, CipherPackingType cptype,
+                                 absl::Span<RLWECt> result_cts,
+-                                yacl::link::Context *conn);
++                                yacl::link::Context *conn,
++                                size_t *num_packed = nullptr);
+ 
+   NdArrayRef doDotOLESenderRecvStep(FieldType field, size_t batch_size,
+                                     MatMatProtocol::Meta meta,
+@@ -111,7 +117,8 @@
+                                       absl::Span<RLWECt> ct_array_to_pack,
+                                       CipherPackingType cptype,
+                                       yacl::link::Context *conn,
+-                                      size_t bytes_recv);
++                                      size_t bytes_recv,
++                                      size_t pre_packed = 0);
+ 
+   bool IsPackingEnabled(uint32_t ring_bitlen) const {
+     return DecideSEALParameters(ring_bitlen).use_special_prime();
+@@ -321,7 +328,8 @@
+                                                 bool is_self_lhs,
+                                                 CipherPackingType cptype,
+                                                 absl::Span<RLWECt> result_cts,
+-                                                yacl::link::Context *conn) {
++                                                yacl::link::Context *conn,
++                                                size_t *num_packed) {
+   int next_rank = conn->NextRank();
+   auto eltype = prv_mat.eltype();
+   auto field = eltype.template as<Ring2k>()->field();
+@@ -411,6 +419,65 @@
+   // encode work itself, which is unchanged in total.
+   io_task.get();
+ 
++  // PACK EACH SLICE'S RESULTS AS SOON AS THEY ARE FINAL, AND FREE THE RAW ONES (campaign step
++  // b2_result_ct_pack_free).
++  //
++  // What b1 left behind. `PackingWithModulusDrop` folds each group of `subshape[1]` = 64 result
++  // ciphertexts into ONE, writing the packed ciphertext to index i/64 of the same array. The other
++  // 63 are dead from that moment and nothing releases them: for the FFN up-projection that is 3024
++  // of 3072 ciphertexts at 393,216 B each, 1.19 GB of ciphertexts the protocol has finished with.
++  // They were the largest remaining occupant of SEAL's pool at b1's peak.
++  //
++  // Releasing them where the stock code packs would not move the peak, because by then all 3072
++  // already exist -- the pool has already grown. What lowers the peak is packing EARLIER, and the
++  // slice loop is what makes that possible: it walks k in ascending order and covers every j
++  // within a slice, so out[i,k] for k below `oend` is final and will never be touched again.
++  //
++  // In-place packing stays safe under this reordering because the destination index i/64 always
++  // lies BELOW i: packed results occupy [0, k/64) while the raw ciphertexts of the current slice
++  // occupy [obgn, oend), and k/64 < k, so the two regions cannot overlap.
++  //
++  // GUARDED, because the flat output index is i*nb2 + k and a slice over k is only a contiguous
++  // run of that index when there is a single row block. With more than one, packing groups would
++  // straddle rows that are not final yet. The batched caller is excluded for the same kind of
++  // reason: it packs across a span covering every batch, whose group boundaries need not align
++  // with one batch's results. Both fall back to packing in the send step, unchanged.
++  const int64_t num_row_blocks = matmat_prot.GetOuterBlocks(meta, /*for_lhs*/ true);
++  const size_t gap = static_cast<size_t>(subshape[1]);
++  const bool fuse_pack = (num_packed != nullptr) &&
++                         (cptype == CipherPackingType::rlwes) && !slice_lhs &&
++                         (num_row_blocks == 1) && (gap > 0);
++  size_t packed_upto = 0;  // every result below this index has been folded away
++
++  std::unique_ptr<PackingHelper> pack_helper;
++  if (fuse_pack) {
++    const auto &this_galois_key =
++        *(peer_galois_keys_.find(field_bitlen)->second);
++    pack_helper = std::make_unique<PackingHelper>(
++        gap, this_ecd_msh.coeff_modulus_size(), this_galois_key, this_context);
++  }
++
++  // Fold every group whose 64 raw ciphertexts are final, then release those raw ciphertexts. The
++  // group's own destination is skipped: it now holds the packed result.
++  auto drain_packed = [&](size_t final_upto, bool flush_partial) {
++    if (!fuse_pack) return;
++    while (packed_upto < final_upto) {
++      const size_t remaining = final_upto - packed_upto;
++      if (remaining < gap && !flush_partial) break;
++      const size_t this_batch = std::min(remaining, gap);
++      const size_t packed_idx = packed_upto / gap;
++      pack_helper->PackingWithModulusDrop(
++          result_cts.subspan(packed_upto, this_batch),
++          result_cts[packed_idx]);
++      for (size_t j = packed_upto; j < packed_upto + this_batch; ++j) {
++        if (j != packed_idx) {
++          result_cts[j].release();
++        }
++      }
++      packed_upto += this_batch;
++    }
++  };
++
+   std::vector<RLWEPt> plain_slice;
+   for (int64_t obgn = 0; obgn < num_outer; obgn += outer_per_slice) {
+     const int64_t oend = std::min(num_outer, obgn + outer_per_slice);
+@@ -443,13 +510,23 @@
+     // allocation until it is destroyed, so the whole point of slicing would be
+     // lost to the vector's own growth policy.
+     std::vector<RLWEPt>().swap(plain_slice);
++
++    // Everything below `oend` is final now, so fold away every complete group.
++    drain_packed(static_cast<size_t>(oend), /*flush_partial*/ false);
++  }
++
++  // The last group may be short; it can only be packed once the loop is over.
++  drain_packed(result_cts.size(), /*flush_partial*/ true);
++
++  if (num_packed != nullptr) {
++    *num_packed = fuse_pack ? CeilDiv(result_cts.size(), gap) : 0;
+   }
+ }
+ 
+ NdArrayRef CheetahDot::Impl::doDotOLEReceiverSendStep(
+     FieldType field, size_t batch_size, MatMatProtocol::Meta meta,
+     absl::Span<RLWECt> ct_array_to_pack, CipherPackingType cptype,
+-    yacl::link::Context *conn, size_t bytes_recv) {
++    yacl::link::Context *conn, size_t bytes_recv, size_t pre_packed) {
+   int next_rank = conn->NextRank();
+   const size_t field_bitlen = SizeOf(field) * 8;
+   const auto &this_public_key = *(peer_pub_keys_.find(field_bitlen)->second);
+@@ -471,24 +548,33 @@
+     num_ct_response = out_n;
+   } else if (cptype == CipherPackingType::rlwes) {
+     // BumbleBee's interleave
+-    const auto &this_galois_key =
+-        *(peer_galois_keys_.find(field_bitlen)->second);
+-
+     const size_t gap = subshape[1];
+     const size_t pack_stride = gap;
+ 
+-    PackingHelper pack_helper(gap, this_ecd_msh.coeff_modulus_size(),
+-                              this_galois_key, this_context);
++    if (pre_packed > 0) {
++      // The recv step already folded these, group by group, as each became final, and released
++      // the raw ciphertexts it consumed (campaign step b2_result_ct_pack_free). Repeating the
++      // loop here would pack packed ciphertexts. The count is re-derived rather than trusted, so
++      // a disagreement is a build-time-visible bug and not a silently short response.
++      SPU_ENFORCE_EQ(pre_packed, CeilDiv(out_n, pack_stride));
++      num_ct_response = pre_packed;
++    } else {
++      const auto &this_galois_key =
++          *(peer_galois_keys_.find(field_bitlen)->second);
+ 
+-    for (size_t i = 0; i < out_n; i += pack_stride) {
+-      size_t this_batch = std::min(out_n - i, pack_stride);
+-      size_t packed_idx = i / pack_stride;
+-      pack_helper.PackingWithModulusDrop(
+-          ct_array_to_pack.subspan(i, this_batch),
+-          ct_array_to_pack[packed_idx]);
+-    }
++      PackingHelper pack_helper(gap, this_ecd_msh.coeff_modulus_size(),
++                                this_galois_key, this_context);
+ 
+-    num_ct_response = CeilDiv(out_n, pack_stride);
++      for (size_t i = 0; i < out_n; i += pack_stride) {
++        size_t this_batch = std::min(out_n - i, pack_stride);
++        size_t packed_idx = i / pack_stride;
++        pack_helper.PackingWithModulusDrop(
++            ct_array_to_pack.subspan(i, this_batch),
++            ct_array_to_pack[packed_idx]);
++      }
++
++      num_ct_response = CeilDiv(out_n, pack_stride);
++    }
+   } else {
+     // Chen Hao et al's PackLWEs
+     SPU_ENFORCE(batch_size == 1, "not implemented yet");
+@@ -889,12 +975,16 @@
+   std::vector<RLWECt> _ct_array_to_pack(blk[0] * blk[2]);
+   auto ct_array_to_pack = absl::MakeSpan(_ct_array_to_pack);
+   size_t bytes_recv = conn->GetStats()->recv_bytes;
++  // Passing the pointer is what permits the recv step to fold each group of results as soon as it
++  // is final and release the raw ciphertexts. Only this single-matmul path does so; the batched
++  // one below keeps the stock behaviour, because its packing groups run across batches.
++  size_t num_packed = 0;
+   doDotOLEReceiverRecvStep(prv_mat, dim3, is_self_lhs, cptype, ct_array_to_pack,
+-                           conn);
++                           conn, &num_packed);
+   bytes_recv = conn->GetStats()->recv_bytes - bytes_recv;
+ 
+   return doDotOLEReceiverSendStep(field, /*batch*/ 1, meta, ct_array_to_pack,
+-                                  cptype, conn, bytes_recv)
++                                  cptype, conn, bytes_recv, num_packed)
+       .reshape({dim3[0], dim3[2]});
+ }
+ 

@@ -1,0 +1,71 @@
+LEVER|probe_seed_sweep_cpu|patched offset=0x3333
+LEVER|probe_seed_sweep_cpu|patched offset=0x3333
+INFO:root:==================
+INFO:root:DistributedCommunicator with rank 0
+INFO:root:==================
+LEVER|probe_seed_sweep_cpu|patched offset=0x3333
+INFO:root:==================
+INFO:root:DistributedCommunicator with rank 1
+INFO:root:==================
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:1 to store for rank: 0
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:1 to store for rank: 1
+INFO:torch.distributed.distributed_c10d:Rank 1: Completed store-based barrier for key:store_based_barrier_key:1 with 2 nodes.
+INFO:torch.distributed.distributed_c10d:Rank 0: Completed store-based barrier for key:store_based_barrier_key:1 with 2 nodes.
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:2 to store for rank: 0
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:2 to store for rank: 1
+INFO:torch.distributed.distributed_c10d:Rank 1: Completed store-based barrier for key:store_based_barrier_key:2 with 2 nodes.
+INFO:torch.distributed.distributed_c10d:Rank 0: Completed store-based barrier for key:store_based_barrier_key:2 with 2 nodes.
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:3 to store for rank: 0
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:3 to store for rank: 1
+INFO:torch.distributed.distributed_c10d:Rank 1: Completed store-based barrier for key:store_based_barrier_key:3 with 2 nodes.
+INFO:torch.distributed.distributed_c10d:Rank 0: Completed store-based barrier for key:store_based_barrier_key:3 with 2 nodes.
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:4 to store for rank: 0
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:4 to store for rank: 1
+INFO:torch.distributed.distributed_c10d:Rank 1: Completed store-based barrier for key:store_based_barrier_key:4 with 2 nodes.
+INFO:root:World size = 2
+INFO:torch.distributed.distributed_c10d:Rank 0: Completed store-based barrier for key:store_based_barrier_key:4 with 2 nodes.
+INFO:root:World size = 2
+/root/shaft/crypten/__init__.py:66: RuntimeWarning: CrypTen is already initialized.
+  warnings.warn("CrypTen is already initialized.", RuntimeWarning)
+SEEDSWEEP|crypten|offset=0x3333|next=0xdeadf222|local=0xc13321|global=0x9220
+/root/shaft/crypten/__init__.py:66: RuntimeWarning: CrypTen is already initialized.
+  warnings.warn("CrypTen is already initialized.", RuntimeWarning)
+SEEDSWEEP|crypten|offset=0x3333|next=0xdeadf223|local=0xc13322|global=0x9220
+SEEDSWEEP|torch|offset=0x3333|seed=0x9220
+SEEDSWEEP|torch|offset=0x3333|seed=0x9220
+SEEDED|party=1|next=0xdeadbef0|local=0xc0ffef|global=0x5eed|torch=0x5eed
+SEEDED|party=0|next=0xdeadbeef|local=0xc0ffee|global=0x5eed|torch=0x5eed
+CONFIG|party=1|n_layers=1|seq_len=128|model=andeskyl/bert-base-cased-sst2
+MEM|1|-1|main|after_init|242124|1785433498877
+CONFIG|party=0|n_layers=1|seq_len=128|model=andeskyl/bert-base-cased-sst2
+MEM|0|-1|main|after_init|241696|1785433498878
+Truncated model to 1 layers (was 12)
+Truncated model to 1 layers (was 12)
+MEM|0|-1|main|after_model_load|703556|1785433503885
+MEM|1|-1|main|after_model_load|705236|1785433503885
+[W shape_type_inference.cpp:1920] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1920] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1920] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1920] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1920] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1920] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+/usr/local/lib/python3.10/dist-packages/torch/onnx/utils.py:1636: UserWarning: The exported ONNX model failed ONNX shape inference.The model will not be executable by the ONNX Runtime.If this is unintended and you believe there is a bug,please report an issue at https://github.com/pytorch/pytorch/issues.Error reported by strict ONNX shape inference: [ShapeInferenceError] (op_type:Dropout, node name: /bert/embeddings/dropout/Dropout): training_mode typestr: T2, has unsupported type: tensor(int64) (Triggered internally at ../torch/csrc/jit/serialization/export.cpp:1407.)
+  _C._check_onnx_proto(proto)
+/usr/local/lib/python3.10/dist-packages/torch/onnx/utils.py:1636: UserWarning: The exported ONNX model failed ONNX shape inference.The model will not be executable by the ONNX Runtime.If this is unintended and you believe there is a bug,please report an issue at https://github.com/pytorch/pytorch/issues.Error reported by strict ONNX shape inference: [ShapeInferenceError] (op_type:Dropout, node name: /bert/embeddings/dropout/Dropout): training_mode typestr: T2, has unsupported type: tensor(int64) (Triggered internally at ../torch/csrc/jit/serialization/export.cpp:1407.)
+  _C._check_onnx_proto(proto)
+/root/shaft/crypten/nn/onnx_converter.py:183: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  param = torch.from_numpy(numpy_helper.to_array(node))
+MEM|1|-1|main|after_model_convert|826396|1785433505405
+/root/shaft/crypten/nn/onnx_converter.py:183: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  param = torch.from_numpy(numpy_helper.to_array(node))
+MEM|0|-1|main|after_model_convert|823644|1785433505466
+MEM|1|-1|main|after_model_encrypt|913620|1785433506976
+MEM|1|-1|main|after_input_encrypt|913620|1785433506977
+MEM|0|-1|main|after_model_encrypt|929320|1785433507033
+MEM|0|-1|main|after_input_encrypt|929320|1785433507035
+MEM|0|-1|main|after_inference|960728|1785433517253
+MEM|1|-1|main|after_inference|1155604|1785433517253
+MEM|0|-1|main|after_decrypt|960728|1785433517254
+MEM|1|-1|main|after_decrypt|1155604|1785433517254
+MEM|1|-1|main|after_finalize|1155604|1785433517254
+MEM|0|-1|main|after_finalize|960904|1785433517255

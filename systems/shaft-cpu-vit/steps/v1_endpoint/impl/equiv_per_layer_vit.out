@@ -1,0 +1,18 @@
+  ok  head order is layernorm -> CLS slice -> classifier, as the driver assumes
+  ok  12 layers, seq 197: decomposition is bit-identical to the whole model (max |logit| 4.619388e+00)
+  info  patch grid gives 197 tokens (196 patches + 1 CLS)
+PASS: the ViT per-layer decomposition computes the same function, and the head order is the model's own
+rc=0
+################################# JOB REPORT ##################################
+Job ID: 46336498
+Cluster: palma2
+User/Group: j_wred02/u0dawin
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 8
+CPU Utilized: 00:00:09
+CPU Efficiency: 22.50% of 00:00:40 core-walltime
+Job Wall-clock time: 00:00:05
+Memory Utilized: 1.10 GB
+Memory Efficiency: 6.89% of 16.00 GB (16.00 GB/node)
+###############################################################################

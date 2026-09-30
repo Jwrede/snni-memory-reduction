@@ -1,0 +1,21 @@
+step=s1_response_stream_v2
+run=1
+date_utc=2026-08-14T11:27:12Z
+machine=palma:express node=r05n10
+slurm_job_id=46126856
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth=2
+attrib_host=pmrec_pagemap
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/puma/sif/puma-s1_response_stream_v2.sif
+image_digest=1d68a75f3af8427fb4a9758ea0c65b9fc14c80d937175fc0bc8020293e29eac2
+driver=/scratch/tmp/j_wred02/snni_campaign/puma/snni_bert_puma.py
+driver_md5=71a295c632d54d95428c4d6f30a2ebcd
+omp_num_threads=8
+snni_seed=0x5EED
+malloc_arena_max=<unset>
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base-uncased n_layer=12 n_seq=128 hidden=768 heads=12
+protocol=ABY3 field=FM64 3PC localhost cluster (3 SPU nodes + 2 PYU nodes + driver)
+role=ALL six processes polled; the binding one is published

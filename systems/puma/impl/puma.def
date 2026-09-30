@@ -1,0 +1,68 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+# PUMA (SecretFlow SPU, ABY3 3PC pure MPC), second implementation of the SHAFT paradigm.
+# Image holds the stack only; the measured driver (workload/seeds/gate) is bind-mounted at run
+# time and its md5 recorded per run, so a lever can be a swapped Python module, not a rebuild.
+# Version pins (spu/jax/flax/transformers/numpy) match the earlier campaign's verified set.
+
+%post
+    set -e
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get install -y --no-install-recommends \
+        python3 python3-pip git ca-certificates procps psmisc curl libgomp1
+    rm -rf /var/lib/apt/lists/*
+
+    pip3 install --no-cache-dir \
+        "spu==0.9.5" \
+        "jax[cpu]==0.4.34" \
+        "flax==0.8.5" \
+        "transformers==4.45.2" \
+        "numpy<2" \
+        grpcio protobuf cloudpickle multiprocess cachetools termcolor
+
+    # The example drivers (nodectl.py, distributed.py, 3pc.json) are not shipped in the wheel.
+    git clone --depth 1 --filter=blob:none --sparse https://github.com/secretflow/spu.git /tmp/spu
+    cd /tmp/spu
+    git rev-parse HEAD > /opt/puma_spu_commit.txt
+    git sparse-checkout set examples
+    mkdir -p /opt/puma
+    cp -r /tmp/spu/examples /opt/puma/examples
+    # Leave the directory before deleting it, or a later command fails with getcwd() ENOENT.
+    cd /
+    rm -rf /tmp/spu
+
+    # The 3PC cluster config is the one the earlier campaign used, reused verbatim so the two
+    # measurements describe the same cluster: three SPU nodes plus two PYU nodes on loopback.
+    mkdir -p /opt/puma/examples/python/ml/flax_bert
+    cp /opt/puma/examples/python/ml/flax_gpt2/3pc.json \
+       /opt/puma/examples/python/ml/flax_bert/3pc.json
+
+    # Bake the model so the run is fully offline (a download would count as wall time). Cache goes
+    # under /opt, not $HOME, since apptainer mounts the caller's home over the container's at run
+    # time; HF_HOME is set here AND in %environment so both halves agree.
+    export HF_HOME=/opt/hf_cache
+    mkdir -p /opt/hf_cache
+    python3 -c "from transformers import AutoTokenizer, FlaxBertForSequenceClassification; \
+AutoTokenizer.from_pretrained('bert-base-uncased'); \
+FlaxBertForSequenceClassification.from_pretrained('bert-base-uncased')"
+    chmod -R a+rX /opt/hf_cache
+
+    # Record what was actually installed so a published row is traceable without the build machine.
+    pip3 freeze > /opt/puma_pip_freeze.txt
+    python3 -c "import spu, jax, flax, transformers; \
+print('spu', spu.__version__); print('jax', jax.__version__); \
+print('flax', flax.__version__); print('transformers', transformers.__version__)" \
+        > /opt/puma_versions.txt
+    cat /opt/puma_versions.txt
+
+%environment
+    export LC_ALL=C
+    export PYTHONPATH=/opt/puma
+    export HF_HOME=/opt/hf_cache
+    export HF_HUB_OFFLINE=1
+    export TRANSFORMERS_OFFLINE=1
+
+%runscript
+    echo "PUMA image. The measured driver is bind-mounted by the harness; see run_puma.sh."

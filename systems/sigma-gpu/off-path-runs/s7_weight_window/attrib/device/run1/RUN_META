@@ -1,0 +1,17 @@
+step=s7_weight_window_attrib
+run=1
+date_utc=2026-08-19T06:52:41Z
+machine=palma:gpuh200 node=r18n04
+slurm_job_id=46284571
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth=2
+attrib_host=off
+attrib_device=torch_state
+image=/scratch/tmp/j_wred02/sigma_gpu/sigma-gpu-s0_default.sif
+image_digest=e22581ade1a413456607ca91b4801afcfa6074b65be88d78a21f584a9e60da5e
+sigma_binary=/scratch/tmp/j_wred02/sigma_gpu/bin/sigma-s7_weight_window
+sigma_binary_md5=48e2c860dc3732238702d659d8c53cd2
+model=bert-base n_seq=128 n_layer=12 n_head=12 n_embd=768 bw=50 scale=12
+threads=16
+role=both online parties, sharing one device, loopback

@@ -1,0 +1,85 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+# LLAMA dealer shared base image, built natively on PALMA. Exists because server C's original
+# podman base image was lost with no other copy; this builds from published source instead.
+#
+# The binary is not byte-identical to server C's (different toolchain), so the cross-machine
+# control varies machine and binary together; the waterfall itself is unaffected, all steps here.
+#
+# The upstream commit is recorded at build time. It was NOT recorded for the server C images, so
+# that build cannot be pinned retrospectively; this one can be, and the next rebuild will be.
+
+# Staged into /opt, not /tmp: apptainer bind-mounts the host's /tmp over the container's during
+# %post, hiding anything copied there. Cost two builds before being caught (45448605, 45448821).
+%files
+    /scratch/tmp/j_wred02/snni_campaign/llama-dealer/build/base_patch /opt/base_patch
+    /scratch/tmp/j_wred02/snni_campaign/llama-dealer/build/rebuild_step.sh /opt/rebuild_step.sh
+
+%post
+    set -e
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update && apt-get install -y --no-install-recommends \
+        build-essential cmake git \
+        libeigen3-dev libssl-dev libomp-dev libgmp-dev libmpfr-dev \
+        nvidia-cuda-toolkit \
+        ca-certificates procps binutils \
+        && rm -rf /var/lib/apt/lists/*
+
+    # CUDA toolkit is a build-time CMake dependency only (LLAMA-FSS is pure CPU). Commit pinned
+    # (not HEAD) for reproducibility, shallow-fetched to avoid cloning full history.
+    EZPC_COMMIT=f24bf3e022dde3493cf0ffe3ebd92dd73936b734
+    mkdir -p /opt/EzPC && cd /opt/EzPC
+    git init -q .
+    git remote add origin https://github.com/mpc-msri/EzPC.git
+    git fetch -q --depth 1 origin "$EZPC_COMMIT"
+    git checkout -q FETCH_HEAD
+    git rev-parse HEAD > /opt/UPSTREAM_COMMIT
+    cat /opt/UPSTREAM_COMMIT
+    cd /opt/EzPC/GPU-MPC/ext/sytorch
+    git -C /opt/EzPC submodule update --init --recursive GPU-MPC/ext/sytorch 2>&1 | tail -3 || true
+
+    # -march=native would bake in the build host; x86-64-v3 matches server C's instruction set,
+    # keeping the two lines' arithmetic identical even though their binaries differ.
+    grep -rl 'march=native' . 2>/dev/null | xargs -r sed -i 's/-march=native/-march=x86-64-v3/g'
+
+    # One sed per substitution: a combined form with backslash continuations broke under %post's
+    # set -x (continuations folded), failing after 20 minutes of apt/cloning had already succeeded.
+    sed -i 's/const u64 n_embd = 128;/const u64 n_embd = 768;/' examples/bertbenchmark.cpp
+    sed -i 's/const u64 n_layer = 2;/const u64 n_layer = 12;/' examples/bertbenchmark.cpp
+    sed -i 's/const u64 bw = 37;/const u64 bw = 51;/' examples/bertbenchmark.cpp
+    grep -nE "n_embd =|n_layer =|bw =" examples/bertbenchmark.cpp | head -3
+
+    # SEAL 3.3.x relied on transitive stdlib includes gcc-11 dropped; fixed here since its
+    # sources compile during cmake-configure, before any compiler flag could apply.
+    F=$(find /opt/EzPC -path '*/seal/util/locks.h' | head -1)
+    test -n "$F"
+    printf '#include <mutex>\n#include <shared_mutex>\n#include <condition_variable>\n' \
+        | cat - "$F" > /tmp/lh && mv /tmp/lh "$F"
+
+    # Per-layer deterministic weight seeding, part of the baseline: without it, a lazy-allocation
+    # lever can't regenerate a layer without replaying every prior draw (caused a prior campaign's
+    # lever to zero weights, making its result incomparable).
+    test -d /opt/base_patch
+    cp -r /opt/base_patch/. /opt/EzPC/GPU-MPC/ext/sytorch/
+    rm -rf /opt/base_patch
+
+    # -g appended so allocation sites can be named (without it addr2line guesses nearest exported
+    # symbol). Debug info can't move the measured peak; the key md5 gate confirms this.
+    mkdir -p build && cd build
+    FORCE_INC="-include cstdint -include mutex -include shared_mutex -include condition_variable -include stdexcept -include functional -include limits -include algorithm -include memory"
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="$FORCE_INC -g" ..
+    make -j"$(nproc)" bertbenchmark
+    test -x bertbenchmark
+    readelf -S bertbenchmark | grep -q debug_info
+    md5sum bertbenchmark | awk '{print $1}' > /opt/PARENT_BINARY_MD5
+    cat /opt/PARENT_BINARY_MD5
+    chmod +x /opt/rebuild_step.sh
+
+%environment
+    export LC_ALL=C
+
+%labels
+    campaign snni-memory-reduction
+    system llama-dealer
+    role base

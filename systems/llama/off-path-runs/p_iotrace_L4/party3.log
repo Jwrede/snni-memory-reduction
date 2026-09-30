@@ -1,0 +1,25 @@
+SNNI_PARAM|LLAMA_N_LAYERS=4
+SEEDED|srand=0x5eed|party=3
+trying to connect with server...connected
+IO|seq=0|op=read|want=6144|got=6144|errno=0
+IO|seq=1|op=read|want=6144|got=6144|errno=0
+IO|seq=2|op=read|want=14155776|got=14155776|errno=0
+IO|seq=3|op=read|want=18432|got=18432|errno=0
+IO|seq=4|op=read|want=4718592|got=4718592|errno=0
+IO|seq=5|op=read|want=6144|got=6144|errno=0
+IO|seq=6|op=read|want=6144|got=6144|errno=0
+IO|seq=7|op=read|want=6144|got=6144|errno=0
+IO|seq=8|op=read|want=18874368|got=18874368|errno=0
+IO|seq=9|op=read|want=24576|got=24576|errno=0
+IO|seq=10|op=read|want=18874368|got=18874368|errno=0
+IO|seq=11|op=read|want=6144|got=6144|errno=0
+IO|seq=12|op=read|want=6144|got=6144|errno=0
+IO|seq=13|op=read|want=6144|got=6144|errno=0
+IO|seq=14|op=read|want=14155776|got=14155776|errno=0
+IO|seq=15|op=read|want=18432|got=18432|errno=0
+IO|seq=16|op=read|want=4718592|got=4718592|errno=0
+IO|seq=17|op=read|want=6144|got=6144|errno=0
+IO|seq=18|op=read|want=6144|got=6144|errno=0
+IO|seq=19|op=read|want=6144|got=6144|errno=0
+IO|seq=20|op=read|want=18874368|got=11525008|errno=0
+Assertion failed: bytes == got in virtual void SocketBuf::read(char*, int) at /opt/EzPC/GPU-MPC/ext/sytorch/ext/llama/src/llama/comms.cpp:130

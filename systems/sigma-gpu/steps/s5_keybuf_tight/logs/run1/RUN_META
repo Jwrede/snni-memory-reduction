@@ -1,0 +1,22 @@
+step=s5_keybuf_tight
+run=1
+date_utc=2026-09-29T17:29:26Z
+machine=palma:gpuh200 node=r18n01
+slurm_job_id=47054973
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth_requested=2
+pm_depth_max=6
+pm_depth=2
+attrib_host=pmrec_pagemap
+attrib_device=torch_state
+freeze_mode=maxparty
+recorder_ar=/scratch/tmp/j_wred02/snni_campaign/recorder_builds/c2-32b38f744 pmrec_md5=a5cf5dc2c89c1a49ec5a2309c2db28ce pmsample_md5=0d76cbeeca2fa9bd20ce561f9dd79eae
+image=/scratch/tmp/j_wred02/sigma_gpu/sigma-gpu-s0_default.sif
+image_digest=e22581ade1a413456607ca91b4801afcfa6074b65be88d78a21f584a9e60da5e
+sigma_binary=/scratch/tmp/j_wred02/sigma_gpu/bin/sigma-s5_keybuf_tight
+sigma_binary_md5=b9f3aece7d168565c8fc01d12f28ee36
+model=bert-base n_seq=128 n_layer=12 n_head=12 n_embd=768 bw=50 scale=12
+threads=16
+role=both online parties, sharing one device, loopback
+combined_channel=1

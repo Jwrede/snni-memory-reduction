@@ -1,0 +1,70 @@
+=== A) OHNE --program-root (feste Tiefe, wie die publizierte m0-Tabelle) ===
+# sample_ts_ms=1787631236059 sample_rss_kb=402308428
+attributed resident 411014.5 MB across 73 call sites
+
+    resident    allocated  touched  count  site
+   227851.1M    236070.1M      97%    373  seal::Ciphertext::operator=(seal::Ciphertext const&)  <- seal::util::MemoryPoolHeadMT::g
+   153476.5M    160168.9M      96%    212  seal::Ciphertext::resize(seal::SEALContext const&, std::array<unsigned long, 4ul>, unsig
+     7264.7M      7679.8M      95%     39  seal::Evaluator::apply_galois_inplace(seal::Ciphertext&, unsigned int, seal::GaloisKeys 
+     7162.3M      7480.5M      96%    103  seal::Evaluator::mod_switch_to_next(seal::Ciphertext const&, seal::Ciphertext&, seal::Me
+     6632.3M      6795.8M      98%     64  seal::Evaluator::relinearize_internal(seal::Ciphertext&, seal::RelinKeys const&, unsigne
+     2923.2M      3014.7M      97%     55  seal::util::CreateNTTTables(int, std::vector<seal::Modulus, std::allocator<seal::Modulus
+      901.3M       996.1M      90%     16  seal::Evaluator::rotate_internal(seal::Ciphertext&, int, seal::GaloisKeys const&, seal::
+      685.8M       685.8M     100%      9  libc.so.6+0x9cb84  <- seal::util::MemoryPoolHeadMT::get()
+      538.5M       558.4M      96%     10  libgomp.so.1.0.0+0x2279f  <- seal::util::MemoryPoolHeadMT::get()
+      403.8M       403.7M     100%     14  test_full_scheme.hpp:547:all_layer_test() [clone ._omp_fn.0]  <- seal::util::MemoryPoolH
+      378.4M       405.6M      93%     35  seal::util::NTTTables::initialize(int, seal::Modulus const&)  <- seal::util::MemoryPoolH
+      367.0M       367.0M     100%      5  Batch_encode_encrypt.hpp:31:batch_input(std::vector<std::vector<std::vector<double, std:
+
+fullscan: 169 mappings hold resident memory, 411963.8 MB total, 911.5 MB of it not covered by any recorded allocation
+       573.3 MB unnamed  rw-p  [heap]
+        38.0 MB unnamed  rw-p  [anonymous]
+        29.1 MB unnamed  rw-p  [anonymous]
+        25.4 MB unnamed  rw-p  [anonymous]
+        23.3 MB unnamed  rw-p  [anonymous]
+        22.3 MB unnamed  rw-p  [anonymous]
+        20.2 MB unnamed  rw-p  [anonymous]
+        20.2 MB unnamed  rw-p  [anonymous]
+   (2.6 GB of PROT_NONE reservation skipped; rerun with SNNI_PM_FULLSCAN=all to scan it)
+
+wrote /tmp/a.jsonl
+sampled at rss=402308428 kB (100% attributed)
+
+=== B) MIT --program-root (die neue Tabelle), volle Labels ===
+# sample_ts_ms=1787631236059 sample_rss_kb=402308428
+attributed resident 411014.5 MB across 73 call sites
+
+    resident    allocated  touched  count  site
+   227851.1M    236070.1M      97%    373  Ct_pt_matrix_mul.hpp:35:ct_pt_matrix_mul_wo_pre(std::vector<seal::Ciphertext, std::alloc
+   153476.5M    160168.9M      96%    212  Batch_encode_encrypt.hpp:32:batch_input(std::vector<std::vector<std::vector<double, std:
+     7264.7M      7679.8M      95%     39  Ct_ct_matrix_mul.hpp:29:ct_ct_matrix_mul_colpacking(std::vector<seal::Ciphertext, std::a
+     7162.3M      7480.5M      96%    103  single_att_block.hpp:74:single_att_block(std::vector<seal::Ciphertext, std::allocator<se
+     6632.3M      6795.8M      98%     64  softmax.hpp:39:exp(seal::Ciphertext const&, seal::SEALContext const&, seal::RelinKeys co
+     2923.2M      3014.7M      97%     55  test_full_scheme.hpp:464:all_layer_test()  <- context.h:496:seal::SEALContext::SEALConte
+
+fullscan: 169 mappings hold resident memory, 411963.8 MB total, 911.5 MB of it not covered by any recorded allocation
+       573.3 MB unnamed  rw-p  [heap]
+        38.0 MB unnamed  rw-p  [anonymous]
+        29.1 MB unnamed  rw-p  [anonymous]
+        25.4 MB unnamed  rw-p  [anonymous]
+        23.3 MB unnamed  rw-p  [anonymous]
+        22.3 MB unnamed  rw-p  [anonymous]
+        20.2 MB unnamed  rw-p  [anonymous]
+        20.2 MB unnamed  rw-p  [anonymous]
+   (2.6 GB of PROT_NONE reservation skipped; rerun with SNNI_PM_FULLSCAN=all to scan it)
+
+wrote /tmp/b.jsonl
+sampled at rss=402308428 kB (100% attributed)
+################################# JOB REPORT ##################################
+Job ID: 46415873
+Cluster: palma2
+User/Group: j_wred02/u0dawin
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 4
+CPU Utilized: 00:01:40
+CPU Efficiency: 26.04% of 00:06:24 core-walltime
+Job Wall-clock time: 00:01:36
+Memory Utilized: 119.37 MB
+Memory Efficiency: 0.73% of 16.00 GB (16.00 GB/node)
+###############################################################################

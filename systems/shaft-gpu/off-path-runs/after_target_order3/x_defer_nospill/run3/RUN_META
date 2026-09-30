@@ -1,0 +1,34 @@
+STEP=x_defer_nospill
+DATE_UTC=2026-09-29T23:17:33Z
+HOST=r18n02
+SIF=/scratch/tmp/j_wred02/shaft_gpu/shaft-gpu-estream.sif
+SLURM_JOB_ID=47060981
+GRES=na
+SHAFT_SCRIPT=bert_perlayer_gpu.py
+BASELINE_SCRIPT_MD5=bbeca8d20edbb5896e96fe0c573a5c45
+MODULE_MD5_matmul_limb_loop_gpu=df93bac4b89a0225b21f11906de05642
+MODULE_MD5_matmul_chunk_gpu=1116b1dcdcf6b61234a4aec37f18a68c
+MODULE_MD5_embed_chunk_gpu=d0ea0dcce0228545c4983a53a5a644a5
+MODULE_MD5_graphop_markers_gpu=28472787ab2dac90e9933c41843c9c69
+MODULE_MD5_plaintext_free_gpu=dab4f7d4d289ca08e6d4bf88525d03e0
+MODULE_MD5_param_defer_gpu=7186cebedcfb0840ba2064be7ec8b3c6
+SHAFT_LEVERS=param_defer_gpu
+SHAFT_PARAM_STREAM=<unset>
+SHAFT_EMBED_CHUNKS=16
+SHAFT_EMBED_STREAM=<unset>
+SHAFT_LIMB_LOOP=1
+SHAFT_PLAINTEXT_FREE=<unset>
+SHAFT_MALLOC_TRIM=<unset>
+SHAFT_MATMUL_CHUNKS=<unset>
+SHAFT_DEV_ENCRYPT=<unset>
+ATTRIBUTION=off
+ATTRIB_DEVICE=torch_state
+ATTRIB_HOST=pmrec_pagemap
+freeze_mode=maxparty
+recorder_ar=/scratch/tmp/j_wred02/snni_campaign/recorder_builds/c2-32b38f744 pmrec_md5=a5cf5dc2c89c1a49ec5a2309c2db28ce pmsample_md5=0d76cbeeca2fa9bd20ce561f9dd79eae
+COMBINED CHANNEL: pmrec and the device snapshotter in ONE run, declared
+SHAFT_INNER_ENV=<none>
+RESDIR=n12_seq128
+lever SHAFT_LIMB_LOOP=1 confirmed active
+lever param_defer_gpu confirmed active
+pmrec tables written: 15

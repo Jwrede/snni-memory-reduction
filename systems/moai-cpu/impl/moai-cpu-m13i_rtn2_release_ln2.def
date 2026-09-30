@@ -1,0 +1,29 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m12g_dead_boot_keys_release.sif
+
+# MOAI-CPU m13i_rtn2_release_ln2 (i-line, 2026-09-21): the m12g_dead_boot_keys_release line PLUS
+# one lever (patch_rtn2_release_ln2.py). m12g's Layer-0 profile: bootstrap2 97.6, bootstrap4 98.3 (global freeze so far). At the bootstrap4 freeze rtn2 (16.9, bootstrap3's output, last read by layernorm2) is the largest object with a free fix; gal_keys 17.2 is dead there but in Layer 0 only the paid park removes it. Free, bit-identical.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_rtn2_release_ln2.py /opt/patch_rtn2_release_ln2.py
+
+%post
+    set -e
+    python3 /opt/patch_rtn2_release_ln2.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in phase_split chunked_bootstrap ct_capacity_shrink "FFN time" layernorm_release rtn2_release_ln2; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    strings -a build/test | grep -q "logn + 1" \
+        && { echo "FAILED: logn + 1 still in binary (full_3 fix not applied)" >&2; exit 1; } || true
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m13i_rtn2_release_ln2
+    snni.base m12g_dead_boot_keys_release

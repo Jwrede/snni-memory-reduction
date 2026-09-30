@@ -1,0 +1,17 @@
+step=p_seq256_p_vit_s0
+run=1
+date_utc=2026-08-21T07:31:22Z
+machine=palma:gpuh200 node=r18n04
+slurm_job_id=46344009
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth=2
+attrib_host=off
+attrib_device=off
+image=/scratch/tmp/j_wred02/sigma_gpu/sigma-gpu-s0_default.sif
+image_digest=e22581ade1a413456607ca91b4801afcfa6074b65be88d78a21f584a9e60da5e
+sigma_binary=/scratch/tmp/j_wred02/sigma_gpu/bin/sigma-p_vit_s0
+sigma_binary_md5=26615276eb925e47df0b8f446b4aa32e
+model=bert-base n_seq=256 n_layer=12 n_head=12 n_embd=768 bw=50 scale=12
+threads=16
+role=both online parties, sharing one device, loopback

@@ -1,0 +1,32 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m23r_x_park_softmax.sif
+
+# MOAI-CPU m24r_pool_threshold_256k (2026-09-23): the m23r_x_park_softmax line PLUS one lever (patch_pool_threshold_256k.py). Predicted next peak: the bootstrap plateau (53-57 GiB), where sealpool:retained (~8 GB of blocks below m1's 4 MiB threshold) is the largest object after the live phase keys and the chunk temporaries. Rule-6 candidate B against boot_chunk_64 (candidate A). SEAL carries the lever, so it is rebuilt and reinstalled before the project links it (the m1 pattern).
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_pool_threshold_256k.py /opt/patch_pool_threshold_256k.py
+
+%post
+    set -e
+    python3 /opt/patch_pool_threshold_256k.py /root/moai
+    cd /root/moai/thirdparty/SEAL-4.1-bs
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    cmake --install build
+    cd /root/moai
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in phase_split chunked_bootstrap boot_input_spill x_park_softmax "LEVER|pool_threshold_256k" 'POOLREC|profile_installed'; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m24r_pool_threshold_256k
+    snni.base m23r_x_park_softmax

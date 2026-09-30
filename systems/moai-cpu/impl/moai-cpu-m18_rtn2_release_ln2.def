@@ -1,0 +1,34 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m17e_copy_after_switch.sif
+
+# MOAI-CPU m18_rtn2_release_ln2: the m17 line PLUS one lever (patch_rtn2_release_ln2.py): bootstrap3's
+# output array is released after layernorm2, its last reader, instead of living under the fourth
+# bootstrap. Built FROM the m17e sif; only moai is rebuilt.
+#
+# WHY m18: with all earlier levers the peak sits in bootstrap4 (m17 freeze 82.0 GiB): phase keys
+# 19.8 GB (live), rtn2 16.9 GB (dead), layernorm2 output 14.1 GB (being consumed), bootstrap
+# temporaries ~18 GB, retained 6.4. rtn2 is the largest object with a free fix. Bit-identical.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_rtn2_release_ln2.py /opt/patch_rtn2_release_ln2.py
+
+%post
+    set -e
+    python3 /opt/patch_rtn2_release_ln2.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in phase_split chunked_bootstrap ct_capacity_shrink "FFN time" layernorm_release park_att_keys enc_X_v_shrink park_x_copy dead_boot_keys_release rtn_release_ln1 copy_after_switch rtn2_release_ln2; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    strings -a build/test | grep -q "logn + 1" \
+        && { echo "FAILED: logn + 1 still in binary (full_3 fix not applied)" >&2; exit 1; } || true
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m18_rtn2_release_ln2
+    snni.base m17e_copy_after_switch

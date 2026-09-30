@@ -1,0 +1,145 @@
+run=/scratch/tmp/j_wred02/snni_campaign/shaft-cpu/results/s5_per_layer/run2 image=/scratch/tmp/j_wred02/snni_campaign/shaft-cpu/sif/shaft-cpu-s0_default.sif out=/scratch/tmp/j_wred02/snni_campaign/derive_party/shaft-cpu/s5_per_layer/run2
+poller on pid 2843782 (leader=1) -> /scratch/tmp/j_wred02/snni_campaign/shaft-cpu/results/s5_per_layer/run2/poll_2843782
+poller on pid 2843783 (leader=0) -> /scratch/tmp/j_wred02/snni_campaign/shaft-cpu/results/s5_per_layer/run2/poll_2843783
+=== pid=2843782 trace=poll_2843782 hwm_kb=1715220
+symbolise: NO addr2line where the symboliser was told to run it (apptainer exec --bind /scratch/tmp/j_wred02:/scratch/tmp/j_wred02 /scratch/tmp/j_wred02/snni_campaign/shaft-cpu/sif/shaft-cpu-s0_default.sif); falling back to the ELF symbol table, which needs no binutils. Names below come from sized FUNC symbols by containment.
+# sample_ts_ms=1790694493601 sample_rss_kb=1711248
+attributed resident 1306.0 MB across 19 call sites
+
+    resident    allocated  touched  count  site
+     1115.2M      1114.9M     100%     85  libc10.so+0x4a675
+      181.3M       181.3M     100%      2  _multiarray_umath.cpython-310-x86_64-linux-gnu.so+0x13ab14
+        3.5M         3.4M     101%      9  python3.10+0x11ded3
+        2.2M         2.2M     100%      1  tokenizers.cpython-310-x86_64-linux-gnu.so+0x170274
+        2.2M         2.2M     100%      1  tokenizers.cpython-310-x86_64-linux-gnu.so+0xa7d20
+        0.7M         0.7M     101%      2  libtorch_cpu.so+0x1b60096
+        0.2M         0.2M     101%      1  libtorch_python.so+0xace28b
+        0.2M         0.2M      77%      2  libtorch_cpu.so+0x1ba2020
+        0.1M         0.1M     103%      1  python3.10+0x13796d
+        0.1M         0.1M     105%      1  python3.10+0x232976
+        0.1M         0.1M      66%      1  libstdc++.so.6.0.30+0xf4979
+        0.1M         0.1M      70%      1  libtorch_cpu.so+0x1b854d1
+        0.1M         0.1M     106%      1  libtorch_cpu.so+0xb355e2d
+        0.1M         0.1M     106%      1  libtorch_cpu.so+0x4ecced7
+        0.0M         0.1M      56%      1  libstdc++.so.6.0.30+0xaa93a
+        0.0M         0.1M      16%      1  python3.10+0x233292
+        0.0M         4.1M       0%      2  libtorch_cpu.so+0x7891b82
+        0.0M         0.3M       5%      1  python3.10+0x23321c
+        0.0M         4.2M       0%      2  python3.10+0x1279bb
+
+fullscan: 476 mappings hold resident memory, 1752.3 MB total, 442.0 MB of it not covered by any recorded allocation
+       215.0 MB unnamed  rw-p  [heap]
+        69.2 MB unnamed  r-xp  /usr/local/lib/python3.10/dist-packages/torch/lib/libtorch_cpu.so
+        24.1 MB unnamed  rw-p  [anonymous]
+        16.8 MB unnamed  rw-s  /scratch/tmp/j_wred02/snni_campaign/shaft-cpu/results/s5_per_layer/run2/pmtable_2843782
+        12.6 MB unnamed  rw-p  [anonymous]
+        11.1 MB unnamed  r-xp  /usr/local/lib/python3.10/dist-packages/torch/lib/libtorch_python.so
+         9.4 MB unnamed  rw-p  [anonymous]
+         7.8 MB unnamed  rw-p  /usr/local/lib/python3.10/dist-packages/torch/lib/libtorch_cpu.so
+   (0.7 GB of PROT_NONE reservation skipped; rerun with SNNI_PM_FULLSCAN=all to scan it)
+
+wrote /scratch/tmp/j_wred02/snni_campaign/derive_party/shaft-cpu/s5_per_layer/run2/objects_resident_2843782.jsonl
+sampled at rss=1711248 kB (75% attributed)
+/scratch/tmp/j_wred02/snni_campaign/shaft-cpu/results/s5_per_layer/run2/pycensus_pid2843782.txt: block at rss=1634316 kB, 4 groups, 1237.1 MB
+   census sat at 95.2% of the polled peak
+       416.5 MB  torch:torch.int64 held_by=frame                              2x(28996,768), 2x(1,128,28996), 1x(1,128,768)
+       342.4 MB  torch:torch.float32 held_by=OrderedDict                      49x(768,768), 12x(3072,768), 12x(768,3072)
+       300.1 MB  torch:torch.int64 held_by=dict                               4x(1,128,28996), 1x(28996,768), 1x(512,768)
+       178.2 MB  torch:torch.int64 held_by=NoneType                           1x(28996,768)
+snapshot: /scratch/tmp/j_wred02/snni_campaign/shaft-cpu/results/s5_per_layer/run2/poll_2843782/peaks/peak.smaps
+  total RSS         1675.0 MB
+  run peak          1675.0 MB   snapshot is 100.0% of it
+  file-backed        138.7 MB  (8.3%)
+  anonymous         1536.3 MB  (91.7%)
+    of which heap-attributed 1179.8 MB (4 sites), residual 356.5 MB
+  largest file-backed mappings:
+        77.9 MB    4.6%  libtorch_cpu.so
+        16.0 MB    1.0%  pmtable_2843782
+        11.0 MB    0.7%  libtorch_python.so
+         5.2 MB    0.3%  python3.10
+         4.3 MB    0.3%  tokenizers.cpython-310-x86_64-linux-gnu.so
+         2.9 MB    0.2%  _multiarray_umath.cpython-310-x86_64-linux-gnu.so
+         2.8 MB    0.2%  libcrypto.so.3
+         1.9 MB    0.1%  libc.so.6
+         1.7 MB    0.1%  libopenblas64_p-r0-0cf96a72.3.23.dev.so
+         1.7 MB    0.1%  onnx_cpp2py_export.cpython-310-x86_64-linux-gnu.so
+wrote /scratch/tmp/j_wred02/snni_campaign/derive_party/shaft-cpu/s5_per_layer/run2/objects_host_2843782.jsonl  [pycensus+smaps]
+DERIVED pid=2843782 -> /scratch/tmp/j_wred02/snni_campaign/derive_party/shaft-cpu/s5_per_layer/run2/objects_host_2843782.jsonl
+=== pid=2843783 trace=poll_2843783 hwm_kb=1717452
+symbolise: NO addr2line where the symboliser was told to run it (apptainer exec --bind /scratch/tmp/j_wred02:/scratch/tmp/j_wred02 /scratch/tmp/j_wred02/snni_campaign/shaft-cpu/sif/shaft-cpu-s0_default.sif); falling back to the ELF symbol table, which needs no binutils. Names below come from sized FUNC symbols by containment.
+# sample_ts_ms=1790694493697 sample_rss_kb=1717452
+attributed resident 1310.2 MB across 19 call sites
+
+    resident    allocated  touched  count  site
+     1115.2M      1114.9M     100%     85  libc10.so+0x4a675
+      181.3M       181.3M     100%      2  _multiarray_umath.cpython-310-x86_64-linux-gnu.so+0x13ab14
+        4.1M         4.1M     100%      2  libtorch_cpu.so+0x7891b82
+        3.5M         3.4M     101%      9  python3.10+0x11ded3
+        2.2M         2.2M     100%      1  tokenizers.cpython-310-x86_64-linux-gnu.so+0x170274
+        2.2M         2.2M     100%      1  tokenizers.cpython-310-x86_64-linux-gnu.so+0xa7d20
+        0.7M         0.7M     101%      2  libtorch_cpu.so+0x1b60096
+        0.2M         0.2M     101%      1  libtorch_python.so+0xace28b
+        0.2M         0.2M      77%      2  libtorch_cpu.so+0x1ba2020
+        0.1M         0.3M      53%      2  python3.10+0x233292
+        0.1M         0.1M     103%      1  python3.10+0x13796d
+        0.1M         0.1M     105%      1  python3.10+0x232976
+        0.1M         0.1M      66%      1  libstdc++.so.6.0.30+0xf4979
+        0.1M         0.1M      70%      1  libtorch_cpu.so+0x1b854d1
+        0.1M         0.1M     106%      1  libtorch_cpu.so+0xb355e2d
+        0.1M         0.1M     106%      1  libtorch_cpu.so+0x4ecced7
+        0.0M         0.1M      56%      1  libstdc++.so.6.0.30+0xaa93a
+        0.0M         0.3M       5%      1  python3.10+0x23321c
+        0.0M         4.2M       0%      2  python3.10+0x1279bb
+
+fullscan: 472 mappings hold resident memory, 1758.7 MB total, 444.1 MB of it not covered by any recorded allocation
+       218.2 MB unnamed  rw-p  [heap]
+        69.1 MB unnamed  r-xp  /usr/local/lib/python3.10/dist-packages/torch/lib/libtorch_cpu.so
+        44.8 MB unnamed  rw-p  [anonymous]
+        16.8 MB unnamed  rw-s  /scratch/tmp/j_wred02/snni_campaign/shaft-cpu/results/s5_per_layer/run2/pmtable_2843783
+        11.1 MB unnamed  r-xp  /usr/local/lib/python3.10/dist-packages/torch/lib/libtorch_python.so
+         7.8 MB unnamed  rw-p  /usr/local/lib/python3.10/dist-packages/torch/lib/libtorch_cpu.so
+         7.3 MB unnamed  rw-p  [anonymous]
+         4.2 MB unnamed  rw-p  [anonymous]
+   (0.7 GB of PROT_NONE reservation skipped; rerun with SNNI_PM_FULLSCAN=all to scan it)
+
+wrote /scratch/tmp/j_wred02/snni_campaign/derive_party/shaft-cpu/s5_per_layer/run2/objects_resident_2843783.jsonl
+sampled at rss=1717452 kB (75% attributed)
+/scratch/tmp/j_wred02/snni_campaign/shaft-cpu/results/s5_per_layer/run2/pycensus_pid2843783.txt: block at rss=1636964 kB, 4 groups, 1237.1 MB
+   census sat at 95.3% of the polled peak
+       416.5 MB  torch:torch.int64 held_by=frame                              2x(28996,768), 2x(1,128,28996), 1x(1,128,768)
+       342.4 MB  torch:torch.float32 held_by=OrderedDict                      49x(768,768), 12x(3072,768), 12x(768,3072)
+       300.1 MB  torch:torch.int64 held_by=dict                               4x(1,128,28996), 1x(28996,768), 1x(512,768)
+       178.2 MB  torch:torch.int64 held_by=NoneType                           1x(28996,768)
+snapshot: /scratch/tmp/j_wred02/snni_campaign/shaft-cpu/results/s5_per_layer/run2/poll_2843783/peaks/peak.smaps
+  total RSS         1677.2 MB
+  run peak          1677.2 MB   snapshot is 100.0% of it
+  file-backed        138.3 MB  (8.2%)
+  anonymous         1538.9 MB  (91.8%)
+    of which heap-attributed 1179.8 MB (4 sites), residual 359.1 MB
+  largest file-backed mappings:
+        77.8 MB    4.6%  libtorch_cpu.so
+        16.0 MB    1.0%  pmtable_2843783
+        11.0 MB    0.7%  libtorch_python.so
+         5.2 MB    0.3%  python3.10
+         4.3 MB    0.3%  tokenizers.cpython-310-x86_64-linux-gnu.so
+         2.9 MB    0.2%  _multiarray_umath.cpython-310-x86_64-linux-gnu.so
+         2.8 MB    0.2%  libcrypto.so.3
+         1.9 MB    0.1%  libc.so.6
+         1.7 MB    0.1%  libopenblas64_p-r0-0cf96a72.3.23.dev.so
+         1.6 MB    0.1%  libstdc++.so.6.0.30
+wrote /scratch/tmp/j_wred02/snni_campaign/derive_party/shaft-cpu/s5_per_layer/run2/objects_host_2843783.jsonl  [pycensus+smaps]
+DERIVED pid=2843783 -> /scratch/tmp/j_wred02/snni_campaign/derive_party/shaft-cpu/s5_per_layer/run2/objects_host_2843783.jsonl
+DERIVE_OK shaft-cpu s5_per_layer run2 pids=2843782 2843783
+################################# JOB REPORT ##################################
+Job ID: 47050205
+Cluster: palma2
+User/Group: j_wred02/u0dawin
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 2
+CPU Utilized: 00:00:01
+CPU Efficiency: 12.50% of 00:00:08 core-walltime
+Job Wall-clock time: 00:00:04
+Memory Utilized: 59.17 MB
+Memory Efficiency: 0.24% of 24.00 GB (24.00 GB/node)
+###############################################################################

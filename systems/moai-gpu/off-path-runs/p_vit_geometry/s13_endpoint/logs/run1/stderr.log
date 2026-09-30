@@ -1,0 +1,7 @@
+SEEDED|phantom_random_bytes|seed=0x5eed
+SEEDED|phantom_sk_hamming|seed=0x5eed
+LEVER|fused_park_input|parked_ciphertexts=768|disk=1
+SNNI_GEOM|slot_count=32768|num_row=256|num_batch=128|num_X=128|at=softmax_boot
+LEVER|boot_input_release|sites=4
+LEVER|stream_boot1_ln1|parked=768
+LEVER|chunk_ffn|slices=4|parked_ciphertexts=3072|disk=1

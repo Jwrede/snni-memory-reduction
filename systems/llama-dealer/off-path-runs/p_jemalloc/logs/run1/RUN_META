@@ -1,0 +1,16 @@
+step=p_jemalloc
+date_utc=2026-07-29T10:00:31Z
+role=dealer (party 1), measured alone
+machine=palma:express node=r04n07
+slurm_job_id=45466880
+image=/scratch/tmp/j_wred02/snni_campaign/llama-dealer/sif/llama-dealer-p_diag.sif
+image_digest=2854b65f9c27508ce3032650378f69fb77d67ba5d84481dc57202caad3a5c0f8
+omp_num_threads=16
+malloc_arena_max=2
+malloc_mmap_threshold=unset(dynamic)
+malloc_trim_threshold=unset(dynamic)
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base n_embd=768 n_layer=12 bw=51 n_seq=128 scale=12
+attrib_host=off
+binary_md5=03c55e4ee25b4159b89e235a8ca01019
+src_diff_md5=a955d7dbe05cac9cc93a7037c16ef8fa

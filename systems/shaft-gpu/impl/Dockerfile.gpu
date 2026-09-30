@@ -1,0 +1,60 @@
+# SHAFT default run, GPU build for PALMA H200 / H200mini (MIG).
+# Base already ships torch 2.1.2 + CUDA 12.1 runtime + cuDNN8 + Python 3.10,
+# which supports Hopper (sm_90). SHAFT's requirements are loose (torch>=1.7.0),
+# so `pip install .` does NOT downgrade or replace this CUDA torch.
+FROM pytorch/pytorch:2.1.2-cuda12.1-cudnn8-runtime
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    git procps \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /root
+
+# Clone SHAFT (bundles its CrypTen fork, which is CUDA-aware)
+RUN git clone https://github.com/andeskyl/SHAFT.git /root/shaft
+# The measured image cloned the default branch at this commit (MANIFEST.md, "The build, declared").
+RUN cd /root/shaft && git checkout 3ceb0eea7437928be4b852ed4133cabb580a52fb
+
+# Install SHAFT + its non-torch deps. torch>=1.7.0 is already satisfied by the
+# base image, so torch/torchvision stay as the CUDA build.
+WORKDIR /root/shaft
+RUN pip3 install --no-cache-dir .
+
+# HuggingFace stack (same versions as the CPU default build)
+RUN pip3 install --no-cache-dir transformers==4.45.0 \
+    accelerate==0.34.2 "datasets>=1.8.0" \
+    "sentencepiece!=0.1.92" scipy scikit-learn protobuf evaluate
+
+# Pre-download the BERT-base SST-2 model so the PALMA compute node (no internet)
+# does not need network at run time.
+RUN python3 -c "\
+from transformers import AutoModelForSequenceClassification, AutoTokenizer; \
+AutoTokenizer.from_pretrained('andeskyl/bert-base-cased-sst2'); \
+AutoModelForSequenceClassification.from_pretrained('andeskyl/bert-base-cased-sst2'); \
+print('Model cached.')"
+
+# Copy the GPU-instrumented benchmark and scripts
+COPY bert_instrumented_gpu.py /root/shaft/bert_instrumented_gpu.py
+COPY bert_instrumented_gpu_s2.py /root/shaft/bert_instrumented_gpu_s2.py
+COPY graphop_markers_gpu.py /root/shaft/graphop_markers_gpu.py
+COPY embed_chunk_gpu.py /root/shaft/embed_chunk_gpu.py
+COPY matmul_chunk_gpu.py /root/shaft/matmul_chunk_gpu.py
+COPY matmul_limb_loop_gpu.py /root/shaft/matmul_limb_loop_gpu.py
+COPY profile_ffn_matmul.py /root/shaft/profile_ffn_matmul.py
+COPY profile_limb_loop.py /root/shaft/profile_limb_loop.py
+COPY split_safetensors.py /root/shaft/split_safetensors.py
+
+# Pre-split the checkpoint into per-scope shards at BUILD time (the .sif is read-only at run time).
+RUN python3 -c "import os,subprocess; from huggingface_hub import hf_hub_download; \
+d=os.path.dirname(hf_hub_download(repo_id='andeskyl/bert-base-cased-sst2', filename='model.safetensors')); \
+subprocess.run(['python3','/root/shaft/split_safetensors.py',d],check=True)"
+
+COPY multiprocess_launcher.py /root/shaft/multiprocess_launcher.py
+COPY run_gpu.sh /root/shaft/run_gpu.sh
+COPY poll_vmrss.sh /root/poll_vmrss.sh
+RUN chmod +x /root/shaft/run_gpu.sh /root/poll_vmrss.sh
+
+WORKDIR /root/shaft
+CMD ["bash", "run_gpu.sh"]

@@ -1,0 +1,26 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m22r_x_copy_release_early.sif
+
+# MOAI-CPU m23r_x_park_softmax (2026-09-23): the m22r_x_copy_release_early line PLUS one lever (patch_x_park_softmax.py). predicted next peak: the attention block's softmax window (~57 in Layer 0, m22j), where after the key park the largest idle object is the block's input X (12.1 GB, read only for Q/K/V at the head start). Parked around every head's softmax bootstrap (paid, I/O).
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_x_park_softmax.py /opt/patch_x_park_softmax.py
+
+%post
+    set -e
+    python3 /opt/patch_x_park_softmax.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in phase_split chunked_bootstrap boot_input_spill "x_park_softmax"; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m23r_x_park_softmax
+    snni.base m22r_x_copy_release_early

@@ -1,0 +1,87 @@
+--- systems/bumblebee/steps/b2_result_ct_pack_free/impl/tree/examples/cpp/bert_bench/op_bench.cc	2026-07-30 17:06:51.597772052 +0000
++++ systems/bumblebee/steps.pending/b3_weight_defer/impl/tree/examples/cpp/bert_bench/op_bench.cc	2026-07-30 22:18:24.441508243 +0000
+@@ -367,21 +367,44 @@
+             Value ln2_g, ln2_b;
+         };
+ 
+-        std::vector<LayerWeights> layers(n_layers);
+-        for (int i = 0; i < n_layers; i++) {
+-            layers[i].w_qkv = make_secret(ctx.get(), hidden, 3 * hidden, 100 + i);
+-            layers[i].b_qkv = make_secret(ctx.get(), 1, 3 * hidden, 200 + i);
+-            layers[i].w_proj = make_secret(ctx.get(), hidden, hidden, 300 + i);
+-            layers[i].b_proj = make_secret(ctx.get(), 1, hidden, 400 + i);
+-            layers[i].ln1_g = make_secret(ctx.get(), 1, hidden, 500 + i);
+-            layers[i].ln1_b = make_secret(ctx.get(), 1, hidden, 600 + i);
+-            layers[i].w_up = make_secret(ctx.get(), hidden, interm, 700 + i);
+-            layers[i].b_up = make_secret(ctx.get(), 1, interm, 800 + i);
+-            layers[i].w_down = make_secret(ctx.get(), interm, hidden, 900 + i);
+-            layers[i].b_down = make_secret(ctx.get(), 1, hidden, 1000 + i);
+-            layers[i].ln2_g = make_secret(ctx.get(), 1, hidden, 1100 + i);
+-            layers[i].ln2_b = make_secret(ctx.get(), 1, hidden, 1200 + i);
+-        }
++        // WEIGHTS ARE BUILT AT THEIR FIRST USE, NOT ALL AT ONCE (campaign step b3_weight_defer).
++        //
++        // The stock benchmark seals every layer's weights before the first operator runs, so all
++        // twelve layers' shares coexist for the whole inference while any instant reads exactly
++        // one layer's. Measured on the baseline, the marker pair `after_init` -> `after_model_input`
++        // is +786 MB, and 12 layers x (768x2304 + 768x768 + 768x3072 + 3072x768) elements x 8 B is
++        // 679.5 MB, the rest being the transient float buffers `rand_floats` hands to `hal::seal`.
++        //
++        // This is the fourth fix category, deferred materialisation: not dead, not duplicated, not
++        // usefully reloadable, simply created before it is needed. The same seeds produce the same
++        // plaintext weights in the same order, so nothing about WHAT is sealed changes; only when.
++        //
++        // WHAT THIS COSTS IN EVIDENCE, and it is the honest caveat. `hal::seal` draws the sharing
++        // randomness, so moving the calls interleaves those draws with the protocol's. Unlike b1
++        // and b2, which provably left the draw order untouched, this step produces a different but
++        // equally valid execution, and the gate can only show that the output stayed inside the
++        // tolerance the protocol's own jitter already spans. That is exactly the lever class
++        // SHAFT-CPU could not admit, because its gate is exact-match; this line can, because its
++        // tolerance is derived from a mechanism. The transcript is the second check: sealing the
++        // same twelve layers in a different order must move the same bytes.
++        auto make_layer_weights = [&](int i) {
++            LayerWeights w;
++            w.w_qkv = make_secret(ctx.get(), hidden, 3 * hidden, 100 + i);
++            w.b_qkv = make_secret(ctx.get(), 1, 3 * hidden, 200 + i);
++            w.w_proj = make_secret(ctx.get(), hidden, hidden, 300 + i);
++            w.b_proj = make_secret(ctx.get(), 1, hidden, 400 + i);
++            w.ln1_g = make_secret(ctx.get(), 1, hidden, 500 + i);
++            w.ln1_b = make_secret(ctx.get(), 1, hidden, 600 + i);
++            w.w_up = make_secret(ctx.get(), hidden, interm, 700 + i);
++            w.b_up = make_secret(ctx.get(), 1, interm, 800 + i);
++            w.w_down = make_secret(ctx.get(), interm, hidden, 900 + i);
++            w.b_down = make_secret(ctx.get(), 1, hidden, 1000 + i);
++            w.ln2_g = make_secret(ctx.get(), 1, hidden, 1100 + i);
++            w.ln2_b = make_secret(ctx.get(), 1, hidden, 1200 + i);
++            return w;
++        };
++        // Kept so the marker trace stays comparable across steps, but it now measures the context
++        // alone: no weights exist at this point.
+         mem(rank, "main", "after_model_input", -1);
+ 
+         // Create input embedding (random, as if looked up by client)
+@@ -393,14 +416,18 @@
+             fprintf(stderr, "# Layer %d/%d (rank %d)\n", i + 1, n_layers, rank);
+             fflush(stderr);
+ 
++            // Built here and destroyed at the end of this iteration, so one layer's shares are
++            // resident instead of twelve.
++            LayerWeights lw = make_layer_weights(i);
++
+             x = bert_layer(ctx.get(), x, i, rank,
+                            n_heads, head_dim, seq_len, hidden, interm,
+-                           layers[i].w_qkv, layers[i].b_qkv,
+-                           layers[i].w_proj, layers[i].b_proj,
+-                           layers[i].ln1_g, layers[i].ln1_b,
+-                           layers[i].w_up, layers[i].b_up,
+-                           layers[i].w_down, layers[i].b_down,
+-                           layers[i].ln2_g, layers[i].ln2_b);
++                           lw.w_qkv, lw.b_qkv,
++                           lw.w_proj, lw.b_proj,
++                           lw.ln1_g, lw.ln1_b,
++                           lw.w_up, lw.b_up,
++                           lw.w_down, lw.b_down,
++                           lw.ln2_g, lw.ln2_b);
+ 
+             // THE GATE OBSERVABLE IS THE FIRST LAYER'S OUTPUT, and that is a measured decision
+             // rather than a convenient one. See emit_gate() and the MANIFEST: the 12-layer output

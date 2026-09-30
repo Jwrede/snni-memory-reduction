@@ -1,0 +1,28 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m7r_phase_split.sif
+
+# MOAI-CPU m8r_chunked_bootstrap (re-measurement line in the corrected order, 2026-09-23): the m7r line PLUS one lever (patch_chunked_bootstrap.py). Predicted from the old m6 table: the bootstrap working set (modraise 28.1 GB) is rank 1 among attackable objects at the bootstrap peak (paid).
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_chunked_bootstrap.py /opt/patch_chunked_bootstrap.py
+
+%post
+    set -e
+    python3 /opt/patch_chunked_bootstrap.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in att_keys_release_last_layer boot_layer_release phase_split chunked_bootstrap; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    strings -a build/test | grep -q "logn + 1" \
+        && { echo "FAILED: logn + 1 still in binary (full_3 fix not applied)" >&2; exit 1; } || true
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m8r_chunked_bootstrap
+    snni.base m7r_phase_split

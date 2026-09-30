@@ -1,0 +1,96 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+# BOLT step s1_stream_weights: baseline + one lever, borrowed per-layer weight streaming (donor:
+# SHARK s1/SHAFT/PUMA's step of the same name; measured 112.6 -> 14.6 GiB). Overlays three BOLT
+# TUs to turn the upfront weights_preprocess pass into per-layer JIT preprocess/free.
+# Baseline = pristine upstream + pinned seed/gate/`-g` only; `-march=x86-64-v3` caps AVX2 to match the earlier EPYC-based campaign despite PALMA's AVX-512 nodes.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/bolt/pin_seed_and_gate.py /opt/pin_seed_and_gate.py
+    /scratch/tmp/j_wred02/snni_campaign/bolt/patch_seal_pool_new.py /opt/patch_seal_pool_new.py
+    /scratch/tmp/j_wred02/snni_campaign/bolt/overlay-s1_stream_weights /opt/overlay
+
+%post
+    set -e
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get install -y --no-install-recommends \
+        git ca-certificates build-essential g++ make cmake \
+        libgmp-dev libmpfr-dev libssl-dev \
+        procps psmisc python3 python3-pip unzip binutils
+    rm -rf /var/lib/apt/lists/*
+
+    # Weights (780MB, Google Drive) fetched before compiling so a network failure surfaces early.
+    pip3 install --no-cache-dir gdown
+    gdown 1eEiY_ywEQ2YBeFvyryk-CsLIVsTT3PC7 -O /tmp/bolt.zip
+    mkdir -p /opt/bolt_data
+    unzip -q /tmp/bolt.zip -d /opt/bolt_data
+    rm -f /tmp/bolt.zip
+    ls /opt/bolt_data/quantize/sst-2/weights_txt/ | wc -l
+    test -d /opt/bolt_data/quantize/sst-2/weights_txt
+
+    cd /opt
+    git clone -b bert https://github.com/Clive2312/EzPC.git
+    cd /opt/EzPC
+    git rev-parse HEAD > /opt/bolt_ezpc_commit.txt
+
+    cd /opt/EzPC/SCI
+    # Done explicitly so a submodule failure is reported as one, not as a compile error.
+    git submodule update --init --recursive extern/SEAL extern/eigen
+
+    # The lever: overlay the streaming TUs before the pin script (disjoint files) so pins land in the measured tree.
+    for f in bert.cpp linear.cpp linear.h; do
+        test -r /opt/overlay/$f
+        cp /opt/overlay/$f /opt/EzPC/SCI/tests/bert_bolt/$f
+    done
+    grep -q 'preprocess_layer' /opt/EzPC/SCI/tests/bert_bolt/bert.cpp \
+        || { echo "FAILED: the streaming overlay did not take"; exit 4; }
+
+    # Seed/gate/workload markers applied before compile so the measured binary carries them.
+    python3 /opt/pin_seed_and_gate.py /opt/EzPC/SCI
+
+    # p_seal_pool_new (PROBE): one line at top of main, applied after seed/gate so this image
+    # differs from s1's by exactly that line.
+    python3 /opt/patch_seal_pool_new.py /opt/EzPC
+
+    mkdir -p build && cd build
+    cmake -DCMAKE_INSTALL_PREFIX=./install \
+          -DBUILD_TESTS=ON \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_CXX_FLAGS="-march=x86-64-v3 -g" \
+          ..
+    cmake --build . --target install --parallel "$(nproc)"
+    ls -la bin/
+
+    # Verify the binary carries what the source promised; checked marker-by-marker since a build
+    # missing just one patch would otherwise still pass and silently reproduce a non-reproducible run.
+    test -x /opt/EzPC/SCI/build/bin/BOLT_BERT
+    strings -a /opt/EzPC/SCI/build/bin/BOLT_BERT | grep -q 'LEVER|seal_pool_new|' \
+        || { echo "FAILED: the pool lever is not in the binary"; exit 4; }
+    strings -a /opt/EzPC/SCI/build/bin/BOLT_BERT | grep -q 'SEEDED|prg128|' \
+        || { echo "FAILED: no PRG128 seed marker in the binary"; exit 4; }
+    strings -a /opt/EzPC/SCI/build/bin/BOLT_BERT | grep -q 'SEEDED|prg256|' \
+        || { echo "FAILED: no PRG256 seed marker in the binary (the OT extension's draw source)"; exit 4; }
+    strings -a /opt/EzPC/SCI/build/bin/BOLT_BERT | grep -q 'SEEDED|seal_prng|' \
+        || { echo "FAILED: no SEAL seed marker in the binary"; exit 4; }
+    strings -a /opt/EzPC/SCI/build/bin/BOLT_BERT | grep -q 'GATE|logit|' \
+        || { echo "FAILED: no gate marker in the binary"; exit 4; }
+    readelf -S /opt/EzPC/SCI/build/bin/BOLT_BERT | grep -q debug_info \
+        || { echo "FAILED: no debug_info; call sites would be inferred rather than measured"; exit 4; }
+
+    # Record which allocation entry points this binary imports, to check the object table against
+    # rather than trust it. Pattern allows an @VERSION suffix (glibc symbols are `malloc@GLIBC_2.2.5`).
+    nm -D /opt/EzPC/SCI/build/bin/BOLT_BERT \
+        | grep -E ' U (malloc|calloc|realloc|aligned_alloc|posix_memalign|memalign|valloc|_Znwm|_Znam)(@.*)?$' \
+        | tee /opt/bolt_alloc_imports.txt
+    [ -s /opt/bolt_alloc_imports.txt ] || { echo "FAILED: this binary imports no allocator entry point at all, which is either a static allocator or a broken check"; exit 4; }
+
+    md5sum /opt/EzPC/SCI/build/bin/BOLT_BERT > /opt/bolt_binary_md5.txt
+    cat /opt/bolt_binary_md5.txt
+
+%environment
+    export LC_ALL=C
+
+%runscript
+    echo "BOLT image. The harness launches bin/BOLT_BERT; see run_bolt.sh."

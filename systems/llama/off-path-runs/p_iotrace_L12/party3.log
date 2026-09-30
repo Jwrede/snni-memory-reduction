@@ -1,0 +1,7 @@
+SNNI_PARAM|LLAMA_N_LAYERS=12
+SEEDED|srand=0x5eed|party=3
+trying to connect with server...connected
+IO|seq=0|op=read|want=6144|got=6144|errno=0
+IO|seq=1|op=read|want=6144|got=6144|errno=0
+IO|seq=2|op=read|want=14155776|got=2703424|errno=0
+Assertion failed: bytes == got in virtual void SocketBuf::read(char*, int) at /opt/EzPC/GPU-MPC/ext/sytorch/ext/llama/src/llama/comms.cpp:130

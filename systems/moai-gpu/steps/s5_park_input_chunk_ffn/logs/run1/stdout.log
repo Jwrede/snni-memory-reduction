@@ -1,0 +1,84 @@
+single layer test
+Task: test one layer of BERT in CKKS scheme: 
+Read input, weights, bias from txt files. 
+Set encryption parameters and print
+/
+| Encryption parameters :
+|   scheme: CKKS
+|   poly_modulus_degree: 65536
+|   coeff_modulus size: 1743 (51 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 58) bits
+\
+Launching kernel with gridDim: 18432, blockDim: 128
+Generating secret key with hamming weight: 192
+preparing bootstrapping...
+Adding Bootstrapping Keys...
+Galois key generated from steps vector.
+MEM| keys_created | vram_used_MiB: 41308.9 | pool_used_MiB: 40498.1 | pool_reserved_MiB: 40640 | host_rss_MiB: 1828.98 | host_hwm_MiB: 1828.98 | ts_ms: 1787342187320 | (Free: 101839 MB, Total: 143148 MB)
+Generating Linear Transformation Coefficients...
+MEM| bootstrapping_prepared | vram_used_MiB: 41308.9 | pool_used_MiB: 40498.1 | pool_reserved_MiB: 40640 | host_rss_MiB: 2033.08 | host_hwm_MiB: 2033.08 | ts_ms: 1787342189007 | (Free: 101839 MB, Total: 143148 MB)
+Modulus chain index before attention block: 14
+MEM| before_attention | vram_used_MiB: 68254.9 | pool_used_MiB: 52018.1 | pool_reserved_MiB: 67584 | host_rss_MiB: 2039.45 | host_hwm_MiB: 2039.45 | ts_ms: 1787342199855 | (Free: 74893.2 MB, Total: 143148 MB)
+KEYFP|ct0|n=1966080|fnv=6677111189981983917
+MEM| inputs_prepared | vram_used_MiB: 68254.9 | pool_used_MiB: 52018.1 | pool_reserved_MiB: 67584 | host_rss_MiB: 2039.45 | host_hwm_MiB: 2039.45 | ts_ms: 1787342199858 | (Free: 74893.2 MB, Total: 143148 MB)
+Compute Q, K, V time = 14.4766. Compute QK^T time = 15.0318. Compute softmax time = 1.50472. Compute softmax*V time = 0.505358
+Compute Q, K, V time = 14.3893. Compute QK^T time = 14.7092. Compute softmax time = 1.36063. Compute softmax*V time = 0.391483
+Compute Q, K, V time = 14.1746. Compute QK^T time = 14.6159. Compute softmax time = 1.25351. Compute softmax*V time = 0.391031
+Compute Q, K, V time = 14.1834. Compute QK^T time = 14.6102. Compute softmax time = 1.23323. Compute softmax*V time = 0.390235
+Compute Q, K, V time = 14.1047. Compute QK^T time = 14.61. Compute softmax time = 1.34565. Compute softmax*V time = 0.392862
+Compute Q, K, V time = 14.2199. Compute QK^T time = 14.624. Compute softmax time = 1.36338. Compute softmax*V time = 0.38883
+Compute Q, K, V time = 14.1944. Compute QK^T time = 14.6129. Compute softmax time = 1.32206. Compute softmax*V time = 0.391128
+Compute Q, K, V time = 14.2832. Compute QK^T time = 14.6218. Compute softmax time = 1.34232. Compute softmax*V time = 0.390423
+Compute Q, K, V time = 14.47. Compute QK^T time = 14.6011. Compute softmax time = 1.23606. Compute softmax*V time = 0.390495
+Compute Q, K, V time = 14.1901. Compute QK^T time = 14.621. Compute softmax time = 1.25947. Compute softmax*V time = 0.388939
+Compute Q, K, V time = 14.187. Compute QK^T time = 14.6127. Compute softmax time = 1.22505. Compute softmax*V time = 0.390238
+Compute Q, K, V time = 14.2381. Compute QK^T time = 14.6152. Compute softmax time = 1.413. Compute softmax*V time = 0.39116
+Attention block time = 367.721
+MEM| after_attention | vram_used_MiB: 70850.9 | pool_used_MiB: 53554.1 | pool_reserved_MiB: 70176 | host_rss_MiB: 2084.27 | host_hwm_MiB: 2084.27 | ts_ms: 1787342567580 | (Free: 72297.2 MB, Total: 143148 MB)
+Concatenation. size of output of attention block = 12 * 64 = 768
+selfoutput time = 8.24632
+Modulus chain index for the result: 0
+MEM| after_selfoutput | vram_used_MiB: 70850.9 | pool_used_MiB: 42802.1 | pool_reserved_MiB: 70176 | host_rss_MiB: 2084.27 | host_hwm_MiB: 2084.27 | ts_ms: 1787342692754 | (Free: 72297.2 MB, Total: 143148 MB)
+bootstrapping time = 519.31
+Modulus chain index after bootstrapping: 20
+MEM| after_bootstrap1 | vram_used_MiB: 70850.9 | pool_used_MiB: 58162.1 | pool_reserved_MiB: 70176 | host_rss_MiB: 2084.27 | host_hwm_MiB: 2084.27 | ts_ms: 1787343212102 | (Free: 72297.2 MB, Total: 143148 MB)
+layernorm time = 3.64047
+Modulus chain index after layernorm: 0
+MEM| after_layernorm1 | vram_used_MiB: 81858.9 | pool_used_MiB: 58930.1 | pool_reserved_MiB: 81184 | host_rss_MiB: 2084.3 | host_hwm_MiB: 2084.3 | ts_ms: 1787343215743 | (Free: 61289.2 MB, Total: 143148 MB)
+bootstrapping time = 520.986
+Modulus chain index after bootstrapping: 20
+MEM| after_bootstrap2 | vram_used_MiB: 87618.9 | pool_used_MiB: 65842.1 | pool_reserved_MiB: 86944 | host_rss_MiB: 2084.32 | host_hwm_MiB: 2084.32 | ts_ms: 1787343736731 | (Free: 55529.2 MB, Total: 143148 MB)
+Modulus chain index before intermediate linear: 9
+MEM| before_intermediate | vram_used_MiB: 87618.9 | pool_used_MiB: 65842.1 | pool_reserved_MiB: 86944 | host_rss_MiB: 2084.32 | host_hwm_MiB: 2084.32 | ts_ms: 1787343736732 | (Free: 55529.2 MB, Total: 143148 MB)
+Inter layer time = 234.694
+Modulus chain index after inter layer: 8
+MEM| after_intermediate | vram_used_MiB: 87618.9 | pool_used_MiB: 65842.1 | pool_reserved_MiB: 86944 | host_rss_MiB: 2084.32 | host_hwm_MiB: 2084.32 | ts_ms: 1787343971430 | (Free: 55529.2 MB, Total: 143148 MB)
+gelu time = 24.7573
+Modulus chain index for gelu: 1
+MEM| after_gelu | vram_used_MiB: 96354.9 | pool_used_MiB: 71986.1 | pool_reserved_MiB: 95680 | host_rss_MiB: 2147.37 | host_hwm_MiB: 2147.37 | ts_ms: 1787343996244 | (Free: 46793.2 MB, Total: 143148 MB)
+Final layer time = 31.8997
+Modulus chain index after final layer: 0
+MEM| after_final | vram_used_MiB: 96354.9 | pool_used_MiB: 72754.1 | pool_reserved_MiB: 95680 | host_rss_MiB: 2147.37 | host_hwm_MiB: 2147.37 | ts_ms: 1787344550310 | (Free: 46793.2 MB, Total: 143148 MB)
+bootstrapping time = 517.398
+Modulus chain index after bootstrapping: 20
+MEM| after_bootstrap3 | vram_used_MiB: 107235 | pool_used_MiB: 88114.1 | pool_reserved_MiB: 106560 | host_rss_MiB: 2147.39 | host_hwm_MiB: 2147.39 | ts_ms: 1787345067764 | (Free: 35913.2 MB, Total: 143148 MB)
+LayerNorm start. 
+layernorm time = 0.935879
+Modulus chain index after layernorm: 0
+MEM| after_layernorm2 | vram_used_MiB: 107235 | pool_used_MiB: 72754.1 | pool_reserved_MiB: 106560 | host_rss_MiB: 2147.39 | host_hwm_MiB: 2147.39 | ts_ms: 1787345068700 | (Free: 35913.2 MB, Total: 143148 MB)
+bootstrapping time = 513.699
+Modulus chain index after bootstrapping: 20
+MEM| after_bootstrap4 | vram_used_MiB: 107235 | pool_used_MiB: 64306.1 | pool_reserved_MiB: 106560 | host_rss_MiB: 2147.39 | host_hwm_MiB: 2147.39 | ts_ms: 1787345582402 | (Free: 35913.2 MB, Total: 143148 MB)
+Total time for one layer: 2743.29, amortized time: 10.716
+GATE|ct0[0]=-383.40315475556525
+GATE|ct0[256]=212.94270145770579
+GATE|ct0[512]=342.3059451120958
+GATE|ct0[768]=-110.88287195955343
+GATE|ct0[1024]=353.78314477488613
+GATE|ct0[1280]=-355.21942454779543
+GATE|ct0[1536]=-511.10032345006573
+GATE|ct0[1792]=-431.84513375015149
+GATE|out|n=8448|sum=19837.653520751148|sumsq=3584316414.2196569|absmax=2262.4005396048137
+GATE_NONZERO|8448/8448
+GPUPEAK|party=0|peak_alloc_kb=91806355|peak_reserved_kb=109117440
+HOSTPEAK|party=0|vmhwm_kb=2198932
+single layer test passed!

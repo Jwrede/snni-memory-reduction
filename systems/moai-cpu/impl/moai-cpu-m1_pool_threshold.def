@@ -1,0 +1,66 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-p_prm0.sif
+
+# MOAI-CPU: the pool threshold as the FIRST reduction step, on the BASELINE.
+#
+# WHY BASELINE AND NOT m1. The waterfall is being reordered to pool-first (2026-08-29). The pool fix
+# restores "live at the peak = responsible for the peak", so every step after it is clean peak-local
+# again. Measuring it on the baseline (not on the key step) is the point: it must be the first
+# reduction, so its predecessor is m0.
+#
+# WHY p_prm0 AS THE BASE. p_prm0 is m0 under the recording pool: baseline source, `POOLREC` present,
+# NO key lever. So the binary below differs from the measured baseline by the threshold alone, which
+# is what the peak comparison needs.
+#
+# THE LEVER: `SNNI_POOL_THRESHOLD`, compiled to 4 MiB. A pool head at or above it frees on return
+# instead of caching; below it, `MemoryPoolMT`'s policy is unchanged. The recording pool stays on,
+# so the run still produces a live object table for the next step. See impl/patch_pool_threshold.py.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_pool_threshold.py /opt/patch_pool_threshold.py
+
+%post
+    set -e
+
+    # The recording pool is already in this base; add only the threshold. The patch refuses a tree
+    # without MemoryPoolRecordingMT, so a wrong base fails here rather than at run time.
+    python3 /opt/patch_pool_threshold.py /root/moai
+
+    # SEAL carries the lever, so it must be rebuilt and reinstalled BEFORE the project links it.
+    cd /root/moai/thirdparty/SEAL-4.1-bs
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    cmake --install build
+
+    cd /root/moai
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+
+    # WHAT THE BINARY MUST CARRY, AND WHAT IT MUST NOT.
+    strings -a /root/moai/build/test | grep -q 'SEEDED|seal_prng|' \
+        || { echo "FAILED: no SEAL seed marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'WORKLOAD|model=bert-base' \
+        || { echo "FAILED: no workload marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|pool_threshold' \
+        || { echo "FAILED: no pool_threshold marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'POOLREC|profile_installed' \
+        || { echo "FAILED: no recording pool"; exit 4; }
+    nm -C /root/moai/build/test 2>/dev/null | grep -q 'MemoryPoolHeadRecordingImmediate' \
+        || strings -a /root/moai/build/test | grep -q 'MemoryPoolHeadRecordingImmediate' \
+        || { echo "FAILED: the immediate-free head is not linked in"; exit 4; }
+    # NOTHING ELSE MAY RIDE ALONG: this is the pool on the BARE baseline, no key lever.
+    strings -a /root/moai/build/test | grep -q 'LEVER|minimal_att_keys' \
+        && { echo "FAILED: this variant must NOT carry the key lever"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'SNNI_MM|profile=new' \
+        && { echo "FAILED: this variant must NOT carry MMProfNew"; exit 4; }
+
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m1_pool_threshold
+    snni.base p_prm0

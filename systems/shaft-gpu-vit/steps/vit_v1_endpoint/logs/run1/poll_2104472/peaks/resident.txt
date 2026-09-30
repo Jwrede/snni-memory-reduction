@@ -1,0 +1,821 @@
+# sample_ts_ms=1790724731007 sample_rss_kb=1575792
+# fullscan: mapping_resident_bytes unaccounted_bytes perms path
+# map 122880 122880 r--p /opt/conda/bin/python3.10
+# map 2064384 2064384 r-xp /opt/conda/bin/python3.10
+# map 671744 671744 r--p /opt/conda/bin/python3.10
+# map 4096 4096 r--p /opt/conda/bin/python3.10
+# map 204800 204800 rw-p /opt/conda/bin/python3.10
+# map 20480 20480 rw-p 
+# map 697618432 469409792 rw-p [heap]
+# map 58720256 58720256 rw-s /dev/nvidiactl
+# map 2097152 2097152 rw-s /dev/nvidiactl
+# map 2097152 2097152 rw-s /dev/nvidiactl
+# map 2097152 2097152 rw-s /dev/nvidia-uvm
+# map 33554432 33554432 rw-s /dev/zero (deleted)
+# map 15761408 15761408 r-xp /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn_cnn_infer.so.8
+# map 942080 942080 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn_cnn_infer.so.8
+# map 73728 73728 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn_cnn_infer.so.8
+# map 3227648 3227648 rw-p 
+# map 3420160 3420160 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn_cnn_infer.so.8
+# map 1769472 1769472 r-xp /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn_ops_infer.so.8
+# map 36864 36864 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn_ops_infer.so.8
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn_ops_infer.so.8
+# map 20480 20480 rw-p 
+# map 36864 36864 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn_ops_infer.so.8
+# map 2097152 2097152 rw-s /dev/zero (deleted)
+# map 925696 0 rw-p 
+# map 16777216 16777216 rw-s /dev/zero (deleted)
+# map 16777216 16777216 rw-s /dev/zero (deleted)
+# map 925696 0 rw-p 
+# map 925696 0 rw-p 
+# map 19308544 0 rw-p 
+# map 4096 4096 rw-p 
+# map 19922944 0 rw-p 
+# map 8654848 8654848 rw-s /dev/zero (deleted)
+# map 2097152 2097152 rw-s /dev/zero (deleted)
+# map 2097152 2097152 rw-s /dev/zero (deleted)
+# map 8388608 8388608 rw-s /dev/zero (deleted)
+# map 8388608 8388608 rw-s /dev/zero (deleted)
+# map 230023168 230023168 rw-p /vit/model.safetensors
+# map 4096 4096 rw-p 
+# map 2101248 0 rw-p 
+# map 2097152 2097152 rw-s /dev/nvidiactl
+# map 2097152 2097152 rw-s /dev/zero (deleted)
+# map 2097152 2097152 rw-s /dev/zero (deleted)
+# map 2097152 2097152 rw-s /dev/nvidiactl
+# map 2097152 2097152 rw-s /dev/zero (deleted)
+# map 6205440 6205440 rw-s /dev/nvidiactl
+# map 925696 0 rw-p 
+# map 925696 0 rw-p 
+# map 925696 0 rw-p 
+# map 3997696 3997696 rw-p 
+# map 925696 0 rw-p 
+# map 2715648 2715648 rw-p 
+# map 4096 4096 rw-p 
+# map 163840 163840 rw-p 
+# map 8192 8192 rw-p 
+# map 2097152 2097152 rw-s /dev/zero (deleted)
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 4096 4096 rw-s /dev/nvidiactl
+# map 8192 8192 rw-p 
+# map 24576 24576 rw-p 
+# map 24576 24576 rw-p 
+# map 24576 24576 rw-p 
+# map 24576 24576 rw-p 
+# map 24576 24576 rw-p 
+# map 24576 24576 rw-p 
+# map 122880 122880 r--p /.singularity.d/libs/libnvidia-ml.so.1
+# map 159744 159744 r-xp /.singularity.d/libs/libnvidia-ml.so.1
+# map 40960 40960 r--p /.singularity.d/libs/libnvidia-ml.so.1
+# map 45056 45056 r--p /.singularity.d/libs/libnvidia-ml.so.1
+# map 20480 20480 rw-p /.singularity.d/libs/libnvidia-ml.so.1
+# map 19296256 19296256 rw-p 
+# map 4096 4096 rw-p 
+# map 4096 4096 rw-p 
+# map 4096 4096 rw-p 
+# map 155648 155648 rw-p 
+# map 20480 20480 rwxp 
+# map 24576 24576 rw-p 
+# map 6217728 6217728 rw-p 
+# map 598016 598016 r--p /opt/conda/lib/python3.10/site-packages/tokenizers/tokenizers.cpython-310-x86_64-linux-gnu.so
+# map 1118208 1118208 r-xp /opt/conda/lib/python3.10/site-packages/tokenizers/tokenizers.cpython-310-x86_64-linux-gnu.so
+# map 159744 159744 r--p /opt/conda/lib/python3.10/site-packages/tokenizers/tokenizers.cpython-310-x86_64-linux-gnu.so
+# map 503808 503808 r--p /opt/conda/lib/python3.10/site-packages/tokenizers/tokenizers.cpython-310-x86_64-linux-gnu.so
+# map 28672 28672 rw-p /opt/conda/lib/python3.10/site-packages/tokenizers/tokenizers.cpython-310-x86_64-linux-gnu.so
+# map 69632 69632 r--p /opt/conda/lib/python3.10/site-packages/sentencepiece/_sentencepiece.cpython-310-x86_64-linux-gnu.so
+# map 479232 479232 r-xp /opt/conda/lib/python3.10/site-packages/sentencepiece/_sentencepiece.cpython-310-x86_64-linux-gnu.so
+# map 61440 61440 r--p /opt/conda/lib/python3.10/site-packages/sentencepiece/_sentencepiece.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/python3.10/site-packages/sentencepiece/_sentencepiece.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/sentencepiece/_sentencepiece.cpython-310-x86_64-linux-gnu.so
+# map 1052672 1052672 rw-p 
+# map 16384 16384 rw-p 
+# map 16384 16384 rw-p 
+# map 8192 8192 rw-p 
+# map 8192 8192 rw-p 
+# map 8192 8192 rw-p 
+# map 8192 8192 rw-p 
+# map 8192 8192 rw-p 
+# map 8192 8192 rw-p 
+# map 8192 8192 rw-p 
+# map 8192 8192 rw-p 
+# map 8192 8192 rw-p 
+# map 8192 8192 rw-p 
+# map 12288 12288 r--p /usr/lib/x86_64-linux-gnu/libnss_files-2.31.so
+# map 28672 28672 r-xp /usr/lib/x86_64-linux-gnu/libnss_files-2.31.so
+# map 8192 8192 r--p /usr/lib/x86_64-linux-gnu/libnss_files-2.31.so
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/libnss_files-2.31.so
+# map 4096 4096 rw-p /usr/lib/x86_64-linux-gnu/libnss_files-2.31.so
+# map 1048576 1048576 rw-p 
+# map 20480 20480 r--p /opt/conda/lib/python3.10/site-packages/ml_dtypes/_ml_dtypes_ext.cpython-310-x86_64-linux-gnu.so
+# map 905216 905216 r-xp /opt/conda/lib/python3.10/site-packages/ml_dtypes/_ml_dtypes_ext.cpython-310-x86_64-linux-gnu.so
+# map 61440 61440 r--p /opt/conda/lib/python3.10/site-packages/ml_dtypes/_ml_dtypes_ext.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/ml_dtypes/_ml_dtypes_ext.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 rw-p /opt/conda/lib/python3.10/site-packages/ml_dtypes/_ml_dtypes_ext.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 rw-p 
+# map 532480 532480 r--p /opt/conda/lib/python3.10/site-packages/onnx/onnx_cpp2py_export.cpython-310-x86_64-linux-gnu.so
+# map 819200 819200 r-xp /opt/conda/lib/python3.10/site-packages/onnx/onnx_cpp2py_export.cpython-310-x86_64-linux-gnu.so
+# map 126976 126976 r--p /opt/conda/lib/python3.10/site-packages/onnx/onnx_cpp2py_export.cpython-310-x86_64-linux-gnu.so
+# map 61440 61440 r--p /opt/conda/lib/python3.10/site-packages/onnx/onnx_cpp2py_export.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 rw-p /opt/conda/lib/python3.10/site-packages/onnx/onnx_cpp2py_export.cpython-310-x86_64-linux-gnu.so
+# map 1052672 1052672 rw-p 
+# map 40960 40960 r--p /opt/conda/lib/python3.10/site-packages/google/_upb/_message.abi3.so
+# map 176128 176128 r-xp /opt/conda/lib/python3.10/site-packages/google/_upb/_message.abi3.so
+# map 65536 65536 r--p /opt/conda/lib/python3.10/site-packages/google/_upb/_message.abi3.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/site-packages/google/_upb/_message.abi3.so
+# map 16384 16384 rw-p /opt/conda/lib/python3.10/site-packages/google/_upb/_message.abi3.so
+# map 2064384 2064384 rw-p 
+# map 4096 4096 r--p /opt/conda/lib/libsharpyuv.so.0.0.1
+# map 16384 16384 r-xp /opt/conda/lib/libsharpyuv.so.0.0.1
+# map 4096 4096 r--p /opt/conda/lib/libsharpyuv.so.0.0.1
+# map 4096 4096 rw-p /opt/conda/lib/libsharpyuv.so.0.0.1
+# map 4096 4096 r--p /opt/conda/lib/libdeflate.so.0
+# map 53248 53248 r-xp /opt/conda/lib/libdeflate.so.0
+# map 4096 4096 r--p /opt/conda/lib/libdeflate.so.0
+# map 4096 4096 rw-p /opt/conda/lib/libdeflate.so.0
+# map 40960 40960 r--p /opt/conda/lib/libLerc.so
+# map 86016 86016 r-xp /opt/conda/lib/libLerc.so
+# map 4096 4096 r--p /opt/conda/lib/libLerc.so
+# map 4096 4096 rw-p /opt/conda/lib/libLerc.so
+# map 57344 57344 r--p /opt/conda/lib/libzstd.so.1.5.5
+# map 98304 98304 r-xp /opt/conda/lib/libzstd.so.1.5.5
+# map 4096 4096 r--p /opt/conda/lib/libzstd.so.1.5.5
+# map 4096 4096 rw-p /opt/conda/lib/libzstd.so.1.5.5
+# map 12288 12288 r--p /opt/conda/lib/libwebp.so.7.1.8
+# map 73728 73728 r-xp /opt/conda/lib/libwebp.so.7.1.8
+# map 4096 4096 r--p /opt/conda/lib/libwebp.so.7.1.8
+# map 4096 4096 rw-p /opt/conda/lib/libwebp.so.7.1.8
+# map 36864 36864 r--p /opt/conda/lib/libtiff.so.6.0.1
+# map 135168 135168 r-xp /opt/conda/lib/libtiff.so.6.0.1
+# map 65536 65536 r--p /opt/conda/lib/libtiff.so.6.0.1
+# map 20480 20480 r--p /opt/conda/lib/libtiff.so.6.0.1
+# map 4096 4096 rw-p /opt/conda/lib/libtiff.so.6.0.1
+# map 36864 36864 r--p /opt/conda/lib/libopenjp2.so.2.4.0
+# map 159744 159744 r-xp /opt/conda/lib/libopenjp2.so.2.4.0
+# map 65536 65536 r--p /opt/conda/lib/libopenjp2.so.2.4.0
+# map 8192 8192 r--p /opt/conda/lib/libopenjp2.so.2.4.0
+# map 4096 4096 rw-p /opt/conda/lib/libopenjp2.so.2.4.0
+# map 86016 86016 r--p /opt/conda/lib/python3.10/site-packages/PIL/_imaging.cpython-310-x86_64-linux-gnu.so
+# map 208896 208896 r-xp /opt/conda/lib/python3.10/site-packages/PIL/_imaging.cpython-310-x86_64-linux-gnu.so
+# map 65536 65536 r--p /opt/conda/lib/python3.10/site-packages/PIL/_imaging.cpython-310-x86_64-linux-gnu.so
+# map 20480 20480 r--p /opt/conda/lib/python3.10/site-packages/PIL/_imaging.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 rw-p /opt/conda/lib/python3.10/site-packages/PIL/_imaging.cpython-310-x86_64-linux-gnu.so
+# map 5160960 5160960 rw-p 
+# map 12288 12288 r--p /opt/conda/lib/python3.10/site-packages/_brotli.cpython-310-x86_64-linux-gnu.so
+# map 102400 102400 r-xp /opt/conda/lib/python3.10/site-packages/_brotli.cpython-310-x86_64-linux-gnu.so
+# map 57344 57344 r--p /opt/conda/lib/python3.10/site-packages/_brotli.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/_brotli.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/_brotli.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p 
+# map 20480 20480 r--p /opt/conda/lib/libjpeg.so.9.5.0
+# map 102400 102400 r-xp /opt/conda/lib/libjpeg.so.9.5.0
+# map 4096 4096 r--p /opt/conda/lib/libjpeg.so.9.5.0
+# map 4096 4096 rw-p /opt/conda/lib/libjpeg.so.9.5.0
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/markupsafe/_speedups.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r-xp /opt/conda/lib/python3.10/site-packages/markupsafe/_speedups.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/markupsafe/_speedups.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/markupsafe/_speedups.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/markupsafe/_speedups.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/python3.10/lib-dynload/_multibytecodec.cpython-310-x86_64-linux-gnu.so
+# map 24576 24576 r-xp /opt/conda/lib/python3.10/lib-dynload/_multibytecodec.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/_multibytecodec.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_multibytecodec.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_multibytecodec.cpython-310-x86_64-linux-gnu.so
+# map 2064384 2064384 rw-p 
+# map 163840 163840 r--p /opt/conda/lib/python3.10/site-packages/safetensors/_safetensors_rust.abi3.so
+# map 618496 618496 r-xp /opt/conda/lib/python3.10/site-packages/safetensors/_safetensors_rust.abi3.so
+# map 28672 28672 r--p /opt/conda/lib/python3.10/site-packages/safetensors/_safetensors_rust.abi3.so
+# map 12288 12288 rw-p /opt/conda/lib/python3.10/site-packages/safetensors/_safetensors_rust.abi3.so
+# map 3096576 3096576 rw-p 
+# map 65536 65536 r--p /opt/conda/lib/libtinfow.so.6.4
+# map 110592 110592 r-xp /opt/conda/lib/libtinfow.so.6.4
+# map 65536 65536 r--p /opt/conda/lib/libtinfow.so.6.4
+# map 16384 16384 r--p /opt/conda/lib/libtinfow.so.6.4
+# map 4096 4096 rw-p /opt/conda/lib/libtinfow.so.6.4
+# map 102400 102400 r--p /opt/conda/lib/libreadline.so.8.2
+# map 176128 176128 r-xp /opt/conda/lib/libreadline.so.8.2
+# map 40960 40960 r--p /opt/conda/lib/libreadline.so.8.2
+# map 12288 12288 r--p /opt/conda/lib/libreadline.so.8.2
+# map 24576 24576 rw-p /opt/conda/lib/libreadline.so.8.2
+# map 4096 4096 rw-p 
+# map 12288 12288 r--p /opt/conda/lib/python3.10/lib-dynload/readline.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r-xp /opt/conda/lib/python3.10/lib-dynload/readline.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/readline.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/readline.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/readline.cpython-310-x86_64-linux-gnu.so
+# map 3096576 3096576 rw-p 
+# map 8192 8192 r--p /opt/conda/lib/libyaml-0.so.2.0.9
+# map 77824 77824 r-xp /opt/conda/lib/libyaml-0.so.2.0.9
+# map 4096 4096 r--p /opt/conda/lib/libyaml-0.so.2.0.9
+# map 4096 4096 rw-p /opt/conda/lib/libyaml-0.so.2.0.9
+# map 28672 28672 r--p /opt/conda/lib/python3.10/site-packages/yaml/_yaml.cpython-310-x86_64-linux-gnu.so
+# map 94208 94208 r-xp /opt/conda/lib/python3.10/site-packages/yaml/_yaml.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/python3.10/site-packages/yaml/_yaml.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/yaml/_yaml.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 rw-p /opt/conda/lib/python3.10/site-packages/yaml/_yaml.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p 
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_posixshmem.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r-xp /opt/conda/lib/python3.10/lib-dynload/_posixshmem.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_posixshmem.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_posixshmem.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_posixshmem.cpython-310-x86_64-linux-gnu.so
+# map 1032192 1032192 rw-p 
+# map 20480 20480 rw-p 
+# map 4096 0 rw-p 
+# map 8192 8192 rw-p 
+# map 8257536 8257536 rw-p 
+# map 20480 20480 r--p /opt/conda/lib/python3.10/lib-dynload/_asyncio.cpython-310-x86_64-linux-gnu.so
+# map 20480 20480 r-xp /opt/conda/lib/python3.10/lib-dynload/_asyncio.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/python3.10/lib-dynload/_asyncio.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_asyncio.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 rw-p /opt/conda/lib/python3.10/lib-dynload/_asyncio.cpython-310-x86_64-linux-gnu.so
+# map 18223104 15597568 rw-p 
+# map 28672 28672 r--p /opt/conda/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
+# map 151552 151552 r-xp /opt/conda/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
+# map 65536 65536 r--p /opt/conda/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 rw-p /opt/conda/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
+# map 4128768 4128768 rw-p 
+# map 73728 73728 r--p /opt/conda/lib/libgmp.so.10.4.1
+# map 397312 397312 r-xp /opt/conda/lib/libgmp.so.10.4.1
+# map 61440 61440 r--p /opt/conda/lib/libgmp.so.10.4.1
+# map 8192 8192 r--p /opt/conda/lib/libgmp.so.10.4.1
+# map 4096 4096 rw-p /opt/conda/lib/libgmp.so.10.4.1
+# map 53248 53248 r--p /opt/conda/lib/libmpfr.so.6.0.2
+# map 229376 229376 r-xp /opt/conda/lib/libmpfr.so.6.0.2
+# map 8192 8192 r--p /opt/conda/lib/libmpfr.so.6.0.2
+# map 4096 4096 rw-p /opt/conda/lib/libmpfr.so.6.0.2
+# map 94208 94208 r-xp /opt/conda/lib/libmpc.so.3.1.0
+# map 4096 4096 r--p /opt/conda/lib/libmpc.so.3.1.0
+# map 4096 4096 rw-p /opt/conda/lib/libmpc.so.3.1.0
+# map 77824 77824 r--p /opt/conda/lib/python3.10/site-packages/gmpy2/gmpy2.cpython-310-x86_64-linux-gnu.so
+# map 331776 331776 r-xp /opt/conda/lib/python3.10/site-packages/gmpy2/gmpy2.cpython-310-x86_64-linux-gnu.so
+# map 126976 126976 r--p /opt/conda/lib/python3.10/site-packages/gmpy2/gmpy2.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/gmpy2/gmpy2.cpython-310-x86_64-linux-gnu.so
+# map 24576 24576 rw-p /opt/conda/lib/python3.10/site-packages/gmpy2/gmpy2.cpython-310-x86_64-linux-gnu.so
+# map 4128768 4128768 rw-p 
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/_queue.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r-xp /opt/conda/lib/python3.10/lib-dynload/_queue.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_queue.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_queue.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_queue.cpython-310-x86_64-linux-gnu.so
+# map 1032192 1032192 rw-p 
+# map 12288 12288 r--p /opt/conda/lib/python3.10/lib-dynload/_csv.cpython-310-x86_64-linux-gnu.so
+# map 20480 20480 r-xp /opt/conda/lib/python3.10/lib-dynload/_csv.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/python3.10/lib-dynload/_csv.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_csv.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_csv.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/python3.10/lib-dynload/unicodedata.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r-xp /opt/conda/lib/python3.10/lib-dynload/unicodedata.cpython-310-x86_64-linux-gnu.so
+# map 913408 913408 r--p /opt/conda/lib/python3.10/lib-dynload/unicodedata.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/unicodedata.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/unicodedata.cpython-310-x86_64-linux-gnu.so
+# map 1032192 1032192 rw-p 
+# map 126976 126976 r--p /opt/conda/lib/libssl.so.3
+# map 131072 131072 r-xp /opt/conda/lib/libssl.so.3
+# map 40960 40960 r--p /opt/conda/lib/libssl.so.3
+# map 16384 16384 rw-p /opt/conda/lib/libssl.so.3
+# map 77824 77824 r--p /opt/conda/lib/python3.10/lib-dynload/_ssl.cpython-310-x86_64-linux-gnu.so
+# map 40960 40960 r-xp /opt/conda/lib/python3.10/lib-dynload/_ssl.cpython-310-x86_64-linux-gnu.so
+# map 57344 57344 r--p /opt/conda/lib/python3.10/lib-dynload/_ssl.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_ssl.cpython-310-x86_64-linux-gnu.so
+# map 32768 32768 rw-p /opt/conda/lib/python3.10/lib-dynload/_ssl.cpython-310-x86_64-linux-gnu.so
+# map 1032192 1032192 rw-p 
+# map 8192 8192 r--p /opt/conda/lib/libuuid.so.1.3.0
+# map 16384 16384 r-xp /opt/conda/lib/libuuid.so.1.3.0
+# map 4096 4096 r--p /opt/conda/lib/libuuid.so.1.3.0
+# map 4096 4096 rw-p /opt/conda/lib/libuuid.so.1.3.0
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_uuid.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r-xp /opt/conda/lib/python3.10/lib-dynload/_uuid.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_uuid.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_uuid.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_uuid.cpython-310-x86_64-linux-gnu.so
+# map 1048576 1048576 rw-p 
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/_multiprocessing.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r-xp /opt/conda/lib/python3.10/lib-dynload/_multiprocessing.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_multiprocessing.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_multiprocessing.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_multiprocessing.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/python3.10/lib-dynload/array.cpython-310-x86_64-linux-gnu.so
+# map 28672 28672 r-xp /opt/conda/lib/python3.10/lib-dynload/array.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/python3.10/lib-dynload/array.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/array.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/array.cpython-310-x86_64-linux-gnu.so
+# map 4194304 4194304 rw-p 
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/cmath.cpython-310-x86_64-linux-gnu.so
+# map 40960 40960 r-xp /opt/conda/lib/python3.10/lib-dynload/cmath.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/cmath.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/cmath.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/cmath.cpython-310-x86_64-linux-gnu.so
+# map 3104768 3104768 rw-p 
+# map 12288 12288 r--p /opt/conda/lib/python3.10/lib-dynload/_json.cpython-310-x86_64-linux-gnu.so
+# map 24576 24576 r-xp /opt/conda/lib/python3.10/lib-dynload/_json.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/_json.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_json.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_json.cpython-310-x86_64-linux-gnu.so
+# map 20480 20480 r--p /opt/conda/lib/python3.10/lib-dynload/_socket.cpython-310-x86_64-linux-gnu.so
+# map 36864 36864 r-xp /opt/conda/lib/python3.10/lib-dynload/_socket.cpython-310-x86_64-linux-gnu.so
+# map 32768 32768 r--p /opt/conda/lib/python3.10/lib-dynload/_socket.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_socket.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_socket.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/grp.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r-xp /opt/conda/lib/python3.10/lib-dynload/grp.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/grp.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/grp.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/grp.cpython-310-x86_64-linux-gnu.so
+# map 1032192 1032192 rw-p 
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_heapq.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r-xp /opt/conda/lib/python3.10/lib-dynload/_heapq.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/python3.10/lib-dynload/_heapq.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_heapq.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_heapq.cpython-310-x86_64-linux-gnu.so
+# map 1048576 1048576 rw-p 
+# map 319488 319488 r--p /opt/conda/lib/libmkl_vml_def.so.2
+# map 65536 65536 r-xp /opt/conda/lib/libmkl_vml_def.so.2
+# map 12288 12288 r--p /opt/conda/lib/libmkl_vml_def.so.2
+# map 49152 49152 rw-p /opt/conda/lib/libmkl_vml_def.so.2
+# map 106496 106496 rw-p /opt/conda/lib/libmkl_vml_def.so.2
+# map 520192 520192 r--p /opt/conda/lib/libmkl_def.so.2
+# map 438272 438272 r-xp /opt/conda/lib/libmkl_def.so.2
+# map 49152 49152 r--p /opt/conda/lib/libmkl_def.so.2
+# map 12288 12288 r--p /opt/conda/lib/libmkl_def.so.2
+# map 24576 24576 rw-p /opt/conda/lib/libmkl_def.so.2
+# map 274432 274432 rw-p /opt/conda/lib/libmkl_def.so.2
+# map 1032192 1032192 rw-p 
+# map 32768 32768 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_generator.cpython-310-x86_64-linux-gnu.so
+# map 126976 126976 r-xp /opt/conda/lib/python3.10/site-packages/numpy/random/_generator.cpython-310-x86_64-linux-gnu.so
+# map 253952 253952 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_generator.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_generator.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 rw-p /opt/conda/lib/python3.10/site-packages/numpy/random/_generator.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 rw-p 
+# map 12288 12288 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_sfc64.cpython-310-x86_64-linux-gnu.so
+# map 28672 28672 r-xp /opt/conda/lib/python3.10/site-packages/numpy/random/_sfc64.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_sfc64.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_sfc64.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/numpy/random/_sfc64.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_pcg64.cpython-310-x86_64-linux-gnu.so
+# map 61440 61440 r-xp /opt/conda/lib/python3.10/site-packages/numpy/random/_pcg64.cpython-310-x86_64-linux-gnu.so
+# map 20480 20480 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_pcg64.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_pcg64.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/numpy/random/_pcg64.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_philox.cpython-310-x86_64-linux-gnu.so
+# map 49152 49152 r-xp /opt/conda/lib/python3.10/site-packages/numpy/random/_philox.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_philox.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_philox.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/numpy/random/_philox.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_mt19937.cpython-310-x86_64-linux-gnu.so
+# map 53248 53248 r-xp /opt/conda/lib/python3.10/site-packages/numpy/random/_mt19937.cpython-310-x86_64-linux-gnu.so
+# map 20480 20480 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_mt19937.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_mt19937.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/numpy/random/_mt19937.cpython-310-x86_64-linux-gnu.so
+# map 20480 20480 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_bounded_integers.cpython-310-x86_64-linux-gnu.so
+# map 98304 98304 r-xp /opt/conda/lib/python3.10/site-packages/numpy/random/_bounded_integers.cpython-310-x86_64-linux-gnu.so
+# map 36864 36864 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_bounded_integers.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_bounded_integers.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/numpy/random/_bounded_integers.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p 
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/_blake2.cpython-310-x86_64-linux-gnu.so
+# map 32768 32768 r-xp /opt/conda/lib/python3.10/lib-dynload/_blake2.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/_blake2.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_blake2.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_blake2.cpython-310-x86_64-linux-gnu.so
+# map 749568 749568 r--p /opt/conda/lib/libcrypto.so.3
+# map 1748992 1748992 r-xp /opt/conda/lib/libcrypto.so.3
+# map 364544 364544 r--p /opt/conda/lib/libcrypto.so.3
+# map 372736 372736 r--p /opt/conda/lib/libcrypto.so.3
+# map 12288 12288 rw-p /opt/conda/lib/libcrypto.so.3
+# map 8192 8192 rw-p 
+# map 16384 16384 r--p /opt/conda/lib/python3.10/lib-dynload/_hashlib.cpython-310-x86_64-linux-gnu.so
+# map 24576 24576 r-xp /opt/conda/lib/python3.10/lib-dynload/_hashlib.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/python3.10/lib-dynload/_hashlib.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_hashlib.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_hashlib.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/binascii.cpython-310-x86_64-linux-gnu.so
+# map 20480 20480 r-xp /opt/conda/lib/python3.10/lib-dynload/binascii.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/binascii.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/binascii.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/binascii.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_common.cpython-310-x86_64-linux-gnu.so
+# map 110592 110592 r-xp /opt/conda/lib/python3.10/site-packages/numpy/random/_common.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_common.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/_common.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/numpy/random/_common.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p 
+# map 20480 20480 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/bit_generator.cpython-310-x86_64-linux-gnu.so
+# map 122880 122880 r-xp /opt/conda/lib/python3.10/site-packages/numpy/random/bit_generator.cpython-310-x86_64-linux-gnu.so
+# map 40960 40960 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/bit_generator.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/bit_generator.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 rw-p /opt/conda/lib/python3.10/site-packages/numpy/random/bit_generator.cpython-310-x86_64-linux-gnu.so
+# map 20480 20480 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/mtrand.cpython-310-x86_64-linux-gnu.so
+# map 172032 172032 r-xp /opt/conda/lib/python3.10/site-packages/numpy/random/mtrand.cpython-310-x86_64-linux-gnu.so
+# map 253952 253952 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/mtrand.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/numpy/random/mtrand.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/numpy/random/mtrand.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 rw-p 
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/numpy/fft/_pocketfft_internal.cpython-310-x86_64-linux-gnu.so
+# map 57344 57344 r-xp /opt/conda/lib/python3.10/site-packages/numpy/fft/_pocketfft_internal.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/site-packages/numpy/fft/_pocketfft_internal.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/numpy/fft/_pocketfft_internal.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/numpy/fft/_pocketfft_internal.cpython-310-x86_64-linux-gnu.so
+# map 1032192 1032192 rw-p 
+# map 28672 28672 r--p /opt/conda/lib/python3.10/site-packages/numpy/linalg/_umath_linalg.cpython-310-x86_64-linux-gnu.so
+# map 122880 122880 r-xp /opt/conda/lib/python3.10/site-packages/numpy/linalg/_umath_linalg.cpython-310-x86_64-linux-gnu.so
+# map 20480 20480 r--p /opt/conda/lib/python3.10/site-packages/numpy/linalg/_umath_linalg.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/numpy/linalg/_umath_linalg.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/numpy/linalg/_umath_linalg.cpython-310-x86_64-linux-gnu.so
+# map 36864 36864 r--p /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_tests.cpython-310-x86_64-linux-gnu.so
+# map 77824 77824 r-xp /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_tests.cpython-310-x86_64-linux-gnu.so
+# map 24576 24576 r--p /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_tests.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_tests.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_tests.cpython-310-x86_64-linux-gnu.so
+# map 1048576 1048576 rw-p 
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_contextvars.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r-xp /opt/conda/lib/python3.10/lib-dynload/_contextvars.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_contextvars.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_contextvars.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_contextvars.cpython-310-x86_64-linux-gnu.so
+# map 20480 20480 r--p /opt/conda/lib/python3.10/lib-dynload/_pickle.cpython-310-x86_64-linux-gnu.so
+# map 73728 73728 r-xp /opt/conda/lib/python3.10/lib-dynload/_pickle.cpython-310-x86_64-linux-gnu.so
+# map 24576 24576 r--p /opt/conda/lib/python3.10/lib-dynload/_pickle.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_pickle.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 rw-p /opt/conda/lib/python3.10/lib-dynload/_pickle.cpython-310-x86_64-linux-gnu.so
+# map 1032192 1032192 rw-p 
+# map 20480 20480 r--p /opt/conda/lib/python3.10/lib-dynload/_datetime.cpython-310-x86_64-linux-gnu.so
+# map 69632 69632 r-xp /opt/conda/lib/python3.10/lib-dynload/_datetime.cpython-310-x86_64-linux-gnu.so
+# map 24576 24576 r--p /opt/conda/lib/python3.10/lib-dynload/_datetime.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_datetime.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 rw-p /opt/conda/lib/python3.10/lib-dynload/_datetime.cpython-310-x86_64-linux-gnu.so
+# map 180224 180224 r--p /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_umath.cpython-310-x86_64-linux-gnu.so
+# map 1933312 1933312 r-xp /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_umath.cpython-310-x86_64-linux-gnu.so
+# map 487424 487424 r--p /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_umath.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_umath.cpython-310-x86_64-linux-gnu.so
+# map 139264 139264 rw-p /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_umath.cpython-310-x86_64-linux-gnu.so
+# map 1089536 1089536 rw-p 
+# map 24576 24576 r--p /opt/conda/lib/python3.10/site-packages/mkl/_py_mkl_service.cpython-310-x86_64-linux-gnu.so
+# map 61440 61440 r-xp /opt/conda/lib/python3.10/site-packages/mkl/_py_mkl_service.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/python3.10/site-packages/mkl/_py_mkl_service.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/mkl/_py_mkl_service.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 rw-p /opt/conda/lib/python3.10/site-packages/mkl/_py_mkl_service.cpython-310-x86_64-linux-gnu.so
+# map 1949696 1949696 r--p /opt/conda/lib/libmkl_rt.so.2
+# map 61440 61440 r-xp /opt/conda/lib/libmkl_rt.so.2
+# map 65536 65536 r--p /opt/conda/lib/libmkl_rt.so.2
+# map 24576 24576 r--p /opt/conda/lib/libmkl_rt.so.2
+# map 8192 8192 rw-p /opt/conda/lib/libmkl_rt.so.2
+# map 4096 4096 rw-p 
+# map 253952 253952 rw-p /opt/conda/lib/libmkl_rt.so.2
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/mkl/_mklinit.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r-xp /opt/conda/lib/python3.10/site-packages/mkl/_mklinit.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/mkl/_mklinit.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/mkl/_mklinit.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/mkl/_mklinit.cpython-310-x86_64-linux-gnu.so
+# map 9785344 9785344 r-xp /opt/conda/lib/libnvrtc.so.12.1.105
+# map 1187840 1187840 r--p /opt/conda/lib/libnvrtc.so.12.1.105
+# map 401408 401408 rw-p /opt/conda/lib/libnvrtc.so.12.1.105
+# map 458752 458752 rw-p 
+# map 8192 8192 rw-p /opt/conda/lib/libnvrtc.so.12.1.105
+# map 1019904 1019904 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libnvfuser_codegen.so
+# map 434176 434176 r-xp /opt/conda/lib/python3.10/site-packages/torch/lib/libnvfuser_codegen.so
+# map 184320 184320 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libnvfuser_codegen.so
+# map 98304 98304 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libnvfuser_codegen.so
+# map 24576 24576 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libnvfuser_codegen.so
+# map 4096 4096 rw-p 
+# map 8970240 8970240 r-xp /opt/conda/lib/libnvJitLink.so.12.1.105
+# map 1159168 1159168 r--p /opt/conda/lib/libnvJitLink.so.12.1.105
+# map 98304 98304 rw-p /opt/conda/lib/libnvJitLink.so.12.1.105
+# map 446464 446464 rw-p 
+# map 8192 8192 rw-p /opt/conda/lib/libnvJitLink.so.12.1.105
+# map 1507328 1507328 r-xp /opt/conda/lib/libcusparse.so.12.0.2.55
+# map 61440 61440 r--p /opt/conda/lib/libcusparse.so.12.0.2.55
+# map 106496 106496 rw-p /opt/conda/lib/libcusparse.so.12.0.2.55
+# map 24576 24576 rw-p 
+# map 20480 20480 rw-p /opt/conda/lib/libcusparse.so.12.0.2.55
+# map 2187264 2187264 r-xp /opt/conda/lib/python3.10/site-packages/torch/lib/libcupti-abc63100.so.12
+# map 315392 315392 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libcupti-abc63100.so.12
+# map 40960 40960 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libcupti-abc63100.so.12
+# map 212992 212992 rw-p 
+# map 12288 12288 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libcupti-abc63100.so.12
+# map 122880 122880 r-xp /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn.so.8
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn.so.8
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn.so.8
+# map 4096 4096 rw-p 
+# map 12288 12288 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn.so.8
+# map 126976 126976 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libc10.so
+# map 425984 425984 r-xp /opt/conda/lib/python3.10/site-packages/torch/lib/libc10.so
+# map 57344 57344 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libc10.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libc10.so
+# map 24576 24576 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libc10.so
+# map 8192 8192 rw-p 
+# map 77824 77824 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libc10.so
+# map 65536 65536 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libc10_cuda.so
+# map 327680 327680 r-xp /opt/conda/lib/python3.10/site-packages/torch/lib/libc10_cuda.so
+# map 20480 20480 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libc10_cuda.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libc10_cuda.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libc10_cuda.so
+# map 20480 20480 rw-p 
+# map 13045760 13045760 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so
+# map 9273344 9273344 r-xp /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so
+# map 25264128 25264128 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so
+# map 507904 507904 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so
+# map 167936 167936 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so
+# map 10596352 10596352 rw-p 
+# map 7495680 7495680 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cpu.so
+# map 43737088 43737088 r-xp /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cpu.so
+# map 7127040 7127040 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cpu.so
+# map 2043904 2043904 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cpu.so
+# map 233472 233472 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cpu.so
+# map 364544 364544 rw-p 
+# map 5042176 5042176 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cpu.so
+# map 49152 49152 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch.so
+# map 45056 45056 r-xp /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch.so
+# map 12288 12288 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libshm.so
+# map 12288 12288 r-xp /opt/conda/lib/python3.10/site-packages/torch/lib/libshm.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libshm.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libshm.so
+# map 2064384 2064384 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_python.so
+# map 8314880 8314880 r-xp /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_python.so
+# map 1433600 1433600 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_python.so
+# map 114688 114688 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_python.so
+# map 339968 339968 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_python.so
+# map 380928 380928 rw-p 
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/torch/_C.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r-xp /opt/conda/lib/python3.10/site-packages/torch/_C.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/torch/_C.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/torch/_C.cpython-310-x86_64-linux-gnu.so
+# map 1736704 1736704 r--p /.singularity.d/libs/libcuda.so.1
+# map 1765376 1765376 r-xp /.singularity.d/libs/libcuda.so.1
+# map 3710976 3710976 r--p /.singularity.d/libs/libcuda.so.1
+# map 1556480 1556480 r--p /.singularity.d/libs/libcuda.so.1
+# map 20480 20480 rw-p /.singularity.d/libs/libcuda.so.1
+# map 98304 98304 rw-p 
+# map 651264 651264 r--p /opt/conda/lib/libstdc++.so.6.0.29
+# map 733184 733184 r-xp /opt/conda/lib/libstdc++.so.6.0.29
+# map 176128 176128 r--p /opt/conda/lib/libstdc++.so.6.0.29
+# map 45056 45056 r--p /opt/conda/lib/libstdc++.so.6.0.29
+# map 12288 12288 rw-p /opt/conda/lib/libstdc++.so.6.0.29
+# map 12288 12288 rw-p 
+# map 12288 12288 r--p /opt/conda/lib/libgcc_s.so.1
+# map 73728 73728 r-xp /opt/conda/lib/libgcc_s.so.1
+# map 12288 12288 r--p /opt/conda/lib/libgcc_s.so.1
+# map 4096 4096 r--p /opt/conda/lib/libgcc_s.so.1
+# map 4096 4096 rw-p /opt/conda/lib/libgcc_s.so.1
+# map 8192 8192 r--p /usr/lib/x86_64-linux-gnu/librt-2.31.so
+# map 16384 16384 r-xp /usr/lib/x86_64-linux-gnu/librt-2.31.so
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/librt-2.31.so
+# map 4096 4096 rw-p /usr/lib/x86_64-linux-gnu/librt-2.31.so
+# map 45056 45056 r--p /opt/conda/lib/libgomp.so.1.0.0
+# map 172032 172032 r-xp /opt/conda/lib/libgomp.so.1.0.0
+# map 49152 49152 r--p /opt/conda/lib/libgomp.so.1.0.0
+# map 4096 4096 r--p /opt/conda/lib/libgomp.so.1.0.0
+# map 4096 4096 rw-p /opt/conda/lib/libgomp.so.1.0.0
+# map 32768 32768 r-xp /opt/conda/lib/libnvToolsExt.so.1.0.0
+# map 4096 4096 r--p /opt/conda/lib/libnvToolsExt.so.1.0.0
+# map 4096 4096 rw-p /opt/conda/lib/libnvToolsExt.so.1.0.0
+# map 4096 4096 rw-p /opt/conda/lib/libnvToolsExt.so.1.0.0
+# map 516096 516096 r-xp /opt/conda/lib/libcudart.so.12.1.105
+# map 20480 20480 r--p /opt/conda/lib/libcudart.so.12.1.105
+# map 4096 4096 rw-p /opt/conda/lib/libcudart.so.12.1.105
+# map 4096 4096 rw-p 
+# map 16384 16384 rw-p /opt/conda/lib/libcudart.so.12.1.105
+# map 41512960 41512960 r-xp /opt/conda/lib/libcublasLt.so.12.1.0.26
+# map 2293760 2293760 r--p /opt/conda/lib/libcublasLt.so.12.1.0.26
+# map 229376 229376 rw-p /opt/conda/lib/libcublasLt.so.12.1.0.26
+# map 40566784 40566784 rw-p 
+# map 16384 16384 rw-p /opt/conda/lib/libcublasLt.so.12.1.0.26
+# map 1748992 1748992 r-xp /opt/conda/lib/libcublas.so.12.1.0.26
+# map 28672 28672 r--p /opt/conda/lib/libcublas.so.12.1.0.26
+# map 28672 28672 rw-p /opt/conda/lib/libcublas.so.12.1.0.26
+# map 28672 28672 rw-p 
+# map 24576 24576 rw-p /opt/conda/lib/libcublas.so.12.1.0.26
+# map 339968 339968 r-xp /opt/conda/lib/libcurand.so.10.3.4.101
+# map 24576 24576 r--p /opt/conda/lib/libcurand.so.10.3.4.101
+# map 45056 45056 rw-p /opt/conda/lib/libcurand.so.10.3.4.101
+# map 28672 28672 rw-p 
+# map 4096 4096 rw-p /opt/conda/lib/libcurand.so.10.3.4.101
+# map 4378624 4378624 r-xp /opt/conda/lib/libcufft.so.11.0.2.4
+# map 389120 389120 r--p /opt/conda/lib/libcufft.so.11.0.2.4
+# map 49152 49152 rw-p /opt/conda/lib/libcufft.so.11.0.2.4
+# map 987136 987136 rw-p 
+# map 8192 8192 rw-p /opt/conda/lib/libcufft.so.11.0.2.4
+# map 1097728 1097728 r--p /opt/conda/lib/libmkl_core.so.2
+# map 598016 598016 r-xp /opt/conda/lib/libmkl_core.so.2
+# map 159744 159744 r--p /opt/conda/lib/libmkl_core.so.2
+# map 28672 28672 r--p /opt/conda/lib/libmkl_core.so.2
+# map 172032 172032 rw-p /opt/conda/lib/libmkl_core.so.2
+# map 49152 49152 rw-p 
+# map 839680 839680 rw-p /opt/conda/lib/libmkl_core.so.2
+# map 1122304 1122304 r--p /opt/conda/lib/libmkl_gnu_thread.so.2
+# map 516096 516096 r-xp /opt/conda/lib/libmkl_gnu_thread.so.2
+# map 65536 65536 r--p /opt/conda/lib/libmkl_gnu_thread.so.2
+# map 16384 16384 r--p /opt/conda/lib/libmkl_gnu_thread.so.2
+# map 315392 315392 rw-p /opt/conda/lib/libmkl_gnu_thread.so.2
+# map 839680 839680 rw-p /opt/conda/lib/libmkl_gnu_thread.so.2
+# map 1634304 1634304 r--p /opt/conda/lib/libmkl_intel_lp64.so.2
+# map 524288 524288 r-xp /opt/conda/lib/libmkl_intel_lp64.so.2
+# map 110592 110592 r--p /opt/conda/lib/libmkl_intel_lp64.so.2
+# map 8192 8192 r--p /opt/conda/lib/libmkl_intel_lp64.so.2
+# map 122880 122880 rw-p /opt/conda/lib/libmkl_intel_lp64.so.2
+# map 4096 4096 rw-p 
+# map 512000 512000 rw-p /opt/conda/lib/libmkl_intel_lp64.so.2
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_global_deps.so
+# map 4096 4096 r-xp /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_global_deps.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_global_deps.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_global_deps.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/_sha512.cpython-310-x86_64-linux-gnu.so
+# map 20480 20480 r-xp /opt/conda/lib/python3.10/lib-dynload/_sha512.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_sha512.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_sha512.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_sha512.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/_random.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r-xp /opt/conda/lib/python3.10/lib-dynload/_random.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_random.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_random.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_random.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/_bisect.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r-xp /opt/conda/lib/python3.10/lib-dynload/_bisect.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_bisect.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_bisect.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_bisect.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/liblzma.so.5.4.2
+# map 110592 110592 r-xp /opt/conda/lib/liblzma.so.5.4.2
+# map 4096 4096 r--p /opt/conda/lib/liblzma.so.5.4.2
+# map 4096 4096 rw-p /opt/conda/lib/liblzma.so.5.4.2
+# map 12288 12288 r--p /opt/conda/lib/python3.10/lib-dynload/_lzma.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r-xp /opt/conda/lib/python3.10/lib-dynload/_lzma.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/python3.10/lib-dynload/_lzma.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_lzma.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_lzma.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/libbz2.so.1.0.8
+# map 53248 53248 r-xp /opt/conda/lib/libbz2.so.1.0.8
+# map 4096 4096 r--p /opt/conda/lib/libbz2.so.1.0.8
+# map 4096 4096 rw-p /opt/conda/lib/libbz2.so.1.0.8
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/_bz2.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r-xp /opt/conda/lib/python3.10/lib-dynload/_bz2.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/_bz2.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_bz2.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_bz2.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/libz.so.1.2.13
+# map 73728 73728 r-xp /opt/conda/lib/libz.so.1.2.13
+# map 24576 24576 r--p /opt/conda/lib/libz.so.1.2.13
+# map 4096 4096 r--p /opt/conda/lib/libz.so.1.2.13
+# map 4096 4096 rw-p /opt/conda/lib/libz.so.1.2.13
+# map 12288 12288 r--p /opt/conda/lib/python3.10/lib-dynload/zlib.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r-xp /opt/conda/lib/python3.10/lib-dynload/zlib.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/python3.10/lib-dynload/zlib.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/zlib.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/zlib.cpython-310-x86_64-linux-gnu.so
+# map 1048576 1048576 rw-p 
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_opcode.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r-xp /opt/conda/lib/python3.10/lib-dynload/_opcode.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_opcode.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_opcode.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_opcode.cpython-310-x86_64-linux-gnu.so
+# map 1032192 1032192 rw-p 
+# map 16384 16384 r--p /opt/conda/lib/python3.10/lib-dynload/_struct.cpython-310-x86_64-linux-gnu.so
+# map 20480 20480 r-xp /opt/conda/lib/python3.10/lib-dynload/_struct.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/python3.10/lib-dynload/_struct.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_struct.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_struct.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/libffi.so.8.1.2
+# map 40960 40960 r-xp /opt/conda/lib/libffi.so.8.1.2
+# map 8192 8192 r--p /opt/conda/lib/libffi.so.8.1.2
+# map 4096 4096 r--p /opt/conda/lib/libffi.so.8.1.2
+# map 4096 4096 rw-p /opt/conda/lib/libffi.so.8.1.2
+# map 28672 28672 r--p /opt/conda/lib/python3.10/lib-dynload/_ctypes.cpython-310-x86_64-linux-gnu.so
+# map 57344 57344 r-xp /opt/conda/lib/python3.10/lib-dynload/_ctypes.cpython-310-x86_64-linux-gnu.so
+# map 24576 24576 r--p /opt/conda/lib/python3.10/lib-dynload/_ctypes.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_ctypes.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 rw-p /opt/conda/lib/python3.10/lib-dynload/_ctypes.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r--p /opt/conda/lib/python3.10/lib-dynload/select.cpython-310-x86_64-linux-gnu.so
+# map 12288 12288 r-xp /opt/conda/lib/python3.10/lib-dynload/select.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/select.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/select.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/select.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/_posixsubprocess.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r-xp /opt/conda/lib/python3.10/lib-dynload/_posixsubprocess.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_posixsubprocess.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/_posixsubprocess.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/_posixsubprocess.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/fcntl.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r-xp /opt/conda/lib/python3.10/lib-dynload/fcntl.cpython-310-x86_64-linux-gnu.so
+# map 8192 8192 r--p /opt/conda/lib/python3.10/lib-dynload/fcntl.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/fcntl.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/fcntl.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so
+# map 32768 32768 r-xp /opt/conda/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so
+# map 16384 16384 r--p /opt/conda/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 r--p /opt/conda/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so
+# map 4096 4096 rw-p /opt/conda/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so
+# map 3137536 0 rw-p 
+# map 28672 28672 r--s /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
+# map 98304 98304 r--p /usr/lib/locale/C.UTF-8/LC_CTYPE
+# map 4198400 4198400 rw-s /results/pmtable_2104472
+# map 16384 16384 rw-p 
+# map 139264 139264 r--p /usr/lib/x86_64-linux-gnu/libc-2.31.so
+# map 1290240 1290240 r-xp /usr/lib/x86_64-linux-gnu/libc-2.31.so
+# map 155648 155648 r--p /usr/lib/x86_64-linux-gnu/libc-2.31.so
+# map 16384 16384 r--p /usr/lib/x86_64-linux-gnu/libc-2.31.so
+# map 8192 8192 rw-p /usr/lib/x86_64-linux-gnu/libc-2.31.so
+# map 16384 16384 rw-p 
+# map 53248 53248 r--p /usr/lib/x86_64-linux-gnu/libm-2.31.so
+# map 376832 376832 r-xp /usr/lib/x86_64-linux-gnu/libm-2.31.so
+# map 237568 237568 r--p /usr/lib/x86_64-linux-gnu/libm-2.31.so
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/libm-2.31.so
+# map 4096 4096 rw-p /usr/lib/x86_64-linux-gnu/libm-2.31.so
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/libutil-2.31.so
+# map 4096 4096 r-xp /usr/lib/x86_64-linux-gnu/libutil-2.31.so
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/libutil-2.31.so
+# map 4096 4096 rw-p /usr/lib/x86_64-linux-gnu/libutil-2.31.so
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/libdl-2.31.so
+# map 8192 8192 r-xp /usr/lib/x86_64-linux-gnu/libdl-2.31.so
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/libdl-2.31.so
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/libdl-2.31.so
+# map 4096 4096 rw-p /usr/lib/x86_64-linux-gnu/libdl-2.31.so
+# map 24576 24576 r--p /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+# map 69632 69632 r-xp /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+# map 24576 24576 r--p /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+# map 4096 4096 rw-p /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+# map 4096 4096 rw-p 
+# map 4096 4096 r--p /ar/pmrec.so
+# map 4096 4096 r-xp /ar/pmrec.so
+# map 4096 4096 r--p /ar/pmrec.so
+# map 4096 4096 r--p /ar/pmrec.so
+# map 4096 4096 rw-p /ar/pmrec.so
+# map 12288 12288 rw-p 
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/ld-2.31.so
+# map 143360 143360 r-xp /usr/lib/x86_64-linux-gnu/ld-2.31.so
+# map 32768 32768 r--p /usr/lib/x86_64-linux-gnu/ld-2.31.so
+# map 4096 4096 r--s /dev/nvidiactl
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/ld-2.31.so
+# map 4096 4096 rw-p /usr/lib/x86_64-linux-gnu/ld-2.31.so
+# map 4096 4096 rw-p 
+# map 131072 131072 rw-p [stack]
+# map 4096 4096 r-xp [vdso]
+# fullscan_skipped_bytes=16178958336 mappings=116 mode=readable-only
+# shared_boundary_pages=31 of 73567 counted (0.042%)
+# live_allocations=146 allocated_bytes=300739494 inserts=5870 drops=0
+# resident_bytes allocated_bytes count site caller
+101322752 101198876 28 0x14fde58ed3c2 0x0
+95821824 95734168 23 0x14fde699c750 0x0
+57253888 57228288 7 0x14fd9d91b5e5 0x0
+7274496 8591872 16 0x14fe260ce35b 0x0
+3313664 3285192 7 0x4d6be1 0x0
+2101248 16783359 1 0x14fde58faff4 0x0
+1507328 1490944 4 0x14fde5aaa0e8 0x0
+1486848 1478360 10 0x14fde5975fb0 0x0
+790528 768800 4 0x14fde58ba86e 0x0
+663552 656400 2 0x14fdd9b7a926 0x0
+540672 530880 3 0x14fde5a3da32 0x0
+528384 524280 1 0x14fde5afce4a 0x0
+528384 524280 1 0x14fde5afcecf 0x0
+528384 524280 1 0x14fde5afcdf5 0x0
+266240 262140 1 0x14fde5afcdda 0x0
+237568 327680 4 0x14fdd9bbc5a0 0x0
+233472 230048 1 0x14fde50f4a4b 0x0
+172032 163840 2 0x14fde5a3db15 0x0
+167936 161464 1 0x14fdec6dff0a 0x0
+163840 161464 1 0x14fdf1e879da 0x0
+143360 4325376 3 0x4d6ce1 0x0
+143360 1048576 1 0x14fde5959c8f 0x0
+143360 137648 1 0x14fde58cf287 0x0
+143360 132064 2 0x14fe0e3d777d 0x0
+135168 131072 1 0x14fde5a3c370 0x0
+118784 113528 1 0x58a2e6 0x0
+110592 107656 1 0x14fa8a4b526a 0x0
+98304 96807 1 0x14fde595bfeb 0x0
+94208 88344 1 0x14fde598271e 0x0
+94208 131040 1 0x14fdec313269 0x0
+81920 118944 1 0x14fdd9b9f311 0x0
+73728 131072 1 0x14fddd26fc27 0x0
+73728 69664 1 0x14fe260cfaed 0x0
+69632 65536 1 0x14fb5eca822e 0x0
+61440 72704 1 0x14fdec2cda1a 0x0
+49152 65536 1 0x14fde5a4bc21 0x0
+8192 72704 1 0x14fd8a8f6b66 0x0
+8192 72704 1 0x14fd8d894b60 0x0
+8192 72704 1 0x14fd9ce34b76 0x0
+8192 72704 1 0x14fded091cb0 0x0
+8192 72704 1 0x14fe1a4f7ad0 0x0
+8192 72704 1 0x14fd86a900f6 0x0
+8192 72704 1 0x14fe0d7c7540 0x0
+8192 72704 1 0x14fe13ffdf70 0x0
+4096 2695680 1 0x14fde594626a 0x0

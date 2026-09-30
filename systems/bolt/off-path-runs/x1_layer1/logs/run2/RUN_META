@@ -1,0 +1,19 @@
+step=x1_layer1
+run=2
+date_utc=2026-08-02T21:29:01Z
+machine=palma:long node=r10n36
+slurm_job_id=45677271
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+attrib_host=off
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/bolt/sif/bolt-x1_layer1.sif
+image_digest=2cd545bb480e8ff596f578836b340c75575f19410348dbf087cd8e2ded886100
+omp_num_threads=16
+snni_seed=0x5EED
+bolt_sample_id=0
+bolt_port=8271
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base seq=128 layers=12 num_class=2 (SST-2 quantised weights)
+protocol=BOLT 2PC, HE backend SEAL 4.1.1 (BFV), OT via SCI/KKOT, bitlength 37, NL_SCALE 12
+role=BOTH parties (ALICE r=1 weights, BOB r=2 input), measured together on one node

@@ -1,0 +1,56 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m1_pool_threshold.sif
+
+# MOAI-CPU: minimal attention Galois keys, on top of m1_pool_threshold (pool-first line).
+#
+# WHY ON m1_pool_threshold. The threshold pool restored "live at the peak = responsible for the
+# peak", and m1_pool_threshold's peak (283.0 GiB) is now dominated by ONE named live object: the
+# Galois key bank at 221.6 GiB (create_galois_keys @ test_full_scheme.hpp:475). This step is the one
+# FREE fix on that object. The no-arg create_galois_keys builds 1 + 2*(logN-1) = 31 rotation
+# elements, but 17 of them are never requested on the attention path; building only the used ones
+# removes them at no runtime cost. patch_minimal_att_keys.py carries the four-step proof.
+#
+# WHY IT COMPOSES CLEANLY. minimal_att_keys patches only the project (test_full_scheme.hpp swaps
+# create_galois_keys(gal_keys) for the explicit-step overload create_galois_keys(att_steps,
+# gal_keys)). The threshold and the recording pool live in SEAL and are inherited unchanged from the
+# base, so only /root/moai is rebuilt here and the run still writes a live object table for the next
+# step. This is the SEAL/project split the m1_pool_threshold def relied on in the other direction.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_minimal_att_keys.py /opt/patch_minimal_att_keys.py
+
+%post
+    set -e
+
+    # The patch verifies its own application (refuses at != 1 anchor match and if the marker or
+    # att_steps are absent afterward), so a wrong base fails here rather than at run time.
+    python3 /opt/patch_minimal_att_keys.py /root/moai
+
+    # PROJECT ONLY. SEAL (threshold + recording pool) is already built and installed in the base.
+    cd /root/moai
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+
+    # BOTH levers must be present, plus the seed, the workload, and the recording pool.
+    strings -a /root/moai/build/test | grep -q 'SEEDED|seal_prng|' \
+        || { echo "FAILED: no SEAL seed marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'WORKLOAD|model=bert-base' \
+        || { echo "FAILED: no workload marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|pool_threshold' \
+        || { echo "FAILED: the inherited pool_threshold lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|minimal_att_keys' \
+        || { echo "FAILED: the minimal_att_keys lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'POOLREC|profile_installed' \
+        || { echo "FAILED: the recording pool is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'SNNI_MM|profile=new' \
+        && { echo "FAILED: this variant must NOT carry MMProfNew"; exit 4; }
+
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m2_minimal_att_keys
+    snni.base m1_pool_threshold

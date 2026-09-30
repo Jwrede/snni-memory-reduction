@@ -1,0 +1,20 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m7_phase_split_v2.sif
+
+# Fixed phase-split: full_3-Bootstrap-Korrektur auf die buggy phase-split-Linie (kein chunked, kein
+# att-release). Sauberer Waterfall-Schritt m7->phase-split, korrekt, auf PALMA zen4.
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_ps_full3_fix.py /opt/patch_ps_full3_fix.py
+%post
+    set -e
+    python3 /opt/patch_ps_full3_fix.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    strings -a build/test | grep -q phase_split || { echo "FAILED: phase_split marker fehlt" >&2; exit 1; }
+    strings -a build/test | grep -q chunked_bootstrap && { echo "FAILED: chunked drin (soll nicht)" >&2; exit 1; } || true
+    md5sum build/test | awk '{print $1}' > /opt/moai_binary_md5.txt; cat /opt/moai_binary_md5.txt
+%labels
+    snni.step phase_split_fixed
+    snni.note full3-fix-on-phase-split-no-chunked

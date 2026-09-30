@@ -1,0 +1,17 @@
+step=d1_layer_weights
+run=2
+date_utc=2026-08-04T09:18:41Z
+machine=palma:zen2-128C-496G node=r13n06
+slurm_job_id=45772878
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+attrib_host=pmrec_pagemap
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/shark/sif/shark-d1_layer_weights.sif
+image_digest=dcbf94da728acf2f4dc5c91dfebadc68fe666f8c566f80795442e1a1cf683da0
+lib_fingerprint=2a142d4904f6dc7933f5607fdad493eb
+omp_num_threads=16
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base n_embd=768 n_layer=12 n_seq=128 f=16 (SHARK_N_LAYERS=12 SHARK_SEQ_LEN=128)
+role=THE DEALER (party 2). The online parties still run, for the gate, and are NOT polled here
+freeze_leader_party=0

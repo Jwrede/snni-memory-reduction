@@ -1,0 +1,42 @@
+=== node: r19n02  mem: 755 GB  Tue Sep  8 18:34:58 UTC 2026 ===
+----------------------FULL SCHEME------------------
+Task: test BERT in CKKS scheme: 
+FLOOR|begin|note=T=1 protocol-only resident floor; deltas are VmRSS
+FLOOR|after_start|vmrss_kb=259288|vmhwm_kb=259288
+-0.386413 -0.0460502
+FLOOR|after_context|vmrss_kb=3655692|vmhwm_kb=3655692
+Set encryption parameters and print
+/
+| Encryption parameters :
+|   scheme: CKKS
+|   poly_modulus_degree: 65536
+|   coeff_modulus size: 1743 (51 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 58) bits
+\
+FLOOR|after_relin|vmrss_kb=5094216|vmhwm_kb=5094216
+FLOOR|after_gal_keys|vmrss_kb=43813388|vmhwm_kb=43813388
+MEM|keys_created|rss_kb=43853920|hwm_kb=43853920
+preparing bootstrapping...
+FLOOR|before_gal_keys_boot|vmrss_kb=43904112|vmhwm_kb=43904112
+FLOOR|after_gal_keys_boot|vmrss_kb=104569848|vmhwm_kb=104569848
+MEM|boot_keys_created|rss_kb=104569848|hwm_kb=104569848
+FLOOR|before_largest_stage_keys|vmrss_kb=104759804|vmhwm_kb=104759804
+FLOOR|after_largest_stage_keys|vmrss_kb=122842756|vmhwm_kb=122842756
+FLOOR|before_ct_vectors|vmrss_kb=122842756|vmhwm_kb=122842756
+FLOOR|after_2_ct_vectors|vmrss_kb=178305680|vmhwm_kb=178305680
+FLOOR|after_inflight|vmrss_kb=178772624|vmhwm_kb=178772624
+FLOOR|gal_keys_30_bank_kb=38719172|largest_stage_direct_kb=18082952
+FLOOR_SUMMARY|context_kb=3655692|relin_kb=1438524|boot_bank_kb=60665736|per_boot_key_kb=1290760|largest_stage15_kb=19361400|ct_vectors_kb=55462924|inflight_kb=466944|target_kb=76729792
+=== done Tue Sep  8 18:44:05 UTC 2026 ===
+################################# JOB REPORT ##################################
+Job ID: 46667236
+Cluster: palma2
+User/Group: j_wred02/u0dawin
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 8
+CPU Utilized: 00:11:07
+CPU Efficiency: 15.00% of 01:14:08 core-walltime
+Job Wall-clock time: 00:09:16
+Memory Utilized: 170.87 GB
+Memory Efficiency: 66.75% of 256.00 GB (256.00 GB/node)
+###############################################################################

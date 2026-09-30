@@ -1,0 +1,42 @@
+--- a/include/shark/utils/comm.hpp	2026-07-30 00:27:30.371282262 +0000
++++ b/include/shark/utils/comm.hpp	2026-07-30 00:27:46.521916845 +0000
+@@ -3,6 +3,7 @@
+ #include <cstdint>
+ #include <fstream>
+ #include <string>
++#include <vector>
+ 
+ #include <shark/types/u128.hpp>
+ #include <shark/types/span.hpp>
+@@ -41,6 +42,17 @@
+     {
+     public:
+         std::fstream file;
++        /* s1 lever, read path only: a 64 MiB stream buffer.
++
++           The streaming reload is served by libstdc++'s default filebuf buffer, which is BUFSIZ
++           (8 KiB). Every key sub-array is a few hundred bytes, so consuming a ~56 GB preprocessing
++           file that way costs about 6.8 million read() syscalls, and that -- not the bytes -- is
++           what made the unbuffered reload cost +26.9% of program time (measured, jobs
++           45509849-51). One 64 MiB buffer turns it into about 875 reads.
++
++           It is 64 MiB of resident memory against a 2.9 GB peak, and it changes no byte read and no
++           order in which bytes are read. */
++        std::vector<char> _iobuf;
+ 
+         FileBuf(std::string filename, FileMode f)
+         {
+@@ -49,7 +61,13 @@
+             if (f == F_WR_ONLY)
+                 this->file.open(filename, std::ios::out | std::ios::binary);
+             else
++            {
++                /* pubsetbuf must precede open for libstdc++'s basic_filebuf. */
++                this->_iobuf.resize(64ull << 20);
++                this->file.rdbuf()->pubsetbuf(this->_iobuf.data(),
++                                              (std::streamsize)this->_iobuf.size());
+                 this->file.open(filename, std::ios::in | std::ios::binary);
++            }
+         }
+ 
+         void read(char *buf, u64 bytes)

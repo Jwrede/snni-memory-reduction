@@ -1,0 +1,17 @@
+step=p_iotrace_L8
+run=1
+date_utc=2026-08-04T06:14:55Z
+machine=palma:express node=r04n06
+slurm_job_id=45764921
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+attrib_host=off
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/llama/sif/llama-online-p_iotrace.sif
+image_digest=c918e89881bbc987bb67cecc390155997fc9a77433625143943c86ffccf751b1
+llama_n_layers=8
+omp_num_threads=16
+malloc_arena_max=2
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base n_embd=768 n_layer=12 bw=51 n_seq=128 scale=12
+role=ONLINE parties 2 and 3 (server + client); the dealer runs first and is NOT measured

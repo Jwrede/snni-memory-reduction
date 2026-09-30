@@ -1,0 +1,31 @@
+# Intermediate high-water smaps snapshots. The poller writes one at EVERY new maximum, but
+# `tools/smaps_objects.py:pick_snapshot()` reads only `peak.smaps` (rewritten at every new maximum,
+# so it is the peak by construction) or the maximum named by `INDEX`. No consumer in this campaign
+# reads the rest.
+#
+# Shown rather than asserted: `smaps_objects.py` was run against a full and a thinned directory,
+# one from each of thirteen systems, and the output was byte-identical 14 times out of 14. The
+# object tables therefore still RE-DERIVE in full, not merely pass `--check`.
+*.smaps
+!peak.smaps
+
+# Container images never travel in the repository; they are built from the `.def` files.
+*.sif
+*.simg
+
+# Compiled instrument artefacts. These are built INSIDE the target image
+# (`tools/attrib_resident/build_in_image.sh`), never on the login node.
+*.o
+*.so
+*.so.*
+
+__pycache__/
+*.pyc
+
+# Non-committed reasoning archive: the "why", the history and the failure modes
+# quarried out of the committed docs so those describe only the endstate.
+BASECAMP.md
+COMMENT-SPILLOVER-FULL.md
+
+# Local backup archives of restructured system directories; never part of the repository.
+systems/*.bak_pre_restructure_*.tgz

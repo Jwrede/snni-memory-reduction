@@ -1,0 +1,88 @@
+--- a/src/utils/comm.cpp	2026-07-29 22:48:53.092478014 +0000
++++ b/src/utils/comm.cpp	2026-07-29 22:48:53.294485814 +0000
+@@ -7,6 +7,7 @@
+ #include <netinet/tcp.h>
+ #include <sys/socket.h>
+ #include <unistd.h>
++#include <cerrno>
+ 
+ namespace shark
+ {
+@@ -65,11 +66,50 @@
+         std::cerr << "connected" << std::endl;
+     }
+ 
++    /* A single send() or recv() is NOT required to move everything it was asked for, and
++       MSG_WAITALL returns a SHORT count when a signal is delivered while the call is blocked.
++       The original code asserted on the full byte count from ONE syscall, so any short transfer
++       aborted the party.
++
++       Measured: with the campaign's freeze-then-measure poller attached (SIGSTOP then SIGCONT
++       around each capture), the first 14.2 MB weight exchange of the 12-layer model died at
++       once -- party 1 in recv, party 0 in send with EPIPE behind it. Without the poller the same
++       binary completed, which is what makes this a robustness bug rather than a protocol one: the
++       program was relying on the kernel never interrupting or short-changing a transfer.
++
++       Looping until complete, and retrying on EINTR, is what these two calls have to do to be
++       correct at all. It changes no buffer, no size and no byte on the wire. */
++    static ssize_t xfer_all_recv(int fd, char *buf, u64 bytes)
++    {
++        u64 done = 0;
++        while (done < bytes)
++        {
++            ssize_t n = recv(fd, buf + done, bytes - done, MSG_WAITALL);
++            if (n > 0) { done += (u64)n; continue; }
++            if (n < 0 && (errno == EINTR || errno == EAGAIN)) continue;
++            break;                      /* 0 means the peer closed; < 0 is a real error */
++        }
++        return (ssize_t)done;
++    }
++
++    static ssize_t xfer_all_send(int fd, const char *buf, u64 bytes)
++    {
++        u64 done = 0;
++        while (done < bytes)
++        {
++            ssize_t n = send(fd, buf + done, bytes - done, 0);
++            if (n > 0) { done += (u64)n; continue; }
++            if (n < 0 && (errno == EINTR || errno == EAGAIN)) continue;
++            break;
++        }
++        return (ssize_t)done;
++    }
++
+     void SocketBuf::sync()
+     {
+         char buf[1] = {1};
+-        send(sendsocket, buf, 1, 0);
+-        recv(recvsocket, buf, 1, MSG_WAITALL);
++        always_assert(1 == xfer_all_send(sendsocket, buf, 1));
++        always_assert(1 == xfer_all_recv(recvsocket, buf, 1));
+         bytesReceived += 1;
+         bytesSent += 1;
+         always_assert(buf[0] == 1);
+@@ -77,21 +117,21 @@
+ 
+     void SocketBuf::read(char *buf, u64 bytes)
+     {
+-        always_assert(bytes == recv(recvsocket, (char *)buf, bytes, MSG_WAITALL));
++        always_assert(bytes == (u64)xfer_all_recv(recvsocket, (char *)buf, bytes));
+         bytesReceived += bytes;
+     }
+ 
+     char *SocketBuf::read(u64 bytes)
+     {
+         char *tmpBuf = new char[bytes];
+-        always_assert(bytes == recv(recvsocket, (char *)tmpBuf, bytes, MSG_WAITALL));
++        always_assert(bytes == (u64)xfer_all_recv(recvsocket, (char *)tmpBuf, bytes));
+         bytesReceived += bytes;
+         return tmpBuf;
+     }
+ 
+     void SocketBuf::write(char *buf, u64 bytes)
+     {
+-        always_assert(bytes == send(sendsocket, buf, bytes, 0));
++        always_assert(bytes == (u64)xfer_all_send(sendsocket, buf, bytes));
+         bytesSent += bytes;
+     }
+ 

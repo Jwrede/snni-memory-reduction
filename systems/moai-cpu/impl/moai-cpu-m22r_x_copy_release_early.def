@@ -1,0 +1,26 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m21r_boot_input_spill.sif
+
+# MOAI-CPU m22r_x_copy_release_early (2026-09-23): the m21r_boot_input_spill line PLUS one lever (patch_x_copy_release_early.py). m22j table at the LN1 window (63.0 GiB, the peak once the bootstrap input is spilled): three 16.9 GB rows, layernorm1's input rtn (live), its working array (live) and the residual copy enc_ecd_x_copy, dead since the residual add but freed only after the layernorm by m3's release. Releasing it right after the add is free.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_x_copy_release_early.py /opt/patch_x_copy_release_early.py
+
+%post
+    set -e
+    python3 /opt/patch_x_copy_release_early.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in phase_split chunked_bootstrap boot_input_spill "x_copy_release_early"; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m22r_x_copy_release_early
+    snni.base m21r_boot_input_spill

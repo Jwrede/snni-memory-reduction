@@ -1,0 +1,59 @@
+SNNI memory reduction
+Copyright (c) 2026 Jonathan Wrede
+
+The measurement harness, the analysis tools under tools/, the documentation, and the published
+measurement data are licensed under the MIT License (see LICENSE).
+
+This repository also contains changes to third-party software: patch files, patch scripts that
+rewrite upstream source files, complete modified copies of upstream source files, lever modules
+that replace upstream functions, and build recipes, under systems/*/impl/, systems/*/steps/*/impl/
+and systems/*/off-path-runs/*/impl/. Each of these remains under the license of the upstream
+project whose code it modifies or copies. The MIT License in LICENSE does not apply to them and
+grants no rights in the upstream code. The upstream projects themselves are not redistributed
+here; each recipe names the pinned upstream commit or the base image it applies to. SIGMA-GPU's
+source was not a git checkout, so its recipe names no commit (systems/sigma-gpu/MANIFEST.md).
+
+Upstream projects, as named in each system's MANIFEST.md, with the license found in the upstream
+repository (checked 2026-09-29 against the local clones and the GitHub license endpoint):
+
+  system                     upstream                                    license
+  SHARK, SHARK dealer        github.com/kanav99/shark                    MIT (Copyright (c) 2025 Kanav Gupta)
+  SHAFT-CPU, SHAFT-GPU,      github.com/andeskyl/SHAFT                   MIT (Copyright (c) 2024 Andes Y. L. Kei),
+    SHAFT-CPU-ViT,                                                         with CrypTen's MIT license included
+    SHAFT-GPU-ViT            github.com/facebookresearch/CrypTen         MIT (Copyright (c) Facebook, Inc. and
+                                                                           its affiliates)
+  BumbleBee                  github.com/AntCPLab/OpenBumbleBee           Apache License 2.0
+  PUMA                       github.com/secretflow/spu                   Apache License 2.0
+  LLAMA online, LLAMA dealer github.com/mpc-msri/EzPC                    MIT
+  SIGMA-GPU                  github.com/mpc-msri/EzPC (GPU-MPC)          MIT
+  BOLT                       github.com/Clive2312/EzPC                   MIT (Copyright (c) 2020 Microsoft Research)
+  MOAI-CPU                   github.com/dtc2025ag/MOAI                   no license file in the repository
+                             bundled thirdparty/SEAL-4.1-bs              MIT (Microsoft SEAL)
+  MOAI-GPU                   github.com/dtc2025ag/MOAI_GPU               no license file in the repository
+                             bundled thirdparty/phantom-fhe              GNU General Public License v3.0
+  ARION                      github.com/hangenba/Arion                   no license file in the repository
+                             github.com/tuneinsight/lattigo (v6.1.1)     Apache License 2.0
+
+Some patches modify the bundled or dependent libraries rather than the system itself: MOAI-CPU's
+patches touch the bundled SEAL (for example systems/moai-cpu/impl/patch_poolcensus.py), MOAI-GPU's
+touch the bundled Phantom library (for example systems/moai-gpu/impl/pin_seed_and_gate.py and
+patch_modraise.py), and ARION's a1 lever reimplements Lattigo's bootstrapping ShallowCopy
+(systems/arion/impl/patch_shallowcopy.py). Those changes are under the license of the library they
+modify: MIT for SEAL, GPL-3.0 for Phantom, Apache-2.0 for Lattigo.
+
+MOAI (github.com/dtc2025ag/MOAI), MOAI_GPU (github.com/dtc2025ag/MOAI_GPU) and Arion
+(github.com/hangenba/Arion) carry no license upstream: their repositories have no license file
+(checked 2026-09-29). For these three this repository contains only changes to their code (patch
+scripts under systems/moai-cpu/, systems/moai-gpu/ and systems/arion/, which rewrite named upstream
+files at build time) and references to the pinned upstream commits; it contains no complete
+upstream source file of any of them. The closest to one are three header fragments in
+systems/moai-gpu/impl/borrowed/ that the MOAI-GPU patches insert into the upstream tree:
+layernorm1_streaming.cuh and layernorm2_streaming.cuh are streaming rewrites of MOAI_GPU's
+layernorm functions (source/non_linear_func/layernorm.cuh), and wpark_helpers.cuh holds
+campaign-written helpers. Nothing in this repository grants any license to MOAI, MOAI_GPU or Arion
+code, and the MIT License in LICENSE does not extend to it. The changes are published to make the
+measurements reproducible; any reuse of the upstream code needs its authors' permission.
+
+The Apache License 2.0 requires modified files to carry notices that they were changed. The
+patches for BumbleBee, PUMA and ARION's Lattigo change identify the upstream files they change, in
+the diff headers or as the file path each patch script rewrites.

@@ -1,0 +1,32 @@
+d7_weight_init_free: release each FC weight at the end of its own _initScale.
+Base: the d6 image's source state.
+
+Effect: release time only. Randomisation unchanged (same per-layer seed, values, draw count and
+order; key material byte-identical). Tensor2D keeps d1/d2 separate from data, so shape queries stay
+correct (the earlier campaign's 1x1 shrink exposed a wrong shape; off-path.md).
+Restore path: FC::_forward calls ensureData() and masks with the recorded maskCtr (gating since d5).
+Measured at d6: 12 weights resident at once, 647 MB = 97.7% of a 683 MB peak, 21 ms at t=0.5 s.
+--- a/GPU-MPC/ext/sytorch/include/sytorch/layers/layers.h
++++ b/GPU-MPC/ext/sytorch/include/sytorch/layers/layers.h
+@@ -613,6 +613,7 @@
+     void _initScale(u64 scale)
+     {
+         double xavier = 1.0 / sqrt(in);
+         // Per-layer seeding is applied UNCONDITIONALLY, so the eager and lazy runs draw the same
+         // values and therefore generate byte-identical keys. Making it conditional would make the
+         // lever change the computation, which is exactly what the correctness gate rejects.
+         this->wseed = ++g_weightSeedCtr;
+         this->wscale = scale;
+         prngWeights.SetSeed(osuCrypto::toBlock(0, this->wseed));
+         weight.randomize(xavier * (1ULL << scale));
+         if (this->useBias)
+             bias.randomize(xavier * (1ULL << (2 * scale)));
++        // d7: randomize() has just touched every element, so this weight is now fully resident.
++        // Without this, all twelve layers' weights are resident simultaneously by the end of
++        // net.init(), which is the 21 ms startup transient that became the peak at d6. Release it
++        // here; _forward re-materialises it through ensureData() exactly as it already does for
++        // the masking path. The draws above are unchanged, so the PRNG stream and therefore the
++        // key material are untouched, and d1/d2 are never modified so no shape is ever wrong.
++        if (g_lazyWeights && (u64)in * (u64)out > LAZY_W_MIN_ELEMS)
++            weight.freeData();
+     }

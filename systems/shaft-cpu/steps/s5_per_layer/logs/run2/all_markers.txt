@@ -1,0 +1,192 @@
+LEVER|plaintext_free_cpu|patched
+LEVER|triple_share_free_cpu|patched
+LEVER|trace_nograd_cpu|patched
+LEVER|onnx_single_file_export_cpu|patched
+LEVER|encrypt_spill_cpu|patched
+LEVER|plaintext_free_cpu|patched
+LEVER|triple_share_free_cpu|patched
+LEVER|trace_nograd_cpu|patched
+LEVER|onnx_single_file_export_cpu|patched
+LEVER|encrypt_spill_cpu|patched
+INFO:root:==================
+INFO:root:DistributedCommunicator with rank 1
+INFO:root:==================
+LEVER|plaintext_free_cpu|patched
+LEVER|triple_share_free_cpu|patched
+LEVER|trace_nograd_cpu|patched
+LEVER|onnx_single_file_export_cpu|patched
+LEVER|encrypt_spill_cpu|patched
+INFO:root:==================
+INFO:root:DistributedCommunicator with rank 0
+INFO:root:==================
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:1 to store for rank: 0
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:1 to store for rank: 1
+INFO:torch.distributed.distributed_c10d:Rank 1: Completed store-based barrier for key:store_based_barrier_key:1 with 2 nodes.
+INFO:torch.distributed.distributed_c10d:Rank 0: Completed store-based barrier for key:store_based_barrier_key:1 with 2 nodes.
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:2 to store for rank: 0
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:2 to store for rank: 1
+INFO:torch.distributed.distributed_c10d:Rank 0: Completed store-based barrier for key:store_based_barrier_key:2 with 2 nodes.
+INFO:torch.distributed.distributed_c10d:Rank 1: Completed store-based barrier for key:store_based_barrier_key:2 with 2 nodes.
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:3 to store for rank: 0
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:3 to store for rank: 1
+INFO:torch.distributed.distributed_c10d:Rank 1: Completed store-based barrier for key:store_based_barrier_key:3 with 2 nodes.
+INFO:torch.distributed.distributed_c10d:Rank 0: Completed store-based barrier for key:store_based_barrier_key:3 with 2 nodes.
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:4 to store for rank: 0
+INFO:torch.distributed.distributed_c10d:Added key: store_based_barrier_key:4 to store for rank: 1
+INFO:torch.distributed.distributed_c10d:Rank 0: Completed store-based barrier for key:store_based_barrier_key:4 with 2 nodes.
+INFO:root:World size = 2
+INFO:torch.distributed.distributed_c10d:Rank 1: Completed store-based barrier for key:store_based_barrier_key:4 with 2 nodes.
+INFO:root:World size = 2
+/root/shaft/crypten/__init__.py:66: RuntimeWarning: CrypTen is already initialized.
+  warnings.warn("CrypTen is already initialized.", RuntimeWarning)
+/root/shaft/crypten/__init__.py:66: RuntimeWarning: CrypTen is already initialized.
+  warnings.warn("CrypTen is already initialized.", RuntimeWarning)
+SEEDED|party=0|next=0xdeadbeef|local=0xc0ffee|global=0x5eed|torch=0x5eed
+SEEDED|party=1|next=0xdeadbef0|local=0xc0ffef|global=0x5eed|torch=0x5eed
+CONFIG|party=0|n_layers=12|seq_len=128|model=andeskyl/bert-base-cased-sst2
+MEM|0|-1|main|after_init|247392|1790718413496
+CONFIG|party=1|n_layers=12|seq_len=128|model=andeskyl/bert-base-cased-sst2
+MEM|1|-1|main|after_init|247444|1790718413496
+MEM|0|-1|main|after_model_load|719416|1790718422008
+MEM|1|-1|main|after_model_load|721564|1790718422008
+MEM|1|-1|main|after_extract_submodules|721564|1790718422085
+MEM|0|-1|main|after_extract_submodules|719416|1790718422086
+MEM|1|-1|main|after_input_encrypt|722872|1790718422173
+MEM|0|-1|main|after_input_encrypt|720828|1790718422176
+[W shape_type_inference.cpp:1920] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1920] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1920] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1920] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1920] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1920] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+/usr/local/lib/python3.10/dist-packages/torch/onnx/utils.py:1636: UserWarning: The exported ONNX model failed ONNX shape inference.The model will not be executable by the ONNX Runtime.If this is unintended and you believe there is a bug,please report an issue at https://github.com/pytorch/pytorch/issues.Error reported by strict ONNX shape inference: [ShapeInferenceError] (op_type:Dropout, node name: /embeddings/dropout/Dropout): training_mode typestr: T2, has unsupported type: tensor(int64) (Triggered internally at ../torch/csrc/jit/serialization/export.cpp:1407.)
+  _C._check_onnx_proto(proto)
+/usr/local/lib/python3.10/dist-packages/torch/onnx/utils.py:1636: UserWarning: The exported ONNX model failed ONNX shape inference.The model will not be executable by the ONNX Runtime.If this is unintended and you believe there is a bug,please report an issue at https://github.com/pytorch/pytorch/issues.Error reported by strict ONNX shape inference: [ShapeInferenceError] (op_type:Dropout, node name: /embeddings/dropout/Dropout): training_mode typestr: T2, has unsupported type: tensor(int64) (Triggered internally at ../torch/csrc/jit/serialization/export.cpp:1407.)
+  _C._check_onnx_proto(proto)
+LEVER|onnx_single_file_export_cpu|onnx_bytes=90669486|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|onnx_single_file_export_cpu|onnx_bytes=90669486|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+/root/shaft/crypten/nn/onnx_converter.py:183: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  param = torch.from_numpy(numpy_helper.to_array(node))
+/root/shaft/crypten/nn/onnx_converter.py:183: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  param = torch.from_numpy(numpy_helper.to_array(node))
+LEVER|plaintext_free_cpu|released_plaintext_bytes=90669056
+LEVER|plaintext_free_cpu|released_plaintext_bytes=90669056
+MEM|0|-1|embed|after_convert|729464|1790718422906
+MEM|1|-1|embed|after_convert|731812|1790718422908
+MEM|0|-1|embed|after_encrypt|655024|1790718424338
+MEM|1|-1|embed|after_encrypt|655508|1790718424378
+MEM|0|-1|embed|after_run|924620|1790718430971
+MEM|1|-1|embed|after_run|969324|1790718430972
+/usr/local/lib/python3.10/dist-packages/torch/onnx/utils.py:1636: UserWarning: The exported ONNX model failed ONNX shape inference.The model will not be executable by the ONNX Runtime.If this is unintended and you believe there is a bug,please report an issue at https://github.com/pytorch/pytorch/issues.Error reported by strict ONNX shape inference: [ShapeInferenceError] (op_type:Dropout, node name: /layer/attention/self/dropout/Dropout): training_mode typestr: T2, has unsupported type: tensor(int64) (Triggered internally at ../torch/csrc/jit/serialization/export.cpp:1407.)
+  _C._check_onnx_proto(proto)
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+/usr/local/lib/python3.10/dist-packages/torch/onnx/utils.py:1636: UserWarning: The exported ONNX model failed ONNX shape inference.The model will not be executable by the ONNX Runtime.If this is unintended and you believe there is a bug,please report an issue at https://github.com/pytorch/pytorch/issues.Error reported by strict ONNX shape inference: [ShapeInferenceError] (op_type:Dropout, node name: /layer/attention/self/dropout/Dropout): training_mode typestr: T2, has unsupported type: tensor(int64) (Triggered internally at ../torch/csrc/jit/serialization/export.cpp:1407.)
+  _C._check_onnx_proto(proto)
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+MEM|0|0|layer|before_run_0|944968|1790718431697
+MEM|1|0|layer|before_run_0|989648|1790718431792
+MEM|0|0|layer|after_run_0|973112|1790718437635
+MEM|1|0|layer|after_run_0|1056516|1790718437722
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+MEM|0|1|layer|before_run_1|973112|1790718438283
+MEM|1|1|layer|before_run_1|1056516|1790718438410
+MEM|0|1|layer|after_run_1|973116|1790718444114
+MEM|1|1|layer|after_run_1|1007748|1790718444157
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+MEM|0|2|layer|before_run_2|1028396|1790718444773
+MEM|1|2|layer|before_run_2|1007748|1790718444833
+MEM|0|2|layer|after_run_2|973116|1790718450511
+MEM|1|2|layer|after_run_2|1008896|1790718450553
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+MEM|0|3|layer|before_run_3|1028396|1790718451195
+MEM|1|3|layer|before_run_3|1008896|1790718451234
+MEM|0|3|layer|after_run_3|973116|1790718456881
+MEM|1|3|layer|after_run_3|1008896|1790718456892
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+MEM|0|4|layer|before_run_4|1028396|1790718457533
+MEM|1|4|layer|before_run_4|1008896|1790718457597
+MEM|0|4|layer|after_run_4|973116|1790718463227
+MEM|1|4|layer|after_run_4|1033344|1790718463262
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+MEM|0|5|layer|before_run_5|1028396|1790718463873
+MEM|1|5|layer|before_run_5|1033344|1790718463952
+MEM|1|5|layer|after_run_5|1033344|1790718469611
+MEM|0|5|layer|after_run_5|973116|1790718469616
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+MEM|0|6|layer|before_run_6|1028396|1790718470259
+MEM|1|6|layer|before_run_6|1033344|1790718470288
+MEM|1|6|layer|after_run_6|1033344|1790718476162
+MEM|0|6|layer|after_run_6|973116|1790718476213
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+MEM|1|7|layer|before_run_7|1033344|1790718476841
+MEM|0|7|layer|before_run_7|1028396|1790718476955
+MEM|1|7|layer|after_run_7|1033348|1790718482563
+MEM|0|7|layer|after_run_7|973116|1790718482590
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+MEM|1|8|layer|before_run_8|1033348|1790718483241
+MEM|0|8|layer|before_run_8|1028396|1790718483321
+MEM|1|8|layer|after_run_8|1033348|1790718488925
+MEM|0|8|layer|after_run_8|1028396|1790718488949
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+MEM|1|9|layer|before_run_9|1033348|1790718489606
+MEM|0|9|layer|before_run_9|1028396|1790718489685
+MEM|1|9|layer|after_run_9|1033348|1790718495476
+MEM|0|9|layer|after_run_9|1028396|1790718495501
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+MEM|1|10|layer|before_run_10|1033348|1790718496161
+MEM|0|10|layer|before_run_10|1028396|1790718496239
+MEM|1|10|layer|after_run_10|1033348|1790718502021
+MEM|0|10|layer|after_run_10|1028396|1790718502031
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|onnx_single_file_export_cpu|onnx_bytes=28368249|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+LEVER|plaintext_free_cpu|released_plaintext_bytes=28351488
+MEM|0|11|layer|before_run_11|1028396|1790718502698
+MEM|1|11|layer|before_run_11|1033348|1790718502706
+MEM|1|11|layer|after_run_11|1033348|1790718508512
+MEM|0|11|layer|after_run_11|1028396|1790718508552
+LEVER|onnx_single_file_export_cpu|onnx_bytes=2369362|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=2368520
+LEVER|onnx_single_file_export_cpu|onnx_bytes=2369362|exports=1|sym_registry=False|dir=/tmp|fstype=rootfs
+LEVER|plaintext_free_cpu|released_plaintext_bytes=2368520
+MEM|1|-1|main|after_inference|1033828|1790718509098
+MEM|0|-1|main|after_inference|1028876|1790718509123
+MEM|1|-1|main|after_decrypt|1033828|1790718509204
+MEM|1|-1|main|after_finalize|1033828|1790718509204
+MEM|0|-1|main|after_decrypt|1028876|1790718509222
+MEM|0|-1|main|after_finalize|1029036|1790718509224
+LEVER|encrypt_spill_cpu|spilled_bytes=866494480|params=201|max_one_share=178151424|loaded=201|dir=/tmp/snni_encrypt_spill_3286391|fstype=rootfs
+LEVER|encrypt_spill_cpu|spilled_bytes=866494480|params=201|max_one_share=178151424|loaded=201|dir=/tmp/snni_encrypt_spill_3286390|fstype=rootfs
+LEVER|encrypt_spill_cpu|spilled_bytes=0|params=0|max_one_share=0|loaded=0|dir=None|fstype=none

@@ -1,0 +1,36 @@
+# LLAMA dealer, shared base image (built once; every step image derives from it).
+#
+# Change against stock: `-g` appended to the existing flags, so allocation sites can be named
+# (stock bertbenchmark has no debug sections; addr2line then returns nearest exported symbols).
+# Debug sections are not PT_LOAD: no code-generation or peak effect. Check: generated key material
+# byte-identical to the stock build.
+# Server C has no egress: base must be a local image.
+FROM localhost/llama-00-default
+
+# Per-layer deterministic weight seeding, applied to EVERY step because it is a property of the
+# baseline rather than a lever. Each FC layer draws its dummy weights from its own seeded stream
+# instead of from one shared prngWeights stream.
+#
+# This is what makes a lazy-allocation lever possible at all: a layer's slice of a single shared
+# stream cannot be reproduced later without replaying every draw before it, so the earlier
+# campaign's lazy lever gave up and re-materialised the weights ZEROED. That changed the generated
+# key material -- same sizes, different contents -- and its 31% "reduction" was therefore not
+# comparable with the baseline it was quoted against. Seeding per layer lets the weights be
+# regenerated exactly, so the lever changes only WHEN memory is held.
+#
+# The weights stay random; only their derivation changes, and it changes identically for every
+# step, so the correctness gate remains meaningful.
+COPY base_patch/ /opt/EzPC/GPU-MPC/ext/sytorch/
+
+RUN cd /opt/EzPC/GPU-MPC/ext/sytorch/build && \
+    CUR="$(grep '^CMAKE_CXX_FLAGS:STRING=' CMakeCache.txt | cut -d= -f2-)" && \
+    cmake -DCMAKE_CXX_FLAGS:STRING="$CUR -g" . > /tmp/cmake.log 2>&1 && \
+    make -j"$(nproc)" bertbenchmark > /tmp/build.log 2>&1 && \
+    readelf -S bertbenchmark | grep -q debug_info && \
+    addr2line -f -C -e bertbenchmark "$(nm bertbenchmark | awk '/ T main$/{print "0x"$1; exit}')" && \
+    md5sum bertbenchmark | awk '{print $1}' > /opt/PARENT_BINARY_MD5
+
+# Every step rebuilds through this, which forces the rebuild and then proves the overlay changed
+# the binary. See the script for the two silent failures it prevents.
+COPY rebuild_step.sh /opt/rebuild_step.sh
+RUN chmod +x /opt/rebuild_step.sh

@@ -1,0 +1,18 @@
+step=s2_boot_input_release
+run=1
+date_utc=2026-08-21T19:47:04Z
+machine=palma:gpuh200 node=r18n01
+slurm_job_id=46356579
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth=2
+attrib_host=pmrec_pagemap
+attrib_device=torch_state
+image=/scratch/tmp/j_wred02/snni_campaign/moai-gpu/sif/moai-gpu-s2_boot_input_release.sif
+image_digest=c5623182ee70665e36be5e8fc2fe90d957488ff85f86550c7389d1f91c04b665
+omp_num_threads=8
+model=BERT-base ONE encoder layer n_seq=128 batch=256 logN=16
+role=single server process, non-interactive FHE
+attrib_device_actual=cuda_alloc
+gpu=NVIDIA H200, GPU-b7d4b0ca-ce98-2dbe-ba88-332777b3010d
+combined_channel=1

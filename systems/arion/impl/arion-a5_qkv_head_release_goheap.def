@@ -1,0 +1,65 @@
+Bootstrap: docker
+From: golang:1.24-bookworm
+
+# ARION step a5_qkv_head_release (built on a4_activation_input_release's def) WITH the Go attribution adapter: arion-a4's def plus the
+# census adapter, needing its own image since the adapter is compiled in (see a1's _goheap.def for
+# why). Commit comes from /opt/goheap_commit.txt. Derived mechanically from the a1 pair; written
+# because a4's 15.08 measurement (-21.4%, gate held) could not publish without its own census image.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/arion/pin_workload.py /opt/pin_workload.py
+    /scratch/tmp/j_wred02/snni_campaign/arion/patch_shallowcopy.py /opt/patch_shallowcopy.py
+    /scratch/tmp/j_wred02/snni_campaign/arion/patch_activation_input_release.py /opt/patch_activation_input_release.py
+    /scratch/tmp/j_wred02/snni_campaign/arion/patch_qkv_head_release.py /opt/patch_qkv_head_release.py
+    /scratch/tmp/j_wred02/snni_campaign/arion/snni_heapdump.go /opt/snni_heapdump.go
+    /scratch/tmp/j_wred02/snni_campaign/arion/goheap_commit.txt /opt/goheap_commit.txt
+
+%post
+    set -e
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get install -y --no-install-recommends git procps psmisc binutils python3
+    rm -rf /var/lib/apt/lists/*
+
+    cd /root
+    git clone https://github.com/hangenba/Arion.git arion
+    cd /root/arion
+    git checkout bd5fcd7f29af2f35c954dc20c83accdc6b8e2a14
+    git checkout "$(cat /opt/goheap_commit.txt)"
+    git rev-parse HEAD > /opt/arion_commit.txt
+    cmp /opt/arion_commit.txt /opt/goheap_commit.txt
+    test "$(cat /opt/arion_commit.txt)" = "bd5fcd7f29af2f35c954dc20c83accdc6b8e2a14" \
+        || { echo "FAILED: not the pinned commit"; exit 4; }
+
+    test -d /root/arion/bert_base_data_5
+
+    cp /opt/snni_heapdump.go /root/arion/snni_heapdump.go
+    python3 /opt/pin_workload.py /root/arion
+    python3 /opt/patch_shallowcopy.py /root/arion
+    python3 /opt/patch_activation_input_release.py /root/arion
+    python3 /opt/patch_qkv_head_release.py /root/arion
+
+    go mod tidy
+    go build -o arion .
+
+    strings -a /root/arion/arion | grep -q 'SNNI_HEAPDUMP|armed' \
+        || { echo "FAILED: the heapdump adapter is not in the binary"; exit 4; }
+    strings -a /root/arion/arion | grep -q 'SNNI_PARAM|' \
+        || { echo "FAILED: no SNNI_PARAM marker in the binary"; exit 4; }
+    strings -a /root/arion/arion | grep -q 'WORKLOAD|model=' \
+        || { echo "FAILED: no WORKLOAD marker in the binary"; exit 4; }
+    strings -a /root/arion/arion | grep -q 'LEVER|activation_input_release|armed' \
+        || { echo "FAILED: the lever marker is not in the binary"; exit 4; }
+
+    strings -a /root/arion/arion | grep -q 'LEVER|qkv_head_release|armed' \
+        || { echo "FAILED: the qkv_head_release marker is not in the binary"; exit 4; }
+
+    grep -E 'lattigo' /root/arion/go.mod > /opt/arion_lattigo.txt || true
+    md5sum /root/arion/arion > /opt/arion_binary_md5.txt
+    cat /opt/arion_binary_md5.txt
+
+%environment
+    export LC_ALL=C
+
+%runscript
+    cd /root/arion && exec ./arion

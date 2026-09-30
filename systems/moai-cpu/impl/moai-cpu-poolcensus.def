@@ -1,0 +1,89 @@
+Bootstrap: docker
+From: ubuntu:24.04
+
+# MOAI-CPU: SEAL 4.1 + bootstrapping fork, non-interactive pure FHE; primary CPU pure-FHE system,
+# ARION's closed-arm partner. Built from pristine upstream (not the earlier campaign's
+# already-optimised image) plus the pinned seed/depth/markers/workload gate (impl/pin_seed_and_gate.py).
+#
+# THIS VARIANT ADDS ONE THING: the SEAL pool census (impl/patch_poolcensus.py). A PROBE image, not
+# a measurement image (the emitter is compiled in); splits the 99.3% `MemoryPoolHeadMT::get()` row
+# by size class with the free list counted beside it, i.e. live-vs-retained.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/pin_seed_and_gate.py /opt/pin_seed_and_gate.py
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_poolcensus.py /opt/patch_poolcensus.py
+
+%post
+    set -e
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get install -y --no-install-recommends \
+        git ca-certificates build-essential g++ make cmake pkg-config \
+        libntl-dev libssl-dev libgmp-dev python3 procps psmisc binutils
+    rm -rf /var/lib/apt/lists/*
+
+    cd /root
+    git clone https://github.com/dtc2025ag/MOAI.git moai
+    cd /root/moai
+    git rev-parse HEAD > /opt/moai_commit.txt
+
+    # Weight data ships in the repo (all 12 layers); checked here rather than mid-measurement.
+    test -d /root/moai/data/layer_0
+    test -d /root/moai/data/layer_11
+    du -sh /root/moai/data
+
+    # Runs before install: it edits headers `cmake --install` copies out of the source tree.
+    python3 /opt/patch_poolcensus.py /root/moai
+
+    # SEAL first: find_package(SEAL 4.1 REQUIRED) turns a missing install into a clear cmake error.
+    cd /root/moai/thirdparty/SEAL-4.1-bs
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    cmake --install build
+
+    # Seed, depth knob, markers, workload selection: applied before compile so the measured binary
+    # carries them.
+    cd /root/moai
+    python3 /opt/pin_seed_and_gate.py /root/moai
+
+    # `-g` for measured (not inferred) call sites. Added via sed into CMakeLists, since the project's
+    # own CMAKE_CXX_FLAGS assignment would silently overwrite a -DCMAKE_CXX_FLAGS= passed in.
+    sed -i 's|set(CMAKE_CXX_FLAGS "-lstdc++ -O3 -fopenmp")|set(CMAKE_CXX_FLAGS "-lstdc++ -O3 -fopenmp -g")|' CMakeLists.txt
+    grep -q 'fopenmp -g' CMakeLists.txt || { echo "FAILED: could not add -g to CMAKE_CXX_FLAGS"; exit 4; }
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+
+    # The binary must carry what the source promised; a silently-dropped patch would still run and measure.
+    strings -a /root/moai/build/test | grep -q 'SEEDED|seal_prng|' \
+        || { echo "FAILED: no SEAL seed marker in the binary"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'WORKLOAD|model=bert-base' \
+        || { echo "FAILED: no workload marker in the binary"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'MEM|' \
+        || { echo "FAILED: no MEM marker in the binary"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'SNNI_PARAM|' \
+        || { echo "FAILED: no parameter marker in the binary"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'SNNI_POOL|at=peak' \
+        || { echo "FAILED: no peak-triggered pool-census marker in the binary"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'SNNI_POOL|at=layer_start' \
+        || { echo "FAILED: no layer-start pool-census marker in the binary"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'SNNI_POOL|at=layer_end' \
+        || { echo "FAILED: no layer-end pool-census marker in the binary"; exit 4; }
+    readelf -S /root/moai/build/test | grep -q debug_info \
+        || { echo "FAILED: no debug_info; call sites would be inferred rather than measured"; exit 4; }
+
+    # Which allocation entry points this binary uses. SEAL routes 64-byte blocks through aligned_alloc
+    # (recorder hooks it only since 2026-07-30); @VERSION suffix allowed for versioned glibc symbols.
+    nm -D /root/moai/build/test \
+        | grep -E ' U (malloc|calloc|realloc|aligned_alloc|posix_memalign|memalign|valloc|_Znwm|_Znam)(@.*)?$' \
+        | tee /opt/moai_alloc_imports.txt
+    [ -s /opt/moai_alloc_imports.txt ] || { echo "FAILED: no allocator imports found at all"; exit 4; }
+
+    md5sum /root/moai/build/test > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%environment
+    export LC_ALL=C
+
+%runscript
+    echo "MOAI-CPU image. The harness launches /root/moai/build/test; see run_moai_cpu.sh."

@@ -1,0 +1,89 @@
+############ p_prm0  (rc=0 wall_s=38747 polled_peak_kb=402401204 )
+
+=== pmrec: Pool-WACHSTUM am Peak ===
+# sample_ts_ms=1787631236059 sample_rss_kb=402308428
+# sample_ts_ms=1787631236059 sample_rss_kb=402308428
+attributed resident 411014.5 MB across 73 call sites
+
+    resident    allocated  touched  count  site
+   227851.1M    236070.1M      97%    373  Ct_pt_matrix_mul.hpp:35:ct_pt_matrix_mul_wo_pre(std::vector<seal::Ciphertext, std::alloc
+   153476.5M    160168.9M      96%    212  Batch_encode_encrypt.hpp:32:batch_input(std::vector<std::vector<std::vector<double, std:
+     7264.7M      7679.8M      95%     39  Ct_ct_matrix_mul.hpp:29:ct_ct_matrix_mul_colpacking(std::vector<seal::Ciphertext, std::a
+     7162.3M      7480.5M      96%    103  single_att_block.hpp:74:single_att_block(std::vector<seal::Ciphertext, std::allocator<se
+     6632.3M      6795.8M      98%     64  softmax.hpp:39:exp(seal::Ciphertext const&, seal::SEALContext const&, seal::RelinKeys co
+     2923.2M      3014.7M      97%     55  test_full_scheme.hpp:464:all_layer_test()  <- context.h:496:seal::SEALContext::SEALConte
+      901.3M       996.1M      90%     16  Bootstrapper.cpp:2019:Bootstrapper::bsgs_linear_transform(seal::Ciphertext&, seal::Ciphe
+      685.8M       685.8M     100%      9  Ct_ct_matrix_mul.hpp:109:ct_ct_matrix_mul_diagpacking(std::vector<seal::Ciphertext, std:
+      538.5M       558.4M      96%     10  Ct_pt_matrix_mul.hpp:31:ct_pt_matrix_mul_wo_pre(std::vector<seal::Ciphertext, std::alloc
+      403.8M       403.7M     100%     14  test_full_scheme.hpp:547:all_layer_test() [clone ._omp_fn.0]  <- seal::Evaluator::mod_sw
+      378.4M       405.6M      93%     35  test_full_scheme.hpp:464:all_layer_test()  <- context.h:496:seal::SEALContext::SEALConte
+      367.0M       367.0M     100%      5  Batch_encode_encrypt.hpp:31:batch_input(std::vector<std::vector<std::vector<double, std:
+      357.6M       357.6M     100%      9  Ct_pt_matrix_mul.hpp:23:ct_pt_matrix_mul_wo_pre(std::vector<seal::Ciphertext, std::alloc
+      333.5M       333.4M     100%      9  Polynomial.cpp:423:boot::Polynomial::homomorphic_poly_evaluation(seal::SEALContext&, sea
+      163.6M       163.6M     100%      3  Ct_pt_matrix_mul.hpp:31:ct_pt_matrix_mul_wo_pre(std::vector<seal::Ciphertext, std::alloc
+
+fullscan: 169 mappings hold resident memory, 411963.8 MB total, 911.5 MB of it not covered by any recorded allocation
+       573.3 MB unnamed  rw-p  [heap]
+        38.0 MB unnamed  rw-p  [anonymous]
+        29.1 MB unnamed  rw-p  [anonymous]
+        25.4 MB unnamed  rw-p  [anonymous]
+        23.3 MB unnamed  rw-p  [anonymous]
+        22.3 MB unnamed  rw-p  [anonymous]
+        20.2 MB unnamed  rw-p  [anonymous]
+        20.2 MB unnamed  rw-p  [anonymous]
+   (2.6 GB of PROT_NONE reservation skipped; rerun with SNNI_PM_FULLSCAN=all to scan it)
+
+wrote /scratch/tmp/j_wred02/snni_campaign/moai-cpu/results/p_prm0/run1/prm_objects_pmrec.jsonl
+sampled at rss=402308428 kB (100% attributed)
+
+=== Pool-Recorder: LEBENDE Objekte am selben Peak ===
+# sample_ts_ms=1787631236059 sample_rss_kb=402308428 source=seal_pool_recorder
+# sample_ts_ms=1787631236059 sample_rss_kb=402308428 source=seal_pool_recorder
+attributed resident 239125.1 MB across 18 call sites
+
+    resident    allocated  touched  count  site
+   234877.6M    234833.3M     100%  10818  gelu_others.hpp:143:gelu_v2(seal::Ciphertext const&, seal::SEALContext const&, seal::Rel
+     1440.1M      1434.5M     100%   1368  test_full_scheme.hpp:464:all_layer_test()  <- context.h:496:seal::SEALContext::SEALConte
+     1439.0M      1433.4M     100%   1367  test_full_scheme.hpp:464:all_layer_test()  <- context.h:496:seal::SEALContext::SEALConte
+      672.3M       672.1M     100%     43  Polynomial.cpp:487:boot::Polynomial::homomorphic_poly_evaluation(seal::SEALContext&, sea
+      519.1M       515.9M     101%    802  test_full_scheme.hpp:464:all_layer_test()  <- context.h:496:seal::SEALContext::SEALConte
+       74.5M        74.4M     100%      2  Batch_encode_encrypt.hpp:32:batch_input(std::vector<std::vector<std::vector<double, std:
+       73.5M        73.4M     100%     35  test_full_scheme.hpp:464:all_layer_test()  <- context.h:496:seal::SEALContext::SEALConte
+       13.8M        13.6M     102%     52  test_full_scheme.hpp:475:all_layer_test()  <- keygenerator.h:263:seal::KeyGenerator::cre
+        6.3M         6.3M     101%     12  Polynomial.cpp:487:boot::Polynomial::homomorphic_poly_evaluation(seal::SEALContext&, sea
+        2.1M         2.1M     100%      1  test_full_scheme.hpp:464:all_layer_test()  <- context.h:496:seal::SEALContext::SEALConte
+        1.6M         1.6M     101%      3  Polynomial.cpp:487:boot::Polynomial::homomorphic_poly_evaluation(seal::SEALContext&, sea
+        1.1M         1.0M     100%      1  test_full_scheme.hpp:480:all_layer_test()  <- seal::CKKSEncoder::CKKSEncoder(seal::SEALC
+        1.1M         1.0M     100%      1  test_full_scheme.hpp:464:all_layer_test()  <- context.h:496:seal::SEALContext::SEALConte
+        1.1M         1.0M     100%      1  test_full_scheme.hpp:480:all_layer_test()  <- seal::CKKSEncoder::CKKSEncoder(seal::SEALC
+        0.9M         0.9M     100%      1  test_full_scheme.hpp:464:all_layer_test()  <- context.h:496:seal::SEALContext::SEALConte
+        0.5M         0.5M     101%      1  test_full_scheme.hpp:480:all_layer_test()  <- seal::CKKSEncoder::CKKSEncoder(seal::SEALC
+        0.3M         0.3M     102%      1  test_full_scheme.hpp:475:all_layer_test()  <- keygenerator.h:263:seal::KeyGenerator::cre
+        0.3M         0.3M     102%      1  test_full_scheme.hpp:480:all_layer_test()  <- seal::CKKSEncoder::CKKSEncoder(seal::SEALC
+
+fullscan: 169 mappings hold resident memory, 411963.8 MB total, 172847.6 MB of it not covered by any recorded allocation
+     34864.4 MB unnamed  rw-p  [anonymous]
+     33661.3 MB unnamed  rw-p  [anonymous]
+     32301.4 MB unnamed  rw-p  [anonymous]
+     29849.8 MB unnamed  rw-p  [anonymous]
+     13202.5 MB unnamed  rw-p  [anonymous]
+     12572.8 MB unnamed  rw-p  [anonymous]
+      9534.8 MB unnamed  rw-p  [anonymous]
+      4132.8 MB unnamed  rw-p  [anonymous]
+   (2.6 GB of PROT_NONE reservation skipped; rerun with SNNI_PM_FULLSCAN=all to scan it)
+
+wrote /scratch/tmp/j_wred02/snni_campaign/moai-cpu/results/p_prm0/run1/prm_objects_pool.jsonl
+sampled at rss=402308428 kB (58% attributed)
+################################# JOB REPORT ##################################
+Job ID: 46411436
+Cluster: palma2
+User/Group: j_wred02/u0dawin
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 4
+CPU Utilized: 00:01:43
+CPU Efficiency: 26.55% of 00:06:28 core-walltime
+Job Wall-clock time: 00:01:37
+Memory Utilized: 119.05 MB
+Memory Efficiency: 0.73% of 16.00 GB (16.00 GB/node)
+###############################################################################

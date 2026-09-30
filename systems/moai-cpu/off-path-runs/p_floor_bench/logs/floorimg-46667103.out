@@ -1,0 +1,107 @@
+=== building /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-p_floor_bench.sif
+INFO:    User not listed in /etc/subuid, trying root-mapped namespace
+INFO:    The %post section will be run under the fakeroot command
+INFO:    Starting build...
+INFO:    Verifying bootstrap image /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m0_default.sif
+INFO:    Extracting local image...
+INFO:    Copying /scratch/tmp/j_wred02/snni_campaign/moai-cpu/p_floor_bench.py to /opt/p_floor_bench.py
+INFO:    Running post scriptlet
++ set -e
++ cd /root/moai
++ python3 /opt/p_floor_bench.py /root/moai
+  patched: floor-bench helpers  (test_full_scheme.hpp)
+  patched: after_context read  (test_full_scheme.hpp)
+  patched: after_relin read  (test_full_scheme.hpp)
+  patched: after_gal_keys read  (test_full_scheme.hpp)
+  patched: around the bootstrap galois key set  (test_full_scheme.hpp)
+  patched: floor-bench body  (test_full_scheme.hpp)
+
+--- every floor-bench site now in the source ---
+389:// literal prefixes FLOOR| and FLOOR_SUMMARY| so the build sbatch can confirm the patch took with
+404:static int snni_floor_enabled() {
+409:static std::map<std::string, long> &snni_floor_map() { static std::map<std::string, long> m; return m; }
+421:static void snni_floor(const char *name) {
+422:    if (!snni_floor_enabled()) return;
+425:    snni_floor_map()[std::string(name)] = rss;
+429:static long snni_floor_get(const char *name) {
+430:    std::map<std::string, long> &m = snni_floor_map();
+434:static void snni_floor_begin() {
+435:    if (!snni_floor_enabled()) return;
+441:    snni_floor("after_start");
+444:static void snni_touch(const seal::Ciphertext &ct) {
+454:static seal::Ciphertext snni_make_ct(seal::SEALContext &context, seal::CKKSEncoder &encoder,
+462:    snni_touch(ct);
+465:static void snni_floor_summary() {
+466:    if (!snni_floor_enabled()) return;
+467:    long ctx      = snni_floor_get("after_context");
+468:    long relin    = snni_floor_get("after_relin")   - ctx;                       // + public_key (~0.04 GB)
+469:    long gal30    = snni_floor_get("after_gal_keys") - snni_floor_get("after_relin");
+470:    long boot     = snni_floor_get("after_gal_keys_boot") - snni_floor_get("before_gal_keys_boot");
+473:    long stage_dir = snni_floor_get("after_largest_stage_keys") - snni_floor_get("before_largest_stage_keys");
+474:    long ctvec    = snni_floor_get("after_2_ct_vectors") - snni_floor_get("before_ct_vectors");
+475:    long inflight = snni_floor_get("after_inflight")     - snni_floor_get("after_2_ct_vectors");
+479:        "FLOOR_SUMMARY|context_kb=%ld|relin_kb=%ld|boot_bank_kb=%ld|per_boot_key_kb=%ld"
+488:    snni_floor_begin();
+555:    snni_floor("after_context");
+566:    snni_floor("after_relin");
+569:    snni_floor("after_gal_keys");
+612:    snni_floor("before_gal_keys_boot");
+614:    snni_floor("after_gal_keys_boot");
+622:    if (snni_floor_enabled()) {
+637:                    snni_floor("before_largest_stage_keys");
+640:                    snni_floor("after_largest_stage_keys");
+651:        snni_floor("before_ct_vectors");
+654:        for (int i = 0; i < num_col; ++i) hs1.push_back(snni_make_ct(context, encoder, encryptor, evaluator, scale, 21));
+655:        for (int i = 0; i < num_col; ++i) hs2.push_back(snni_make_ct(context, encoder, encryptor, evaluator, scale, 21));
+656:        snni_floor("after_2_ct_vectors");
+659:        inflight.push_back(snni_make_ct(context, encoder, encryptor, evaluator, scale, 35));
+660:        for (int i = 0; i < 12; ++i) inflight.push_back(snni_make_ct(context, encoder, encryptor, evaluator, scale, 32));
+661:        snni_floor("after_inflight");
+662:        snni_floor_summary();
+--- end ---
+
+PATCH_OK
++ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+CMake Warning (dev) at CMakeLists.txt:1 (project):
+  cmake_minimum_required() should be called prior to this top-level project()
+  call.  Please see the cmake-commands(7) manual for usage documentation of
+  both commands.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Microsoft SEAL -> Version 4.1.2 detected
+-- Microsoft SEAL -> Targets available: SEAL::seal
+-- include common directory
+-- include ckks_bootstrapping directory
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /root/moai/build
++ nproc
++ cmake --build build -j 16
+[  7%] Building CXX object CMakeFiles/test.dir/test.cpp.o
+[ 15%] Linking CXX executable test
+[100%] Built target test
++ strings -a /root/moai/build/test
++ grep -q FLOOR|
++ strings -a /root/moai/build/test
++ grep -q FLOOR_SUMMARY|
++ md5sum /root/moai/build/test
++ cat /opt/moai_binary_md5.txt
+0009c12c2865ea05758e19acaf3310ee  /root/moai/build/test
+INFO:    Creating SIF file...
+INFO:    Build complete: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-p_floor_bench.sif
+baseline binary md5 = 05a5181ff6ce6744d4d9db7d39911614
+floor    binary md5 = 0009c12c2865ea05758e19acaf3310ee
+BUILD_OK
+################################# JOB REPORT ##################################
+Job ID: 46667103
+Cluster: palma2
+User/Group: j_wred02/u0dawin
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 16
+CPU Utilized: 00:15:04
+CPU Efficiency: 74.34% of 00:20:16 core-walltime
+Job Wall-clock time: 00:01:16
+Memory Utilized: 6.85 GB
+Memory Efficiency: 14.26% of 48.00 GB (48.00 GB/node)
+###############################################################################

@@ -1,0 +1,19 @@
+step=a3_threads16
+run=1
+date_utc=2026-08-09T20:42:52Z
+machine=palma:bigsmp node=r05n08
+slurm_job_id=45986318
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+attrib_host=pmrec_pagemap
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/arion/sif/arion-a1_btpeval_shallowcopy.sif
+image_digest=198c1553043c0ccc4e586e6fb7f29f45a03588f2a9ff2e2f241de35cfccf8f0b
+arion_n_layers=2
+arion_threads=16
+arion_menu=12
+gogc=50
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base logN=16 rows=128 batch=256 layers=2 (DECLARED SCOPE)
+protocol=RNS-CKKS non-interactive FHE, single process, no parties
+role=the single process; there is no second party to pair a decomposition with

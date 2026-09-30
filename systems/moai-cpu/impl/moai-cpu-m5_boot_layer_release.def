@@ -1,0 +1,57 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m4_enc_ecd_x_release.sif
+
+# MOAI-CPU m5_boot_layer_release: release boot_layer (the bootstrapped second-residual input) after
+# its last use, on top of m4_enc_ecd_x_release. FREE fix, no accuracy/security/portability trade.
+#
+# WHY. Free-fix audit of m4's peak table (depth 10): the largest object gal_keys_boot (62 GB) has no
+# free fix; of the rest only boot_layer (15.9 GB, all_layer_test:874) is retained past its last use.
+# Source: created :865, last read :1136 (rtn2 += boot_layer, second residual), never reused, no swap;
+# the peak (after_bootstrap4) is later. Same pattern as x_copy/enc_ecd_x, one level further. Validated
+# by the old campaign: swap(boot_layer) is in its base image (operator-bench/moai_new/01_base_image);
+# our upstream lacks it. Size uncertain here (attribution != releasable; enc_ecd_x was 54.7 GB attrib
+# -> ~30 GB real). Measurement decides.
+#
+# ONE EDIT (patch_boot_layer_release.py, self-validating): swap(boot_layer) after the residual loop.
+# No resize (boot_layer is never reused). Project only; SEAL inherited from the base.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_boot_layer_release.py /opt/patch_boot_layer_release.py
+
+%post
+    set -e
+    python3 /opt/patch_boot_layer_release.py /root/moai
+
+    cd /root/moai
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+
+    # ALL FIVE levers must be present, plus seed, workload, recording pool.
+    strings -a /root/moai/build/test | grep -q 'SEEDED|seal_prng|' \
+        || { echo "FAILED: no SEAL seed marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'WORKLOAD|model=bert-base' \
+        || { echo "FAILED: no workload marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|pool_threshold' \
+        || { echo "FAILED: inherited pool_threshold missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|minimal_att_keys' \
+        || { echo "FAILED: inherited minimal_att_keys missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|x_copy_release' \
+        || { echo "FAILED: inherited x_copy_release missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|enc_ecd_x_release' \
+        || { echo "FAILED: inherited enc_ecd_x_release missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|boot_layer_release' \
+        || { echo "FAILED: the boot_layer_release lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'POOLREC|profile_installed' \
+        || { echo "FAILED: the recording pool is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'SNNI_MM|profile=new' \
+        && { echo "FAILED: this variant must NOT carry MMProfNew"; exit 4; }
+
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m5_boot_layer_release
+    snni.base m4_enc_ecd_x_release

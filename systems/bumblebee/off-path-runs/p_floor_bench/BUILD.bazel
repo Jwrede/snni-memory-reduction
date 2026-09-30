@@ -1,0 +1,15 @@
+load("//bazel:spu.bzl", "spu_cc_binary")
+
+spu_cc_binary(
+    name = "floor_bench",
+    srcs = ["floor_bench.cc"],
+    deps = [
+        "//libspu/mpc/cheetah/arith:matmat_prot",
+        "//libspu/mpc/cheetah/ot",
+        "//libspu/mpc/cheetah/rlwe:modswitch_helper",
+        "//libspu/mpc/cheetah/rlwe:rlwe_utils",
+        "//libspu/mpc/common:communicator",
+        "//libspu/mpc/utils:ring_ops",
+        "@yacl//yacl/link",
+    ],
+)

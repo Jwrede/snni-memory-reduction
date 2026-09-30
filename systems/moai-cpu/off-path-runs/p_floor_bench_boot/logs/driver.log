@@ -1,0 +1,66 @@
+e5579f44e274ccbbf58d009c5ab891200a9fe12d4e2990ac3cfe0e3b058ef534
+Saved working directory and index state WIP on main: 8bcb0ea Update README.md
+8bcb0eadac299db88ca6417c5710cd65ada66af1
+?? build/
+  patched: bootstrap floor-bench helpers  (test_full_scheme.hpp)
+  patched: ctx_pub read  (test_full_scheme.hpp)
+  patched: bootstrap floor-bench body  (test_full_scheme.hpp)
+
+--- bootstrap floor-bench sites now in the source ---
+352:static int snni_boot_enabled() {
+354:    if (v < 0) { const char *e = getenv("SNNI_FLOOR_BOOT"); v = (e && *e) ? 1 : 0; }
+357:static std::map<std::string, long> &snni_boot_map() { static std::map<std::string, long> m; return m; }
+358:static void snni_boot_status(long &rss_kb, long &hwm_kb) {
+369:static void snni_boot(const char *name) {
+370:    if (!snni_boot_enabled()) return;
+372:    snni_boot_status(rss, hwm);
+373:    snni_boot_map()[std::string(name)] = rss;
+374:    fprintf(stderr, "FLOOR_BOOT|%s|vmrss_kb=%ld|vmhwm_kb=%ld\n", name, rss, hwm);
+377:static long snni_boot_get(const char *name) {
+378:    std::map<std::string, long> &m = snni_boot_map();
+382:static void snni_boot_touch(const seal::Ciphertext &ct) {
+391:static seal::Ciphertext snni_boot_ct(seal::SEALContext &context, seal::CKKSEncoder &encoder,
+399:    snni_boot_touch(ct);
+406:    if (snni_boot_enabled()) {
+410:        fprintf(stderr, "FLOOR_BOOT|begin|note=T=1 bootstrap-instant resident target; deltas are VmRSS\n");
+412:        snni_boot("after_start");
+471:    snni_boot("ctx_pub");
+474:    if (snni_boot_enabled()) {
+480:        snni_boot("boot_context");          // context + public + relin
+485:        fprintf(stderr, "FLOOR_BOOT|stage_keys|count=%zu\n", stage_keys.size()); fflush(stderr);
+486:        snni_boot("boot_after_stage");
+488:        seal::Ciphertext t32 = snni_boot_ct(context, fenc, fencr, fev, scale, 32);
+491:        for (int i = 0; i < 128; ++i) { chunk.push_back(t32); snni_boot_touch(chunk.back()); }
+492:        fprintf(stderr, "FLOOR_BOOT|chunk|count=%zu|limbs=%zu\n", chunk.size(), chunk[0].coeff_modulus_size());
+494:        snni_boot("boot_after_chunk");
+496:        seal::Ciphertext t35 = snni_boot_ct(context, fenc, fencr, fev, scale, 35);
+499:        thread_ws.push_back(t35); snni_boot_touch(thread_ws.back());
+500:        for (int i = 0; i < 12; ++i) { thread_ws.push_back(t32); snni_boot_touch(thread_ws.back()); }
+501:        fprintf(stderr, "FLOOR_BOOT|thread_ws|count=%zu|limbs=%zu+12x%zu\n", thread_ws.size(),
+504:        snni_boot("boot_instant");
+505:        long ctxp  = snni_boot_get("ctx_pub");
+506:        long total = snni_boot_get("boot_instant");
+507:        long relin = snni_boot_get("boot_context") - ctxp;
+508:        long keys  = snni_boot_get("boot_after_stage") - snni_boot_get("boot_context");
+509:        long chnk  = snni_boot_get("boot_after_chunk") - snni_boot_get("boot_after_stage");
+510:        long thr   = total - snni_boot_get("boot_after_chunk");
+512:            "FLOOR_BOOT_SUMMARY|ctx_pub_kb=%ld|relin_kb=%ld|keys15_kb=%ld|chunk_kb=%ld|thread_kb=%ld|instant_kb=%ld|target_kb=%ld\n",
+517:        snni_boot_touch(chunk[0]);
+518:        snni_boot("boot_after_keyswitch");
+519:        fprintf(stderr, "FLOOR_BOOT|keyswitch_step_kb=%ld\n",
+520:                snni_boot_get("boot_after_keyswitch") - total);
+PATCH_OK
+ include/test/test_full_scheme.hpp | 124 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 124 insertions(+)
+CMake Warning (dev) at CMakeLists.txt:1 (project):
+  cmake_minimum_required() should be called prior to this top-level project()
+  call.  Please see the cmake-commands(7) manual for usage documentation of
+  both commands.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+[ 92%] Building CXX object CMakeFiles/test.dir/include/source/bootstrapping/common/RemezApp.cpp.o
+[100%] Linking CXX executable test
+[100%] Built target test
+fbf1eea630e7b9d065b216feb57c503d  build/test
+BUILD rc=0
+RUN_DONE

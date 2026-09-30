@@ -1,0 +1,26 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m4_enc_ecd_x_release.sif
+
+# MOAI-CPU m5r_att_keys_release_last_layer (re-measurement line in the corrected order, 2026-09-23): the m4 line PLUS one lever (patch_att_keys_release_last_layer.py). Corrected order (audit 2026-09-23): at m4's peak (Layer-1 bootstrap4) the attention rotation keys (gal_keys, 17.2 GB) are the largest object with a free fix: dead after the last layer's attention block. Bit-identical.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_att_keys_release_last_layer.py /opt/patch_att_keys_release_last_layer.py
+
+%post
+    set -e
+    python3 /opt/patch_att_keys_release_last_layer.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in att_keys_release_last_layer; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m5r_att_keys_release_last_layer
+    snni.base m4_enc_ecd_x_release

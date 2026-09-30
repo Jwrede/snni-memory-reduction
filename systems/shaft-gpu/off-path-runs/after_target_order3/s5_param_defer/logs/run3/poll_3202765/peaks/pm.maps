@@ -1,0 +1,920 @@
+00400000-0041f000 r--p 00000000 00:35 616240935                          /opt/conda/bin/python3.10
+0041f000-0061a000 r-xp 0001f000 00:35 616240935                          /opt/conda/bin/python3.10
+0061a000-0071c000 r--p 0021a000 00:35 616240935                          /opt/conda/bin/python3.10
+0071d000-0071e000 r--p 0031c000 00:35 616240935                          /opt/conda/bin/python3.10
+0071e000-00750000 rw-p 0031d000 00:35 616240935                          /opt/conda/bin/python3.10
+00750000-00756000 rw-p 00000000 00:00 0 
+018b6000-2025b000 rw-p 00000000 00:00 0                                  [heap]
+2025b000-206db000 rw-p 00000000 00:00 0                                  [heap]
+206db000-23509000 rw-p 00000000 00:00 0                                  [heap]
+23509000-24709000 rw-p 00000000 00:00 0                                  [heap]
+24709000-26689000 rw-p 00000000 00:00 0                                  [heap]
+26689000-27d09000 rw-p 00000000 00:00 0                                  [heap]
+27d09000-28189000 rw-p 00000000 00:00 0                                  [heap]
+28189000-28609000 rw-p 00000000 00:00 0                                  [heap]
+28609000-28a89000 rw-p 00000000 00:00 0                                  [heap]
+28a89000-29c89000 rw-p 00000000 00:00 0                                  [heap]
+29c89000-2b309000 rw-p 00000000 00:00 0                                  [heap]
+2b309000-2b789000 rw-p 00000000 00:00 0                                  [heap]
+2b789000-2c089000 rw-p 00000000 00:00 0                                  [heap]
+2c089000-2c0a9000 rw-p 00000000 00:00 0                                  [heap]
+2c0a9000-30409000 rw-p 00000000 00:00 0                                  [heap]
+30409000-31609000 rw-p 00000000 00:00 0                                  [heap]
+31609000-35509000 rw-p 00000000 00:00 0                                  [heap]
+35509000-36709000 rw-p 00000000 00:00 0                                  [heap]
+36709000-38238000 rw-p 00000000 00:00 0                                  [heap]
+200000000-200600000 ---p 00000000 00:00 0 
+200600000-200800000 rw-s 00000000 00:06 1079                             /dev/nvidia7
+200800000-204000000 rw-s 00000000 00:06 1030                             /dev/nvidiactl
+204000000-204600000 ---p 00000000 00:00 0 
+204600000-204800000 rw-s 00000000 00:06 1030                             /dev/nvidiactl
+204800000-204a00000 rw-s 00000000 00:06 1030                             /dev/nvidiactl
+204a00000-204c00000 rw-s 204a00000 00:06 1130                            /dev/nvidia-uvm
+204c00000-300200000 ---p 00000000 00:00 0 
+10000000000-10004000000 ---p 00000000 00:00 0 
+1512a4000000-1512b8000000 ---p 00000000 00:00 0 
+1512b8000000-1512b80f3000 rw-p 00000000 00:00 0 
+1512b80f3000-1512bc000000 ---p 00000000 00:00 0 
+1512be000000-1512c0000000 ---p 00000000 00:00 0 
+1512c0000000-1512c00f3000 rw-p 00000000 00:00 0 
+1512c00f3000-1512c4000000 ---p 00000000 00:00 0 
+1512c4000000-1512c40f3000 rw-p 00000000 00:00 0 
+1512c40f3000-1512c8000000 ---p 00000000 00:00 0 
+1512c8000000-1512c80f2000 rw-p 00000000 00:00 0 
+1512c80f2000-1512cc000000 ---p 00000000 00:00 0 
+1512cc000000-1512cc0f3000 rw-p 00000000 00:00 0 
+1512cc0f3000-1512d0000000 ---p 00000000 00:00 0 
+1512d0000000-1512d00f3000 rw-p 00000000 00:00 0 
+1512d00f3000-1512d4000000 ---p 00000000 00:00 0 
+1512d6000000-1512f5c00000 ---p 00000000 00:00 0 
+1512f5c00000-1512f5e00000 rw-s 00000000 00:01 225275                     /dev/zero (deleted)
+1512f5e00000-1512f6000000 ---p 00000000 00:00 0 
+1512f6000000-1512f6841000 rw-s 00000000 00:01 225276                     /dev/zero (deleted)
+1512f6841000-1512fce00000 ---p 00000000 00:00 0 
+1512fce00000-1512fee00000 rw-s 00000000 00:01 225277                     /dev/zero (deleted)
+1512fee00000-151304600000 ---p 00000000 00:00 0 
+151304600000-151304a00000 rw-s 00000000 00:01 239660                     /dev/zero (deleted)
+151304a00000-151306600000 ---p 00000000 00:00 0 
+151306600000-151306e00000 rw-s 00000000 00:01 213202                     /dev/zero (deleted)
+151306e00000-15130a800000 ---p 00000000 00:00 0 
+15130a800000-15130aa00000 rw-s 00000000 00:01 230663                     /dev/zero (deleted)
+15130aa00000-15130ba00000 rw-s 00000000 00:01 230664                     /dev/zero (deleted)
+15130ba00000-151310000000 ---p 00000000 00:00 0 
+15131059a000-15132a2cd000 rw-p 00000000 00:35 65591509117                /root/.cache/huggingface/hub/models--andeskyl--bert-base-cased-sst2/blobs/db532512fdf4af5d035cc90843787f4d1094299db83ac03b3a04658cd20db6f5
+15132c000000-15132c0f3000 rw-p 00000000 00:00 0 
+15132c0f3000-151330000000 ---p 00000000 00:00 0 
+151330000000-151330021000 rw-p 00000000 00:00 0 
+151330021000-151334000000 ---p 00000000 00:00 0 
+1513371f1000-151337bfe000 rw-p 00000000 00:00 0 
+151337bfe000-151337bff000 ---p 00000000 00:00 0 
+151337bff000-151337dff000 rw-p 00000000 00:00 0 
+151337dff000-151337e00000 ---p 00000000 00:00 0 
+151337e00000-151338000000 rw-p 00000000 00:00 0 
+151338000000-15133d400000 ---p 00000000 00:00 0 
+15133d400000-15133d600000 rw-s 00000000 00:01 213201                     /dev/zero (deleted)
+15133d600000-15133e600000 ---p 00000000 00:00 0 
+15133e600000-15133e800000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+15133e800000-15133ea00000 rw-s 00000000 00:01 213197                     /dev/zero (deleted)
+15133ea00000-15133ec00000 rw-s 00000000 00:01 213198                     /dev/zero (deleted)
+15133ec00000-15133f400000 ---p 00000000 00:00 0 
+15133f400000-15133f600000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+15133f600000-15133f800000 ---p 00000000 00:00 0 
+15133f800000-15133fa00000 rw-s 00000000 00:01 213200                     /dev/zero (deleted)
+15133fa00000-15133ffeb000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+15133ffeb000-151340000000 ---p 00000000 00:00 0 
+151340000000-151340021000 rw-p 00000000 00:00 0 
+151340021000-151344000000 ---p 00000000 00:00 0 
+151344000000-1513442e6000 rw-p 00000000 00:00 0 
+1513442e6000-151348000000 ---p 00000000 00:00 0 
+15134802d000-15134802e000 ---p 00000000 00:00 0 
+15134802e000-15134822e000 rw-p 00000000 00:00 0 
+15134822e000-15134822f000 ---p 00000000 00:00 0 
+15134822f000-15134842f000 rw-p 00000000 00:00 0 
+15134842f000-151348430000 ---p 00000000 00:00 0 
+151348430000-151348630000 rw-p 00000000 00:00 0 
+151348630000-151348631000 ---p 00000000 00:00 0 
+151348631000-151348831000 rw-p 00000000 00:00 0 
+151348831000-151348832000 ---p 00000000 00:00 0 
+151348832000-151348a32000 rw-p 00000000 00:00 0 
+151348a32000-151348a33000 ---p 00000000 00:00 0 
+151348a33000-151348c33000 rw-p 00000000 00:00 0 
+151348c33000-151349c35000 rw-p 00000000 00:00 0 
+151349c35000-151349e35000 rw-s 00000000 00:01 213199                     /dev/zero (deleted)
+151349e35000-151349e36000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e36000-151349e37000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e37000-151349e38000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e38000-151349e39000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e39000-151349e3a000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e3a000-151349e3b000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e3b000-151349e3c000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e3c000-151349e3d000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e3d000-151349e3e000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e3e000-151349e3f000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e3f000-151349e40000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e40000-151349e41000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e41000-151349e42000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e42000-151349e43000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e43000-151349e44000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e44000-151349e45000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e45000-151349e46000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e46000-151349e47000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e47000-151349e48000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e48000-151349e49000 rw-s 00000000 00:06 1030                       /dev/nvidiactl
+151349e49000-15134b056000 ---p 00000000 00:00 0 
+15134b056000-15134b057000 ---p 00000000 00:00 0 
+15134b057000-15134b257000 rw-p 00000000 00:00 0 
+15134b257000-15134b968000 rw-p 00000000 00:00 0 
+15134b968000-15134b9fa000 r--p 00000000 00:35 34679752062                /opt/conda/lib/python3.10/site-packages/tokenizers/tokenizers.cpython-310-x86_64-linux-gnu.so
+15134b9fa000-15134bde6000 r-xp 00092000 00:35 34679752062                /opt/conda/lib/python3.10/site-packages/tokenizers/tokenizers.cpython-310-x86_64-linux-gnu.so
+15134bde6000-15134bf7d000 r--p 0047e000 00:35 34679752062                /opt/conda/lib/python3.10/site-packages/tokenizers/tokenizers.cpython-310-x86_64-linux-gnu.so
+15134bf7d000-15134bf7e000 ---p 00615000 00:35 34679752062                /opt/conda/lib/python3.10/site-packages/tokenizers/tokenizers.cpython-310-x86_64-linux-gnu.so
+15134bf7e000-15134bff9000 r--p 00615000 00:35 34679752062                /opt/conda/lib/python3.10/site-packages/tokenizers/tokenizers.cpython-310-x86_64-linux-gnu.so
+15134bff9000-15134c000000 rw-p 00690000 00:35 34679752062                /opt/conda/lib/python3.10/site-packages/tokenizers/tokenizers.cpython-310-x86_64-linux-gnu.so
+15134c000000-15134c021000 rw-p 00000000 00:00 0 
+15134c021000-151350000000 ---p 00000000 00:00 0 
+151350000000-15135020a000 rw-p 00000000 00:00 0 
+15135020a000-151354000000 ---p 00000000 00:00 0 
+151354000000-151354021000 rw-p 00000000 00:00 0 
+151354021000-151358000000 ---p 00000000 00:00 0 
+151358000000-151358021000 rw-p 00000000 00:00 0 
+151358021000-15135c000000 ---p 00000000 00:00 0 
+15135c000000-15135c021000 rw-p 00000000 00:00 0 
+15135c021000-151360000000 ---p 00000000 00:00 0 
+151360000000-151360027000 rw-p 00000000 00:00 0 
+151360027000-151364000000 ---p 00000000 00:00 0 
+151364072000-1513640b2000 rwxp 00000000 00:00 0 
+1513640b2000-1513642b2000 rw-p 00000000 00:00 0 
+1513642b2000-1513642c3000 r--p 00000000 00:35 30262889314                /opt/conda/lib/python3.10/site-packages/sentencepiece/_sentencepiece.cpython-310-x86_64-linux-gnu.so
+1513642c3000-15136441b000 r-xp 00011000 00:35 30262889314                /opt/conda/lib/python3.10/site-packages/sentencepiece/_sentencepiece.cpython-310-x86_64-linux-gnu.so
+15136441b000-151364461000 r--p 00169000 00:35 30262889314                /opt/conda/lib/python3.10/site-packages/sentencepiece/_sentencepiece.cpython-310-x86_64-linux-gnu.so
+151364461000-151364465000 r--p 001af000 00:35 30262889314                /opt/conda/lib/python3.10/site-packages/sentencepiece/_sentencepiece.cpython-310-x86_64-linux-gnu.so
+151364465000-151364466000 rw-p 001b3000 00:35 30262889314                /opt/conda/lib/python3.10/site-packages/sentencepiece/_sentencepiece.cpython-310-x86_64-linux-gnu.so
+151364466000-15136456a000 rw-p 00000000 00:00 0 
+15136456a000-151364589000 r--p 00000000 00:02 83798                      /.singularity.d/libs/libnvidia-ml.so.1
+151364589000-151364708000 r-xp 0001f000 00:02 83798                      /.singularity.d/libs/libnvidia-ml.so.1
+151364708000-15136476f000 r--p 0019e000 00:02 83798                      /.singularity.d/libs/libnvidia-ml.so.1
+15136476f000-1513647a1000 r--p 00204000 00:02 83798                      /.singularity.d/libs/libnvidia-ml.so.1
+1513647a1000-1513647f3000 rw-p 00236000 00:02 83798                      /.singularity.d/libs/libnvidia-ml.so.1
+1513647f3000-151365a5a000 rw-p 00000000 00:00 0 
+151365a5a000-151365a5b000 ---p 00000000 00:00 0 
+151365a5b000-151365c5b000 rw-p 00000000 00:00 0 
+151365c5b000-151365c5c000 ---p 00000000 00:00 0 
+151365c5c000-151365e5c000 rw-p 00000000 00:00 0 
+151365e5c000-151365e5d000 ---p 00000000 00:00 0 
+151365e5d000-15136605d000 rw-p 00000000 00:00 0 
+15136605d000-15136605e000 ---p 00000000 00:00 0 
+15136605e000-15136625e000 rw-p 00000000 00:00 0 
+15136625e000-15136625f000 ---p 00000000 00:00 0 
+15136625f000-15136645f000 rw-p 00000000 00:00 0 
+15136645f000-151366460000 ---p 00000000 00:00 0 
+151366460000-151366660000 rw-p 00000000 00:00 0 
+151366660000-151366661000 ---p 00000000 00:00 0 
+151366661000-151366861000 rw-p 00000000 00:00 0 
+151366861000-151366862000 ---p 00000000 00:00 0 
+151366862000-151366a62000 rw-p 00000000 00:00 0 
+151366a62000-151366a63000 ---p 00000000 00:00 0 
+151366a63000-151366c63000 rw-p 00000000 00:00 0 
+151366c63000-151366c64000 ---p 00000000 00:00 0 
+151366c64000-151366e64000 rw-p 00000000 00:00 0 
+151366e64000-151366e65000 ---p 00000000 00:00 0 
+151366e65000-151367065000 rw-p 00000000 00:00 0 
+151367065000-151367066000 ---p 00000000 00:00 0 
+151367066000-151367266000 rw-p 00000000 00:00 0 
+151367266000-151367366000 rw-p 00000000 00:00 0 
+151367366000-15136736b000 r--p 00000000 00:35 14742983441                /opt/conda/lib/python3.10/site-packages/ml_dtypes/_ml_dtypes_ext.cpython-310-x86_64-linux-gnu.so
+15136736b000-1513674a1000 r-xp 00005000 00:35 14742983441                /opt/conda/lib/python3.10/site-packages/ml_dtypes/_ml_dtypes_ext.cpython-310-x86_64-linux-gnu.so
+1513674a1000-1513674d7000 r--p 0013b000 00:35 14742983441                /opt/conda/lib/python3.10/site-packages/ml_dtypes/_ml_dtypes_ext.cpython-310-x86_64-linux-gnu.so
+1513674d7000-1513674d8000 r--p 00170000 00:35 14742983441                /opt/conda/lib/python3.10/site-packages/ml_dtypes/_ml_dtypes_ext.cpython-310-x86_64-linux-gnu.so
+1513674d8000-1513674da000 rw-p 00171000 00:35 14742983441                /opt/conda/lib/python3.10/site-packages/ml_dtypes/_ml_dtypes_ext.cpython-310-x86_64-linux-gnu.so
+1513674da000-1513674dc000 rw-p 00000000 00:00 0 
+1513674dc000-15136755e000 r--p 00000000 00:35 22922723938                /opt/conda/lib/python3.10/site-packages/onnx/onnx_cpp2py_export.cpython-310-x86_64-linux-gnu.so
+15136755e000-151367995000 r-xp 00082000 00:35 22922723938                /opt/conda/lib/python3.10/site-packages/onnx/onnx_cpp2py_export.cpython-310-x86_64-linux-gnu.so
+151367995000-151367aeb000 r--p 004b9000 00:35 22922723938                /opt/conda/lib/python3.10/site-packages/onnx/onnx_cpp2py_export.cpython-310-x86_64-linux-gnu.so
+151367aeb000-151367afa000 r--p 0060e000 00:35 22922723938                /opt/conda/lib/python3.10/site-packages/onnx/onnx_cpp2py_export.cpython-310-x86_64-linux-gnu.so
+151367afa000-151367afe000 rw-p 0061d000 00:35 22922723938                /opt/conda/lib/python3.10/site-packages/onnx/onnx_cpp2py_export.cpython-310-x86_64-linux-gnu.so
+151367afe000-151367c02000 rw-p 00000000 00:00 0 
+151367c02000-151367c0c000 r--p 00000000 00:35 12010064277                /opt/conda/lib/python3.10/site-packages/google/_upb/_message.abi3.so
+151367c0c000-151367c39000 r-xp 0000a000 00:35 12010064277                /opt/conda/lib/python3.10/site-packages/google/_upb/_message.abi3.so
+151367c39000-151367c4e000 r--p 00037000 00:35 12010064277                /opt/conda/lib/python3.10/site-packages/google/_upb/_message.abi3.so
+151367c4e000-151367c50000 r--p 0004b000 00:35 12010064277                /opt/conda/lib/python3.10/site-packages/google/_upb/_message.abi3.so
+151367c50000-151367c54000 rw-p 0004d000 00:35 12010064277                /opt/conda/lib/python3.10/site-packages/google/_upb/_message.abi3.so
+151367c54000-151367e54000 rw-p 00000000 00:00 0 
+151367e54000-151367e5e000 r--p 00000000 00:35 2609578033                 /opt/conda/lib/libLerc.so
+151367e5e000-151367ee5000 r-xp 0000a000 00:35 2609578033                 /opt/conda/lib/libLerc.so
+151367ee5000-151367eed000 r--p 00091000 00:35 2609578033                 /opt/conda/lib/libLerc.so
+151367eed000-151367eee000 ---p 00099000 00:35 2609578033                 /opt/conda/lib/libLerc.so
+151367eee000-151367eef000 r--p 00099000 00:35 2609578033                 /opt/conda/lib/libLerc.so
+151367eef000-151367ef0000 rw-p 0009a000 00:35 2609578033                 /opt/conda/lib/libLerc.so
+151367ef0000-151367efe000 r--p 00000000 00:35 7435453838                 /opt/conda/lib/libzstd.so.1.5.5
+151367efe000-151367fe8000 r-xp 0000e000 00:35 7435453838                 /opt/conda/lib/libzstd.so.1.5.5
+151367fe8000-151367ffd000 r--p 000f8000 00:35 7435453838                 /opt/conda/lib/libzstd.so.1.5.5
+151367ffd000-151367ffe000 ---p 0010d000 00:35 7435453838                 /opt/conda/lib/libzstd.so.1.5.5
+151367ffe000-151367fff000 r--p 0010d000 00:35 7435453838                 /opt/conda/lib/libzstd.so.1.5.5
+151367fff000-151368000000 rw-p 0010e000 00:35 7435453838                 /opt/conda/lib/libzstd.so.1.5.5
+151368000000-15156c000000 ---p 00000000 00:00 0 
+15156c000000-15156c021000 rw-p 00000000 00:00 0 
+15156c021000-151570000000 ---p 00000000 00:00 0 
+151570026000-151570029000 r--p 00000000 00:35 68184513776                /usr/lib/x86_64-linux-gnu/libnss_files-2.31.so
+151570029000-151570030000 r-xp 00003000 00:35 68184513776                /usr/lib/x86_64-linux-gnu/libnss_files-2.31.so
+151570030000-151570032000 r--p 0000a000 00:35 68184513776                /usr/lib/x86_64-linux-gnu/libnss_files-2.31.so
+151570032000-151570033000 r--p 0000b000 00:35 68184513776                /usr/lib/x86_64-linux-gnu/libnss_files-2.31.so
+151570033000-151570034000 rw-p 0000c000 00:35 68184513776                /usr/lib/x86_64-linux-gnu/libnss_files-2.31.so
+151570034000-15157003a000 rw-p 00000000 00:00 0 
+15157003a000-15157003b000 r--p 00000000 00:35 7202868077                 /opt/conda/lib/libsharpyuv.so.0.0.1
+15157003b000-15157003f000 r-xp 00001000 00:35 7202868077                 /opt/conda/lib/libsharpyuv.so.0.0.1
+15157003f000-151570040000 r--p 00005000 00:35 7202868077                 /opt/conda/lib/libsharpyuv.so.0.0.1
+151570040000-151570041000 r--p 00005000 00:35 7202868077                 /opt/conda/lib/libsharpyuv.so.0.0.1
+151570041000-151570042000 rw-p 00006000 00:35 7202868077                 /opt/conda/lib/libsharpyuv.so.0.0.1
+151570042000-151570043000 rw-p 00000000 00:00 0 
+151570043000-151570044000 r--p 00000000 00:35 4651425180                 /opt/conda/lib/libdeflate.so.0
+151570044000-151570051000 r-xp 00001000 00:35 4651425180                 /opt/conda/lib/libdeflate.so.0
+151570051000-151570056000 r--p 0000e000 00:35 4651425180                 /opt/conda/lib/libdeflate.so.0
+151570056000-151570057000 r--p 00012000 00:35 4651425180                 /opt/conda/lib/libdeflate.so.0
+151570057000-151570058000 rw-p 00013000 00:35 4651425180                 /opt/conda/lib/libdeflate.so.0
+151570058000-15157005b000 r--p 00000000 00:35 7202873322                 /opt/conda/lib/libwebp.so.7.1.8
+15157005b000-1515700cb000 r-xp 00003000 00:35 7202873322                 /opt/conda/lib/libwebp.so.7.1.8
+1515700cb000-1515700df000 r--p 00073000 00:35 7202873322                 /opt/conda/lib/libwebp.so.7.1.8
+1515700df000-1515700e0000 r--p 00086000 00:35 7202873322                 /opt/conda/lib/libwebp.so.7.1.8
+1515700e0000-1515700e1000 rw-p 00087000 00:35 7202873322                 /opt/conda/lib/libwebp.so.7.1.8
+1515700e1000-1515700e2000 rw-p 00000000 00:00 0 
+1515700e2000-1515700eb000 r--p 00000000 00:35 7202870875                 /opt/conda/lib/libtiff.so.6.0.1
+1515700eb000-151570139000 r-xp 00009000 00:35 7202870875                 /opt/conda/lib/libtiff.so.6.0.1
+151570139000-151570169000 r--p 00057000 00:35 7202870875                 /opt/conda/lib/libtiff.so.6.0.1
+151570169000-15157016a000 ---p 00087000 00:35 7202870875                 /opt/conda/lib/libtiff.so.6.0.1
+15157016a000-15157016f000 r--p 00087000 00:35 7202870875                 /opt/conda/lib/libtiff.so.6.0.1
+15157016f000-151570170000 rw-p 0008c000 00:35 7202870875                 /opt/conda/lib/libtiff.so.6.0.1
+151570170000-151570179000 r--p 00000000 00:35 6885481989                 /opt/conda/lib/libopenjp2.so.2.4.0
+151570179000-1515701c0000 r-xp 00009000 00:35 6885481989                 /opt/conda/lib/libopenjp2.so.2.4.0
+1515701c0000-1515701d1000 r--p 00050000 00:35 6885481989                 /opt/conda/lib/libopenjp2.so.2.4.0
+1515701d1000-1515701d3000 r--p 00060000 00:35 6885481989                 /opt/conda/lib/libopenjp2.so.2.4.0
+1515701d3000-1515701d4000 rw-p 00062000 00:35 6885481989                 /opt/conda/lib/libopenjp2.so.2.4.0
+1515701d4000-1515701d9000 r--p 00000000 00:35 5229183029                 /opt/conda/lib/libjpeg.so.9.5.0
+1515701d9000-151570207000 r-xp 00005000 00:35 5229183029                 /opt/conda/lib/libjpeg.so.9.5.0
+151570207000-151570210000 r--p 00033000 00:35 5229183029                 /opt/conda/lib/libjpeg.so.9.5.0
+151570210000-151570211000 ---p 0003c000 00:35 5229183029                 /opt/conda/lib/libjpeg.so.9.5.0
+151570211000-151570212000 r--p 0003c000 00:35 5229183029                 /opt/conda/lib/libjpeg.so.9.5.0
+151570212000-151570213000 rw-p 0003d000 00:35 5229183029                 /opt/conda/lib/libjpeg.so.9.5.0
+151570213000-151570228000 r--p 00000000 00:35 9256963581                 /opt/conda/lib/python3.10/site-packages/PIL/_imaging.cpython-310-x86_64-linux-gnu.so
+151570228000-151570281000 r-xp 00015000 00:35 9256963581                 /opt/conda/lib/python3.10/site-packages/PIL/_imaging.cpython-310-x86_64-linux-gnu.so
+151570281000-151570291000 r--p 0006e000 00:35 9256963581                 /opt/conda/lib/python3.10/site-packages/PIL/_imaging.cpython-310-x86_64-linux-gnu.so
+151570291000-151570296000 r--p 0007d000 00:35 9256963581                 /opt/conda/lib/python3.10/site-packages/PIL/_imaging.cpython-310-x86_64-linux-gnu.so
+151570296000-151570299000 rw-p 00082000 00:35 9256963581                 /opt/conda/lib/python3.10/site-packages/PIL/_imaging.cpython-310-x86_64-linux-gnu.so
+151570299000-151570399000 rw-p 00000000 00:00 0 
+151570399000-15157039a000 r--p 00000000 00:35 14595723429                /opt/conda/lib/python3.10/site-packages/markupsafe/_speedups.cpython-310-x86_64-linux-gnu.so
+15157039a000-15157039b000 r-xp 00001000 00:35 14595723429                /opt/conda/lib/python3.10/site-packages/markupsafe/_speedups.cpython-310-x86_64-linux-gnu.so
+15157039b000-15157039c000 r--p 00002000 00:35 14595723429                /opt/conda/lib/python3.10/site-packages/markupsafe/_speedups.cpython-310-x86_64-linux-gnu.so
+15157039c000-15157039d000 r--p 00002000 00:35 14595723429                /opt/conda/lib/python3.10/site-packages/markupsafe/_speedups.cpython-310-x86_64-linux-gnu.so
+15157039d000-15157039e000 rw-p 00003000 00:35 14595723429                /opt/conda/lib/python3.10/site-packages/markupsafe/_speedups.cpython-310-x86_64-linux-gnu.so
+15157039e000-15157069e000 rw-p 00000000 00:00 0 
+15157069e000-1515706a1000 r--p 00000000 00:35 8399752169                 /opt/conda/lib/python3.10/lib-dynload/_multibytecodec.cpython-310-x86_64-linux-gnu.so
+1515706a1000-1515706a7000 r-xp 00003000 00:35 8399752169                 /opt/conda/lib/python3.10/lib-dynload/_multibytecodec.cpython-310-x86_64-linux-gnu.so
+1515706a7000-1515706a9000 r--p 00009000 00:35 8399752169                 /opt/conda/lib/python3.10/lib-dynload/_multibytecodec.cpython-310-x86_64-linux-gnu.so
+1515706a9000-1515706aa000 r--p 0000a000 00:35 8399752169                 /opt/conda/lib/python3.10/lib-dynload/_multibytecodec.cpython-310-x86_64-linux-gnu.so
+1515706aa000-1515706ab000 rw-p 0000b000 00:35 8399752169                 /opt/conda/lib/python3.10/lib-dynload/_multibytecodec.cpython-310-x86_64-linux-gnu.so
+1515706ab000-1515707ab000 rw-p 00000000 00:00 0 
+1515707ab000-1515707ae000 r--p 00000000 00:35 9256967049                 /opt/conda/lib/python3.10/site-packages/_brotli.cpython-310-x86_64-linux-gnu.so
+1515707ae000-1515707f3000 r-xp 00003000 00:35 9256967049                 /opt/conda/lib/python3.10/site-packages/_brotli.cpython-310-x86_64-linux-gnu.so
+1515707f3000-151570867000 r--p 00048000 00:35 9256967049                 /opt/conda/lib/python3.10/site-packages/_brotli.cpython-310-x86_64-linux-gnu.so
+151570867000-151570868000 r--p 000bb000 00:35 9256967049                 /opt/conda/lib/python3.10/site-packages/_brotli.cpython-310-x86_64-linux-gnu.so
+151570868000-151570869000 rw-p 000bc000 00:35 9256967049                 /opt/conda/lib/python3.10/site-packages/_brotli.cpython-310-x86_64-linux-gnu.so
+151570869000-151570969000 rw-p 00000000 00:00 0 
+151570969000-1515709a5000 r--p 00000000 00:35 28466879202                /opt/conda/lib/python3.10/site-packages/safetensors/_safetensors_rust.abi3.so
+1515709a5000-151570a3d000 r-xp 0003b000 00:35 28466879202                /opt/conda/lib/python3.10/site-packages/safetensors/_safetensors_rust.abi3.so
+151570a3d000-151570a44000 r--p 000d2000 00:35 28466879202                /opt/conda/lib/python3.10/site-packages/safetensors/_safetensors_rust.abi3.so
+151570a44000-151570a47000 rw-p 000d8000 00:35 28466879202                /opt/conda/lib/python3.10/site-packages/safetensors/_safetensors_rust.abi3.so
+151570a47000-151570d47000 rw-p 00000000 00:00 0 
+151570d47000-151570d57000 r--p 00000000 00:35 7202871430                 /opt/conda/lib/libtinfow.so.6.4
+151570d57000-151570d73000 r-xp 00010000 00:35 7202871430                 /opt/conda/lib/libtinfow.so.6.4
+151570d73000-151570d84000 r--p 0002c000 00:35 7202871430                 /opt/conda/lib/libtinfow.so.6.4
+151570d84000-151570d88000 r--p 0003c000 00:35 7202871430                 /opt/conda/lib/libtinfow.so.6.4
+151570d88000-151570d89000 rw-p 00040000 00:35 7202871430                 /opt/conda/lib/libtinfow.so.6.4
+151570d89000-151570da2000 r--p 00000000 00:35 7202867460                 /opt/conda/lib/libreadline.so.8.2
+151570da2000-151570dce000 r-xp 00019000 00:35 7202867460                 /opt/conda/lib/libreadline.so.8.2
+151570dce000-151570dd8000 r--p 00045000 00:35 7202867460                 /opt/conda/lib/libreadline.so.8.2
+151570dd8000-151570dd9000 ---p 0004f000 00:35 7202867460                 /opt/conda/lib/libreadline.so.8.2
+151570dd9000-151570ddc000 r--p 0004f000 00:35 7202867460                 /opt/conda/lib/libreadline.so.8.2
+151570ddc000-151570de2000 rw-p 00052000 00:35 7202867460                 /opt/conda/lib/libreadline.so.8.2
+151570de2000-151570de3000 rw-p 00000000 00:00 0 
+151570de3000-151570de6000 r--p 00000000 00:35 8399754565                 /opt/conda/lib/python3.10/lib-dynload/readline.cpython-310-x86_64-linux-gnu.so
+151570de6000-151570de8000 r-xp 00003000 00:35 8399754565                 /opt/conda/lib/python3.10/lib-dynload/readline.cpython-310-x86_64-linux-gnu.so
+151570de8000-151570dea000 r--p 00005000 00:35 8399754565                 /opt/conda/lib/python3.10/lib-dynload/readline.cpython-310-x86_64-linux-gnu.so
+151570dea000-151570deb000 ---p 00007000 00:35 8399754565                 /opt/conda/lib/python3.10/lib-dynload/readline.cpython-310-x86_64-linux-gnu.so
+151570deb000-151570dec000 r--p 00007000 00:35 8399754565                 /opt/conda/lib/python3.10/lib-dynload/readline.cpython-310-x86_64-linux-gnu.so
+151570dec000-151570ded000 rw-p 00008000 00:35 8399754565                 /opt/conda/lib/python3.10/lib-dynload/readline.cpython-310-x86_64-linux-gnu.so
+151570ded000-1515711ed000 rw-p 00000000 00:00 0 
+1515711ed000-1515711ef000 r--p 00000000 00:35 7435453132                 /opt/conda/lib/libyaml-0.so.2.0.9
+1515711ef000-151571205000 r-xp 00002000 00:35 7435453132                 /opt/conda/lib/libyaml-0.so.2.0.9
+151571205000-151571208000 r--p 00018000 00:35 7435453132                 /opt/conda/lib/libyaml-0.so.2.0.9
+151571208000-151571209000 ---p 0001b000 00:35 7435453132                 /opt/conda/lib/libyaml-0.so.2.0.9
+151571209000-15157120a000 r--p 0001b000 00:35 7435453132                 /opt/conda/lib/libyaml-0.so.2.0.9
+15157120a000-15157120b000 rw-p 0001c000 00:35 7435453132                 /opt/conda/lib/libyaml-0.so.2.0.9
+15157120b000-151571212000 r--p 00000000 00:35 50903125008                /opt/conda/lib/python3.10/site-packages/yaml/_yaml.cpython-310-x86_64-linux-gnu.so
+151571212000-151571239000 r-xp 00007000 00:35 50903125008                /opt/conda/lib/python3.10/site-packages/yaml/_yaml.cpython-310-x86_64-linux-gnu.so
+151571239000-15157123d000 r--p 0002e000 00:35 50903125008                /opt/conda/lib/python3.10/site-packages/yaml/_yaml.cpython-310-x86_64-linux-gnu.so
+15157123d000-15157123e000 r--p 00031000 00:35 50903125008                /opt/conda/lib/python3.10/site-packages/yaml/_yaml.cpython-310-x86_64-linux-gnu.so
+15157123e000-151571241000 rw-p 00032000 00:35 50903125008                /opt/conda/lib/python3.10/site-packages/yaml/_yaml.cpython-310-x86_64-linux-gnu.so
+151571241000-151571242000 rw-p 00000000 00:00 0 
+151571242000-151571243000 r--p 00000000 00:35 8399752421                 /opt/conda/lib/python3.10/lib-dynload/_posixshmem.cpython-310-x86_64-linux-gnu.so
+151571243000-151571244000 r-xp 00001000 00:35 8399752421                 /opt/conda/lib/python3.10/lib-dynload/_posixshmem.cpython-310-x86_64-linux-gnu.so
+151571244000-151571245000 r--p 00002000 00:35 8399752421                 /opt/conda/lib/python3.10/lib-dynload/_posixshmem.cpython-310-x86_64-linux-gnu.so
+151571245000-151571246000 r--p 00002000 00:35 8399752421                 /opt/conda/lib/python3.10/lib-dynload/_posixshmem.cpython-310-x86_64-linux-gnu.so
+151571246000-151571247000 rw-p 00003000 00:35 8399752421                 /opt/conda/lib/python3.10/lib-dynload/_posixshmem.cpython-310-x86_64-linux-gnu.so
+151571247000-151571248000 ---p 00000000 00:00 0 
+151571248000-151571448000 rw-p 00000000 00:00 0 
+151571448000-151572669000 ---p 00000000 00:00 0 
+151572669000-1515728fc000 rw-p 00000000 00:00 0 
+1515728fc000-15157290c000 -w-s 00000000 00:06 1079                       /dev/nvidia7
+15157290c000-15157291c000 -w-s 00000000 00:06 1079                       /dev/nvidia7
+15157291c000-15157291d000 ---p 00000000 00:00 0 
+15157291d000-151572b1d000 rw-p 00000000 00:00 0 
+151572b1d000-15157341d000 rw-p 00000000 00:00 0 
+15157341d000-151573422000 r--p 00000000 00:35 8399750505                 /opt/conda/lib/python3.10/lib-dynload/_asyncio.cpython-310-x86_64-linux-gnu.so
+151573422000-151573427000 r-xp 00005000 00:35 8399750505                 /opt/conda/lib/python3.10/lib-dynload/_asyncio.cpython-310-x86_64-linux-gnu.so
+151573427000-15157342b000 r--p 0000a000 00:35 8399750505                 /opt/conda/lib/python3.10/lib-dynload/_asyncio.cpython-310-x86_64-linux-gnu.so
+15157342b000-15157342c000 r--p 0000d000 00:35 8399750505                 /opt/conda/lib/python3.10/lib-dynload/_asyncio.cpython-310-x86_64-linux-gnu.so
+15157342c000-15157342e000 rw-p 0000e000 00:35 8399750505                 /opt/conda/lib/python3.10/lib-dynload/_asyncio.cpython-310-x86_64-linux-gnu.so
+15157342e000-1515745af000 rw-p 00000000 00:00 0 
+1515745af000-1515745b6000 r--p 00000000 00:35 8399751637                 /opt/conda/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
+1515745b6000-1515745e8000 r-xp 00007000 00:35 8399751637                 /opt/conda/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
+1515745e8000-1515745f8000 r--p 00039000 00:35 8399751637                 /opt/conda/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
+1515745f8000-1515745f9000 r--p 00048000 00:35 8399751637                 /opt/conda/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
+1515745f9000-1515745fc000 rw-p 00049000 00:35 8399751637                 /opt/conda/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
+1515745fc000-1515749fc000 rw-p 00000000 00:00 0 
+1515749fc000-151574a0f000 r--p 00000000 00:35 4983293649                 /opt/conda/lib/libgmp.so.10.4.1
+151574a0f000-151574a87000 r-xp 00013000 00:35 4983293649                 /opt/conda/lib/libgmp.so.10.4.1
+151574a87000-151574a9e000 r--p 0008b000 00:35 4983293649                 /opt/conda/lib/libgmp.so.10.4.1
+151574a9e000-151574a9f000 ---p 000a2000 00:35 4983293649                 /opt/conda/lib/libgmp.so.10.4.1
+151574a9f000-151574aa1000 r--p 000a2000 00:35 4983293649                 /opt/conda/lib/libgmp.so.10.4.1
+151574aa1000-151574aa2000 rw-p 000a4000 00:35 4983293649                 /opt/conda/lib/libgmp.so.10.4.1
+151574aa2000-151574aaf000 r--p 00000000 00:35 6220027483                 /opt/conda/lib/libmpfr.so.6.0.2
+151574aaf000-151574b0c000 r-xp 0000d000 00:35 6220027483                 /opt/conda/lib/libmpfr.so.6.0.2
+151574b0c000-151574b1d000 r--p 0006a000 00:35 6220027483                 /opt/conda/lib/libmpfr.so.6.0.2
+151574b1d000-151574b1e000 ---p 0007b000 00:35 6220027483                 /opt/conda/lib/libmpfr.so.6.0.2
+151574b1e000-151574b20000 r--p 0007b000 00:35 6220027483                 /opt/conda/lib/libmpfr.so.6.0.2
+151574b20000-151574b21000 rw-p 0007d000 00:35 6220027483                 /opt/conda/lib/libmpfr.so.6.0.2
+151574b21000-151574b38000 r-xp 00000000 00:35 6220027251                 /opt/conda/lib/libmpc.so.3.1.0
+151574b38000-151574d38000 ---p 00017000 00:35 6220027251                 /opt/conda/lib/libmpc.so.3.1.0
+151574d38000-151574d39000 r--p 00017000 00:35 6220027251                 /opt/conda/lib/libmpc.so.3.1.0
+151574d39000-151574d3a000 rw-p 00018000 00:35 6220027251                 /opt/conda/lib/libmpc.so.3.1.0
+151574d3a000-151574d4d000 r--p 00000000 00:35 12010063477                /opt/conda/lib/python3.10/site-packages/gmpy2/gmpy2.cpython-310-x86_64-linux-gnu.so
+151574d4d000-151574d9f000 r-xp 00013000 00:35 12010063477                /opt/conda/lib/python3.10/site-packages/gmpy2/gmpy2.cpython-310-x86_64-linux-gnu.so
+151574d9f000-151574dbf000 r--p 00065000 00:35 12010063477                /opt/conda/lib/python3.10/site-packages/gmpy2/gmpy2.cpython-310-x86_64-linux-gnu.so
+151574dbf000-151574dc0000 ---p 00085000 00:35 12010063477                /opt/conda/lib/python3.10/site-packages/gmpy2/gmpy2.cpython-310-x86_64-linux-gnu.so
+151574dc0000-151574dc1000 r--p 00085000 00:35 12010063477                /opt/conda/lib/python3.10/site-packages/gmpy2/gmpy2.cpython-310-x86_64-linux-gnu.so
+151574dc1000-151574dc7000 rw-p 00086000 00:35 12010063477                /opt/conda/lib/python3.10/site-packages/gmpy2/gmpy2.cpython-310-x86_64-linux-gnu.so
+151574dc7000-1515751c7000 rw-p 00000000 00:00 0 
+1515751c7000-1515751c9000 r--p 00000000 00:35 8399752533                 /opt/conda/lib/python3.10/lib-dynload/_queue.cpython-310-x86_64-linux-gnu.so
+1515751c9000-1515751ca000 r-xp 00002000 00:35 8399752533                 /opt/conda/lib/python3.10/lib-dynload/_queue.cpython-310-x86_64-linux-gnu.so
+1515751ca000-1515751cb000 r--p 00003000 00:35 8399752533                 /opt/conda/lib/python3.10/lib-dynload/_queue.cpython-310-x86_64-linux-gnu.so
+1515751cb000-1515751cc000 r--p 00003000 00:35 8399752533                 /opt/conda/lib/python3.10/lib-dynload/_queue.cpython-310-x86_64-linux-gnu.so
+1515751cc000-1515751cd000 rw-p 00004000 00:35 8399752533                 /opt/conda/lib/python3.10/lib-dynload/_queue.cpython-310-x86_64-linux-gnu.so
+1515751cd000-1515752cd000 rw-p 00000000 00:00 0 
+1515752cd000-1515752d0000 r--p 00000000 00:35 8399751237                 /opt/conda/lib/python3.10/lib-dynload/_csv.cpython-310-x86_64-linux-gnu.so
+1515752d0000-1515752d5000 r-xp 00003000 00:35 8399751237                 /opt/conda/lib/python3.10/lib-dynload/_csv.cpython-310-x86_64-linux-gnu.so
+1515752d5000-1515752d8000 r--p 00008000 00:35 8399751237                 /opt/conda/lib/python3.10/lib-dynload/_csv.cpython-310-x86_64-linux-gnu.so
+1515752d8000-1515752d9000 r--p 0000a000 00:35 8399751237                 /opt/conda/lib/python3.10/lib-dynload/_csv.cpython-310-x86_64-linux-gnu.so
+1515752d9000-1515752da000 rw-p 0000b000 00:35 8399751237                 /opt/conda/lib/python3.10/lib-dynload/_csv.cpython-310-x86_64-linux-gnu.so
+1515752da000-1515752dd000 r--p 00000000 00:35 8399754901                 /opt/conda/lib/python3.10/lib-dynload/unicodedata.cpython-310-x86_64-linux-gnu.so
+1515752dd000-1515752e1000 r-xp 00003000 00:35 8399754901                 /opt/conda/lib/python3.10/lib-dynload/unicodedata.cpython-310-x86_64-linux-gnu.so
+1515752e1000-1515753e9000 r--p 00007000 00:35 8399754901                 /opt/conda/lib/python3.10/lib-dynload/unicodedata.cpython-310-x86_64-linux-gnu.so
+1515753e9000-1515753ea000 ---p 0010f000 00:35 8399754901                 /opt/conda/lib/python3.10/lib-dynload/unicodedata.cpython-310-x86_64-linux-gnu.so
+1515753ea000-1515753eb000 r--p 0010f000 00:35 8399754901                 /opt/conda/lib/python3.10/lib-dynload/unicodedata.cpython-310-x86_64-linux-gnu.so
+1515753eb000-1515753ec000 rw-p 00110000 00:35 8399754901                 /opt/conda/lib/python3.10/lib-dynload/unicodedata.cpython-310-x86_64-linux-gnu.so
+1515753ec000-1515754ec000 rw-p 00000000 00:00 0 
+1515754ec000-15157550c000 r--p 00000000 00:35 7202868893                 /opt/conda/lib/libssl.so.3
+15157550c000-151575562000 r-xp 00020000 00:35 7202868893                 /opt/conda/lib/libssl.so.3
+151575562000-151575580000 r--p 00076000 00:35 7202868893                 /opt/conda/lib/libssl.so.3
+151575580000-151575581000 ---p 00094000 00:35 7202868893                 /opt/conda/lib/libssl.so.3
+151575581000-15157558b000 r--p 00094000 00:35 7202868893                 /opt/conda/lib/libssl.so.3
+15157558b000-15157558f000 rw-p 0009e000 00:35 7202868893                 /opt/conda/lib/libssl.so.3
+15157558f000-1515755a2000 r--p 00000000 00:35 8399753021                 /opt/conda/lib/python3.10/lib-dynload/_ssl.cpython-310-x86_64-linux-gnu.so
+1515755a2000-1515755ac000 r-xp 00013000 00:35 8399753021                 /opt/conda/lib/python3.10/lib-dynload/_ssl.cpython-310-x86_64-linux-gnu.so
+1515755ac000-1515755ba000 r--p 0001d000 00:35 8399753021                 /opt/conda/lib/python3.10/lib-dynload/_ssl.cpython-310-x86_64-linux-gnu.so
+1515755ba000-1515755bb000 ---p 0002b000 00:35 8399753021                 /opt/conda/lib/python3.10/lib-dynload/_ssl.cpython-310-x86_64-linux-gnu.so
+1515755bb000-1515755bc000 r--p 0002b000 00:35 8399753021                 /opt/conda/lib/python3.10/lib-dynload/_ssl.cpython-310-x86_64-linux-gnu.so
+1515755bc000-1515755c4000 rw-p 0002c000 00:35 8399753021                 /opt/conda/lib/python3.10/lib-dynload/_ssl.cpython-310-x86_64-linux-gnu.so
+1515755c4000-1515756c4000 rw-p 00000000 00:00 0 
+1515756c4000-1515756c6000 r--p 00000000 00:35 7202872788                 /opt/conda/lib/libuuid.so.1.3.0
+1515756c6000-1515756ca000 r-xp 00002000 00:35 7202872788                 /opt/conda/lib/libuuid.so.1.3.0
+1515756ca000-1515756cb000 r--p 00006000 00:35 7202872788                 /opt/conda/lib/libuuid.so.1.3.0
+1515756cb000-1515756cc000 r--p 00006000 00:35 7202872788                 /opt/conda/lib/libuuid.so.1.3.0
+1515756cc000-1515756cd000 rw-p 00007000 00:35 7202872788                 /opt/conda/lib/libuuid.so.1.3.0
+1515756cd000-1515756ce000 r--p 00000000 00:35 8399753645                 /opt/conda/lib/python3.10/lib-dynload/_uuid.cpython-310-x86_64-linux-gnu.so
+1515756ce000-1515756cf000 r-xp 00001000 00:35 8399753645                 /opt/conda/lib/python3.10/lib-dynload/_uuid.cpython-310-x86_64-linux-gnu.so
+1515756cf000-1515756d0000 r--p 00002000 00:35 8399753645                 /opt/conda/lib/python3.10/lib-dynload/_uuid.cpython-310-x86_64-linux-gnu.so
+1515756d0000-1515756d1000 r--p 00002000 00:35 8399753645                 /opt/conda/lib/python3.10/lib-dynload/_uuid.cpython-310-x86_64-linux-gnu.so
+1515756d1000-1515756d2000 rw-p 00003000 00:35 8399753645                 /opt/conda/lib/python3.10/lib-dynload/_uuid.cpython-310-x86_64-linux-gnu.so
+1515756d2000-1515757d2000 rw-p 00000000 00:00 0 
+1515757d2000-1515757d4000 r--p 00000000 00:35 8399752233                 /opt/conda/lib/python3.10/lib-dynload/_multiprocessing.cpython-310-x86_64-linux-gnu.so
+1515757d4000-1515757d5000 r-xp 00002000 00:35 8399752233                 /opt/conda/lib/python3.10/lib-dynload/_multiprocessing.cpython-310-x86_64-linux-gnu.so
+1515757d5000-1515757d6000 r--p 00003000 00:35 8399752233                 /opt/conda/lib/python3.10/lib-dynload/_multiprocessing.cpython-310-x86_64-linux-gnu.so
+1515757d6000-1515757d7000 r--p 00003000 00:35 8399752233                 /opt/conda/lib/python3.10/lib-dynload/_multiprocessing.cpython-310-x86_64-linux-gnu.so
+1515757d7000-1515757d8000 rw-p 00004000 00:35 8399752233                 /opt/conda/lib/python3.10/lib-dynload/_multiprocessing.cpython-310-x86_64-linux-gnu.so
+1515757d8000-1515757dc000 r--p 00000000 00:35 8399753885                 /opt/conda/lib/python3.10/lib-dynload/array.cpython-310-x86_64-linux-gnu.so
+1515757dc000-1515757e3000 r-xp 00004000 00:35 8399753885                 /opt/conda/lib/python3.10/lib-dynload/array.cpython-310-x86_64-linux-gnu.so
+1515757e3000-1515757e7000 r--p 0000b000 00:35 8399753885                 /opt/conda/lib/python3.10/lib-dynload/array.cpython-310-x86_64-linux-gnu.so
+1515757e7000-1515757e8000 ---p 0000f000 00:35 8399753885                 /opt/conda/lib/python3.10/lib-dynload/array.cpython-310-x86_64-linux-gnu.so
+1515757e8000-1515757e9000 r--p 0000f000 00:35 8399753885                 /opt/conda/lib/python3.10/lib-dynload/array.cpython-310-x86_64-linux-gnu.so
+1515757e9000-1515757ea000 rw-p 00010000 00:35 8399753885                 /opt/conda/lib/python3.10/lib-dynload/array.cpython-310-x86_64-linux-gnu.so
+1515757ea000-151575bea000 rw-p 00000000 00:00 0 
+151575bea000-151575bec000 r--p 00000000 00:35 8399754069                 /opt/conda/lib/python3.10/lib-dynload/cmath.cpython-310-x86_64-linux-gnu.so
+151575bec000-151575bf6000 r-xp 00002000 00:35 8399754069                 /opt/conda/lib/python3.10/lib-dynload/cmath.cpython-310-x86_64-linux-gnu.so
+151575bf6000-151575bf8000 r--p 0000c000 00:35 8399754069                 /opt/conda/lib/python3.10/lib-dynload/cmath.cpython-310-x86_64-linux-gnu.so
+151575bf8000-151575bf9000 ---p 0000e000 00:35 8399754069                 /opt/conda/lib/python3.10/lib-dynload/cmath.cpython-310-x86_64-linux-gnu.so
+151575bf9000-151575bfa000 r--p 0000e000 00:35 8399754069                 /opt/conda/lib/python3.10/lib-dynload/cmath.cpython-310-x86_64-linux-gnu.so
+151575bfa000-151575bfb000 rw-p 0000f000 00:35 8399754069                 /opt/conda/lib/python3.10/lib-dynload/cmath.cpython-310-x86_64-linux-gnu.so
+151575bfb000-151575efd000 rw-p 00000000 00:00 0 
+151575efd000-151575f00000 r--p 00000000 00:35 8399751929                 /opt/conda/lib/python3.10/lib-dynload/_json.cpython-310-x86_64-linux-gnu.so
+151575f00000-151575f06000 r-xp 00003000 00:35 8399751929                 /opt/conda/lib/python3.10/lib-dynload/_json.cpython-310-x86_64-linux-gnu.so
+151575f06000-151575f08000 r--p 00009000 00:35 8399751929                 /opt/conda/lib/python3.10/lib-dynload/_json.cpython-310-x86_64-linux-gnu.so
+151575f08000-151575f09000 r--p 0000a000 00:35 8399751929                 /opt/conda/lib/python3.10/lib-dynload/_json.cpython-310-x86_64-linux-gnu.so
+151575f09000-151575f0a000 rw-p 0000b000 00:35 8399751929                 /opt/conda/lib/python3.10/lib-dynload/_json.cpython-310-x86_64-linux-gnu.so
+151575f0a000-151575f0f000 r--p 00000000 00:35 8399752881                 /opt/conda/lib/python3.10/lib-dynload/_socket.cpython-310-x86_64-linux-gnu.so
+151575f0f000-151575f18000 r-xp 00005000 00:35 8399752881                 /opt/conda/lib/python3.10/lib-dynload/_socket.cpython-310-x86_64-linux-gnu.so
+151575f18000-151575f20000 r--p 0000e000 00:35 8399752881                 /opt/conda/lib/python3.10/lib-dynload/_socket.cpython-310-x86_64-linux-gnu.so
+151575f20000-151575f21000 ---p 00016000 00:35 8399752881                 /opt/conda/lib/python3.10/lib-dynload/_socket.cpython-310-x86_64-linux-gnu.so
+151575f21000-151575f22000 r--p 00016000 00:35 8399752881                 /opt/conda/lib/python3.10/lib-dynload/_socket.cpython-310-x86_64-linux-gnu.so
+151575f22000-151575f23000 rw-p 00017000 00:35 8399752881                 /opt/conda/lib/python3.10/lib-dynload/_socket.cpython-310-x86_64-linux-gnu.so
+151575f23000-151575f25000 r--p 00000000 00:35 8399754189                 /opt/conda/lib/python3.10/lib-dynload/grp.cpython-310-x86_64-linux-gnu.so
+151575f25000-151575f26000 r-xp 00002000 00:35 8399754189                 /opt/conda/lib/python3.10/lib-dynload/grp.cpython-310-x86_64-linux-gnu.so
+151575f26000-151575f27000 r--p 00003000 00:35 8399754189                 /opt/conda/lib/python3.10/lib-dynload/grp.cpython-310-x86_64-linux-gnu.so
+151575f27000-151575f28000 r--p 00003000 00:35 8399754189                 /opt/conda/lib/python3.10/lib-dynload/grp.cpython-310-x86_64-linux-gnu.so
+151575f28000-151575f29000 rw-p 00004000 00:35 8399754189                 /opt/conda/lib/python3.10/lib-dynload/grp.cpython-310-x86_64-linux-gnu.so
+151575f29000-151576029000 rw-p 00000000 00:00 0 
+151576029000-15157602a000 r--p 00000000 00:35 8399751873                 /opt/conda/lib/python3.10/lib-dynload/_heapq.cpython-310-x86_64-linux-gnu.so
+15157602a000-15157602d000 r-xp 00001000 00:35 8399751873                 /opt/conda/lib/python3.10/lib-dynload/_heapq.cpython-310-x86_64-linux-gnu.so
+15157602d000-151576030000 r--p 00004000 00:35 8399751873                 /opt/conda/lib/python3.10/lib-dynload/_heapq.cpython-310-x86_64-linux-gnu.so
+151576030000-151576031000 r--p 00006000 00:35 8399751873                 /opt/conda/lib/python3.10/lib-dynload/_heapq.cpython-310-x86_64-linux-gnu.so
+151576031000-151576032000 rw-p 00007000 00:35 8399751873                 /opt/conda/lib/python3.10/lib-dynload/_heapq.cpython-310-x86_64-linux-gnu.so
+151576032000-151576132000 rw-p 00000000 00:00 0 
+151576132000-151576181000 r--p 00000000 00:35 6220025495                 /opt/conda/lib/libmkl_vml_def.so.2
+151576181000-151576679000 r-xp 0004f000 00:35 6220025495                 /opt/conda/lib/libmkl_vml_def.so.2
+151576679000-15157692a000 r--p 00547000 00:35 6220025495                 /opt/conda/lib/libmkl_vml_def.so.2
+15157692a000-15157692b000 ---p 007f8000 00:35 6220025495                 /opt/conda/lib/libmkl_vml_def.so.2
+15157692b000-15157692e000 r--p 007f8000 00:35 6220025495                 /opt/conda/lib/libmkl_vml_def.so.2
+15157692e000-151576948000 rw-p 007fb000 00:35 6220025495                 /opt/conda/lib/libmkl_vml_def.so.2
+151576948000-151576949000 rw-p 00000000 00:00 0 
+151576949000-151576963000 rw-p 0085f000 00:35 6220025495                 /opt/conda/lib/libmkl_vml_def.so.2
+151576963000-151576a42000 r--p 00000000 00:35 5539629856                 /opt/conda/lib/libmkl_def.so.2
+151576a42000-151578f80000 r-xp 000df000 00:35 5539629856                 /opt/conda/lib/libmkl_def.so.2
+151578f80000-1515790f0000 r--p 0261d000 00:35 5539629856                 /opt/conda/lib/libmkl_def.so.2
+1515790f0000-1515790f3000 r--p 0278c000 00:35 5539629856                 /opt/conda/lib/libmkl_def.so.2
+1515790f3000-1515790f9000 rw-p 0278f000 00:35 5539629856                 /opt/conda/lib/libmkl_def.so.2
+1515790f9000-1515790fa000 rw-p 00000000 00:00 0 
+1515790fa000-15157916f000 rw-p 02888000 00:35 5539629856                 /opt/conda/lib/libmkl_def.so.2
+15157916f000-15157926f000 rw-p 00000000 00:00 0 
+15157926f000-151579277000 r--p 00000000 00:35 16747469189                /opt/conda/lib/python3.10/site-packages/numpy/random/_generator.cpython-310-x86_64-linux-gnu.so
+151579277000-1515792e7000 r-xp 00008000 00:35 16747469189                /opt/conda/lib/python3.10/site-packages/numpy/random/_generator.cpython-310-x86_64-linux-gnu.so
+1515792e7000-15157933a000 r--p 00078000 00:35 16747469189                /opt/conda/lib/python3.10/site-packages/numpy/random/_generator.cpython-310-x86_64-linux-gnu.so
+15157933a000-15157933b000 ---p 000cb000 00:35 16747469189                /opt/conda/lib/python3.10/site-packages/numpy/random/_generator.cpython-310-x86_64-linux-gnu.so
+15157933b000-15157933c000 r--p 000cb000 00:35 16747469189                /opt/conda/lib/python3.10/site-packages/numpy/random/_generator.cpython-310-x86_64-linux-gnu.so
+15157933c000-15157933e000 rw-p 000cc000 00:35 16747469189                /opt/conda/lib/python3.10/site-packages/numpy/random/_generator.cpython-310-x86_64-linux-gnu.so
+15157933e000-151579340000 rw-p 00000000 00:00 0 
+151579340000-151579343000 r--p 00000000 00:35 16747469721                /opt/conda/lib/python3.10/site-packages/numpy/random/_sfc64.cpython-310-x86_64-linux-gnu.so
+151579343000-15157934a000 r-xp 00003000 00:35 16747469721                /opt/conda/lib/python3.10/site-packages/numpy/random/_sfc64.cpython-310-x86_64-linux-gnu.so
+15157934a000-15157934d000 r--p 0000a000 00:35 16747469721                /opt/conda/lib/python3.10/site-packages/numpy/random/_sfc64.cpython-310-x86_64-linux-gnu.so
+15157934d000-15157934e000 r--p 0000c000 00:35 16747469721                /opt/conda/lib/python3.10/site-packages/numpy/random/_sfc64.cpython-310-x86_64-linux-gnu.so
+15157934e000-15157934f000 rw-p 0000d000 00:35 16747469721                /opt/conda/lib/python3.10/site-packages/numpy/random/_sfc64.cpython-310-x86_64-linux-gnu.so
+15157934f000-151579352000 r--p 00000000 00:35 16747469441                /opt/conda/lib/python3.10/site-packages/numpy/random/_pcg64.cpython-310-x86_64-linux-gnu.so
+151579352000-151579361000 r-xp 00003000 00:35 16747469441                /opt/conda/lib/python3.10/site-packages/numpy/random/_pcg64.cpython-310-x86_64-linux-gnu.so
+151579361000-151579366000 r--p 00012000 00:35 16747469441                /opt/conda/lib/python3.10/site-packages/numpy/random/_pcg64.cpython-310-x86_64-linux-gnu.so
+151579366000-151579367000 ---p 00017000 00:35 16747469441                /opt/conda/lib/python3.10/site-packages/numpy/random/_pcg64.cpython-310-x86_64-linux-gnu.so
+151579367000-151579368000 r--p 00017000 00:35 16747469441                /opt/conda/lib/python3.10/site-packages/numpy/random/_pcg64.cpython-310-x86_64-linux-gnu.so
+151579368000-151579369000 rw-p 00018000 00:35 16747469441                /opt/conda/lib/python3.10/site-packages/numpy/random/_pcg64.cpython-310-x86_64-linux-gnu.so
+151579369000-15157936c000 r--p 00000000 00:35 16747469553                /opt/conda/lib/python3.10/site-packages/numpy/random/_philox.cpython-310-x86_64-linux-gnu.so
+15157936c000-151579378000 r-xp 00003000 00:35 16747469553                /opt/conda/lib/python3.10/site-packages/numpy/random/_philox.cpython-310-x86_64-linux-gnu.so
+151579378000-15157937c000 r--p 0000f000 00:35 16747469553                /opt/conda/lib/python3.10/site-packages/numpy/random/_philox.cpython-310-x86_64-linux-gnu.so
+15157937c000-15157937d000 ---p 00013000 00:35 16747469553                /opt/conda/lib/python3.10/site-packages/numpy/random/_philox.cpython-310-x86_64-linux-gnu.so
+15157937d000-15157937e000 r--p 00013000 00:35 16747469553                /opt/conda/lib/python3.10/site-packages/numpy/random/_philox.cpython-310-x86_64-linux-gnu.so
+15157937e000-15157937f000 rw-p 00014000 00:35 16747469553                /opt/conda/lib/python3.10/site-packages/numpy/random/_philox.cpython-310-x86_64-linux-gnu.so
+15157937f000-151579382000 r--p 00000000 00:35 16747469329                /opt/conda/lib/python3.10/site-packages/numpy/random/_mt19937.cpython-310-x86_64-linux-gnu.so
+151579382000-15157938f000 r-xp 00003000 00:35 16747469329                /opt/conda/lib/python3.10/site-packages/numpy/random/_mt19937.cpython-310-x86_64-linux-gnu.so
+15157938f000-151579394000 r--p 00010000 00:35 16747469329                /opt/conda/lib/python3.10/site-packages/numpy/random/_mt19937.cpython-310-x86_64-linux-gnu.so
+151579394000-151579395000 r--p 00014000 00:35 16747469329                /opt/conda/lib/python3.10/site-packages/numpy/random/_mt19937.cpython-310-x86_64-linux-gnu.so
+151579395000-151579396000 rw-p 00015000 00:35 16747469329                /opt/conda/lib/python3.10/site-packages/numpy/random/_mt19937.cpython-310-x86_64-linux-gnu.so
+151579396000-15157939b000 r--p 00000000 00:35 16747468137                /opt/conda/lib/python3.10/site-packages/numpy/random/_bounded_integers.cpython-310-x86_64-linux-gnu.so
+15157939b000-1515793da000 r-xp 00005000 00:35 16747468137                /opt/conda/lib/python3.10/site-packages/numpy/random/_bounded_integers.cpython-310-x86_64-linux-gnu.so
+1515793da000-1515793e3000 r--p 00044000 00:35 16747468137                /opt/conda/lib/python3.10/site-packages/numpy/random/_bounded_integers.cpython-310-x86_64-linux-gnu.so
+1515793e3000-1515793e4000 r--p 0004c000 00:35 16747468137                /opt/conda/lib/python3.10/site-packages/numpy/random/_bounded_integers.cpython-310-x86_64-linux-gnu.so
+1515793e4000-1515793e5000 rw-p 0004d000 00:35 16747468137                /opt/conda/lib/python3.10/site-packages/numpy/random/_bounded_integers.cpython-310-x86_64-linux-gnu.so
+1515793e5000-1515793e6000 rw-p 00000000 00:00 0 
+1515793e6000-1515793e8000 r--p 00000000 00:35 8399750625                 /opt/conda/lib/python3.10/lib-dynload/_blake2.cpython-310-x86_64-linux-gnu.so
+1515793e8000-1515793f0000 r-xp 00002000 00:35 8399750625                 /opt/conda/lib/python3.10/lib-dynload/_blake2.cpython-310-x86_64-linux-gnu.so
+1515793f0000-1515793f2000 r--p 0000a000 00:35 8399750625                 /opt/conda/lib/python3.10/lib-dynload/_blake2.cpython-310-x86_64-linux-gnu.so
+1515793f2000-1515793f3000 r--p 0000b000 00:35 8399750625                 /opt/conda/lib/python3.10/lib-dynload/_blake2.cpython-310-x86_64-linux-gnu.so
+1515793f3000-1515793f4000 rw-p 0000c000 00:35 8399750625                 /opt/conda/lib/python3.10/lib-dynload/_blake2.cpython-310-x86_64-linux-gnu.so
+1515793f4000-1515794ac000 r--p 00000000 00:35 2609582055                 /opt/conda/lib/libcrypto.so.3
+1515794ac000-1515796f7000 r-xp 000b8000 00:35 2609582055                 /opt/conda/lib/libcrypto.so.3
+1515796f7000-1515797ce000 r--p 00303000 00:35 2609582055                 /opt/conda/lib/libcrypto.so.3
+1515797ce000-1515797cf000 ---p 003da000 00:35 2609582055                 /opt/conda/lib/libcrypto.so.3
+1515797cf000-15157982a000 r--p 003da000 00:35 2609582055                 /opt/conda/lib/libcrypto.so.3
+15157982a000-15157982d000 rw-p 00435000 00:35 2609582055                 /opt/conda/lib/libcrypto.so.3
+15157982d000-151579830000 rw-p 00000000 00:00 0 
+151579830000-151579834000 r--p 00000000 00:35 8399751809                 /opt/conda/lib/python3.10/lib-dynload/_hashlib.cpython-310-x86_64-linux-gnu.so
+151579834000-15157983a000 r-xp 00004000 00:35 8399751809                 /opt/conda/lib/python3.10/lib-dynload/_hashlib.cpython-310-x86_64-linux-gnu.so
+15157983a000-15157983e000 r--p 0000a000 00:35 8399751809                 /opt/conda/lib/python3.10/lib-dynload/_hashlib.cpython-310-x86_64-linux-gnu.so
+15157983e000-15157983f000 ---p 0000e000 00:35 8399751809                 /opt/conda/lib/python3.10/lib-dynload/_hashlib.cpython-310-x86_64-linux-gnu.so
+15157983f000-151579840000 r--p 0000e000 00:35 8399751809                 /opt/conda/lib/python3.10/lib-dynload/_hashlib.cpython-310-x86_64-linux-gnu.so
+151579840000-151579841000 rw-p 0000f000 00:35 8399751809                 /opt/conda/lib/python3.10/lib-dynload/_hashlib.cpython-310-x86_64-linux-gnu.so
+151579841000-151579843000 r--p 00000000 00:35 8399754013                 /opt/conda/lib/python3.10/lib-dynload/binascii.cpython-310-x86_64-linux-gnu.so
+151579843000-151579848000 r-xp 00002000 00:35 8399754013                 /opt/conda/lib/python3.10/lib-dynload/binascii.cpython-310-x86_64-linux-gnu.so
+151579848000-15157984a000 r--p 00007000 00:35 8399754013                 /opt/conda/lib/python3.10/lib-dynload/binascii.cpython-310-x86_64-linux-gnu.so
+15157984a000-15157984b000 ---p 00009000 00:35 8399754013                 /opt/conda/lib/python3.10/lib-dynload/binascii.cpython-310-x86_64-linux-gnu.so
+15157984b000-15157984c000 r--p 00009000 00:35 8399754013                 /opt/conda/lib/python3.10/lib-dynload/binascii.cpython-310-x86_64-linux-gnu.so
+15157984c000-15157984d000 rw-p 0000a000 00:35 8399754013                 /opt/conda/lib/python3.10/lib-dynload/binascii.cpython-310-x86_64-linux-gnu.so
+15157984d000-151579851000 r--p 00000000 00:35 16747468261                /opt/conda/lib/python3.10/site-packages/numpy/random/_common.cpython-310-x86_64-linux-gnu.so
+151579851000-15157987d000 r-xp 00004000 00:35 16747468261                /opt/conda/lib/python3.10/site-packages/numpy/random/_common.cpython-310-x86_64-linux-gnu.so
+15157987d000-151579881000 r--p 00030000 00:35 16747468261                /opt/conda/lib/python3.10/site-packages/numpy/random/_common.cpython-310-x86_64-linux-gnu.so
+151579881000-151579882000 ---p 00034000 00:35 16747468261                /opt/conda/lib/python3.10/site-packages/numpy/random/_common.cpython-310-x86_64-linux-gnu.so
+151579882000-151579883000 r--p 00034000 00:35 16747468261                /opt/conda/lib/python3.10/site-packages/numpy/random/_common.cpython-310-x86_64-linux-gnu.so
+151579883000-151579884000 rw-p 00035000 00:35 16747468261                /opt/conda/lib/python3.10/site-packages/numpy/random/_common.cpython-310-x86_64-linux-gnu.so
+151579884000-151579885000 rw-p 00000000 00:00 0 
+151579885000-15157988a000 r--p 00000000 00:35 16747469833                /opt/conda/lib/python3.10/site-packages/numpy/random/bit_generator.cpython-310-x86_64-linux-gnu.so
+15157988a000-1515798a8000 r-xp 00005000 00:35 16747469833                /opt/conda/lib/python3.10/site-packages/numpy/random/bit_generator.cpython-310-x86_64-linux-gnu.so
+1515798a8000-1515798b2000 r--p 00023000 00:35 16747469833                /opt/conda/lib/python3.10/site-packages/numpy/random/bit_generator.cpython-310-x86_64-linux-gnu.so
+1515798b2000-1515798b3000 r--p 0002c000 00:35 16747469833                /opt/conda/lib/python3.10/site-packages/numpy/random/bit_generator.cpython-310-x86_64-linux-gnu.so
+1515798b3000-1515798b5000 rw-p 0002d000 00:35 16747469833                /opt/conda/lib/python3.10/site-packages/numpy/random/bit_generator.cpython-310-x86_64-linux-gnu.so
+1515798b5000-1515798ba000 r--p 00000000 00:35 16747470153                /opt/conda/lib/python3.10/site-packages/numpy/random/mtrand.cpython-310-x86_64-linux-gnu.so
+1515798ba000-151579905000 r-xp 00005000 00:35 16747470153                /opt/conda/lib/python3.10/site-packages/numpy/random/mtrand.cpython-310-x86_64-linux-gnu.so
+151579905000-151579955000 r--p 00050000 00:35 16747470153                /opt/conda/lib/python3.10/site-packages/numpy/random/mtrand.cpython-310-x86_64-linux-gnu.so
+151579955000-151579956000 r--p 0009f000 00:35 16747470153                /opt/conda/lib/python3.10/site-packages/numpy/random/mtrand.cpython-310-x86_64-linux-gnu.so
+151579956000-151579957000 rw-p 000a0000 00:35 16747470153                /opt/conda/lib/python3.10/site-packages/numpy/random/mtrand.cpython-310-x86_64-linux-gnu.so
+151579957000-151579959000 rw-p 00000000 00:00 0 
+151579959000-15157995a000 r--p 00000000 00:35 16530085445                /opt/conda/lib/python3.10/site-packages/numpy/fft/_pocketfft_internal.cpython-310-x86_64-linux-gnu.so
+15157995a000-151579969000 r-xp 00001000 00:35 16530085445                /opt/conda/lib/python3.10/site-packages/numpy/fft/_pocketfft_internal.cpython-310-x86_64-linux-gnu.so
+151579969000-15157996b000 r--p 00010000 00:35 16530085445                /opt/conda/lib/python3.10/site-packages/numpy/fft/_pocketfft_internal.cpython-310-x86_64-linux-gnu.so
+15157996b000-15157996c000 r--p 00011000 00:35 16530085445                /opt/conda/lib/python3.10/site-packages/numpy/fft/_pocketfft_internal.cpython-310-x86_64-linux-gnu.so
+15157996c000-15157996d000 rw-p 00012000 00:35 16530085445                /opt/conda/lib/python3.10/site-packages/numpy/fft/_pocketfft_internal.cpython-310-x86_64-linux-gnu.so
+15157996d000-151579a6d000 rw-p 00000000 00:00 0 
+151579a6d000-151579a74000 r--p 00000000 00:35 16636778077                /opt/conda/lib/python3.10/site-packages/numpy/linalg/_umath_linalg.cpython-310-x86_64-linux-gnu.so
+151579a74000-151579a92000 r-xp 00007000 00:35 16636778077                /opt/conda/lib/python3.10/site-packages/numpy/linalg/_umath_linalg.cpython-310-x86_64-linux-gnu.so
+151579a92000-151579a97000 r--p 00025000 00:35 16636778077                /opt/conda/lib/python3.10/site-packages/numpy/linalg/_umath_linalg.cpython-310-x86_64-linux-gnu.so
+151579a97000-151579a98000 ---p 0002a000 00:35 16636778077                /opt/conda/lib/python3.10/site-packages/numpy/linalg/_umath_linalg.cpython-310-x86_64-linux-gnu.so
+151579a98000-151579a99000 r--p 0002a000 00:35 16636778077                /opt/conda/lib/python3.10/site-packages/numpy/linalg/_umath_linalg.cpython-310-x86_64-linux-gnu.so
+151579a99000-151579a9a000 rw-p 0002b000 00:35 16636778077                /opt/conda/lib/python3.10/site-packages/numpy/linalg/_umath_linalg.cpython-310-x86_64-linux-gnu.so
+151579a9a000-151579aa3000 r--p 00000000 00:35 16098656645                /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_tests.cpython-310-x86_64-linux-gnu.so
+151579aa3000-151579ab6000 r-xp 00009000 00:35 16098656645                /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_tests.cpython-310-x86_64-linux-gnu.so
+151579ab6000-151579abc000 r--p 0001c000 00:35 16098656645                /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_tests.cpython-310-x86_64-linux-gnu.so
+151579abc000-151579abd000 r--p 00021000 00:35 16098656645                /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_tests.cpython-310-x86_64-linux-gnu.so
+151579abd000-151579abe000 rw-p 00022000 00:35 16098656645                /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_tests.cpython-310-x86_64-linux-gnu.so
+151579abe000-151579bbe000 rw-p 00000000 00:00 0 
+151579bbe000-151579bbf000 r--p 00000000 00:35 8399751125                 /opt/conda/lib/python3.10/lib-dynload/_contextvars.cpython-310-x86_64-linux-gnu.so
+151579bbf000-151579bc0000 r-xp 00001000 00:35 8399751125                 /opt/conda/lib/python3.10/lib-dynload/_contextvars.cpython-310-x86_64-linux-gnu.so
+151579bc0000-151579bc1000 r--p 00002000 00:35 8399751125                 /opt/conda/lib/python3.10/lib-dynload/_contextvars.cpython-310-x86_64-linux-gnu.so
+151579bc1000-151579bc2000 r--p 00002000 00:35 8399751125                 /opt/conda/lib/python3.10/lib-dynload/_contextvars.cpython-310-x86_64-linux-gnu.so
+151579bc2000-151579bc3000 rw-p 00003000 00:35 8399751125                 /opt/conda/lib/python3.10/lib-dynload/_contextvars.cpython-310-x86_64-linux-gnu.so
+151579bc3000-151579bc8000 r--p 00000000 00:35 8399752345                 /opt/conda/lib/python3.10/lib-dynload/_pickle.cpython-310-x86_64-linux-gnu.so
+151579bc8000-151579bda000 r-xp 00005000 00:35 8399752345                 /opt/conda/lib/python3.10/lib-dynload/_pickle.cpython-310-x86_64-linux-gnu.so
+151579bda000-151579be0000 r--p 00017000 00:35 8399752345                 /opt/conda/lib/python3.10/lib-dynload/_pickle.cpython-310-x86_64-linux-gnu.so
+151579be0000-151579be1000 ---p 0001d000 00:35 8399752345                 /opt/conda/lib/python3.10/lib-dynload/_pickle.cpython-310-x86_64-linux-gnu.so
+151579be1000-151579be2000 r--p 0001d000 00:35 8399752345                 /opt/conda/lib/python3.10/lib-dynload/_pickle.cpython-310-x86_64-linux-gnu.so
+151579be2000-151579be4000 rw-p 0001e000 00:35 8399752345                 /opt/conda/lib/python3.10/lib-dynload/_pickle.cpython-310-x86_64-linux-gnu.so
+151579be4000-151579ce4000 rw-p 00000000 00:00 0 
+151579ce4000-151579ce9000 r--p 00000000 00:35 8399751561                 /opt/conda/lib/python3.10/lib-dynload/_datetime.cpython-310-x86_64-linux-gnu.so
+151579ce9000-151579cfa000 r-xp 00005000 00:35 8399751561                 /opt/conda/lib/python3.10/lib-dynload/_datetime.cpython-310-x86_64-linux-gnu.so
+151579cfa000-151579d00000 r--p 00016000 00:35 8399751561                 /opt/conda/lib/python3.10/lib-dynload/_datetime.cpython-310-x86_64-linux-gnu.so
+151579d00000-151579d01000 r--p 0001b000 00:35 8399751561                 /opt/conda/lib/python3.10/lib-dynload/_datetime.cpython-310-x86_64-linux-gnu.so
+151579d01000-151579d03000 rw-p 0001c000 00:35 8399751561                 /opt/conda/lib/python3.10/lib-dynload/_datetime.cpython-310-x86_64-linux-gnu.so
+151579d03000-151579d2f000 r--p 00000000 00:35 16098656709                /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_umath.cpython-310-x86_64-linux-gnu.so
+151579d2f000-15157a121000 r-xp 0002c000 00:35 16098656709                /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_umath.cpython-310-x86_64-linux-gnu.so
+15157a121000-15157a27f000 r--p 0041e000 00:35 16098656709                /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_umath.cpython-310-x86_64-linux-gnu.so
+15157a27f000-15157a283000 r--p 0057b000 00:35 16098656709                /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_umath.cpython-310-x86_64-linux-gnu.so
+15157a283000-15157a2a5000 rw-p 0057f000 00:35 16098656709                /opt/conda/lib/python3.10/site-packages/numpy/core/_multiarray_umath.cpython-310-x86_64-linux-gnu.so
+15157a2a5000-15157a3c5000 rw-p 00000000 00:00 0 
+15157a3c5000-15157a3cb000 r--p 00000000 00:35 14742980021                /opt/conda/lib/python3.10/site-packages/mkl/_py_mkl_service.cpython-310-x86_64-linux-gnu.so
+15157a3cb000-15157a3da000 r-xp 00006000 00:35 14742980021                /opt/conda/lib/python3.10/site-packages/mkl/_py_mkl_service.cpython-310-x86_64-linux-gnu.so
+15157a3da000-15157a3dd000 r--p 00015000 00:35 14742980021                /opt/conda/lib/python3.10/site-packages/mkl/_py_mkl_service.cpython-310-x86_64-linux-gnu.so
+15157a3dd000-15157a3de000 ---p 00018000 00:35 14742980021                /opt/conda/lib/python3.10/site-packages/mkl/_py_mkl_service.cpython-310-x86_64-linux-gnu.so
+15157a3de000-15157a3df000 r--p 00018000 00:35 14742980021                /opt/conda/lib/python3.10/site-packages/mkl/_py_mkl_service.cpython-310-x86_64-linux-gnu.so
+15157a3df000-15157a3e3000 rw-p 00019000 00:35 14742980021                /opt/conda/lib/python3.10/site-packages/mkl/_py_mkl_service.cpython-310-x86_64-linux-gnu.so
+15157a3e3000-15157a6df000 r--p 00000000 00:35 5870655726                 /opt/conda/lib/libmkl_rt.so.2
+15157a6df000-15157abfd000 r-xp 002fc000 00:35 5870655726                 /opt/conda/lib/libmkl_rt.so.2
+15157abfd000-15157aec2000 r--p 0081a000 00:35 5870655726                 /opt/conda/lib/libmkl_rt.so.2
+15157aec2000-15157aec8000 r--p 00ade000 00:35 5870655726                 /opt/conda/lib/libmkl_rt.so.2
+15157aec8000-15157aeca000 rw-p 00ae4000 00:35 5870655726                 /opt/conda/lib/libmkl_rt.so.2
+15157aeca000-15157aef2000 rw-p 00000000 00:00 0 
+15157aef2000-15157b022000 rw-p 00de7000 00:35 5870655726                 /opt/conda/lib/libmkl_rt.so.2
+15157b022000-15157b023000 r--p 00000000 00:35 14742979965                /opt/conda/lib/python3.10/site-packages/mkl/_mklinit.cpython-310-x86_64-linux-gnu.so
+15157b023000-15157b024000 r-xp 00001000 00:35 14742979965                /opt/conda/lib/python3.10/site-packages/mkl/_mklinit.cpython-310-x86_64-linux-gnu.so
+15157b024000-15157b025000 r--p 00002000 00:35 14742979965                /opt/conda/lib/python3.10/site-packages/mkl/_mklinit.cpython-310-x86_64-linux-gnu.so
+15157b025000-15157b026000 r--p 00002000 00:35 14742979965                /opt/conda/lib/python3.10/site-packages/mkl/_mklinit.cpython-310-x86_64-linux-gnu.so
+15157b026000-15157b027000 rw-p 00003000 00:35 14742979965                /opt/conda/lib/python3.10/site-packages/mkl/_mklinit.cpython-310-x86_64-linux-gnu.so
+15157b027000-15157de81000 r-xp 00000000 00:35 6885476874                 /opt/conda/lib/libnvrtc.so.12.1.105
+15157de81000-15157e081000 ---p 02e5a000 00:35 6885476874                 /opt/conda/lib/libnvrtc.so.12.1.105
+15157e081000-15157e796000 r--p 02e5a000 00:35 6885476874                 /opt/conda/lib/libnvrtc.so.12.1.105
+15157e796000-15157e862000 rw-p 0356f000 00:35 6885476874                 /opt/conda/lib/libnvrtc.so.12.1.105
+15157e862000-15157e95e000 rw-p 00000000 00:00 0 
+15157e95e000-15157e960000 rw-p 0363c000 00:35 6885476874                 /opt/conda/lib/libnvrtc.so.12.1.105
+15157e960000-15157ea59000 r--p 00000000 00:35 43400627448                /opt/conda/lib/python3.10/site-packages/torch/lib/libnvfuser_codegen.so
+15157ea59000-15157edd3000 r-xp 000f9000 00:35 43400627448                /opt/conda/lib/python3.10/site-packages/torch/lib/libnvfuser_codegen.so
+15157edd3000-15157ef1c000 r--p 00473000 00:35 43400627448                /opt/conda/lib/python3.10/site-packages/torch/lib/libnvfuser_codegen.so
+15157ef1c000-15157ef1d000 ---p 005bc000 00:35 43400627448                /opt/conda/lib/python3.10/site-packages/torch/lib/libnvfuser_codegen.so
+15157ef1d000-15157ef35000 r--p 005bc000 00:35 43400627448                /opt/conda/lib/python3.10/site-packages/torch/lib/libnvfuser_codegen.so
+15157ef35000-15157ef3b000 rw-p 005d4000 00:35 43400627448                /opt/conda/lib/python3.10/site-packages/torch/lib/libnvfuser_codegen.so
+15157ef3b000-15157ef3c000 rw-p 00000000 00:00 0 
+15157ef3c000-15158167c000 r-xp 00000000 00:35 6540237759                 /opt/conda/lib/libnvJitLink.so.12.1.105
+15158167c000-15158187b000 ---p 02740000 00:35 6540237759                 /opt/conda/lib/libnvJitLink.so.12.1.105
+15158187b000-151581f0d000 r--p 0273f000 00:35 6540237759                 /opt/conda/lib/libnvJitLink.so.12.1.105
+151581f0d000-151581f7d000 rw-p 02dd1000 00:35 6540237759                 /opt/conda/lib/libnvJitLink.so.12.1.105
+151581f7d000-151581ff2000 rw-p 00000000 00:00 0 
+151581ff2000-151581ff4000 rw-p 02e42000 00:35 6540237759                 /opt/conda/lib/libnvJitLink.so.12.1.105
+151581ff4000-151591320000 r-xp 00000000 00:35 4287635153                 /opt/conda/lib/libcusparse.so.12.0.2.55
+151591320000-151591520000 ---p 0f32c000 00:35 4287635153                 /opt/conda/lib/libcusparse.so.12.0.2.55
+151591520000-15159152f000 r--p 0f32c000 00:35 4287635153                 /opt/conda/lib/libcusparse.so.12.0.2.55
+15159152f000-151591549000 rw-p 0f33b000 00:35 4287635153                 /opt/conda/lib/libcusparse.so.12.0.2.55
+151591549000-15159154f000 rw-p 00000000 00:00 0 
+15159154f000-151591554000 rw-p 0f356000 00:35 4287635153                 /opt/conda/lib/libcusparse.so.12.0.2.55
+151591554000-151591b86000 r-xp 00000000 00:35 43400627164                /opt/conda/lib/python3.10/site-packages/torch/lib/libcupti-abc63100.so.12
+151591b86000-151591d85000 ---p 00632000 00:35 43400627164                /opt/conda/lib/python3.10/site-packages/torch/lib/libcupti-abc63100.so.12
+151591d85000-151591dd2000 r--p 00631000 00:35 43400627164                /opt/conda/lib/python3.10/site-packages/torch/lib/libcupti-abc63100.so.12
+151591dd2000-151591e67000 rw-p 0067e000 00:35 43400627164                /opt/conda/lib/python3.10/site-packages/torch/lib/libcupti-abc63100.so.12
+151591e67000-151591ea1000 rw-p 00000000 00:00 0 
+151591ea1000-151591ea4000 rw-p 00714000 00:35 43400627164                /opt/conda/lib/python3.10/site-packages/torch/lib/libcupti-abc63100.so.12
+151591ea4000-151591ec8000 r-xp 00000000 00:35 41791264500                /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn.so.8
+151591ec8000-1515920c7000 ---p 00024000 00:35 41791264500                /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn.so.8
+1515920c7000-1515920c8000 r--p 00023000 00:35 41791264500                /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn.so.8
+1515920c8000-1515920c9000 rw-p 00024000 00:35 41791264500                /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn.so.8
+1515920c9000-1515920ca000 rw-p 00000000 00:00 0 
+1515920ca000-1515920cd000 rw-p 00025000 00:35 41791264500                /opt/conda/lib/python3.10/site-packages/torch/lib/libcudnn.so.8
+1515920cd000-1515920f2000 r--p 00000000 00:35 41791264276                /opt/conda/lib/python3.10/site-packages/torch/lib/libc10.so
+1515920f2000-151592166000 r-xp 00025000 00:35 41791264276                /opt/conda/lib/python3.10/site-packages/torch/lib/libc10.so
+151592166000-15159218d000 r--p 00099000 00:35 41791264276                /opt/conda/lib/python3.10/site-packages/torch/lib/libc10.so
+15159218d000-15159218e000 ---p 000c0000 00:35 41791264276                /opt/conda/lib/python3.10/site-packages/torch/lib/libc10.so
+15159218e000-151592190000 r--p 000c0000 00:35 41791264276                /opt/conda/lib/python3.10/site-packages/torch/lib/libc10.so
+151592190000-151592196000 rw-p 000c2000 00:35 41791264276                /opt/conda/lib/python3.10/site-packages/torch/lib/libc10.so
+151592196000-151592199000 rw-p 00000000 00:00 0 
+151592199000-1515921ac000 rw-p 000fa000 00:35 41791264276                /opt/conda/lib/python3.10/site-packages/torch/lib/libc10.so
+1515921ac000-1515921bc000 r--p 00000000 00:35 41791264368                /opt/conda/lib/python3.10/site-packages/torch/lib/libc10_cuda.so
+1515921bc000-15159220d000 r-xp 00010000 00:35 41791264368                /opt/conda/lib/python3.10/site-packages/torch/lib/libc10_cuda.so
+15159220d000-151592220000 r--p 00061000 00:35 41791264368                /opt/conda/lib/python3.10/site-packages/torch/lib/libc10_cuda.so
+151592220000-151592221000 ---p 00074000 00:35 41791264368                /opt/conda/lib/python3.10/site-packages/torch/lib/libc10_cuda.so
+151592221000-151592222000 r--p 00074000 00:35 41791264368                /opt/conda/lib/python3.10/site-packages/torch/lib/libc10_cuda.so
+151592222000-151592223000 rw-p 00075000 00:35 41791264368                /opt/conda/lib/python3.10/site-packages/torch/lib/libc10_cuda.so
+151592223000-151592228000 rw-p 00000000 00:00 0 
+151592228000-151592ea1000 r--p 00000000 00:35 43750983692                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so
+151592ea1000-15159552d000 r-xp 00c79000 00:35 43750983692                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so
+15159552d000-1515cc00b000 r--p 03305000 00:35 43750983692                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so
+1515cc00b000-1515cc087000 r--p 39de2000 00:35 43750983692                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so
+1515cc087000-1515cc0b0000 rw-p 39e5e000 00:35 43750983692                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so
+1515cc0b0000-1515ccdda000 rw-p 00000000 00:00 0 
+1515ccdda000-1515cd9ee000 r--p 00000000 00:35 43400627860                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cpu.so
+1515cd9ee000-1515d675f000 r-xp 00c14000 00:35 43400627860                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cpu.so
+1515d675f000-1515d85ad000 r--p 09985000 00:35 43400627860                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cpu.so
+1515d85ad000-1515d87a0000 r--p 0b7d2000 00:35 43400627860                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cpu.so
+1515d87a0000-1515d87d9000 rw-p 0b9c5000 00:35 43400627860                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cpu.so
+1515d87d9000-1515d8854000 rw-p 00000000 00:00 0 
+1515d8854000-1515d8d5a000 rw-p 104ec000 00:35 43400627860                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_cpu.so
+1515d8d5a000-1515d8d66000 r--p 00000000 00:35 43400627796                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch.so
+1515d8d66000-1515d8d71000 r-xp 0000c000 00:35 43400627796                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch.so
+1515d8d71000-1515d8d76000 r--p 00017000 00:35 43400627796                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch.so
+1515d8d76000-1515d8d77000 ---p 0001c000 00:35 43400627796                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch.so
+1515d8d77000-1515d8d78000 r--p 0001c000 00:35 43400627796                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch.so
+1515d8d78000-1515d8d79000 rw-p 0001d000 00:35 43400627796                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch.so
+1515d8d79000-1515d8d7c000 r--p 00000000 00:35 43400627740                /opt/conda/lib/python3.10/site-packages/torch/lib/libshm.so
+1515d8d7c000-1515d8d7f000 r-xp 00003000 00:35 43400627740                /opt/conda/lib/python3.10/site-packages/torch/lib/libshm.so
+1515d8d7f000-1515d8d80000 r--p 00006000 00:35 43400627740                /opt/conda/lib/python3.10/site-packages/torch/lib/libshm.so
+1515d8d80000-1515d8d81000 ---p 00007000 00:35 43400627740                /opt/conda/lib/python3.10/site-packages/torch/lib/libshm.so
+1515d8d81000-1515d8d82000 r--p 00007000 00:35 43400627740                /opt/conda/lib/python3.10/site-packages/torch/lib/libshm.so
+1515d8d82000-1515d8d83000 rw-p 00008000 00:35 43400627740                /opt/conda/lib/python3.10/site-packages/torch/lib/libshm.so
+1515d8d83000-1515d8f7b000 r--p 00000000 00:35 45127568000                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_python.so
+1515d8f7b000-1515d9a45000 r-xp 001f8000 00:35 45127568000                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_python.so
+1515d9a45000-1515d9d87000 r--p 00cc2000 00:35 45127568000                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_python.so
+1515d9d87000-1515d9d88000 ---p 01004000 00:35 45127568000                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_python.so
+1515d9d88000-1515d9da4000 r--p 01004000 00:35 45127568000                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_python.so
+1515d9da4000-1515d9df7000 rw-p 01020000 00:35 45127568000                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_python.so
+1515d9df7000-1515d9e59000 rw-p 00000000 00:00 0 
+1515d9e59000-1515d9e5a000 r--p 00000000 00:35 34816524358                /opt/conda/lib/python3.10/site-packages/torch/_C.cpython-310-x86_64-linux-gnu.so
+1515d9e5a000-1515d9e5b000 r-xp 00001000 00:35 34816524358                /opt/conda/lib/python3.10/site-packages/torch/_C.cpython-310-x86_64-linux-gnu.so
+1515d9e5b000-1515d9e5c000 r--p 00002000 00:35 34816524358                /opt/conda/lib/python3.10/site-packages/torch/_C.cpython-310-x86_64-linux-gnu.so
+1515d9e5c000-1515d9e5d000 r--p 00002000 00:35 34816524358                /opt/conda/lib/python3.10/site-packages/torch/_C.cpython-310-x86_64-linux-gnu.so
+1515d9e5d000-1515d9e5e000 rw-p 00003000 00:35 34816524358                /opt/conda/lib/python3.10/site-packages/torch/_C.cpython-310-x86_64-linux-gnu.so
+1515d9e5e000-1515da006000 r--p 00000000 00:02 83243                      /.singularity.d/libs/libcuda.so.1
+1515da006000-1515db281000 r-xp 001a8000 00:02 83243                      /.singularity.d/libs/libcuda.so.1
+1515db281000-1515e0848000 r--p 01423000 00:02 83243                      /.singularity.d/libs/libcuda.so.1
+1515e0848000-1515e0849000 ---p 069ea000 00:02 83243                      /.singularity.d/libs/libcuda.so.1
+1515e0849000-1515e09c5000 r--p 069ea000 00:02 83243                      /.singularity.d/libs/libcuda.so.1
+1515e09c5000-1515e09ca000 rw-p 06b66000 00:02 83243                      /.singularity.d/libs/libcuda.so.1
+1515e09ca000-1515e0a32000 rw-p 00000000 00:00 0 
+1515e0a32000-1515e0ad3000 r--p 00000000 00:35 7202869059                 /opt/conda/lib/libstdc++.so.6.0.29
+1515e0ad3000-1515e0bc8000 r-xp 000a1000 00:35 7202869059                 /opt/conda/lib/libstdc++.so.6.0.29
+1515e0bc8000-1515e0c34000 r--p 00196000 00:35 7202869059                 /opt/conda/lib/libstdc++.so.6.0.29
+1515e0c34000-1515e0c35000 ---p 00202000 00:35 7202869059                 /opt/conda/lib/libstdc++.so.6.0.29
+1515e0c35000-1515e0c40000 r--p 00202000 00:35 7202869059                 /opt/conda/lib/libstdc++.so.6.0.29
+1515e0c40000-1515e0c43000 rw-p 0020d000 00:35 7202869059                 /opt/conda/lib/libstdc++.so.6.0.29
+1515e0c43000-1515e0c46000 rw-p 00000000 00:00 0 
+1515e0c46000-1515e0c49000 r--p 00000000 00:35 4983293042                 /opt/conda/lib/libgcc_s.so.1
+1515e0c49000-1515e0c5b000 r-xp 00003000 00:35 4983293042                 /opt/conda/lib/libgcc_s.so.1
+1515e0c5b000-1515e0c5e000 r--p 00015000 00:35 4983293042                 /opt/conda/lib/libgcc_s.so.1
+1515e0c5e000-1515e0c5f000 r--p 00017000 00:35 4983293042                 /opt/conda/lib/libgcc_s.so.1
+1515e0c5f000-1515e0c60000 rw-p 00018000 00:35 4983293042                 /opt/conda/lib/libgcc_s.so.1
+1515e0c60000-1515e0c62000 r--p 00000000 00:35 68390553539                /usr/lib/x86_64-linux-gnu/librt-2.31.so
+1515e0c62000-1515e0c66000 r-xp 00002000 00:35 68390553539                /usr/lib/x86_64-linux-gnu/librt-2.31.so
+1515e0c66000-1515e0c68000 r--p 00006000 00:35 68390553539                /usr/lib/x86_64-linux-gnu/librt-2.31.so
+1515e0c68000-1515e0c69000 r--p 00007000 00:35 68390553539                /usr/lib/x86_64-linux-gnu/librt-2.31.so
+1515e0c69000-1515e0c6a000 rw-p 00008000 00:35 68390553539                /usr/lib/x86_64-linux-gnu/librt-2.31.so
+1515e0c6a000-1515e0c75000 r--p 00000000 00:35 4983294325                 /opt/conda/lib/libgomp.so.1.0.0
+1515e0c75000-1515e0ca0000 r-xp 0000b000 00:35 4983294325                 /opt/conda/lib/libgomp.so.1.0.0
+1515e0ca0000-1515e0cac000 r--p 00036000 00:35 4983294325                 /opt/conda/lib/libgomp.so.1.0.0
+1515e0cac000-1515e0cad000 r--p 00041000 00:35 4983294325                 /opt/conda/lib/libgomp.so.1.0.0
+1515e0cad000-1515e0cae000 rw-p 00042000 00:35 4983294325                 /opt/conda/lib/libgomp.so.1.0.0
+1515e0cae000-1515e0cb6000 r-xp 00000000 00:35 6885474847                 /opt/conda/lib/libnvToolsExt.so.1.0.0
+1515e0cb6000-1515e0eb6000 ---p 00008000 00:35 6885474847                 /opt/conda/lib/libnvToolsExt.so.1.0.0
+1515e0eb6000-1515e0eb7000 r--p 00008000 00:35 6885474847                 /opt/conda/lib/libnvToolsExt.so.1.0.0
+1515e0eb7000-1515e0eb8000 rw-p 00009000 00:35 6885474847                 /opt/conda/lib/libnvToolsExt.so.1.0.0
+1515e0eb8000-1515e0eb9000 rw-p 0000a000 00:35 6885474847                 /opt/conda/lib/libnvToolsExt.so.1.0.0
+1515e0eb9000-1515e0f59000 r-xp 00000000 00:35 3268352766                 /opt/conda/lib/libcudart.so.12.1.105
+1515e0f59000-1515e1159000 ---p 000a0000 00:35 3268352766                 /opt/conda/lib/libcudart.so.12.1.105
+1515e1159000-1515e115e000 r--p 000a0000 00:35 3268352766                 /opt/conda/lib/libcudart.so.12.1.105
+1515e115e000-1515e115f000 rw-p 000a5000 00:35 3268352766                 /opt/conda/lib/libcudart.so.12.1.105
+1515e115f000-1515e1160000 rw-p 00000000 00:00 0 
+1515e1160000-1515e1164000 rw-p 000a6000 00:35 3268352766                 /opt/conda/lib/libcudart.so.12.1.105
+1515e1164000-1515fe3c7000 r-xp 00000000 00:35 2609585681                 /opt/conda/lib/libcublasLt.so.12.1.0.26
+1515fe3c7000-1515fe5c7000 ---p 1d263000 00:35 2609585681                 /opt/conda/lib/libcublasLt.so.12.1.0.26
+1515fe5c7000-1515fe7f7000 r--p 1d263000 00:35 2609585681                 /opt/conda/lib/libcublasLt.so.12.1.0.26
+1515fe7f7000-1515ff78c000 rw-p 1d493000 00:35 2609585681                 /opt/conda/lib/libcublasLt.so.12.1.0.26
+1515ff78c000-151601f74000 rw-p 00000000 00:00 0 
+151601f74000-151601f78000 rw-p 1e429000 00:35 2609585681                 /opt/conda/lib/libcublasLt.so.12.1.0.26
+151601f78000-1516085df000 r-xp 00000000 00:35 2609582295                 /opt/conda/lib/libcublas.so.12.1.0.26
+1516085df000-1516087df000 ---p 06667000 00:35 2609582295                 /opt/conda/lib/libcublas.so.12.1.0.26
+1516087df000-1516087e6000 r--p 06667000 00:35 2609582295                 /opt/conda/lib/libcublas.so.12.1.0.26
+1516087e6000-1516087ed000 rw-p 0666e000 00:35 2609582295                 /opt/conda/lib/libcublas.so.12.1.0.26
+1516087ed000-1516087f5000 rw-p 00000000 00:00 0 
+1516087f5000-1516087fb000 rw-p 06675000 00:35 2609582295                 /opt/conda/lib/libcublas.so.12.1.0.26
+1516087fb000-15160cf96000 r-xp 00000000 00:35 3611498003                 /opt/conda/lib/libcurand.so.10.3.4.101
+15160cf96000-15160d196000 ---p 0479b000 00:35 3611498003                 /opt/conda/lib/libcurand.so.10.3.4.101
+15160d196000-15160d19c000 r--p 0479b000 00:35 3611498003                 /opt/conda/lib/libcurand.so.10.3.4.101
+15160d19c000-15160e5c8000 rw-p 047a1000 00:35 3611498003                 /opt/conda/lib/libcurand.so.10.3.4.101
+15160e5c8000-15160ec00000 rw-p 00000000 00:00 0 
+15160ec00000-15160ec01000 rw-p 05bcd000 00:35 3611498003                 /opt/conda/lib/libcurand.so.10.3.4.101
+15160ec01000-1516129c7000 r-xp 00000000 00:35 3268352890                 /opt/conda/lib/libcufft.so.11.0.2.4
+1516129c7000-151612bc7000 ---p 03dc6000 00:35 3268352890                 /opt/conda/lib/libcufft.so.11.0.2.4
+151612bc7000-151612c26000 r--p 03dc6000 00:35 3268352890                 /opt/conda/lib/libcufft.so.11.0.2.4
+151612c26000-15161a5ca000 rw-p 03e25000 00:35 3268352890                 /opt/conda/lib/libcufft.so.11.0.2.4
+15161a5ca000-15161a6bb000 rw-p 00000000 00:00 0 
+15161a6bb000-15161a6bd000 rw-p 0b7ca000 00:35 3268352890                 /opt/conda/lib/libcufft.so.11.0.2.4
+15161a6bd000-15161a8ad000 r--p 00000000 00:35 5539627504                 /opt/conda/lib/libmkl_core.so.2
+15161a8ad000-15161dfd1000 r-xp 001f0000 00:35 5539627504                 /opt/conda/lib/libmkl_core.so.2
+15161dfd1000-15161ea3e000 r--p 03914000 00:35 5539627504                 /opt/conda/lib/libmkl_core.so.2
+15161ea3e000-15161ea45000 r--p 04380000 00:35 5539627504                 /opt/conda/lib/libmkl_core.so.2
+15161ea45000-15161ea75000 rw-p 04387000 00:35 5539627504                 /opt/conda/lib/libmkl_core.so.2
+15161ea75000-15161ea9e000 rw-p 00000000 00:00 0 
+15161ea9e000-15161eb8f000 rw-p 046cd000 00:35 5539627504                 /opt/conda/lib/libmkl_core.so.2
+15161eb8f000-15161ed62000 r--p 00000000 00:35 5539632481                 /opt/conda/lib/libmkl_gnu_thread.so.2
+15161ed62000-151620538000 r-xp 001d3000 00:35 5539632481                 /opt/conda/lib/libmkl_gnu_thread.so.2
+151620538000-1516206da000 r--p 019a9000 00:35 5539632481                 /opt/conda/lib/libmkl_gnu_thread.so.2
+1516206da000-1516206de000 r--p 01b4a000 00:35 5539632481                 /opt/conda/lib/libmkl_gnu_thread.so.2
+1516206de000-15162072b000 rw-p 01b4e000 00:35 5539632481                 /opt/conda/lib/libmkl_gnu_thread.so.2
+15162072b000-15162072c000 rw-p 00000000 00:00 0 
+15162072c000-15162080f000 rw-p 01d98000 00:35 5539632481                 /opt/conda/lib/libmkl_gnu_thread.so.2
+15162080f000-151620a40000 r--p 00000000 00:35 5539634222                 /opt/conda/lib/libmkl_intel_lp64.so.2
+151620a40000-151621563000 r-xp 00231000 00:35 5539634222                 /opt/conda/lib/libmkl_intel_lp64.so.2
+151621563000-151621a21000 r--p 00d54000 00:35 5539634222                 /opt/conda/lib/libmkl_intel_lp64.so.2
+151621a21000-151621a22000 ---p 01212000 00:35 5539634222                 /opt/conda/lib/libmkl_intel_lp64.so.2
+151621a22000-151621a24000 r--p 01212000 00:35 5539634222                 /opt/conda/lib/libmkl_intel_lp64.so.2
+151621a24000-151621a42000 rw-p 01214000 00:35 5539634222                 /opt/conda/lib/libmkl_intel_lp64.so.2
+151621a42000-151621a49000 rw-p 00000000 00:00 0 
+151621a49000-151621aff000 rw-p 0144c000 00:35 5539634222                 /opt/conda/lib/libmkl_intel_lp64.so.2
+151621aff000-151621b00000 r--p 00000000 00:35 45127567944                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_global_deps.so
+151621b00000-151621b01000 r-xp 00001000 00:35 45127567944                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_global_deps.so
+151621b01000-151621b02000 r--p 00002000 00:35 45127567944                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_global_deps.so
+151621b02000-151621b03000 r--p 00002000 00:35 45127567944                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_global_deps.so
+151621b03000-151621b04000 rw-p 00003000 00:35 45127567944                /opt/conda/lib/python3.10/site-packages/torch/lib/libtorch_global_deps.so
+151621b04000-151621b06000 r--p 00000000 00:35 8399752825                 /opt/conda/lib/python3.10/lib-dynload/_sha512.cpython-310-x86_64-linux-gnu.so
+151621b06000-151621b0b000 r-xp 00002000 00:35 8399752825                 /opt/conda/lib/python3.10/lib-dynload/_sha512.cpython-310-x86_64-linux-gnu.so
+151621b0b000-151621b0c000 r--p 00007000 00:35 8399752825                 /opt/conda/lib/python3.10/lib-dynload/_sha512.cpython-310-x86_64-linux-gnu.so
+151621b0c000-151621b0d000 r--p 00007000 00:35 8399752825                 /opt/conda/lib/python3.10/lib-dynload/_sha512.cpython-310-x86_64-linux-gnu.so
+151621b0d000-151621b0e000 rw-p 00008000 00:35 8399752825                 /opt/conda/lib/python3.10/lib-dynload/_sha512.cpython-310-x86_64-linux-gnu.so
+151621b0e000-151621b10000 r--p 00000000 00:35 8399752589                 /opt/conda/lib/python3.10/lib-dynload/_random.cpython-310-x86_64-linux-gnu.so
+151621b10000-151621b12000 r-xp 00002000 00:35 8399752589                 /opt/conda/lib/python3.10/lib-dynload/_random.cpython-310-x86_64-linux-gnu.so
+151621b12000-151621b13000 r--p 00004000 00:35 8399752589                 /opt/conda/lib/python3.10/lib-dynload/_random.cpython-310-x86_64-linux-gnu.so
+151621b13000-151621b14000 r--p 00004000 00:35 8399752589                 /opt/conda/lib/python3.10/lib-dynload/_random.cpython-310-x86_64-linux-gnu.so
+151621b14000-151621b15000 rw-p 00005000 00:35 8399752589                 /opt/conda/lib/python3.10/lib-dynload/_random.cpython-310-x86_64-linux-gnu.so
+151621b15000-151621b17000 r--p 00000000 00:35 8399750569                 /opt/conda/lib/python3.10/lib-dynload/_bisect.cpython-310-x86_64-linux-gnu.so
+151621b17000-151621b19000 r-xp 00002000 00:35 8399750569                 /opt/conda/lib/python3.10/lib-dynload/_bisect.cpython-310-x86_64-linux-gnu.so
+151621b19000-151621b1a000 r--p 00004000 00:35 8399750569                 /opt/conda/lib/python3.10/lib-dynload/_bisect.cpython-310-x86_64-linux-gnu.so
+151621b1a000-151621b1b000 r--p 00004000 00:35 8399750569                 /opt/conda/lib/python3.10/lib-dynload/_bisect.cpython-310-x86_64-linux-gnu.so
+151621b1b000-151621b1c000 rw-p 00005000 00:35 8399750569                 /opt/conda/lib/python3.10/lib-dynload/_bisect.cpython-310-x86_64-linux-gnu.so
+151621b1c000-151621b20000 r--p 00000000 00:35 5229184876                 /opt/conda/lib/liblzma.so.5.4.2
+151621b20000-151621b3d000 r-xp 00004000 00:35 5229184876                 /opt/conda/lib/liblzma.so.5.4.2
+151621b3d000-151621b49000 r--p 00021000 00:35 5229184876                 /opt/conda/lib/liblzma.so.5.4.2
+151621b49000-151621b4a000 ---p 0002d000 00:35 5229184876                 /opt/conda/lib/liblzma.so.5.4.2
+151621b4a000-151621b4b000 r--p 0002d000 00:35 5229184876                 /opt/conda/lib/liblzma.so.5.4.2
+151621b4b000-151621b4c000 rw-p 0002e000 00:35 5229184876                 /opt/conda/lib/liblzma.so.5.4.2
+151621b4c000-151621b4f000 r--p 00000000 00:35 8399752049                 /opt/conda/lib/python3.10/lib-dynload/_lzma.cpython-310-x86_64-linux-gnu.so
+151621b4f000-151621b53000 r-xp 00003000 00:35 8399752049                 /opt/conda/lib/python3.10/lib-dynload/_lzma.cpython-310-x86_64-linux-gnu.so
+151621b53000-151621b56000 r--p 00007000 00:35 8399752049                 /opt/conda/lib/python3.10/lib-dynload/_lzma.cpython-310-x86_64-linux-gnu.so
+151621b56000-151621b57000 r--p 00009000 00:35 8399752049                 /opt/conda/lib/python3.10/lib-dynload/_lzma.cpython-310-x86_64-linux-gnu.so
+151621b57000-151621b58000 rw-p 0000a000 00:35 8399752049                 /opt/conda/lib/python3.10/lib-dynload/_lzma.cpython-310-x86_64-linux-gnu.so
+151621b58000-151621b5a000 r--p 00000000 00:35 2609581011                 /opt/conda/lib/libbz2.so.1.0.8
+151621b5a000-151621b68000 r-xp 00002000 00:35 2609581011                 /opt/conda/lib/libbz2.so.1.0.8
+151621b68000-151621b6a000 r--p 00010000 00:35 2609581011                 /opt/conda/lib/libbz2.so.1.0.8
+151621b6a000-151621b6b000 r--p 00011000 00:35 2609581011                 /opt/conda/lib/libbz2.so.1.0.8
+151621b6b000-151621b6c000 rw-p 00012000 00:35 2609581011                 /opt/conda/lib/libbz2.so.1.0.8
+151621b6c000-151621b6e000 r--p 00000000 00:35 8399750689                 /opt/conda/lib/python3.10/lib-dynload/_bz2.cpython-310-x86_64-linux-gnu.so
+151621b6e000-151621b70000 r-xp 00002000 00:35 8399750689                 /opt/conda/lib/python3.10/lib-dynload/_bz2.cpython-310-x86_64-linux-gnu.so
+151621b70000-151621b72000 r--p 00004000 00:35 8399750689                 /opt/conda/lib/python3.10/lib-dynload/_bz2.cpython-310-x86_64-linux-gnu.so
+151621b72000-151621b73000 r--p 00005000 00:35 8399750689                 /opt/conda/lib/python3.10/lib-dynload/_bz2.cpython-310-x86_64-linux-gnu.so
+151621b73000-151621b74000 rw-p 00006000 00:35 8399750689                 /opt/conda/lib/python3.10/lib-dynload/_bz2.cpython-310-x86_64-linux-gnu.so
+151621b74000-151621b77000 r--p 00000000 00:35 7435453598                 /opt/conda/lib/libz.so.1.2.13
+151621b77000-151621b89000 r-xp 00003000 00:35 7435453598                 /opt/conda/lib/libz.so.1.2.13
+151621b89000-151621b90000 r--p 00015000 00:35 7435453598                 /opt/conda/lib/libz.so.1.2.13
+151621b90000-151621b91000 r--p 0001b000 00:35 7435453598                 /opt/conda/lib/libz.so.1.2.13
+151621b91000-151621b92000 rw-p 0001c000 00:35 7435453598                 /opt/conda/lib/libz.so.1.2.13
+151621b92000-151621b95000 r--p 00000000 00:35 8399755109                 /opt/conda/lib/python3.10/lib-dynload/zlib.cpython-310-x86_64-linux-gnu.so
+151621b95000-151621b99000 r-xp 00003000 00:35 8399755109                 /opt/conda/lib/python3.10/lib-dynload/zlib.cpython-310-x86_64-linux-gnu.so
+151621b99000-151621b9c000 r--p 00007000 00:35 8399755109                 /opt/conda/lib/python3.10/lib-dynload/zlib.cpython-310-x86_64-linux-gnu.so
+151621b9c000-151621b9d000 r--p 00009000 00:35 8399755109                 /opt/conda/lib/python3.10/lib-dynload/zlib.cpython-310-x86_64-linux-gnu.so
+151621b9d000-151621b9e000 rw-p 0000a000 00:35 8399755109                 /opt/conda/lib/python3.10/lib-dynload/zlib.cpython-310-x86_64-linux-gnu.so
+151621b9e000-151621c9e000 rw-p 00000000 00:00 0 
+151621c9e000-151621c9f000 r--p 00000000 00:35 8399752289                 /opt/conda/lib/python3.10/lib-dynload/_opcode.cpython-310-x86_64-linux-gnu.so
+151621c9f000-151621ca0000 r-xp 00001000 00:35 8399752289                 /opt/conda/lib/python3.10/lib-dynload/_opcode.cpython-310-x86_64-linux-gnu.so
+151621ca0000-151621ca1000 r--p 00002000 00:35 8399752289                 /opt/conda/lib/python3.10/lib-dynload/_opcode.cpython-310-x86_64-linux-gnu.so
+151621ca1000-151621ca2000 r--p 00002000 00:35 8399752289                 /opt/conda/lib/python3.10/lib-dynload/_opcode.cpython-310-x86_64-linux-gnu.so
+151621ca2000-151621ca3000 rw-p 00003000 00:35 8399752289                 /opt/conda/lib/python3.10/lib-dynload/_opcode.cpython-310-x86_64-linux-gnu.so
+151621ca3000-151621da3000 rw-p 00000000 00:00 0 
+151621da3000-151621da7000 r--p 00000000 00:35 8399753149                 /opt/conda/lib/python3.10/lib-dynload/_struct.cpython-310-x86_64-linux-gnu.so
+151621da7000-151621dac000 r-xp 00004000 00:35 8399753149                 /opt/conda/lib/python3.10/lib-dynload/_struct.cpython-310-x86_64-linux-gnu.so
+151621dac000-151621db0000 r--p 00009000 00:35 8399753149                 /opt/conda/lib/python3.10/lib-dynload/_struct.cpython-310-x86_64-linux-gnu.so
+151621db0000-151621db1000 r--p 0000c000 00:35 8399753149                 /opt/conda/lib/python3.10/lib-dynload/_struct.cpython-310-x86_64-linux-gnu.so
+151621db1000-151621db2000 rw-p 0000d000 00:35 8399753149                 /opt/conda/lib/python3.10/lib-dynload/_struct.cpython-310-x86_64-linux-gnu.so
+151621db2000-151621db5000 r--p 00000000 00:35 4983292169                 /opt/conda/lib/libffi.so.8.1.2
+151621db5000-151621dbf000 r-xp 00003000 00:35 4983292169                 /opt/conda/lib/libffi.so.8.1.2
+151621dbf000-151621dc1000 r--p 0000d000 00:35 4983292169                 /opt/conda/lib/libffi.so.8.1.2
+151621dc1000-151621dc2000 r--p 0000e000 00:35 4983292169                 /opt/conda/lib/libffi.so.8.1.2
+151621dc2000-151621dc3000 rw-p 0000f000 00:35 4983292169                 /opt/conda/lib/libffi.so.8.1.2
+151621dc3000-151621dca000 r--p 00000000 00:35 8399751301                 /opt/conda/lib/python3.10/lib-dynload/_ctypes.cpython-310-x86_64-linux-gnu.so
+151621dca000-151621dd8000 r-xp 00007000 00:35 8399751301                 /opt/conda/lib/python3.10/lib-dynload/_ctypes.cpython-310-x86_64-linux-gnu.so
+151621dd8000-151621dde000 r--p 00015000 00:35 8399751301                 /opt/conda/lib/python3.10/lib-dynload/_ctypes.cpython-310-x86_64-linux-gnu.so
+151621dde000-151621ddf000 r--p 0001a000 00:35 8399751301                 /opt/conda/lib/python3.10/lib-dynload/_ctypes.cpython-310-x86_64-linux-gnu.so
+151621ddf000-151621de3000 rw-p 0001b000 00:35 8399751301                 /opt/conda/lib/python3.10/lib-dynload/_ctypes.cpython-310-x86_64-linux-gnu.so
+151621de3000-151621de6000 r--p 00000000 00:35 8399754677                 /opt/conda/lib/python3.10/lib-dynload/select.cpython-310-x86_64-linux-gnu.so
+151621de6000-151621de9000 r-xp 00003000 00:35 8399754677                 /opt/conda/lib/python3.10/lib-dynload/select.cpython-310-x86_64-linux-gnu.so
+151621de9000-151621deb000 r--p 00006000 00:35 8399754677                 /opt/conda/lib/python3.10/lib-dynload/select.cpython-310-x86_64-linux-gnu.so
+151621deb000-151621dec000 ---p 00008000 00:35 8399754677                 /opt/conda/lib/python3.10/lib-dynload/select.cpython-310-x86_64-linux-gnu.so
+151621dec000-151621ded000 r--p 00008000 00:35 8399754677                 /opt/conda/lib/python3.10/lib-dynload/select.cpython-310-x86_64-linux-gnu.so
+151621ded000-151621dee000 rw-p 00009000 00:35 8399754677                 /opt/conda/lib/python3.10/lib-dynload/select.cpython-310-x86_64-linux-gnu.so
+151621dee000-151621df0000 r--p 00000000 00:35 8399752477                 /opt/conda/lib/python3.10/lib-dynload/_posixsubprocess.cpython-310-x86_64-linux-gnu.so
+151621df0000-151621df2000 r-xp 00002000 00:35 8399752477                 /opt/conda/lib/python3.10/lib-dynload/_posixsubprocess.cpython-310-x86_64-linux-gnu.so
+151621df2000-151621df3000 r--p 00004000 00:35 8399752477                 /opt/conda/lib/python3.10/lib-dynload/_posixsubprocess.cpython-310-x86_64-linux-gnu.so
+151621df3000-151621df4000 r--p 00004000 00:35 8399752477                 /opt/conda/lib/python3.10/lib-dynload/_posixsubprocess.cpython-310-x86_64-linux-gnu.so
+151621df4000-151621df5000 rw-p 00005000 00:35 8399752477                 /opt/conda/lib/python3.10/lib-dynload/_posixsubprocess.cpython-310-x86_64-linux-gnu.so
+151621df5000-151621df7000 r--p 00000000 00:35 8399754133                 /opt/conda/lib/python3.10/lib-dynload/fcntl.cpython-310-x86_64-linux-gnu.so
+151621df7000-151621df9000 r-xp 00002000 00:35 8399754133                 /opt/conda/lib/python3.10/lib-dynload/fcntl.cpython-310-x86_64-linux-gnu.so
+151621df9000-151621dfb000 r--p 00004000 00:35 8399754133                 /opt/conda/lib/python3.10/lib-dynload/fcntl.cpython-310-x86_64-linux-gnu.so
+151621dfb000-151621dfc000 r--p 00005000 00:35 8399754133                 /opt/conda/lib/python3.10/lib-dynload/fcntl.cpython-310-x86_64-linux-gnu.so
+151621dfc000-151621dfd000 rw-p 00006000 00:35 8399754133                 /opt/conda/lib/python3.10/lib-dynload/fcntl.cpython-310-x86_64-linux-gnu.so
+151621dfd000-151621e01000 r--p 00000000 00:35 8399754245                 /opt/conda/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so
+151621e01000-151621e09000 r-xp 00004000 00:35 8399754245                 /opt/conda/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so
+151621e09000-151621e0d000 r--p 0000c000 00:35 8399754245                 /opt/conda/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so
+151621e0d000-151621e0e000 ---p 00010000 00:35 8399754245                 /opt/conda/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so
+151621e0e000-151621e0f000 r--p 00010000 00:35 8399754245                 /opt/conda/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so
+151621e0f000-151621e10000 rw-p 00011000 00:35 8399754245                 /opt/conda/lib/python3.10/lib-dynload/math.cpython-310-x86_64-linux-gnu.so
+151621e10000-151622512000 rw-p 00000000 00:00 0 
+151622512000-151622519000 r--s 00000000 00:35 68052981617                /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
+151622519000-15162254b000 r--p 00000000 00:35 67891365151                /usr/lib/locale/C.UTF-8/LC_CTYPE
+15162254b000-15162294c000 rw-s 00000000 00:34 191877294                  /results/pmtable_3202765
+15162294c000-151622951000 rw-p 00000000 00:00 0 
+151622951000-151622973000 r--p 00000000 00:35 68184506843                /usr/lib/x86_64-linux-gnu/libc-2.31.so
+151622973000-151622aeb000 r-xp 00022000 00:35 68184506843                /usr/lib/x86_64-linux-gnu/libc-2.31.so
+151622aeb000-151622b39000 r--p 0019a000 00:35 68184506843                /usr/lib/x86_64-linux-gnu/libc-2.31.so
+151622b39000-151622b3d000 r--p 001e7000 00:35 68184506843                /usr/lib/x86_64-linux-gnu/libc-2.31.so
+151622b3d000-151622b3f000 rw-p 001eb000 00:35 68184506843                /usr/lib/x86_64-linux-gnu/libc-2.31.so
+151622b3f000-151622b43000 rw-p 00000000 00:00 0 
+151622b43000-151622b50000 r--p 00000000 00:35 68184512142                /usr/lib/x86_64-linux-gnu/libm-2.31.so
+151622b50000-151622bf7000 r-xp 0000d000 00:35 68184512142                /usr/lib/x86_64-linux-gnu/libm-2.31.so
+151622bf7000-151622c90000 r--p 000b4000 00:35 68184512142                /usr/lib/x86_64-linux-gnu/libm-2.31.so
+151622c90000-151622c91000 r--p 0014c000 00:35 68184512142                /usr/lib/x86_64-linux-gnu/libm-2.31.so
+151622c91000-151622c92000 rw-p 0014d000 00:35 68184512142                /usr/lib/x86_64-linux-gnu/libm-2.31.so
+151622c92000-151622c93000 r--p 00000000 00:35 68390555548                /usr/lib/x86_64-linux-gnu/libutil-2.31.so
+151622c93000-151622c94000 r-xp 00001000 00:35 68390555548                /usr/lib/x86_64-linux-gnu/libutil-2.31.so
+151622c94000-151622c95000 r--p 00002000 00:35 68390555548                /usr/lib/x86_64-linux-gnu/libutil-2.31.so
+151622c95000-151622c96000 r--p 00002000 00:35 68390555548                /usr/lib/x86_64-linux-gnu/libutil-2.31.so
+151622c96000-151622c97000 rw-p 00003000 00:35 68390555548                /usr/lib/x86_64-linux-gnu/libutil-2.31.so
+151622c97000-151622c98000 r--p 00000000 00:35 68184508257                /usr/lib/x86_64-linux-gnu/libdl-2.31.so
+151622c98000-151622c9a000 r-xp 00001000 00:35 68184508257                /usr/lib/x86_64-linux-gnu/libdl-2.31.so
+151622c9a000-151622c9b000 r--p 00003000 00:35 68184508257                /usr/lib/x86_64-linux-gnu/libdl-2.31.so
+151622c9b000-151622c9c000 r--p 00003000 00:35 68184508257                /usr/lib/x86_64-linux-gnu/libdl-2.31.so
+151622c9c000-151622c9d000 rw-p 00004000 00:35 68184508257                /usr/lib/x86_64-linux-gnu/libdl-2.31.so
+151622c9d000-151622ca3000 r--p 00000000 00:35 68390552809                /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+151622ca3000-151622cb4000 r-xp 00006000 00:35 68390552809                /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+151622cb4000-151622cba000 r--p 00017000 00:35 68390552809                /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+151622cba000-151622cbb000 r--p 0001c000 00:35 68390552809                /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+151622cbb000-151622cbc000 rw-p 0001d000 00:35 68390552809                /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+151622cbc000-151622cc0000 rw-p 00000000 00:00 0 
+151622cc3000-151622cc4000 r--p 00000000 00:34 75167116                   /ar/pmrec.so
+151622cc4000-151622cc6000 r-xp 00001000 00:34 75167116                   /ar/pmrec.so
+151622cc6000-151622cc7000 r--p 00003000 00:34 75167116                   /ar/pmrec.so
+151622cc7000-151622cc8000 r--p 00003000 00:34 75167116                   /ar/pmrec.so
+151622cc8000-151622cc9000 rw-p 00004000 00:34 75167116                   /ar/pmrec.so
+151622cc9000-151622cdb000 rw-p 00000000 00:00 0 
+151622cdb000-151622cdc000 r--p 00000000 00:35 68052982137                /usr/lib/x86_64-linux-gnu/ld-2.31.so
+151622cdc000-151622cff000 r-xp 00001000 00:35 68052982137                /usr/lib/x86_64-linux-gnu/ld-2.31.so
+151622cff000-151622d07000 r--p 00024000 00:35 68052982137                /usr/lib/x86_64-linux-gnu/ld-2.31.so
+151622d07000-151622d08000 r--s 00000000 00:06 1030                       /dev/nvidiactl
+151622d08000-151622d09000 r--p 0002c000 00:35 68052982137                /usr/lib/x86_64-linux-gnu/ld-2.31.so
+151622d09000-151622d0a000 rw-p 0002d000 00:35 68052982137                /usr/lib/x86_64-linux-gnu/ld-2.31.so
+151622d0a000-151622d0b000 rw-p 00000000 00:00 0 
+7ffeca90b000-7ffeca931000 rw-p 00000000 00:00 0                          [stack]
+7ffeca9e8000-7ffeca9ec000 r--p 00000000 00:00 0                          [vvar]
+7ffeca9ec000-7ffeca9ee000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]

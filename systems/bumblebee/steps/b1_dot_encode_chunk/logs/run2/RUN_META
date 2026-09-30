@@ -1,0 +1,20 @@
+step=f1_faithful_nl
+run=2
+date_utc=2026-09-30T04:42:48Z
+machine=palma:normal node=r02n24
+slurm_job_id=47061585
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth_requested=5
+pm_depth_max=6
+pm_depth=5
+attrib_host=pmrec_pagemap
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/bumblebee/sif/bumblebee-f_b1_faithful.sif
+image_digest=d4d9b5c661607d9de6487f723e83b78b2886ffa5d0c19b59e5251421f09667e8
+omp_num_threads=16
+bb_max_concurrency=16
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base n_layer=12 n_seq=128 hidden=768 heads=12 ffn=3072
+protocol=CHEETAH field=FM64 fxp=16 ot=YACL_Ferret mul_lsb_error=true
+role=BOTH parties (rank 0 and rank 1), measured together on one node

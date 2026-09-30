@@ -1,0 +1,7 @@
+SNNI_PARAM|LLAMA_N_LAYERS=12
+SEEDED|srand=0x5eed|party=2
+waiting for connection from client...connected
+IO|seq=0|op=write|want=6144|got=6144|errno=0
+IO|seq=1|op=write|want=6144|got=6144|errno=0
+IO|seq=2|op=write|want=14155776|got=2703424|errno=0
+Assertion failed: bytes == put in virtual void SocketBuf::write(char*, int) at /opt/EzPC/GPU-MPC/ext/sytorch/ext/llama/src/llama/comms.cpp:152

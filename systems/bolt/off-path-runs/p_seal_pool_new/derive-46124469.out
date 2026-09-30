@@ -1,0 +1,207 @@
+=== party 3337872: scan cost actually paid (ts rss scan_ms)
+samples=247  mean=655 ms  max=1845 ms
+rewrote 58 file-backed mapping offsets to be load-base relative
+=== party 3337872: naming the call sites
+# sample_ts_ms=1786720109283 sample_rss_kb=16531708
+attributed resident 9379.8 MB across 47 call sites
+
+    resident    allocated  touched  count  site
+     3200.1M      3016.8M     106%  46032  linear.cpp:223:Linear::params_preprocessing_ct_pt(HE*, int, int, int, std::vector<std::v
+     2453.2M      2415.9M     102%   9216  linear.cpp:980:Linear::bert_cipher_plain_bsgs_2(HE*, std::vector<seal::Ciphertext, std::
+     1282.8M      1208.4M     106%  18435  libgomp.so.1.0.0+0x1dc0e  <- BOLT_BERT+0x1d4c16
+     1279.0M      1205.9M     106%  18401  linear.cpp:297:Linear::preprocess_layer(int)  <- BOLT_BERT+0x1d4c16
+      641.3M       604.1M     106%   9217  GOMP_parallel  <- BOLT_BERT+0x1d4c16
+       98.7M       104.9M      94%     34  seal::KSwitchKeys::load_members(seal::SEALContext const&, std::istream&, seal::SEALVersi
+       94.2M       268.4M      35%    512  libc.so.6+0x29d90  <- split-kkot.h:87 (discriminator 1):sci::SplitKKOT<sci::NetIO>::Spli
+       51.1M        50.3M     102%    192  linear.cpp:994:Linear::bert_cipher_plain_bsgs_2(HE*, std::vector<seal::Ciphertext, std::
+       37.7M        35.7M     106%    512  libc.so.6+0x29d90  <- split-kkot.h:108 (discriminator 1):sci::SplitKKOT<sci::NetIO>::Spl
+       37.7M        35.7M     106%    512  libc.so.6+0x29d90  <- split-kkot.h:107 (discriminator 1):sci::SplitKKOT<sci::NetIO>::Spl
+       25.6M        25.2M     102%     96  linear.cpp:961:Linear::bert_cipher_plain_bsgs_2(HE*, std::vector<seal::Ciphertext, std::
+       23.9M        23.6M     101%     84  utils-HE.cpp:381:recv_encrypted_vector(seal::SEALContext*, sci::NetIO*, std::vector<seal
+       20.4M        21.6M      94%     27  seal::util::CreateNTTTables(int, std::vector<seal::Modulus, std::allocator<seal::Modulus
+       18.9M        18.9M     100%     12  _start  <- bert.cpp:739 (discriminator 1):Bert::run(std::__cxx11::basic_string<char, std
+       12.8M        12.6M     102%     48  linear.cpp:959:Linear::bert_cipher_plain_bsgs_2(HE*, std::vector<seal::Ciphertext, std::
+
+fullscan: 215 mappings hold resident memory, 16928.5 MB total, 7427.1 MB of it not covered by any recorded allocation
+      4884.5 MB unnamed  rw-p  [heap]
+       100.8 MB unnamed  rw-p  [anonymous]
+        67.1 MB unnamed  rw-p  [anonymous]
+        67.1 MB unnamed  rw-p  [anonymous]
+        67.1 MB unnamed  rw-p  [anonymous]
+        67.1 MB unnamed  rw-p  [anonymous]
+        67.0 MB unnamed  rw-p  [anonymous]
+        67.0 MB unnamed  rw-p  [anonymous]
+   (1.3 GB of PROT_NONE reservation skipped; rerun with SNNI_PM_FULLSCAN=all to scan it)
+
+wrote /scratch/tmp/j_wred02/snni_campaign/bolt/results/p_seal_pool_new/run1/objects_resident_3337872.jsonl
+WARNING: recorder dropped 221851 allocations; the table is incomplete
+sampled at rss=16531708 kB (55% attributed)
+=== party 3337872: assembling the host decomposition
+snapshot: /scratch/tmp/j_wred02/snni_campaign/bolt/results/p_seal_pool_new/run1/poll_3337872/peaks/peak.smaps
+  total RSS        16144.2 MB
+  run peak         16144.2 MB   snapshot is 100.0% of it
+  file-backed         14.9 MB  (0.1%)
+  anonymous        16129.4 MB  (99.9%)
+    of which heap-attributed 8945.3 MB (47 sites), residual 7184.1 MB
+    residual LOCATED 7068.2 MB across 4 entries (subtraction said 7184.1 MB, difference -115.9 MB)
+        4884.5 MB  anon:[heap]
+        2423.8 MB  anon:mmap-rest(134)
+         100.8 MB  anon:mmap-1
+           2.4 MB  anon:[stack]
+    (1.3 GB of PROT_NONE reservation was not scanned; measured to hold nothing, verify with SNNI_PM_FULLSCAN=all)
+  largest file-backed mappings:
+         4.0 MB    0.0%  pmtable_3337872
+         3.8 MB    0.0%  libcrypto.so.3
+         2.5 MB    0.0%  BOLT_BERT
+         1.7 MB    0.0%  libc.so.6
+         1.6 MB    0.0%  libstdc++.so.6.0.30
+         0.6 MB    0.0%  libm.so.6
+         0.3 MB    0.0%  libgomp.so.1.0.0
+         0.2 MB    0.0%  ld-linux-x86-64.so.2
+         0.1 MB    0.0%  libgcc_s.so.1
+         0.0 MB    0.0%  pmrec.so
+wrote /scratch/tmp/j_wred02/snni_campaign/bolt/results/p_seal_pool_new/run1/objects_host_3337872.jsonl  [pagemap+smaps]
+party 3337872 VmHWM = 16531708 kB
+=== party 3337916: scan cost actually paid (ts rss scan_ms)
+samples=188  mean=35 ms  max=87 ms
+rewrote 58 file-backed mapping offsets to be load-base relative
+=== party 3337916: naming the call sites
+# sample_ts_ms=1786720116151 sample_rss_kb=2483276
+attributed resident 470.2 MB across 43 call sites
+
+    resident    allocated  touched  count  site
+      270.5M       268.4M     101%    512  libc.so.6+0x29d90  <- split-kkot.h:87 (discriminator 1):sci::SplitKKOT<sci::NetIO>::Spli
+       37.7M        35.7M     106%    512  libc.so.6+0x29d90  <- split-kkot.h:108 (discriminator 1):sci::SplitKKOT<sci::NetIO>::Spl
+       37.7M        35.7M     106%    512  libc.so.6+0x29d90  <- split-kkot.h:107 (discriminator 1):sci::SplitKKOT<sci::NetIO>::Spl
+       21.1M        21.6M      98%     27  seal::util::CreateNTTTables(int, std::vector<seal::Modulus, std::allocator<seal::Modulus
+       18.9M        18.9M     100%     12  _start  <- bert.cpp:739 (discriminator 1):Bert::run(std::__cxx11::basic_string<char, std
+       10.9M        10.9M     100%      2  libstdc++.so.6.0.30+0xdc253  <- linear-ot.cpp:250 (discriminator 1):LinearOT::matmul_cro
+        9.5M         9.4M     101%     12  _start  <- bert.cpp:742 (discriminator 1):Bert::run(std::__cxx11::basic_string<char, std
+        9.5M         9.4M     101%     12  _start  <- bert.cpp:1103 (discriminator 1):Bert::run(std::__cxx11::basic_string<char, st
+        9.5M         9.4M     101%     12  _start  <- bert.cpp:1520 (discriminator 1):Bert::run(std::__cxx11::basic_string<char, st
+        5.5M         5.5M     100%      1  libstdc++.so.6.0.30+0xdc253  <- linear-ot.cpp:251 (discriminator 1):LinearOT::matmul_cro
+        5.5M         5.5M     100%      1  libstdc++.so.6.0.30+0xdc253  <- linear-ot.cpp:252 (discriminator 1):LinearOT::matmul_cro
+        4.7M         4.7M     100%      1  __libc_start_main  <- bert.cpp:476:Bert::pc_bw_share_client(unsigned long*, unsigned lon
+        4.7M         4.7M     100%      1  _start  <- bert.cpp:1746:Bert::run(std::__cxx11::basic_string<char, std::char_traits<cha
+        3.7M         3.7M     101%      7  nonlinear.cpp:672:p_matmul_thread(int, int, unsigned long*, unsigned long*, unsigned lon
+        2.7M         2.7M     103%     18  seal::KeyGenerator::create_galois_keys(std::vector<unsigned int, std::allocator<unsigned
+
+fullscan: 182 mappings hold resident memory, 2586.4 MB total, 2116.1 MB of it not covered by any recorded allocation
+        58.1 MB unnamed  rw-p  [heap]
+        35.0 MB unnamed  rw-p  [anonymous]
+        33.7 MB unnamed  rw-p  [anonymous]
+        33.7 MB unnamed  rw-p  [anonymous]
+        33.7 MB unnamed  rw-p  [anonymous]
+        33.7 MB unnamed  rw-p  [anonymous]
+        33.7 MB unnamed  rw-p  [anonymous]
+        33.7 MB unnamed  rw-p  [anonymous]
+   (2.4 GB of PROT_NONE reservation skipped; rerun with SNNI_PM_FULLSCAN=all to scan it)
+
+wrote /scratch/tmp/j_wred02/snni_campaign/bolt/results/p_seal_pool_new/run1/objects_resident_3337916.jsonl
+sampled at rss=2483276 kB (18% attributed)
+=== party 3337916: assembling the host decomposition
+snapshot: /scratch/tmp/j_wred02/snni_campaign/bolt/results/p_seal_pool_new/run1/poll_3337916/peaks/peak.smaps
+  total RSS         2418.6 MB
+  run peak          2425.1 MB   snapshot is 99.7% of it
+  file-backed         14.9 MB  (0.6%)
+  anonymous         2403.7 MB  (99.4%)
+    of which heap-attributed 448.5 MB (40 sites), residual 1955.3 MB
+    residual LOCATED 2003.2 MB across 66 entries (subtraction said 1955.3 MB, difference +47.9 MB)
+          58.1 MB  anon:[heap]
+          35.0 MB  anon:mmap-1
+          34.7 MB  anon:mmap-rest(61)
+          33.7 MB  anon:mmap-2
+          33.7 MB  anon:mmap-3
+          33.7 MB  anon:mmap-4
+          33.7 MB  anon:mmap-5
+          33.7 MB  anon:mmap-6
+          33.7 MB  anon:mmap-7
+          33.7 MB  anon:mmap-8
+          33.7 MB  anon:mmap-9
+          33.6 MB  anon:mmap-10
+          32.9 MB  anon:mmap-11
+          32.9 MB  anon:mmap-12
+          32.9 MB  anon:mmap-13
+          32.6 MB  anon:mmap-14
+          32.6 MB  anon:mmap-15
+          32.6 MB  anon:mmap-16
+          32.6 MB  anon:mmap-17
+          32.6 MB  anon:mmap-18
+          32.6 MB  anon:mmap-19
+          32.6 MB  anon:mmap-20
+          32.3 MB  anon:mmap-21
+          32.2 MB  anon:mmap-22
+          32.2 MB  anon:mmap-23
+          31.9 MB  anon:mmap-24
+          31.9 MB  anon:mmap-25
+          31.9 MB  anon:mmap-26
+          31.9 MB  anon:mmap-27
+          31.7 MB  anon:mmap-28
+          31.7 MB  anon:mmap-29
+          31.7 MB  anon:mmap-30
+          31.6 MB  anon:mmap-31
+          31.6 MB  anon:mmap-32
+          31.6 MB  anon:mmap-33
+          31.6 MB  anon:mmap-34
+          31.6 MB  anon:mmap-35
+          31.6 MB  anon:mmap-36
+          31.6 MB  anon:mmap-37
+          31.6 MB  anon:mmap-38
+          31.6 MB  anon:mmap-39
+          31.6 MB  anon:mmap-40
+          31.6 MB  anon:mmap-41
+          31.6 MB  anon:mmap-42
+          31.6 MB  anon:mmap-43
+          31.6 MB  anon:mmap-44
+          31.6 MB  anon:mmap-45
+          31.6 MB  anon:mmap-46
+          31.6 MB  anon:mmap-47
+          31.6 MB  anon:mmap-48
+          31.6 MB  anon:mmap-49
+          31.6 MB  anon:mmap-50
+          31.1 MB  anon:mmap-51
+          31.1 MB  anon:mmap-52
+          30.8 MB  anon:mmap-53
+          30.8 MB  anon:mmap-54
+          30.8 MB  anon:mmap-55
+          30.8 MB  anon:mmap-56
+          30.8 MB  anon:mmap-57
+          30.7 MB  anon:mmap-58
+          30.5 MB  anon:mmap-59
+          30.5 MB  anon:mmap-60
+          29.8 MB  anon:mmap-61
+          28.4 MB  anon:mmap-62
+          22.6 MB  anon:mmap-63
+           2.4 MB  anon:[stack]
+    (2.4 GB of PROT_NONE reservation was not scanned; measured to hold nothing, verify with SNNI_PM_FULLSCAN=all)
+  largest file-backed mappings:
+         4.0 MB    0.2%  pmtable_3337916
+         3.8 MB    0.2%  libcrypto.so.3
+         2.6 MB    0.1%  BOLT_BERT
+         1.7 MB    0.1%  libc.so.6
+         1.6 MB    0.1%  libstdc++.so.6.0.30
+         0.5 MB    0.0%  libm.so.6
+         0.3 MB    0.0%  libgomp.so.1.0.0
+         0.2 MB    0.0%  ld-linux-x86-64.so.2
+         0.1 MB    0.0%  libgcc_s.so.1
+         0.0 MB    0.0%  pmrec.so
+wrote /scratch/tmp/j_wred02/snni_campaign/bolt/results/p_seal_pool_new/run1/objects_host_3337916.jsonl  [pagemap+smaps]
+party 3337916 VmHWM = 2483276 kB
+published party = 3337872 (VmHWM 16531708 kB)
+3337872 16531708
+3337916 2483276
+# party VmHWM_kB
+DERIVE_OK
+################################# JOB REPORT ##################################
+Job ID: 46124469
+Cluster: palma2
+User/Group: j_wred02/u0dawin
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 4
+CPU Utilized: 00:01:08
+CPU Efficiency: 25.00% of 00:04:32 core-walltime
+Job Wall-clock time: 00:01:08
+Memory Utilized: 97.16 MB
+Memory Efficiency: 0.40% of 24.00 GB (24.00 GB/node)
+###############################################################################

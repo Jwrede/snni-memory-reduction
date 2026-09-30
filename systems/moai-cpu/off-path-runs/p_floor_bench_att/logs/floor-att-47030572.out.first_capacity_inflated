@@ -1,0 +1,31 @@
+=== node: r19n28  mem: 755 GB  Mon Sep 28 13:41:27 UTC 2026 ===
+----------------------FULL SCHEME------------------
+Task: test BERT in CKKS scheme: 
+FLOOR_ATT|begin|note=T=1 attention-instant resident floor; deltas are VmRSS
+FLOOR_ATT|after_start|vmrss_kb=259332|vmhwm_kb=259332
+-0.386413 -0.0460502
+Set encryption parameters and print
+/
+| Encryption parameters :
+|   scheme: CKKS
+|   poly_modulus_degree: 65536
+|   coeff_modulus size: 1743 (51 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 58) bits
+\
+FLOOR_ATT|att_context|vmrss_kb=5134136|vmhwm_kb=5134136
+FLOOR_ATT|att_after_keys|vmrss_kb=23203912|vmhwm_kb=23203912
+FLOOR_ATT|att_instant|vmrss_kb=37630768|vmhwm_kb=37630768
+FLOOR_ATT_SUMMARY|context_kb=5134136|keys14_kb=18069776|blocks_kb=14426856|instant_kb=37630768|target_kb=32496632
+=== done Mon Sep 28 13:43:33 UTC 2026 ===
+################################# JOB REPORT ##################################
+Job ID: 47030572
+Cluster: palma2
+User/Group: j_wred02/u0dawin
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 8
+CPU Utilized: 00:02:05
+CPU Efficiency: 11.49% of 00:18:08 core-walltime
+Job Wall-clock time: 00:02:16
+Memory Utilized: 36.00 GB
+Memory Efficiency: 14.06% of 256.00 GB (256.00 GB/node)
+###############################################################################

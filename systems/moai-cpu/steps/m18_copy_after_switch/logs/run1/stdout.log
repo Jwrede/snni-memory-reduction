@@ -1,0 +1,586 @@
+----------------------FULL SCHEME------------------
+Task: test BERT in CKKS scheme: 
+-0.386413 -0.0460502
+Set encryption parameters and print
+/
+| Encryption parameters :
+|   scheme: CKKS
+|   poly_modu=== moai rc=0 wall=170291s
+gate values: 7680
+3 (51 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 58) bits
+\
+preparing bootstrapping...
+saving stage-split bootstrap keys...
+Saving boot phase 0 keys (11 elements) to ./phase_keys/boot_phase_0.keys
+Saving boot phase 1 keys (15 elements) to ./phase_keys/boot_phase_1.keys
+Saving boot phase 2 keys (15 elements) to ./phase_keys/boot_phase_2.keys
+
+---------------Layer No. 0-------------------
+WQ last element: -0.00671299
+WK last element: -0.0019882
+WV last element: -0.0320906
+selfoutput last element: -0.00772331
+LayerNorm1 last element: 0.982738
+Q bias last element: -0.0763483
+K bias last element: 0.00291351
+v bias last element: -0.00235175
+selfoutput bias last element: -0.029206
+LayerNorm1 bias last element: -0.125269
+inter_weight last element: 0.0607947
+inter_bias last element: -0.0840266
+final_weight last element: 0.0286615
+final_bias last element: -0.0094539
+LayerNorm2 weights last element: 0.797899
+LayerNorm2 bias last element: 0.0283182
+Read input, weights, bias from txt files. 
+Modulus chain index before attention block: 14
+Compute Q, K, V time = 394.266. Compute QK^T time = 416.611. softmax max = 7.5
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.00063697 0.00333777 0.00166976 0.00277499 0.00475889 
+2-th ciphertext: 0.000369186 0.000472215 0.00299988 0.00394893 -1.29871e-11 
+3-th ciphertext: 0.000348299 0.00352049 0.00282886 2.47292e-12 1.42472e-11 
+4-th ciphertext: 0.000219063 0.00445459 1.18084e-12 1.02517e-11 -7.21641e-12 
+5-th ciphertext: 0.00124943 6.86911e-13 1.92792e-12 -1.07121e-11 2.27932e-11 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: 9.44711e-12 -4.36528e-12 -3.00808e-12 9.17297e-12 0.00324489 
+126-th ciphertext: -3.43676e-12 -5.78764e-12 -7.29017e-13 0.00217438 0.00230663 
+127-th ciphertext: -1.55867e-11 -8.38595e-12 0.00176991 0.00404837 0.00518326 
+128-th ciphertext: -2.07508e-13 0.00176033 0.00221795 0.00336959 0.00166478 
+  decrypt of sum_exp_(x-13): 
+(0.00283295 352.989) (0.0135554 73.7714) (0.0114964 86.984) (0.0163263 61.251) (0.0171685 58.2463) 
+  decrypt of inv(sum_exp_(x-8)): 
+356.17 74.4364 87.7865 61.8253 58.7716 
+Compute softmax time = 218.71. Compute softmax*V time = 18.8345
+Compute Q, K, V time = 476.72. Compute QK^T time = 450.273. softmax max = 7.5
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.0366179 0.00125265 0.00248717 0.00241819 0.0011649 
+2-th ciphertext: 9.53399e-05 0.000159859 0.00268223 0.000976088 -8.08258e-12 
+3-th ciphertext: 0.0160473 0.00375491 0.000738886 7.74178e-13 -1.03082e-11 
+4-th ciphertext: 3.98115e-05 0.000512998 2.9936e-12 1.17354e-12 1.47931e-11 
+5-th ciphertext: 0.000118861 -3.80517e-12 3.29246e-12 -2.63227e-12 -1.06143e-11 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: 9.15906e-12 -1.95868e-12 -1.23895e-13 1.23336e-11 0.00116077 
+126-th ciphertext: 5.60332e-12 4.67382e-12 -3.76469e-12 0.000856276 0.00154104 
+127-th ciphertext: 2.44387e-12 -3.87629e-12 0.000126634 0.00226901 0.0134359 
+128-th ciphertext: 2.98762e-12 0.000710861 0.00505101 0.000396214 0.000742653 
+  decrypt of sum_exp_(x-13): 
+(0.0529292 18.8932) (0.00640127 156.219) (0.0110959 90.1231) (0.00692578 144.388) (0.0180552 55.3857) 
+  decrypt of inv(sum_exp_(x-8)): 
+19.0667 157.737 90.9189 145.754 55.8999 
+Compute softmax time = 218.846. Compute softmax*V time = 20.2913
+Compute Q, K, V time = 512.861. Compute QK^T time = 474.643. softmax max = 7.5
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.0226541 0.00144083 0.0161645 0.00417928 0.0282781 
+2-th ciphertext: 0.000534029 0.00318314 0.0023871 0.010873 1.08797e-11 
+3-th ciphertext: 0.000655533 0.00810804 0.0234342 -3.03568e-12 6.08288e-12 
+4-th ciphertext: 0.000218863 0.00750245 2.23776e-13 -5.1924e-12 -3.18069e-11 
+5-th ciphertext: 0.00193631 -1.03029e-12 -2.83957e-13 -7.40634e-12 -1.88153e-11 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: -2.92032e-12 -2.34275e-12 2.87178e-13 1.2423e-12 0.316013 
+126-th ciphertext: -9.84777e-12 -3.11843e-12 -3.49283e-12 0.357226 0.00255626 
+127-th ciphertext: 8.24477e-12 2.6317e-13 0.16786 0.0126131 0.0102303 
+128-th ciphertext: -4.76037e-12 0.55272 0.0474187 0.0713591 0.0175356 
+  decrypt of sum_exp_(x-13): 
+(0.0260089 38.4484) (0.572965 1.74531) (0.257274 3.88691) (0.456261 2.19173) (0.374623 2.66935) 
+  decrypt of inv(sum_exp_(x-8)): 
+38.8011 1.7613 3.92256 2.21181 2.69383 
+Compute softmax time = 208.246. Compute softmax*V time = 21.488
+Compute Q, K, V time = 530.506. Compute QK^T time = 497.26. softmax max = 7.5
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.00817717 0.0186222 0.0333742 0.0265259 0.104351 
+2-th ciphertext: 0.000427672 0.00119176 0.0193907 0.0138337 -3.70998e-13 
+3-th ciphertext: 0.000464573 0.00388489 0.019096 8.9178e-13 -1.80699e-11 
+4-th ciphertext: 0.000354938 0.00522901 -2.2479e-12 1.97727e-12 -2.78471e-12 
+5-th ciphertext: 0.000578151 -1.27489e-12 -6.22238e-13 8.10197e-12 3.06135e-12 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: -1.05052e-11 -4.30488e-13 -1.1302e-12 -4.96876e-12 0.223992 
+126-th ciphertext: -8.44978e-14 -1.74996e-12 8.97167e-13 0.36414 0.121023 
+127-th ciphertext: 2.2898e-12 -5.2796e-12 0.00485 0.161854 0.123241 
+128-th ciphertext: 7.04505e-12 0.115499 0.220973 0.0570968 0.592766 
+  decrypt of sum_exp_(x-13): 
+(0.0100125 99.8751) (0.144437 6.92342) (0.297694 3.35916) (0.62346 1.60395) (1.16538 0.858086) 
+  decrypt of inv(sum_exp_(x-8)): 
+100.79 6.9867 3.38991 1.61865 0.865948 
+Compute softmax time = 205.827. Compute softmax*V time = 20.5368
+Compute Q, K, V time = 551.157. Compute QK^T time = 533.051. softmax max = 7.5
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.00514325 0.000270928 0.000623962 0.000264685 0.0103106 
+2-th ciphertext: 0.000561669 0.000300783 0.000698862 0.000373215 -1.27954e-12 
+3-th ciphertext: 0.000260582 0.000545393 0.0010001 -2.55907e-12 4.87638e-12 
+4-th ciphertext: 0.000830202 0.000275706 3.26221e-14 1.63522e-12 -9.15541e-12 
+5-th ciphertext: 0.000898823 -6.23302e-12 2.82294e-12 1.07069e-11 7.47272e-13 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: 1.95969e-12 -5.23773e-12 3.13211e-12 2.86404e-12 0.000337849 
+126-th ciphertext: 4.92951e-12 1.70881e-12 -1.03554e-12 0.000579556 9.18069e-05 
+127-th ciphertext: -2.38839e-12 7.80885e-13 0.000456346 0.000901973 8.38044e-05 
+128-th ciphertext: -2.2198e-12 0.00210385 0.000601893 0.00015966 4.64112e-05 
+  decrypt of sum_exp_(x-13): 
+(0.00770453 129.794) (0.00350666 285.172) (0.00339117 294.884) (0.00228909 436.855) (0.0108805 91.9075) 
+  decrypt of inv(sum_exp_(x-8)): 
+130.997 288 297.62 440.436 92.7777 
+Compute softmax time = 222.98. Compute softmax*V time = 23.2807
+Compute Q, K, V time = 589.855. Compute QK^T time = 575.991. softmax max = 7.5
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.00241391 0.000985247 0.00184225 0.00249452 0.00465568 
+2-th ciphertext: 0.000177989 0.000361426 0.000593878 0.00217347 -5.58203e-12 
+3-th ciphertext: 0.00175621 0.00118335 0.00392893 -1.16531e-11 -7.24319e-12 
+4-th ciphertext: 0.000159812 0.00173168 2.58432e-13 -5.08269e-12 1.38312e-11 
+5-th ciphertext: 0.000670891 5.4896e-12 -4.22191e-13 6.6501e-12 4.13161e-12 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: 4.33933e-12 -2.207e-13 -7.81508e-13 4.83943e-12 0.0231579 
+126-th ciphertext: 1.8517e-12 4.31292e-12 -3.84595e-12 0.00429755 0.00128727 
+127-th ciphertext: -8.39048e-13 -6.5891e-12 0.0104215 0.00293754 0.00395634 
+128-th ciphertext: -1.73836e-12 0.00953959 0.00147699 0.000606684 0.000872213 
+  decrypt of sum_exp_(x-13): 
+(0.00518881 192.722) (0.0138113 72.4045) (0.0182735 54.724) (0.0125198 79.8738) (0.0339394 29.4643) 
+  decrypt of inv(sum_exp_(x-8)): 
+194.483 73.0585 55.2295 80.5898 29.735 
+Compute softmax time = 234.843. Compute softmax*V time = 24.0379
+Compute Q, K, V time = 590.072. Compute QK^T time = 567.832. softmax max = 7.5
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.0134367 0.0017988 0.000554594 0.00266252 0.00134404 
+2-th ciphertext: 6.69145e-05 6.50412e-05 0.0004727 0.000257129 -3.45137e-12 
+3-th ciphertext: 0.000188967 0.000407095 0.000313156 -1.60777e-12 3.06075e-12 
+4-th ciphertext: 0.000127637 0.000719952 2.99083e-12 -1.35247e-11 1.05279e-11 
+5-th ciphertext: 0.000277394 3.7994e-13 2.13814e-12 1.12222e-11 -1.42964e-11 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: 8.57196e-13 3.78491e-12 -1.53345e-12 -5.04358e-12 0.000489516 
+126-th ciphertext: 1.59831e-13 2.53368e-12 -2.23664e-12 0.00077796 0.00104924 
+127-th ciphertext: 6.67736e-12 3.80725e-12 0.000371234 0.00089531 0.000618272 
+128-th ciphertext: 1.66134e-11 0.000512291 0.00115482 0.000116023 0.000258654 
+  decrypt of sum_exp_(x-13): 
+(0.0141076 70.8839) (0.00351317 284.643) (0.0028765 347.644) (0.00471894 211.912) (0.00376972 265.272) 
+  decrypt of inv(sum_exp_(x-8)): 
+71.5343 287.199 351.044 213.959 267.805 
+Compute softmax time = 248.829. Compute softmax*V time = 25.8858
+Compute Q, K, V time = 596.623. Compute QK^T time = 594.435. softmax max = 7.5
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.0137953 0.000144116 0.00363792 0.000747677 0.00111378 
+2-th ciphertext: 0.000573239 0.000675055 0.000653595 0.00234191 1.52459e-11 
+3-th ciphertext: 0.00146266 0.000670005 0.0128195 -3.38535e-12 -1.8442e-11 
+4-th ciphertext: 0.000412214 0.00256351 4.13145e-13 -3.35832e-12 1.04186e-11 
+5-th ciphertext: 0.010965 -2.121e-13 -8.43774e-13 -7.71199e-12 -2.78551e-11 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: -2.90474e-12 -5.06324e-12 5.19466e-13 -2.62859e-12 0.00609043 
+126-th ciphertext: 6.22568e-13 6.64137e-13 -9.81697e-13 0.0012128 0.000798505 
+127-th ciphertext: -2.9917e-12 -1.71378e-12 0.00965151 0.00121834 0.00370813 
+128-th ciphertext: -4.36796e-12 0.00153644 0.000567267 0.000164302 0.00103671 
+  decrypt of sum_exp_(x-13): 
+(0.0272185 36.7398) (0.00559912 178.599) (0.0273398 36.5767) (0.00569503 175.592) (0.0127576 78.3849) 
+  decrypt of inv(sum_exp_(x-8)): 
+37.0763 180.163 36.9069 177.209 79.111 
+Compute softmax time = 243.632. Compute softmax*V time = 24.7307
+Compute Q, K, V time = 597.536. Compute QK^T time = 626.728. softmax max = 7.5
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.00321653 0.0074975 0.0079763 0.00917776 0.00630083 
+2-th ciphertext: 0.000192509 0.00909757 0.00911155 0.0103761 3.14003e-11 
+3-th ciphertext: 0.000159663 0.0112952 0.0232375 -8.96542e-13 1.79196e-11 
+4-th ciphertext: 0.000208565 0.0171811 7.95116e-13 -3.72715e-12 -1.32871e-11 
+5-th ciphertext: 0.000164827 1.60559e-12 6.86215e-13 1.07413e-12 -3.08206e-11 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: -5.43332e-12 2.12524e-13 1.07149e-12 -2.96217e-12 0.00622139 
+126-th ciphertext: 1.72665e-11 7.88898e-12 2.92338e-12 0.00156838 0.0147681 
+127-th ciphertext: -3.40345e-12 2.05062e-13 0.000488365 0.0200583 0.00266543 
+128-th ciphertext: 2.28527e-12 0.00201821 0.00717 0.00229993 0.00775071 
+  decrypt of sum_exp_(x-13): 
+(0.00395209 253.03) (0.0470996 21.2316) (0.0479937 20.8361) (0.0434905 22.9935) (0.0377165 26.5136) 
+  decrypt of inv(sum_exp_(x-8)): 
+255.356 21.4263 21.0265 23.2043 26.7547 
+Compute softmax time = 236.891. Compute softmax*V time = 26.3339
+Compute Q, K, V time = 618.908. Compute QK^T time = 602.145. softmax max = 7.5
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.000544613 0.00461232 0.000699668 0.00724943 0.000401712 
+2-th ciphertext: 0.000164063 0.000272537 0.000284096 0.00104598 -4.86479e-12 
+3-th ciphertext: 0.0018926 0.000514652 0.00146818 2.80872e-12 1.8672e-11 
+4-th ciphertext: 0.000258721 0.000855887 -1.21311e-12 8.90308e-12 1.47222e-11 
+5-th ciphertext: 8.96917e-05 -1.04475e-12 1.72392e-12 -3.16135e-12 2.39578e-11 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: -9.05441e-12 6.05089e-12 -1.37749e-12 -5.63485e-12 0.00571861 
+126-th ciphertext: 1.63769e-12 6.81526e-12 -3.44571e-12 0.00497963 0.000625148 
+127-th ciphertext: 9.0286e-13 -4.76398e-12 0.00588202 0.000613309 0.00247686 
+128-th ciphertext: 4.69316e-12 0.00153642 0.000186369 0.000339443 0.000656408 
+  decrypt of sum_exp_(x-13): 
+(0.00295969 337.874) (0.00780182 128.175) (0.00853033 117.229) (0.0142378 70.2356) (0.00988874 101.125) 
+  decrypt of inv(sum_exp_(x-8)): 
+341.082 129.378 118.288 70.8872 102.051 
+Compute softmax time = 250.642. Compute softmax*V time = 27.0451
+Compute Q, K, V time = 629.58. Compute QK^T time = 635.427. softmax max = 7.5
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.0182284 0.0158674 0.0276495 0.0144661 0.0375505 
+2-th ciphertext: 0.000291789 0.1062 0.33078 0.664562 5.03868e-12 
+3-th ciphertext: 0.000293228 0.0803083 0.127886 -1.32072e-11 5.38928e-12 
+4-th ciphertext: 0.000414753 0.0168955 2.1751e-12 -3.04337e-12 -6.28376e-12 
+5-th ciphertext: 0.00053134 -1.65971e-12 1.33912e-12 5.0277e-12 -8.04716e-12 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: 4.89281e-13 1.82917e-12 -1.50978e-12 -2.45415e-14 0.0756798 
+126-th ciphertext: -8.51353e-12 -3.13348e-12 1.56925e-12 0.264937 0.00635612 
+127-th ciphertext: -6.22663e-12 1.127e-13 0.00398353 0.0829648 0.0104715 
+128-th ciphertext: 3.27781e-12 0.0253089 0.0329032 0.0246022 0.0110623 
+  decrypt of sum_exp_(x-13): 
+(0.0197695 50.5829) (0.24459 4.08847) (0.523212 1.91127) (1.05154 0.950985) (0.14113 7.08566) 
+  decrypt of inv(sum_exp_(x-8)): 
+51.0446 4.12595 1.92879 0.959696 7.15058 
+Compute softmax time = 257.962. Compute softmax*V time = 24.627
+Compute Q, K, V time = 615.863. Compute QK^T time = 632.665. softmax max = 7.5
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.121491 0.000791648 3.46417e-05 0.006746 0.0129434 
+2-th ciphertext: 0.000524466 0.00184533 0.00293247 0.013713 1.47776e-12 
+3-th ciphertext: 1.00654e-07 0.00106219 0.00704952 -4.76283e-13 -1.92297e-11 
+4-th ciphertext: 0.000314659 0.00429698 -1.24674e-12 -1.67189e-12 -1.46417e-11 
+5-th ciphertext: 0.00371043 -6.94967e-12 -6.05941e-13 3.52138e-12 -9.02684e-12 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: -4.54222e-12 4.23156e-12 8.70806e-13 8.33662e-12 0.0874419 
+126-th ciphertext: 5.77873e-12 2.51278e-12 -2.83928e-13 0.0147213 0.00441446 
+127-th ciphertext: -5.86231e-12 -3.95609e-12 0.0423704 0.00329519 7.48629e-05 
+128-th ciphertext: -1.12799e-11 0.0240882 0.00928556 0.000617378 0.00566419 
+  decrypt of sum_exp_(x-13): 
+(0.126051 7.93329) (0.0320944 31.1581) (0.0616826 16.212) (0.0391029 25.5736) (0.110549 9.04577) 
+  decrypt of inv(sum_exp_(x-8)): 
+8.00613 31.4465 16.3605 25.806 9.12861 
+Compute softmax time = 242.557. Compute softmax*V time = 25.0977
+Attention block time = 16384.1
+Modulus chain index for the result: 1
+Concatenation. size of output of attention block = 12 * 64 = 768
+selfoutput time = 183.222
+Modulus chain index for the result: 0
+[CHUNK] bootstrap1 chunk 1/6 (128 CTs)
+[CHUNK] bootstrap1 chunk 2/6 (128 CTs)
+[CHUNK] bootstrap1 chunk 3/6 (128 CTs)
+[CHUNK] bootstrap1 chunk 4/6 (128 CTs)
+[CHUNK] bootstrap1 chunk 5/6 (128 CTs)
+[CHUNK] bootstrap1 chunk 6/6 (128 CTs)
+bootstrapping time = 12121.8
+Modulus chain index after bootstrapping: 20
+Modulus chain index for var: 17
+  decrypt of var: 
+273.407 335.85 223.595 330.758 211.912 
+Modulus chain index for invert sqrt: 2
+  decrypt of 1/sqrt(var): 
+0.0604771 0.0545634 0.0668758 0.0549818 0.0686945 
+layernorm time = 92.8684
+Modulus chain index after layernorm: 0
+[CHUNK] bootstrap2 chunk 1/6 (128 CTs)
+[CHUNK] bootstrap2 chunk 2/6 (128 CTs)
+[CHUNK] bootstrap2 chunk 3/6 (128 CTs)
+[CHUNK] bootstrap2 chunk 4/6 (128 CTs)
+[CHUNK] bootstrap2 chunk 5/6 (128 CTs)
+[CHUNK] bootstrap2 chunk 6/6 (128 CTs)
+bootstrapping time = 12318.7
+Modulus chain index after bootstrapping: 20
+Modulus chain index before intermediate linear: 9
+Modulus chain index before intermediate linear (fused tiled FFN): 9
+Fused tiled FFN time = 4634.51
+Final layer time = 4635.81
+Modulus chain index after final layer: 0
+[CHUNK] bootstrap3 chunk 1/6 (128 CTs)
+[CHUNK] bootstrap3 chunk 2/6 (128 CTs)
+[CHUNK] bootstrap3 chunk 3/6 (128 CTs)
+[CHUNK] bootstrap3 chunk 4/6 (128 CTs)
+[CHUNK] bootstrap3 chunk 5/6 (128 CTs)
+[CHUNK] bootstrap3 chunk 6/6 (128 CTs)
+bootstrapping time = 16097
+Modulus chain index after bootstrapping: 20
+Modulus chain index for var: 17
+  decrypt of var: 
+6.83931 1.44499 4.18173 1.23305 5.04295 
+Modulus chain index for invert sqrt: 2
+  decrypt of 1/sqrt(var): 
+0.382378 0.808434 0.488904 0.862377 0.445281 
+layernorm time = 80.3687
+Modulus chain index after layernorm: 0
+Decrypt + decode result of one layer: 
+bootstrapping start. 
+[CHUNK] bootstrap4 chunk 1/6 (128 CTs)
+[CHUNK] bootstrap4 chunk 2/6 (128 CTs)
+[CHUNK] bootstrap4 chunk 3/6 (128 CTs)
+[CHUNK] bootstrap4 chunk 4/6 (128 CTs)
+[CHUNK] bootstrap4 chunk 5/6 (128 CTs)
+[CHUNK] bootstrap4 chunk 6/6 (128 CTs)
+bootstrapping time = 14717.8
+Modulus chain index after bootstrapping: 20
+Total time for one layer: 81266.2, amortized time: 317.446
+
+---------------Layer No. 1-------------------
+WQ last element: 0.0253893
+WK last element: 0.0528002
+WV last element: 0.00969734
+selfoutput last element: -0.0206318
+LayerNorm1 last element: 0.892929
+Q bias last element: -0.0043335
+K bias last element: -0.00184978
+v bias last element: 0.0187178
+selfoutput bias last element: 0.0143608
+LayerNorm1 bias last element: 0.00800402
+inter_weight last element: -0.0637023
+inter_bias last element: -0.12391
+final_weight last element: -0.0398896
+final_bias last element: -0.027007
+LayerNorm2 weights last element: 0.930692
+LayerNorm2 bias last element: -0.048721
+Read input, weights, bias from txt files. 
+Modulus chain index before attention block: 14
+Compute Q, K, V time = 1028.57. Compute QK^T time = 1192.58. softmax max = 9.9
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.00033921 2.76189e-05 0.000101436 1.15744e-05 3.86501e-05 
+2-th ciphertext: 1.66212e-05 0.000623372 2.80311e-05 0.00075661 -8.35317e-12 
+3-th ciphertext: 0.000416428 3.949e-05 7.21586e-05 -8.82667e-12 -1.73879e-11 
+4-th ciphertext: 4.43316e-05 0.000333985 -2.23429e-12 1.66937e-11 2.01127e-11 
+5-th ciphertext: 3.76709e-05 -3.56864e-12 -4.23823e-14 -9.73195e-13 1.12187e-11 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: 5.35653e-12 4.15939e-12 8.6463e-15 -1.04898e-12 0.000332326 
+126-th ciphertext: -4.23322e-12 -5.33192e-13 3.86406e-13 0.000343881 3.148e-05 
+127-th ciphertext: 1.20903e-13 -4.76442e-12 0.000722773 9.29685e-05 6.28681e-05 
+128-th ciphertext: 7.45032e-12 0.00270606 2.79234e-05 8.67731e-05 3.27781e-05 
+  decrypt of sum_exp_(x-13): 
+(0.000864262 1157.06) (0.00374052 267.342) (0.000962322 1039.15) (0.00130181 768.163) (0.000508102 1968.11) 
+  decrypt of inv(sum_exp_(x-8)): 
+1168.54 269.684 1047.27 773.595 1969.5 
+Compute softmax time = 345.284. Compute softmax*V time = 51.9621
+Compute Q, K, V time = 1259.56. Compute QK^T time = 1169.32. softmax max = 9.9
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.000731725 0.00157368 0.00303227 0.000855199 0.00561613 
+2-th ciphertext: 7.97477e-05 0.0373042 0.0191616 0.0459946 -4.47048e-11 
+3-th ciphertext: 7.70492e-05 0.000721057 0.00187401 1.51963e-12 1.81932e-11 
+4-th ciphertext: 4.21076e-05 0.00129075 1.93031e-12 6.86853e-13 1.84152e-11 
+5-th ciphertext: 0.000129175 -7.13536e-13 -1.56375e-12 3.72603e-12 -8.05283e-12 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: 5.38541e-12 4.65109e-12 -2.34644e-12 1.25448e-11 0.200098 
+126-th ciphertext: -3.31919e-13 -1.11488e-12 -2.16104e-13 0.0496947 0.000505448 
+127-th ciphertext: 2.13594e-11 -3.482e-12 0.0113173 0.000709818 0.00166374 
+128-th ciphertext: -1.60374e-11 0.0329557 0.00241122 0.000735421 0.000144028 
+  decrypt of sum_exp_(x-13): 
+(0.0010698 934.751) (0.0738554 13.54) (0.0378065 26.4505) (0.0979997 10.2041) (0.208038 4.80682) 
+  decrypt of inv(sum_exp_(x-8)): 
+944.258 13.6636 26.691 10.2974 4.85076 
+Compute softmax time = 377.608. Compute softmax*V time = 51.7163
+Compute Q, K, V time = 1285.69. Compute QK^T time = 1240.64. softmax max = 9.9
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.000993611 7.47461e-06 1.89965e-05 7.22361e-06 0.000112043 
+2-th ciphertext: 4.77029e-05 1.60155e-05 2.17963e-05 0.000175483 1.05609e-11 
+3-th ciphertext: 3.789e-05 2.11384e-06 0.000203589 -2.25302e-12 -1.58441e-11 
+4-th ciphertext: 1.71936e-05 0.000222874 -7.84115e-14 9.38875e-13 -9.48285e-14 
+5-th ciphertext: 4.33128e-05 -4.00642e-12 -1.31565e-12 -6.61913e-13 -9.67005e-12 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: 3.33082e-13 1.14077e-12 7.14991e-13 -4.43744e-12 0.000659753 
+126-th ciphertext: 7.85999e-13 3.14369e-12 -1.89034e-12 0.000294227 6.42711e-05 
+127-th ciphertext: -5.8576e-13 -7.0115e-13 0.000230547 1.51413e-05 1.97925e-05 
+128-th ciphertext: -6.2568e-12 0.000495941 4.47841e-05 5.76823e-05 9.58429e-06 
+  decrypt of sum_exp_(x-13): 
+(0.00114971 869.784) (0.000754419 1325.52) (0.000529713 1887.81) (0.000559757 1786.49) (0.000875444 1142.28) 
+  decrypt of inv(sum_exp_(x-8)): 
+879.884 1337.8 1908.84 1796.31 1152.04 
+Compute softmax time = 372.61. Compute softmax*V time = 48.4618
+Compute Q, K, V time = 1299.71. Compute QK^T time = 1219.89. softmax max = 9.9
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.00224469 1.98572e-05 0.000236081 1.98539e-05 0.000223808 
+2-th ciphertext: 1.31626e-05 0.000491156 3.22803e-05 0.000166649 7.64398e-12 
+3-th ciphertext: 0.000713104 8.82727e-05 0.000275735 4.68619e-12 -4.00797e-12 
+4-th ciphertext: 1.40254e-05 0.000455469 1.23948e-12 -5.96894e-12 -2.16669e-12 
+5-th ciphertext: 0.000448381 -3.255e-12 5.48191e-13 1.47603e-14 -1.52663e-11 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: -1.42555e-11 1.6364e-12 2.05223e-12 3.87737e-12 0.00359993 
+126-th ciphertext: -4.87035e-12 8.60626e-12 2.01855e-12 9.11525e-05 2.3167e-05 
+127-th ciphertext: 1.09677e-11 8.72359e-13 0.00330752 3.94182e-05 0.00060066 
+128-th ciphertext: -7.91539e-12 0.000337505 1.52303e-05 5.36325e-05 2.51195e-05 
+  decrypt of sum_exp_(x-13): 
+(0.00344336 290.414) (0.00140226 713.134) (0.00387684 257.942) (0.000380706 2626.7) (0.00448269 223.08) 
+  decrypt of inv(sum_exp_(x-8)): 
+293.156 720.734 260.29 2661.29 225.055 
+Compute softmax time = 378.834. Compute softmax*V time = 54.7615
+Compute Q, K, V time = 1318.33. Compute QK^T time = 1215.06. softmax max = 9.9
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.000585166 0.00214831 0.00118275 0.00861818 0.00636174 
+2-th ciphertext: 1.72523e-05 0.00128884 0.000572256 0.00107122 -2.97446e-12 
+3-th ciphertext: 0.000128156 0.0031646 0.000283604 -9.36999e-12 -2.60638e-11 
+4-th ciphertext: 2.34064e-05 0.000672651 3.61968e-12 5.4513e-12 8.43238e-13 
+5-th ciphertext: 9.69278e-05 -2.99001e-13 -1.0473e-12 1.06442e-11 -2.07349e-11 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: -9.89689e-12 7.87925e-13 1.5698e-12 5.90898e-12 0.251685 
+126-th ciphertext: 7.79805e-12 2.56299e-12 1.15063e-13 0.0492438 0.000373422 
+127-th ciphertext: 4.19532e-12 -5.20401e-12 0.0037949 0.00354902 0.00378878 
+128-th ciphertext: -1.2348e-11 0.0358873 0.0456616 0.114073 0.00999409 
+  decrypt of sum_exp_(x-13): 
+(0.000860909 1161.56) (0.0431717 23.1633) (0.0515051 19.4155) (0.176565 5.66364) (0.272213 3.6736) 
+  decrypt of inv(sum_exp_(x-8)): 
+1168.23 23.3758 19.5933 5.7155 3.70719 
+Compute softmax time = 389.624. Compute softmax*V time = 51.7954
+Compute Q, K, V time = 1289.02. Compute QK^T time = 1264.42. softmax max = 9.9
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.00201861 1.51876e-05 0.000561358 8.58534e-05 0.000462135 
+2-th ciphertext: 9.25831e-05 7.71386e-05 2.92024e-05 0.000272335 2.10185e-12 
+3-th ciphertext: 8.31957e-05 2.23362e-05 0.000357883 -9.5428e-12 2.49092e-12 
+4-th ciphertext: 4.27857e-05 0.000356937 1.14025e-12 -1.55875e-14 1.98873e-11 
+5-th ciphertext: 0.00030787 -7.4589e-12 2.43607e-12 2.72703e-12 -1.71134e-12 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: -1.32553e-12 -2.93733e-12 -2.81296e-12 -6.31659e-12 0.00168609 
+126-th ciphertext: -1.98372e-12 -1.2813e-12 1.59752e-13 0.00327192 0.000234874 
+127-th ciphertext: 6.91651e-12 -3.14462e-12 0.000473855 6.22611e-05 0.000153543 
+128-th ciphertext: 9.51301e-12 0.000860194 0.000754351 0.000302567 3.01841e-05 
+  decrypt of sum_exp_(x-13): 
+(0.00255504 391.383) (0.00134179 745.271) (0.00218665 457.321) (0.00400493 249.692) (0.00257683 388.074) 
+  decrypt of inv(sum_exp_(x-8)): 
+394.677 753.619 462.007 251.963 391.852 
+Compute softmax time = 392.217. Compute softmax*V time = 53.8136
+Compute Q, K, V time = 1313.31. Compute QK^T time = 1259.97. softmax max = 9.9
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.00378054 0.000721236 0.00101435 0.00285122 0.00290496 
+2-th ciphertext: 1.29772e-05 0.0031035 0.00176212 0.0125291 -6.39722e-12 
+3-th ciphertext: 2.84212e-05 0.00419981 0.00786084 -1.08466e-11 1.0823e-11 
+4-th ciphertext: 2.23914e-05 0.00866172 -1.83322e-12 3.9783e-13 1.74471e-11 
+5-th ciphertext: 6.74519e-05 -4.33273e-12 -8.72255e-13 -2.28374e-12 -2.65001e-11 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: -1.62459e-11 1.11126e-11 -1.503e-12 1.92489e-11 0.123649 
+126-th ciphertext: 5.58346e-12 -1.82498e-12 -1.81925e-12 0.665541 0.000930728 
+127-th ciphertext: -5.38498e-12 1.81484e-12 0.0170963 0.00392926 0.00207967 
+128-th ciphertext: 6.15832e-12 0.14231 0.00100679 0.00459398 0.000782007 
+  decrypt of sum_exp_(x-13): 
+(0.00392178 254.986) (0.159007 6.28905) (0.0287504 34.7821) (0.689455 1.45042) (0.130357 7.67126) 
+  decrypt of inv(sum_exp_(x-8)): 
+257.291 6.34656 35.1035 1.46371 7.74156 
+Compute softmax time = 383.093. Compute softmax*V time = 51.1464
+Compute Q, K, V time = 1333.73. Compute QK^T time = 1272.06. softmax max = 9.9
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.00388342 1.23341e-06 0.000668682 4.41412e-06 0.000174194 
+2-th ciphertext: 5.19803e-05 0.000716016 1.62568e-05 0.000174793 4.44529e-12 
+3-th ciphertext: 0.000229263 5.09905e-06 0.000224859 7.43454e-14 1.61165e-13 
+4-th ciphertext: 3.09152e-05 0.000317638 -1.43485e-12 -5.40789e-12 -2.1684e-12 
+5-th ciphertext: 0.000187286 1.16497e-12 2.3504e-12 2.69129e-13 3.90466e-12 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: -7.49554e-12 4.75232e-12 -1.00402e-12 4.13489e-12 0.00286217 
+126-th ciphertext: 7.55427e-13 -3.97962e-12 2.46504e-12 0.000642309 3.6368e-05 
+127-th ciphertext: 1.54484e-11 -5.73488e-13 0.000764649 2.0474e-06 0.000457081 
+128-th ciphertext: 5.20847e-12 0.00186689 1.05617e-05 0.000470827 4.00728e-05 
+  decrypt of sum_exp_(x-13): 
+(0.00439286 227.642) (0.00291687 342.833) (0.00169501 589.967) (0.00130439 766.642) (0.00357989 279.338) 
+  decrypt of inv(sum_exp_(x-8)): 
+229.664 345.737 596.427 773.067 281.903 
+Compute softmax time = 410.467. Compute softmax*V time = 57.3364
+Compute Q, K, V time = 1392.29. Compute QK^T time = 1286.6. softmax max = 9.9
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.000191455 1.13935e-05 2.98292e-05 6.77664e-06 8.33803e-05 
+2-th ciphertext: 1.45101e-05 1.66632e-05 7.15632e-05 0.000128189 -2.0965e-12 
+3-th ciphertext: 3.1037e-05 1.94242e-05 0.000183076 -1.08218e-11 -1.5914e-11 
+4-th ciphertext: 1.36095e-05 2.94346e-05 1.39389e-12 -4.27535e-12 -1.38241e-11 
+5-th ciphertext: 9.95431e-05 1.2431e-12 7.64359e-13 -4.79218e-12 1.4102e-11 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: 1.06419e-11 -1.8762e-12 -7.91692e-13 -7.33416e-12 0.000132673 
+126-th ciphertext: -7.05311e-12 3.31462e-12 -2.89254e-12 0.000889097 3.36545e-05 
+127-th ciphertext: 6.34966e-12 -2.58016e-12 0.000655889 3.26863e-05 3.87252e-05 
+128-th ciphertext: -1.28178e-12 0.000197569 0.000119869 2.79077e-05 1.39699e-05 
+  decrypt of sum_exp_(x-13): 
+(0.000360155 2776.58) (0.000284484 3515.13) (0.00107023 934.382) (0.00109466 913.528) (0.000312403 3201) 
+  decrypt of inv(sum_exp_(x-8)): 
+2797.72 3536.8 941.202 918.585 3204.21 
+Compute softmax time = 382.547. Compute softmax*V time = 57.2552
+Compute Q, K, V time = 1355.79. Compute QK^T time = 1356.17. softmax max = 9.9
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.000144668 1.92149e-06 1.62444e-05 9.30395e-07 5.42168e-05 
+2-th ciphertext: 5.18794e-05 2.39367e-05 1.16827e-05 9.85545e-05 1.27646e-12 
+3-th ciphertext: 8.07695e-05 1.0383e-05 5.81657e-05 -1.28094e-12 1.81663e-14 
+4-th ciphertext: 5.61702e-05 0.000101576 -2.42907e-12 1.78161e-12 -9.5883e-12 
+5-th ciphertext: 7.61275e-05 -7.5817e-13 1.54519e-12 -4.66802e-12 -7.82146e-12 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: -1.13137e-11 1.45075e-12 2.03905e-12 7.55531e-13 6.25916e-05 
+126-th ciphertext: -1.21459e-12 -2.95947e-12 -2.19267e-12 0.000686105 2.62392e-05 
+127-th ciphertext: 6.72882e-12 -3.68864e-12 0.000164951 3.23076e-05 4.02287e-05 
+128-th ciphertext: 2.02182e-11 0.000248698 2.55391e-05 6.93665e-06 3.72542e-05 
+  decrypt of sum_exp_(x-13): 
+(0.000419615 2383.14) (0.000396514 2521.98) (0.000286583 3489.39) (0.000834834 1197.84) (0.00023053 4337.82) 
+  decrypt of inv(sum_exp_(x-8)): 
+2409.35 2528.19 3510.01 1204.93 4348.58 
+Compute softmax time = 400.187. Compute softmax*V time = 53.2445
+Compute Q, K, V time = 1341.39. Compute QK^T time = 1256.44. softmax max = 9.9
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.000692599 0.000199162 0.000617431 0.000207217 0.000892319 
+2-th ciphertext: 6.12615e-05 0.000960923 0.000229135 0.000141367 -1.45305e-11 
+3-th ciphertext: 0.000188197 0.000668943 0.000329606 -8.36534e-13 -6.7936e-12 
+4-th ciphertext: 5.17095e-05 0.000216228 -1.62704e-12 9.56096e-12 6.47628e-12 
+5-th ciphertext: 0.000138689 2.83624e-13 -3.61686e-13 7.16425e-12 4.86939e-12 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: 3.25543e-12 1.30263e-12 3.51515e-12 6.76822e-12 0.0242632 
+126-th ciphertext: -1.02306e-11 4.39119e-12 -3.06099e-13 0.00369999 0.000653636 
+127-th ciphertext: 1.18164e-11 -2.14826e-12 0.0013104 0.00020878 0.00113146 
+128-th ciphertext: 7.8782e-12 0.000389014 0.000645977 0.000628262 0.000271169 
+  decrypt of sum_exp_(x-13): 
+(0.00114246 875.307) (0.00244427 409.12) (0.00314255 318.213) (0.00489561 204.264) (0.0272217 36.7354) 
+  decrypt of inv(sum_exp_(x-8)): 
+884.29 413.531 321.006 206.056 37.0716 
+Compute softmax time = 370.305. Compute softmax*V time = 51.3853
+Compute Q, K, V time = 1336.7. Compute QK^T time = 1249.83. softmax max = 9.9
+Decrypt + decode result of e^(x-13): 
+1-th ciphertext: 0.000502546 0.00194033 4.81827e-05 0.00587528 8.21706e-05 
+2-th ciphertext: 5.12548e-05 9.199e-05 7.33826e-06 0.00315077 -4.68821e-12 
+3-th ciphertext: 6.79742e-05 4.58041e-06 0.000569706 6.37531e-13 -2.75409e-11 
+4-th ciphertext: 3.15994e-05 0.000953634 1.91522e-13 -2.71761e-12 2.94902e-11 
+5-th ciphertext: 0.000428069 -2.22581e-12 -1.85677e-12 -7.96133e-12 -9.42315e-12 
+124-th ciphertext: 0 0 0 0 0 
+125-th ciphertext: 2.43268e-12 -1.46177e-12 2.56947e-12 -5.45704e-12 0.00030571 
+126-th ciphertext: 7.60857e-13 -2.76323e-12 -1.61659e-13 0.0108104 4.47003e-05 
+127-th ciphertext: -7.16437e-12 -3.58275e-12 0.000989072 1.39664e-05 7.00969e-05 
+128-th ciphertext: 1.7051e-12 0.00303222 4.67819e-06 0.000433365 1.35932e-05 
+  decrypt of sum_exp_(x-13): 
+(0.00109144 916.218) (0.00603276 165.762) (0.00162898 613.882) (0.0202938 49.2761) (0.000526271 1900.16) 
+  decrypt of inv(sum_exp_(x-8)): 
+921.562 167.284 619.996 49.7302 1909.24 
+Compute softmax time = 362.284. Compute softmax*V time = 54.3113
+Attention block time = 35744.1
+Modulus chain index for the result: 1
+Concatenation. size of output of attention block = 12 * 64 = 768
+selfoutput time = 180.839
+Modulus chain index for the result: 0
+[CHUNK] bootstrap1 chunk 1/6 (128 CTs)
+[CHUNK] bootstrap1 chunk 2/6 (128 CTs)
+[CHUNK] bootstrap1 chunk 3/6 (128 CTs)
+[CHUNK] bootstrap1 chunk 4/6 (128 CTs)
+[CHUNK] bootstrap1 chunk 5/6 (128 CTs)
+[CHUNK] bootstrap1 chunk 6/6 (128 CTs)
+bootstrapping time = 13181.3
+Modulus chain index after bootstrapping: 20
+Modulus chain index for var: 17
+  decrypt of var: 
+160.899 406.493 252.133 383.954 201.657 
+Modulus chain index for invert sqrt: 2
+  decrypt of 1/sqrt(var): 
+0.0788354 0.0495988 0.0629774 0.0510332 0.0704196 
+layernorm time = 98.4055
+Modulus chain index after layernorm: 0
+[CHUNK] bootstrap2 chunk 1/6 (128 CTs)
+[CHUNK] bootstrap2 chunk 2/6 (128 CTs)
+[CHUNK] bootstrap2 chunk 3/6 (128 CTs)
+[CHUNK] bootstrap2 chunk 4/6 (128 CTs)
+[CHUNK] bootstrap2 chunk 5/6 (128 CTs)
+[CHUNK] bootstrap2 chunk 6/6 (128 CTs)
+bootstrapping time = 11799.7
+Modulus chain index after bootstrapping: 20
+Modulus chain index before intermediate linear: 9
+Modulus chain index before intermediate linear (fused tiled FFN): 9
+Fused tiled FFN time = 3989.24
+Final layer time = 3990.31
+Modulus chain index after final layer: 0
+[CHUNK] bootstrap3 chunk 1/6 (128 CTs)
+[CHUNK] bootstrap3 chunk 2/6 (128 CTs)
+[CHUNK] bootstrap3 chunk 3/6 (128 CTs)
+[CHUNK] bootstrap3 chunk 4/6 (128 CTs)
+[CHUNK] bootstrap3 chunk 5/6 (128 CTs)
+[CHUNK] bootstrap3 chunk 6/6 (128 CTs)
+bootstrapping time = 15176.9
+Modulus chain index after bootstrapping: 20
+Modulus chain index for var: 17
+  decrypt of var: 
+7.38312 1.39218 3.99513 1.1312 6.27107 
+Modulus chain index for invert sqrt: 2
+  decrypt of 1/sqrt(var): 
+0.368024 0.821092 0.50015 0.891561 0.399324 
+layernorm time = 68.8818
+Modulus chain index after layernorm: 0
+Decrypt + decode result of one layer: 
+bootstrapping start. 
+[CHUNK] bootstrap4 chunk 1/6 (128 CTs)
+[CHUNK] bootstrap4 chunk 2/6 (128 CTs)
+[CHUNK] bootstrap4 chunk 3/6 (128 CTs)
+[CHUNK] bootstrap4 chunk 4/6 (128 CTs)
+[CHUNK] bootstrap4 chunk 5/6 (128 CTs)
+[CHUNK] bootstrap4 chunk 6/6 (128 CTs)
+bootstrapping time = 12790.4
+Modulus chain index after bootstrapping: 20
+Total time for one layer: 97020.2, amortized time: 378.985

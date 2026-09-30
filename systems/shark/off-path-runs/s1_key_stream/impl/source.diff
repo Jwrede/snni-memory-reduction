@@ -1,0 +1,49 @@
+--- src/bert_instrumented.cpp	2026-07-29 22:25:16.800553450 +0000
++++ src/bert_instrumented_s1_key_stream.cpp	2026-07-29 23:28:04.837350793 +0000
+@@ -12,6 +12,7 @@
+ #include <cstdio>
+ #include <cstring>
+ #include <chrono>
++#include <string>
+ 
+ #include <shark/protocols/init.hpp>
+ #include <shark/protocols/finalize.hpp>
+@@ -421,7 +422,37 @@
+     // deployed: fixed shares would be a security defect in a real deployment.
+     srand(0x5EED);
+ 
+-    init::from_args(argc, argv);
++    // ================== s1_key_stream: THE LEVER ==================
++    //
++    // CHOSEN FROM THE MEASURED DECOMPOSITION OF s0's PEAK, not inherited. At 58,095,268 kB the
++    // largest object is `shark::Dealer::Dealer` at 55,094,036 kB, 94.8% of the peak and 95.7% of
++    // the attributed bytes. That is one `new char[size]` in the oneShot branch of the Dealer
++    // constructor (comm.hpp:266), holding the ENTIRE preprocessing file: 56,416,290,832 B for
++    // party 0, which is `server.dat` byte for byte.
++    //
++    // THE FIX, AND WHY IT IS FREE RATHER THAN A REWRITE. The object is RELOADABLE in the
++    // procedure's sense, and the reload path is already in the same class: `Dealer(filename,
++    // oneShot = false)` builds a `FileBuf` instead, and every consumer reaches the material
++    // through `keyBuf->read(...)` in strictly sequential order. `MemBuf` only ever advances a
++    // pointer, so nothing seeks and nothing is read twice; the bytes delivered are identical and so
++    // is their order. `isMem()` exists but is called nowhere, so no code branches on which buffer
++    // it got. The only reason the slurp happens at all is that `init::from_args` passes `true`
++    // (init.cpp:70), and this benchmark simply does the dispatch itself with `false`.
++    //
++    // What changes is WHEN the bytes are resident, not how many are read: the whole file is read in
++    // both cases. What the measurement has to decide is the runtime cost of doing it in many small
++    // sequential reads instead of one.
++    always_assert(argc > 1);
++    {
++        int _party = atoi(argv[1]);
++        always_assert(_party == DEALER || _party == SERVER || _party == CLIENT);
++        std::string ip = (argc > 2) ? argv[2] : "127.0.0.1";
++        if (_party == DEALER)
++            init::gen(0xdeadbeef);
++        else
++            init::eval(_party, ip, 42069, false);   // false == stream, do not slurp
++    }
++    fprintf(stderr, "LEVER|s1_key_stream|oneShot=0|party=%d\n", party);
+     fprintf(stderr, "SEEDED|srand=0x5eed|dealer_prng=0xdeadbeef|party=%d\n", party);
+     fflush(stderr);
+ 

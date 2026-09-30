@@ -1,0 +1,9 @@
+ee221c55679a019fc78bd30ead6c4fd3  /root/shark/build/benchmark-bert_instrumented
+=== phase 1: dealer (party 2), NOT measured ===
+dealer rc=0  wall=301s
+server.dat 56416290832
+client.dat 55736936464
+=== phase 2: server (0) + client (1), MEASURED ===
+=== party0 rc=0  party1 rc=0  online wall=106s ===
+GATEQ|party=0|n=98304|nonzero=98304|differing_from_first=98303
+GATEQ|party=1|n=98304|nonzero=98304|differing_from_first=98303

@@ -1,0 +1,52 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m1_pool_threshold.sif
+
+# MOAI-CPU m1_pool_scope_tiling: the real moai_new/palma_campaign ct_ct fix on m1. PROBE, parallel to
+# the m1-m6 line, does NOT touch it. Replaces the incomplete m1_pool_tiling (which had tiling but no
+# scope, so the rotation stayed on the global threshold and kept churning).
+#
+# WHY. m1's global threshold pool frees every >=4MiB block to the OS on release. That is cheap in the
+# bootstrap path (blocks used once) but expensive in the ct_ct rotation, where the same key-switch
+# buffers are reused across rows -- the threshold munmap/mmaps them per rotation (~100x), which is the
+# +70-80% runtime. The old campaign (operator-bench/moai_new/10_no_chunking/Ct_ct_matrix_mul.hpp)
+# scopes the rotation onto a caching MemoryPoolHandle::New(true) pool (reused buffers stay in a
+# free-list, no OS round-trip) + CT_CT_TILE_SIZE tiling to bound the cached set, then restores the
+# global threshold before the babystep. This variant does the same. New(true) exists in our SEAL fork
+# (palma used MemoryPoolThresholdMT, which does not, which is why the earlier copy dropped the scope).
+#
+# ONE EDIT (patch_pool_scope_tiling.py, self-validating): diagpacking active ops byte-identical to ours
+# (gate stays bitwise m0), only the rotation pool wrapper + tiling change. Project rebuild only.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_pool_scope_tiling.py /opt/patch_pool_scope_tiling.py
+
+%post
+    set -e
+    python3 /opt/patch_pool_scope_tiling.py /root/moai
+
+    cd /root/moai
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+
+    strings -a /root/moai/build/test | grep -q 'SEEDED|seal_prng|' \
+        || { echo "FAILED: no SEAL seed marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'WORKLOAD|model=bert-base' \
+        || { echo "FAILED: no workload marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|pool_threshold' \
+        || { echo "FAILED: the inherited pool_threshold lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|pool_scope_tiling' \
+        || { echo "FAILED: the pool_scope_tiling lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'POOLREC|profile_installed' \
+        || { echo "FAILED: the recording pool is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|minimal_att_keys' \
+        && { echo "FAILED: m1_pool_scope_tiling must NOT carry minimal_att_keys"; exit 4; }
+
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m1_pool_scope_tiling
+    snni.base m1_pool_threshold

@@ -1,0 +1,87 @@
+### SHARK baseline image (s0_default), from operator-bench/shark/00_default/Dockerfile.
+### Setup differences (identical at every step of this line):
+###  1. upstream commit pinned (original clones the default branch)
+###  2. -g added on top of -O3 (symbol names; no code-generation or residency effect)
+###  3. instrumented benchmark with a gate observable (stock program discards its output; impl/src/)
+### -march=x86-64-v3 instead of -march=native: built here, run on PALMA, one binary for all nodes.
+
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    libboost-system-dev \
+    libeigen3-dev \
+    git \
+    net-tools \
+    procps \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /root
+
+ARG SHARK_COMMIT=6957e5ed7d279d2cd9fac0b4c1a6f30a77f91bc1
+RUN git clone --recursive https://github.com/kanav99/shark.git \
+    && cd shark \
+    && git checkout "$SHARK_COMMIT" \
+    && git rev-parse HEAD > /root/shark_commit.txt
+
+WORKDIR /root/shark
+
+# Upstream fix carried over from 00_default: make recv_array return MANAGED spans (copies out of
+# MemBuf) so concurrent OMP threads do not race on MemBuf's read position through dangling
+# pointers. It preserves oneShot=true, i.e. all preprocessing is still loaded at init; it only
+# removes the crash. This is part of the BASELINE, not a reduction.
+RUN sed -i 's|T\* buf = (T\*) keyBuf->read(size \* sizeof(T));|shark::span<T> arr(size);|g; \
+            s|shark::span<T> arr(buf, size);|keyBuf->read((char *)arr.data(), size * sizeof(T));|g' \
+    include/shark/utils/comm.hpp \
+    && grep -q 'keyBuf->read((char \*)arr.data()' include/shark/utils/comm.hpp \
+    && echo "Patched recv_array managed spans"
+
+# THE SOCKET LAYER MUST SURVIVE A SIGNAL AND A SHORT TRANSFER, and it did not.
+#
+# `SocketBuf::read` and `SocketBuf::write` asserted that ONE recv()/send() moved every byte asked
+# for. A single call is not required to, and MSG_WAITALL returns short when a signal is delivered
+# while the call is blocked. Measured (job 45509359): with the campaign's freeze poller attached,
+# the 12-layer run died on its first 14.2 MB weight exchange -- party 1 inside recv, party 0 inside
+# send behind it -- while the same binary completed with no poller attached.
+#
+# So this is BASELINE ROBUSTNESS, in the same class as the recv_array managed-span fix below and
+# not a memory lever: it loops until complete and retries on EINTR, changing no buffer, no size and
+# no byte on the wire. Applied identically to every step of this line.
+COPY patches/socket_full_transfer.diff /root/socket_full_transfer.diff
+RUN cd /root/shark \
+    && git apply -p1 --verbose /root/socket_full_transfer.diff \
+    && grep -q 'xfer_all_recv' src/utils/comm.cpp \
+    && grep -q 'xfer_all_send' src/utils/comm.cpp \
+    && ! grep -q 'always_assert(bytes == recv(' src/utils/comm.cpp \
+    && ! grep -q 'always_assert(bytes == send(' src/utils/comm.cpp
+
+COPY src/bert_instrumented.cpp /root/shark/benchmarks/bert_instrumented.cpp
+COPY src/shark_floor_bench.cpp /root/shark/benchmarks/shark_floor.cpp
+
+RUN sed -i '/vgg16/a\    bert_instrumented\n    shark_floor' CMakeLists.txt \
+    && grep -q 'bert_instrumented' CMakeLists.txt \
+    && grep -q 'shark_floor' CMakeLists.txt
+
+# Portable ISA, and debug info on top of the release flags. Both greps are there because a sed
+# that matches nothing exits 0 and ships the wrong binary, which is this campaign's recurring
+# failure shape: a plausible artifact instead of an error.
+RUN sed -i 's/-march=native/-march=x86-64-v3/' CMakeLists.txt ext/cryptoTools/CMakeLists.txt \
+    && sed -i 's/set(CMAKE_CXX_FLAGS_RELEASE "-O3")/set(CMAKE_CXX_FLAGS_RELEASE "-O3 -g")/' CMakeLists.txt \
+    && grep -q -- '-march=x86-64-v3' CMakeLists.txt \
+    && grep -q -- '"-O3 -g"' CMakeLists.txt \
+    && mkdir -p build && cd build \
+    && cmake -DCMAKE_BUILD_TYPE=Release .. \
+    && cmake --build . -j$(nproc) \
+    && test -x /root/shark/build/benchmark-bert_instrumented \
+    && test -x /root/shark/build/benchmark-shark_floor
+
+# The gate and the seed marker must be IN the binary, not merely in the source that was copied.
+RUN strings /root/shark/build/benchmark-bert_instrumented | grep -q 'GATE|out|party=' \
+    && strings /root/shark/build/benchmark-bert_instrumented | grep -q 'SEEDED|srand=0x5eed' \
+    && md5sum /root/shark/build/benchmark-bert_instrumented > /root/binary_md5.txt \
+    && cat /root/binary_md5.txt
+
+CMD ["echo", "measured by the campaign harness; see systems/shark/impl/run_shark_measured.sh"]

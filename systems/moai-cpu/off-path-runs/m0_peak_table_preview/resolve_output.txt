@@ -1,0 +1,53 @@
+image=/scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m0_default.sif
+rewrote 67 mappings
+# sample_ts_ms=1787420080358 sample_rss_kb=402021176
+attributed resident 410968.7 MB across 134 call sites
+
+    resident    allocated  touched  count  site
+   103733.8M    108527.6M      96%     55  seal::util::encrypt_zero_symmetric(seal::SecretKey const&, seal::SEALContext const&, std
+    33023.8M     34672.2M      95%     42  seal::Evaluator::mod_switch_scale_to_next(seal::Ciphertext const&, seal::Ciphertext&, se
+    32002.9M     33638.3M      95%     52  Ct_pt_matrix_mul.hpp:87:ct_pt_matrix_mul_wo_pre_large(std::vector<seal::Ciphertext, std:
+    31845.5M     32191.3M      99%     47  evaluator.h:1232:seal::Evaluator::rotate_vector(seal::Ciphertext const&, int, seal::Galo
+    29360.3M     29360.1M     100%     35  seal::Encryptor::encrypt_zero_internal(std::array<unsigned long, 4ul>, bool, bool, seal:
+    28149.1M     28149.0M     100%     10  test_full_scheme.hpp:529 (discriminator 1):all_layer_test()  <- seal::util::MemoryPoolHe
+    18815.7M     18815.6M     100%      9  Bootstrapper.cpp:2092 (discriminator 1):Bootstrapper::rotated_bsgs_linear_transform(seal
+    15667.1M     16357.8M      96%     30  layernorm.hpp:320:layernorm(std::vector<seal::Ciphertext, std::allocator<seal::Ciphertex
+    14195.8M     14195.6M     100%     33  Ct_ct_matrix_mul.hpp:28:ct_ct_matrix_mul_colpacking(std::vector<seal::Ciphertext, std::a
+    13251.7M     14695.3M      90%     81  seal::Evaluator::ckks_multiply(seal::Ciphertext&, seal::Ciphertext const&, seal::MemoryP
+    11939.3M     12095.3M      99%     21  single_att_block.hpp:73:single_att_block(std::vector<seal::Ciphertext, std::allocator<se
+     9915.1M     12641.1M      78%     38  seal::Evaluator::rotate_internal(seal::Ciphertext&, int, seal::GaloisKeys const&, seal::
+     8189.4M      8189.4M     100%      9  Bootstrapper.cpp:2094:Bootstrapper::rotated_bsgs_linear_transform(seal::Ciphertext&, sea
+     6835.9M      7257.2M      94%     38  seal::Evaluator::ckks_square(seal::Ciphertext&, seal::MemoryPoolHandle) const  <- seal::
+     5175.3M      5182.1M     100%     21  evaluator.h:305:seal::Evaluator::relinearize_inplace(seal::Ciphertext&, seal::RelinKeys 
+     5130.3M      5237.6M      98%     53  test_full_scheme.hpp:537:all_layer_test() [clone ._omp_fn.0]  <- seal::util::MemoryPoolH
+     4244.7M      4244.6M     100%      7  Bootstrapper.cpp:2089 (discriminator 1):Bootstrapper::rotated_bsgs_linear_transform(seal
+     2684.4M      2684.4M     100%      5  Polynomial.cpp:447:boot::Polynomial::homomorphic_poly_evaluation(seal::SEALContext&, sea
+     2652.9M      2652.9M     100%      3  Bootstrapper.cpp:2130:Bootstrapper::rotated_bsgs_linear_transform(seal::Ciphertext&, sea
+     2324.9M      2369.8M      98%     18  Ct_pt_matrix_mul.hpp:35:ct_pt_matrix_mul_wo_pre(std::vector<seal::Ciphertext, std::alloc
+
+fullscan: 172 mappings hold resident memory, 411669.7 MB total, 639.4 MB of it not covered by any recorded allocation
+       412.9 MB unnamed  rw-p  [heap]
+        37.5 MB unnamed  rw-p  [anonymous]
+        33.8 MB unnamed  rw-p  [anonymous]
+        31.7 MB unnamed  rw-p  [anonymous]
+        27.0 MB unnamed  rw-p  [anonymous]
+        21.2 MB unnamed  rw-p  [anonymous]
+        20.7 MB unnamed  rw-p  [anonymous]
+        19.1 MB unnamed  rw-p  [anonymous]
+   (2.6 GB of PROT_NONE reservation skipped; rerun with SNNI_PM_FULLSCAN=all to scan it)
+
+wrote /scratch/tmp/j_wred02/snni_campaign/moai-cpu/results/m0_default/run1/objects_resident_preview.jsonl
+sampled at rss=402021176 kB (100% attributed)
+################################# JOB REPORT ##################################
+Job ID: 46380301
+Cluster: palma2
+User/Group: j_wred02/u0dawin
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 4
+CPU Utilized: 00:00:37
+CPU Efficiency: 25.69% of 00:02:24 core-walltime
+Job Wall-clock time: 00:00:36
+Memory Utilized: 117.88 MB
+Memory Efficiency: 0.72% of 16.00 GB (16.00 GB/node)
+###############################################################################

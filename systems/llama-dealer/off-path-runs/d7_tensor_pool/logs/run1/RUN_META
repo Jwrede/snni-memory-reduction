@@ -1,0 +1,16 @@
+step=d7_tensor_pool
+date_utc=2026-07-29T10:14:09Z
+role=dealer (party 1), measured alone
+machine=palma:express node=r04n07
+slurm_job_id=45467029
+image=/scratch/tmp/j_wred02/snni_campaign/llama-dealer/sif/llama-dealer-d7_tensor_pool.sif
+image_digest=f6030dbec69c347b9b9ff5dfb09b0c7e31f6c0ab9b6131bdd86a2494df6be1e7
+omp_num_threads=16
+malloc_arena_max=2
+malloc_mmap_threshold=unset(dynamic)
+malloc_trim_threshold=unset(dynamic)
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base n_embd=768 n_layer=12 bw=51 n_seq=128 scale=12
+attrib_host=pmrec_pagemap
+binary_md5=ba9812291e9d6fba4d1c31eae103e57e
+src_diff_md5=5e3dede232819e61c6a937db6ecb24bd

@@ -1,0 +1,60 @@
+# SHAFT-CPU image, from operator-bench/shaft/00_default/Dockerfile. Rebuilt here (no PALMA .sif;
+# earlier campaign used podman elsewhere). HuggingFace weights baked in (no network call in a run).
+# Additions:
+#   - numpy pinned < 2.0 (torch 2.0.1 built against the 1.x ABI).
+#   - gcc installed (resident recorder built inside the image it is preloaded into).
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    python3 python3-pip python3-venv \
+    git procps gcc libc6-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /root
+
+RUN pip3 install --no-cache-dir "numpy<2"
+
+# PyTorch CPU-only.
+RUN pip3 install --no-cache-dir \
+    torch==2.0.1+cpu torchvision==0.15.2+cpu torchaudio==2.0.2+cpu \
+    --index-url https://download.pytorch.org/whl/cpu
+
+RUN pip3 install --no-cache-dir wheel==0.40.0
+
+# SHAFT itself, which vendors the CrypTen this system runs on.
+RUN git clone https://github.com/andeskyl/SHAFT.git /root/shaft
+WORKDIR /root/shaft
+# The measured image cloned the default branch at this commit (MANIFEST.md, "The build, declared").
+RUN git checkout 3ceb0eea7437928be4b852ed4133cabb580a52fb
+RUN git rev-parse HEAD > /root/shaft_commit.txt
+RUN pip3 install --no-cache-dir .
+
+RUN pip3 install --no-cache-dir transformers==4.45.0
+
+RUN pip3 install --no-cache-dir \
+    accelerate==0.34.2 \
+    "datasets>=1.8.0" \
+    "sentencepiece!=0.1.92" \
+    scipy scikit-learn protobuf evaluate
+
+# Pre-download the model and tokenizer so the run needs no network.
+RUN python3 -c "\
+from transformers import AutoModelForSequenceClassification, AutoTokenizer; \
+AutoTokenizer.from_pretrained('andeskyl/bert-base-cased-sst2'); \
+AutoModelForSequenceClassification.from_pretrained('andeskyl/bert-base-cased-sst2'); \
+print('Model cached.')"
+
+# The measured script and the launcher are baked in so the paths exist, and then BOUND OVER at run
+# time from this repository. Binding is what makes the published file the one that ran; the
+# image's copy only guarantees a mount point. Their md5s go into RUN_META, so the image digest is
+# not asked to describe code it no longer fully determines.
+COPY bert_instrumented_cpu.py /root/shaft/bert_instrumented_cpu.py
+COPY multiprocess_launcher.py /root/shaft/multiprocess_launcher.py
+COPY run_cpu.sh /root/shaft/run_cpu.sh
+RUN chmod +x /root/shaft/run_cpu.sh
+
+VOLUME /results
+WORKDIR /root/shaft
+CMD ["bash", "run_cpu.sh", "/results/shaft"]

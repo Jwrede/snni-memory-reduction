@@ -1,0 +1,19 @@
+step=m1_minimal_att_keys
+run=1
+date_utc=2026-08-21T10:44:51Z
+machine=palma:zen4 node=r13n41
+slurm_job_id=46343699
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth=7
+attrib_host=pmrec_pagemap
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m1_minimal_att_keys.sif
+image_digest=4f170aee7ced0306c5db39a836f74b8e9bd52860b10112f6b06c289f8974fe37
+omp_num_threads=16
+snni_seed=0x5EED
+moai_n_layers=2
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base num_X=256 num_row=128 num_col=768 layers=2 of 12 (DECLARED SCOPE)
+protocol=CKKS logN=16 logp=46 logq=51 remaining_level=20 boot_level=14 hamming_weight=192
+role=the single process; there is no second party to pair a decomposition with

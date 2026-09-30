@@ -1,0 +1,26 @@
+step=a6_minimal_galois_keys
+run=1
+date_utc=2026-09-29T10:10:10Z
+machine=palma:bigsmp node=r05n06
+slurm_job_id=47044192
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth_requested=1
+pm_depth_max=6
+pm_depth=1
+attrib_host=pmrec_pagemap
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/arion/sif/arion-a6_minimal_galois_keys_goheap.sif
+image_digest=ef0e38cce3d4e768f3090ee73c49dad00086eb6d7148ee106edac44efb7296ff
+arion_n_layers=2
+arion_threads=16
+arion_menu=12
+gogc=25
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base logN=16 rows=128 batch=256 layers=2 (DECLARED SCOPE)
+protocol=RNS-CKKS non-interactive FHE, single process, no parties
+role=the single process; there is no second party to pair a decomposition with
+combined_channel=1
+census=in-run go heap dump, min_kb=88000000 pct=5
+deviation=NON-EXCLUSIVE (bigsmp, 18 cpus, 700G), submitted 29.09. in parallel with its exclusive replicate for the submission deadline (Jonathan). Peak comparable, wall carries co-tenant noise.
+deviation=SPECULATIVE: submitted before a5_qkv_head_release was measured, on a5 image + minimal_galois_keys; levers.env is written from a5s table, otherwise off-path (Jonathan 29.09.).

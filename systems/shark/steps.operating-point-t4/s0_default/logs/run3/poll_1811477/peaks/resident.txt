@@ -1,0 +1,79 @@
+# sample_ts_ms=1785369676670 sample_rss_kb=57187824
+# fullscan: mapping_resident_bytes unaccounted_bytes perms path
+# map 1077997568 0 rw-p 
+# map 131072 131072 rw-p 
+# map 131072 131072 rw-p 
+# map 131072 131072 rw-p 
+# map 56417402880 0 rw-p 
+# map 3149824 3149824 rw-s /scratch/tmp/j_wred02/snni_campaign/shark/results/s0_default/run3/pmtable_1811477
+# map 16384 16384 rw-p 
+# map 57344 57344 r--p /usr/lib/x86_64-linux-gnu/libm.so.6
+# map 245760 245760 r-xp /usr/lib/x86_64-linux-gnu/libm.so.6
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/libm.so.6
+# map 4096 4096 rw-p /usr/lib/x86_64-linux-gnu/libm.so.6
+# map 8192 8192 rw-p 
+# map 163840 163840 r--p /usr/lib/x86_64-linux-gnu/libc.so.6
+# map 1130496 1130496 r-xp /usr/lib/x86_64-linux-gnu/libc.so.6
+# map 155648 155648 r--p /usr/lib/x86_64-linux-gnu/libc.so.6
+# map 16384 16384 r--p /usr/lib/x86_64-linux-gnu/libc.so.6
+# map 8192 8192 rw-p /usr/lib/x86_64-linux-gnu/libc.so.6
+# map 20480 20480 rw-p 
+# map 12288 12288 r--p /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+# map 65536 65536 r-xp /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+# map 16384 16384 r--p /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+# map 4096 4096 rw-p /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+# map 40960 40960 r--p /usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0
+# map 192512 192512 r-xp /usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0
+# map 49152 49152 r--p /usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0
+# map 4096 4096 r--p /usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0
+# map 4096 4096 rw-p /usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0
+# map 630784 630784 r--p /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30
+# map 696320 696320 r-xp /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30
+# map 122880 122880 r--p /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30
+# map 45056 45056 r--p /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30
+# map 12288 12288 rw-p /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30
+# map 12288 12288 rw-p 
+# map 4096 4096 r--p /ar/pmrec.so
+# map 4096 4096 r-xp /ar/pmrec.so
+# map 4096 4096 r--p /ar/pmrec.so
+# map 4096 4096 r--p /ar/pmrec.so
+# map 4096 4096 rw-p /ar/pmrec.so
+# map 12288 12288 rw-p 
+# map 8192 8192 r--p /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+# map 172032 172032 r-xp /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+# map 40960 40960 r--p /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+# map 8192 8192 r--p /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+# map 8192 8192 rw-p /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+# map 16384 16384 r--p /root/shark/build/benchmark-bert_instrumented
+# map 212992 212992 r-xp /root/shark/build/benchmark-bert_instrumented
+# map 65536 65536 r--p /root/shark/build/benchmark-bert_instrumented
+# map 4096 4096 r--p /root/shark/build/benchmark-bert_instrumented
+# map 4096 4096 rw-p /root/shark/build/benchmark-bert_instrumented
+# map 4096 4096 rw-p 
+# map 1056919552 1022971904 rw-p [heap]
+# map 143360 143360 rw-p [stack]
+# map 4096 4096 r-xp [vdso]
+# fullscan_skipped_bytes=24576 mappings=6 mode=readable-only
+# shared_boundary_pages=4 of 14175286 counted (0.000%)
+# live_allocations=67 allocated_bytes=58061702176 inserts=19569 drops=0
+# resident_bytes allocated_bytes count site
+55736938496 55736936464 1 0x5641695a2b45
+719355904 1073741824 1 0x5641695a114e
+358641664 536870912 1 0x5641695a129e
+226541568 226492416 12 0x56416959bd13
+226541568 226492416 12 0x56416959bdec
+169918464 169869312 12 0x56416959bb62
+56672256 56623104 12 0x56416959bc40
+18882560 18874384 2 0x56416959f3ea
+7880704 7864320 4 0x5641695a0205
+1576960 1572864 1 0x5641695b715c
+790528 786432 1 0x56416959ab37
+790528 786432 1 0x56416959acc1
+790528 786432 1 0x56416959adda
+790528 786432 1 0x56416959835c
+790528 786432 1 0x5641695982cc
+790528 786432 1 0x56416959aa23
+790528 786432 1 0x56416959839e
+790528 786432 1 0x56416959533e
+16384 72704 1 0x14a4da68993a

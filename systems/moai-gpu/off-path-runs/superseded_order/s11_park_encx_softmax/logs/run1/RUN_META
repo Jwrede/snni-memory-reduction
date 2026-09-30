@@ -1,0 +1,17 @@
+step=s11_park_encx_softmax
+run=1
+date_utc=2026-08-18T13:41:08Z
+machine=palma:gpuh200 node=r18n01
+slurm_job_id=46258474
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth=2
+attrib_host=off
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/moai-gpu/sif/moai-gpu-s11_park_encx_softmax.sif
+image_digest=4229e9f728d5c3610ad320832fffcf27c5abd4be12436998baa29ec4a3930489
+omp_num_threads=8
+model=BERT-base ONE encoder layer n_seq=128 batch=256 logN=16
+role=single server process, non-interactive FHE
+attrib_device_actual=off
+gpu=NVIDIA H200, GPU-73064b00-5fde-0a04-7c7d-4309e8b13cf6

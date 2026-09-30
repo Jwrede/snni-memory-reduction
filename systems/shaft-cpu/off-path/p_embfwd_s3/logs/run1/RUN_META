@@ -1,0 +1,27 @@
+step=p_embfwd_s3
+run=1
+date_utc=2026-07-29T23:23:12Z
+machine=palma:express node=r04n06
+slurm_job_id=45509659
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+attrib_host=off
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/shaft-cpu/sif/shaft-cpu-s0_default.sif
+image_digest=f35e71f6d21c683f46f1872c2cca3276aa8fdd3813e117aff97fbded42a3abfe
+omp_num_threads=8
+model=andeskyl/bert-base-cased-sst2 n_layers=12 seq_len=128 batch=1
+role=2-party CrypTen MPC, both parties on this node's CPU, published per party
+script_md5=562f703fe1a1342e3b7c247e76a16b95
+runner_md5=37fd3e152fc98f0a9deda302fe838f73
+levers=plaintext_free_cpu,triple_share_free_cpu,beaver_reveal_inplace_cpu,probe_embed_forward_cpu
+lever_md5_beaver_reveal_inplace_cpu=440921afbcdc9bb9e8e23a205ed1be22
+lever_md5_plaintext_free_cpu=4e43330e51ebe00b14690b4567905070
+lever_md5_probe_census_cpu=25221f4431ac178368ce438e20733181
+lever_md5_probe_embed_forward_cpu=3dc3058eac1d0d5cc14b13ed55c215c9
+lever_md5_probe_embed_trace_cpu=00e0952861d57472299c90226729df87
+lever_md5_triple_share_free_cpu=e8fd7854afc9ef37041db35acba5a941
+lever plaintext_free_cpu confirmed active
+lever triple_share_free_cpu confirmed active
+lever beaver_reveal_inplace_cpu confirmed active
+lever probe_embed_forward_cpu confirmed active

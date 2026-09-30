@@ -1,0 +1,23 @@
+step=o3_operator_scratch_free
+run=2
+date_utc=2026-09-29T19:10:13Z
+machine=palma:express node=r04n06
+slurm_job_id=47055123
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth_requested=1
+pm_depth_max=6
+pm_depth=1
+attrib_host=pmrec_pagemap
+attrib_device=off
+freeze_mode=maxparty
+recorder_ar=/scratch/tmp/j_wred02/snni_campaign/recorder_builds/c1-pregit-20260730 pmrec_md5=3201e19fb818a73cbaede55a7caaeafe pmsample_md5=34d563faf5444d77cd70cd3ef1e4de4d
+image=/scratch/tmp/j_wred02/snni_campaign/llama/sif/llama-online-o3_operator_scratch_free.sif
+image_digest=a30c74390abac81a35af10f4e5a664bec1dfb811e667a21b41baaa174432d03a
+llama_n_layers=12
+diag_no_freeze=0
+omp_num_threads=16
+malloc_arena_max=2
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base n_embd=768 n_layer=12 bw=51 n_seq=128 scale=12
+role=ONLINE parties 2 and 3 (server + client); the dealer runs first and is NOT measured

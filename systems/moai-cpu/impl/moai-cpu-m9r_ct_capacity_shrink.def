@@ -1,0 +1,28 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m8r_chunked_bootstrap.sif
+
+# MOAI-CPU m9r_ct_capacity_shrink (re-measurement line in the corrected order, 2026-09-23): the m8r line PLUS one lever (patch_ct_capacity_shrink.py). Predicted from the old m7 table: at the Layer-0 attention peak the full-capacity input copy (28.2 GB) is the largest object with a free fix. Bit-identical.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_ct_capacity_shrink.py /opt/patch_ct_capacity_shrink.py
+
+%post
+    set -e
+    python3 /opt/patch_ct_capacity_shrink.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in att_keys_release_last_layer boot_layer_release phase_split chunked_bootstrap ct_capacity_shrink; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    strings -a build/test | grep -q "logn + 1" \
+        && { echo "FAILED: logn + 1 still in binary (full_3 fix not applied)" >&2; exit 1; } || true
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m9r_ct_capacity_shrink
+    snni.base m8r_chunked_bootstrap

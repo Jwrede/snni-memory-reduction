@@ -1,0 +1,18 @@
+step=s3_boot_layer_release
+run=1
+date_utc=2026-08-21T19:48:04Z
+machine=palma:gpuh200 node=r18n04
+slurm_job_id=46356580
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth=2
+attrib_host=pmrec_pagemap
+attrib_device=torch_state
+image=/scratch/tmp/j_wred02/snni_campaign/moai-gpu/sif/moai-gpu-s3_boot_layer_release.sif
+image_digest=6d244280cdfecbfb241ae5963f623b7c3397c6fb4d2c58e472549bd02536fc88
+omp_num_threads=8
+model=BERT-base ONE encoder layer n_seq=128 batch=256 logN=16
+role=single server process, non-interactive FHE
+attrib_device_actual=cuda_alloc
+gpu=NVIDIA H200, GPU-953bcf33-6cbf-f13c-6973-b49e9ed5544d
+combined_channel=1

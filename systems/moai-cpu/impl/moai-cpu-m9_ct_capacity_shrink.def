@@ -1,0 +1,39 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m8_fixed.sif
+
+# MOAI-CPU m9_ct_capacity_shrink: the m8 line (phase-split + chunked, full_3-corrected) PLUS one
+# lever: the two input ciphertext arrays get exactly-sized blocks after their in-place mod
+# switches. Built FROM the m8_fixed sif to reuse its SEAL build (recorder + threshold pool) and
+# its already-patched tree; only moai is rebuilt.
+#
+# WHY m9 = capacity shrink: the corrected m8 peak decomposition (live-pool dump, full-chain
+# grouping) names enc_ecd_x_copy (28.2 GB) and enc_ecd_x (28.2 GB) as the two largest objects,
+# both held in 36.7 MB blocks (35 limbs) while carrying 22 MB / 15.7 MB of data. Free fix,
+# bit-identical: only the allocation size changes, the bytes do not.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_ct_capacity_shrink.py /opt/patch_ct_capacity_shrink.py
+
+%post
+    set -e
+    python3 /opt/patch_ct_capacity_shrink.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in phase_split chunked_bootstrap ct_capacity_shrink; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    strings -a build/test | grep -q att_early_release \
+        && { echo "FAILED: att_early_release present (must not be)" >&2; exit 1; } || true
+    strings -a build/test | grep -q "logn + 1" \
+        && { echo "FAILED: logn + 1 still in binary (full_3 fix not applied)" >&2; exit 1; } || true
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m9_ct_capacity_shrink
+    snni.base m8_fixed
+    snni.note exact-size-blocks-for-enc_ecd_x-and-copy

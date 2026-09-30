@@ -1,0 +1,24 @@
+============== Diagnostic Run torch.onnx.export version 2.0.1+cpu ==============
+verbose: False, log level: Level.ERROR
+======================= 0 NONE 0 NOTE 0 WARNING 0 ERROR ========================
+
+============== Diagnostic Run torch.onnx.export version 2.0.1+cpu ==============
+verbose: False, log level: Level.ERROR
+======================= 0 NONE 0 NOTE 3 WARNING 0 ERROR ========================
+3 WARNING were not printed due to the log level.
+
+comm byte: 10.46 GB, round: 1495
+TRANSCRIPT|party=0|bytes=11228688384|rounds=1495
+============== Diagnostic Run torch.onnx.export version 2.0.1+cpu ==============
+verbose: False, log level: Level.ERROR
+======================= 0 NONE 0 NOTE 0 WARNING 0 ERROR ========================
+
+============== Diagnostic Run torch.onnx.export version 2.0.1+cpu ==============
+verbose: False, log level: Level.ERROR
+======================= 0 NONE 0 NOTE 3 WARNING 0 ERROR ========================
+3 WARNING were not printed due to the log level.
+
+TRANSCRIPT|party=1|bytes=11228688384|rounds=1495
+Prediction: 0
+GATE|logits|5.5476379395e-01 -6.6146850586e-02
+Inference time: 75.43s

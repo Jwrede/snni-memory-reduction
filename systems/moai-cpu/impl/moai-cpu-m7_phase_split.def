@@ -1,0 +1,48 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m6_att_output_release.sif
+
+# MOAI-CPU m7_phase_split: bootstrap-key phase-split (ported from moai_waterfall/palma_campaign) on top
+# of m6. PAID step. Splits the ~62 GB bootstrap Galois key set into 3 phases, saved to disk, loaded one
+# at a time during the batch-phased bootstrap linear transform -> ~1/3 of the keys resident (~-43 GB).
+#
+# Single-file port (include/test/test_full_scheme.hpp): the monolithic bootstrap_3 is replaced by the
+# manual phased sequence (modraise -> load_phase(0) -> rotated_bsgs_linear_transform -> load_phase(1) ->
+# bsgs_linear_transform -> load_phase(2) -> ... -> conjugate -> mod_reduce -> SlotToCoeff phases), using
+# the already-public Bootstrapper sub-transforms. The full gal_keys_boot generation is removed; the 3
+# phases are generated+saved after generate_LT_coefficient_3. Adapted for glibc (jemalloc_purge_all ->
+# malloc_trim) and our fork (no util::MemoryPoolThresholdMT -> phase keys load under the global threshold).
+# Project rebuild only; SEAL inherited. GATE must stay bitwise m0 -- validated by the measurement run.
+#
+# Phase key files: written under $MOAI_WORK_DIR/phase_keys (default ./phase_keys), ~14-19 GB x3 on disk.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_phase_split.py /opt/patch_phase_split.py
+
+%post
+    set -e
+    python3 /opt/patch_phase_split.py /root/moai
+
+    cd /root/moai
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+
+    strings -a /root/moai/build/test | grep -q 'SEEDED|seal_prng|' \
+        || { echo "FAILED: no SEAL seed marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'WORKLOAD|model=bert-base' \
+        || { echo "FAILED: no workload marker"; exit 4; }
+    for lev in pool_threshold minimal_att_keys x_copy_release enc_ecd_x_release boot_layer_release att_output_release phase_split; do
+        strings -a /root/moai/build/test | grep -q "LEVER|$lev" \
+            || { echo "FAILED: LEVER|$lev missing"; exit 4; }
+    done
+    strings -a /root/moai/build/test | grep -q 'POOLREC|profile_installed' \
+        || { echo "FAILED: recording pool missing"; exit 4; }
+
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m7_phase_split
+    snni.base m6_att_output_release

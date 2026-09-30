@@ -1,0 +1,24 @@
+step=a2_activation_input_release
+run=1
+date_utc=2026-09-26T07:20:08Z
+machine=palma:bigsmp node=r05n08
+slurm_job_id=47013851
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth_requested=1
+pm_depth_max=6
+pm_depth=1
+attrib_host=pmrec_pagemap
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/arion/sif/arion-a4_activation_input_release_goheap.sif
+image_digest=eab60113475e09a80dc60379fe11d9fb9d712b2978a7bbd42e446f082bb93d11
+arion_n_layers=2
+arion_threads=64
+arion_menu=12
+gogc=100
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base logN=16 rows=128 batch=256 layers=2 (DECLARED SCOPE)
+protocol=RNS-CKKS non-interactive FHE, single process, no parties
+role=the single process; there is no second party to pair a decomposition with
+combined_channel=1
+census=in-run go heap dump, min_kb=237005589 pct=5

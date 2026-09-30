@@ -1,0 +1,16 @@
+step=p_mmap_thresh
+date_utc=2026-07-29T08:57:39Z
+role=dealer (party 1), measured alone
+machine=palma:express node=r05n10
+slurm_job_id=45465888
+image=/scratch/tmp/j_wred02/snni_campaign/llama-dealer/sif/llama-dealer-d6_ars_free.sif
+image_digest=c7e191dfdddad27dfcefd30d50cb1e24200a8483b62bcea8c24be2b4dee4ad36
+omp_num_threads=16
+malloc_arena_max=2
+malloc_mmap_threshold=131072
+malloc_trim_threshold=unset(dynamic)
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base n_embd=768 n_layer=12 bw=51 n_seq=128 scale=12
+attrib_host=pmrec_pagemap
+binary_md5=3a803da0cbbe92af652f64700b648899
+src_diff_md5=0a812ad947c7ebf7e1057c6e863b3638

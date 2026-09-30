@@ -1,0 +1,112 @@
+--- a/GPU-MPC/ext/sytorch/examples/bertbenchmark.cpp
++++ b/GPU-MPC/ext/sytorch/examples/bertbenchmark.cpp
+@@ -26,6 +26,10 @@
+ #include <sytorch/backend/float.h>
+ #include <sytorch/layers/layers.h>
+ #include <sytorch/module.h>
++
++// D5 (dealer waterfall): weight lazy per-layer alloc flag (see layers.h). Enabled for the dealer.
++bool g_lazyWeights = false;
++unsigned long long g_weightSeedCtr = 0;
+ #include <llama/utils.h>
+ #include <llama/api.h>
+ 
+@@ -199,11 +203,11 @@
+     sytorch_init();
+ 
+     // bert tiny
+-    const u64 n_embd = 128;
++    const u64 n_embd = 768;
+     const u64 n_head = n_embd / 64;
+-    const u64 n_layer = 2;
++    const u64 n_layer = 12;
+     const u64 scale = 12;
+-    const u64 bw = 37;
++    const u64 bw = 51;
+     const u64 n_seq = 128;
+ 
+     // bert base
+@@ -229,11 +233,20 @@
+ 
+     using LlamaVersion = LlamaTransformer<u64>;
+     LlamaVersion *llama = new LlamaVersion();
+-    srand(time(NULL));
++    // PINNED, not clock-seeded. A gate compares each step against the BASELINE's output, and
++    // that comparison is meaningless unless the system produces the same output twice. The
++    // key PRNG (LlamaConfig::prngs) is separately pinned already, which is why the dealer's
++    // key material reproduces; this closes the remaining clock dependency.
++    srand(0x5EEDU);
++    fprintf(stderr, "SEEDED|srand=0x5eed|party=%d\n", party);
+ 
+     LlamaConfig::bitlength = bw;
+     LlamaConfig::party = party;
+ 
++    // D5 (dealer waterfall): only the dealer runs weight lazy-alloc (it never loads real weights;
++    // net.load() is guarded by party != DEALER below, so dummy weights are pure S1 waste here).
++    g_lazyWeights = (party == DEALER);
++
+     llama->init(ip, true);
+ 
+     BERT<u64> net(n_layer, n_head, n_embd);
+@@ -243,8 +256,28 @@
+     net.optimize();
+     if (party != DEALER)
+     {
+-        net.load("bert-tiny-weights.dat");
+-        input.load("15469.dat", scale);
++        // THE ONLINE PARTIES USE THE SAME DUMMY WEIGHTS THE DEALER ALREADY GENERATED, and that is
++        // a correctness requirement rather than a convenience. The dealer masks the weights it
++        // holds; if the online parties held different ones the protocol would be inconsistent.
++        //
++        // Since d5, every FC layer draws its weights from its OWN deterministically seeded stream
++        // in `_initScale`, applied unconditionally to all parties. So all three parties already
++        // hold byte-identical weights at this point, by construction, and loading is not needed.
++        //
++        // The stock calls cannot run in any case: `bert-tiny-weights.dat` and `15469.dat` are not
++        // in the image, are not downloaded, and the first is bert-tiny sized while the dimensions
++        // above are bert-base. This path has never been exercised at these dimensions.
++        //
++        // The input is filled deterministically for the same reason the seed is pinned: the gate
++        // compares this run's output against the baseline's, and an unset input would make that
++        // comparison meaningless. Values are kept small so that twelve layers of accumulation
++        // cannot wrap the 51-bit ring, which would make the observable depend on ring width
++        // rather than on the computation.
++        for (u64 i = 0; i < input.size(); ++i)
++        {
++            i64 v = (i64)((i * 2654435761ULL) % 2001) - 1000;
++            input.data[i] = (u64)((v * (i64)(1ULL << scale)) / 1000);
++        }
+     }
+ 
+     llama->initializeInferencePartyA(net.root);
+@@ -262,6 +295,15 @@
+     {
+         auto signedAct = Tensor<i64>((i64*) net.activation.data, net.activation.shape);
+         print(signedAct, scale, bw);
++
++        // THE GATE OBSERVABLE: the whole reconstructed output, as raw ring elements, printed
++        // exactly. Not an argmax: a label is one bit and would pass two runs whose values differed
++        // materially, which is what this gate exists to catch. Only the CLIENT reconstructs.
++        fprintf(stderr, "GATE|logits|n=%lu|", (unsigned long)net.activation.size());
++        for (u64 i = 0; i < net.activation.size(); ++i)
++            fprintf(stderr, "%ld%s", (long)((i64 *)net.activation.data)[i],
++                    i + 1 < net.activation.size() ? "," : "");
++        fprintf(stderr, "\n");
+     }
+     return 0;
+ }
+\ No newline at end of file
+
+--- CORRECTION 2026-08-04, recorded rather than smoothed over ---
+
+The divisor above was 1000000 until 2026-08-04 and produced a GATE THAT COULD NOT FAIL. At
+scale=12 a 1.0 is 4096, so (v*4096)/1000000 with v in [-1000,1000] gives inputs in [-4,4], i.e.
+numerically zero; the diagnostic run p_iotrace measured the reconstructed output as 98,304 EXACT
+ZEROS. Such an observable reproduces perfectly across runs, so the determinism check would have
+passed on it -- the same defect class SHARK's first gate had (`shark::span` returning mmap zeros)
+and the one SIGMA-GPU's patch already documents and corrects with den=1000 / den=28000.
+
+The weights were never affected: FC::_initScale randomizes them at xavier*(1<<scale) ~ 148.
+
+A GATE_NONZERO / GATE_DEGENERATE announcement was added at the same time, so that a degenerate
+observable is refused by the harness instead of passing quietly.

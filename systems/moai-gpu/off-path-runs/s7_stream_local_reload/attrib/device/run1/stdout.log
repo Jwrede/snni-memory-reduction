@@ -1,0 +1,29 @@
+single layer test
+Task: test one layer of BERT in CKKS scheme: 
+Read input, weights, bias from txt files. 
+Set encryption parameters and print
+/
+| Encryption parameters :
+|   scheme: CKKS
+|   poly_modulus_degree: 65536
+|   coeff_modulus size: 1743 (51 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 58) bits
+\
+Launching kernel with gridDim: 18432, blockDim: 128
+Generating secret key with hamming weight: 192
+preparing bootstrapping...
+Adding Bootstrapping Keys...
+Galois key generated from steps vector.
+MEM| keys_created | vram_used_MiB: 41244.9 | pool_used_MiB: 40498.1 | pool_reserved_MiB: 40576 | host_rss_MiB: 1826.57 | host_hwm_MiB: 1826.57 | ts_ms: 1787028876253 | (Free: 101903 MB, Total: 143148 MB)
+Generating Linear Transformation Coefficients...
+MEM| bootstrapping_prepared | vram_used_MiB: 41244.9 | pool_used_MiB: 40498.1 | pool_reserved_MiB: 40576 | host_rss_MiB: 2030.64 | host_hwm_MiB: 2030.64 | ts_ms: 1787028877833 | (Free: 101903 MB, Total: 143148 MB)
+Modulus chain index before attention block: 14
+MEM| before_attention | vram_used_MiB: 68222.9 | pool_used_MiB: 52018.1 | pool_reserved_MiB: 67552 | host_rss_MiB: 2037.01 | host_hwm_MiB: 2037.01 | ts_ms: 1787028884166 | (Free: 74925.2 MB, Total: 143148 MB)
+KEYFP|ct0|n=1966080|fnv=6677111189981983917
+MEM| inputs_prepared | vram_used_MiB: 68222.9 | pool_used_MiB: 52018.1 | pool_reserved_MiB: 67552 | host_rss_MiB: 2037.01 | host_hwm_MiB: 2037.01 | ts_ms: 1787028884170 | (Free: 74925.2 MB, Total: 143148 MB)
+Compute Q, K, V time = 15.2913. Compute QK^T time = 14.6654. Compute softmax time = 1.36192. Compute softmax*V time = 0.439798
+Compute Q, K, V time = 14.8995. Compute QK^T time = 14.57. Compute softmax time = 1.27731. Compute softmax*V time = 0.394401
+Compute Q, K, V time = 14.8783. Compute QK^T time = 14.6182. Compute softmax time = 1.24013. Compute softmax*V time = 0.392799
+Compute Q, K, V time = 15.0204. Compute QK^T time = 14.7051. Compute softmax time = 1.2354. Compute softmax*V time = 0.397402
+Compute Q, K, V time = 14.8454. Compute QK^T time = 14.5508. Compute softmax time = 1.27007. Compute softmax*V time = 0.390233
+Compute Q, K, V time = 14.914. Compute QK^T time = 14.5951. Compute softmax time = 1.24277. Compute softmax*V time = 0.391398
+Compute Q, K, V time = 14.8989. Compute QK^T time = 14.5901. Compute softmax time = 1.23392. Compute softmax*V time = 0.395498

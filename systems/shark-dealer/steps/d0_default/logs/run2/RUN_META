@@ -1,0 +1,17 @@
+step=d0_default
+run=2
+date_utc=2026-08-04T08:20:42Z
+machine=palma:zen2-128C-496G node=r13n06
+slurm_job_id=45770620
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+attrib_host=pmrec_pagemap
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/shark/sif/shark-s0_default.sif
+image_digest=014d0eddda1f627be7c72ad970d225ed965e1925dba8440a6fe362aff5974d0c
+lib_fingerprint=2a142d4904f6dc7933f5607fdad493eb
+omp_num_threads=16
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base n_embd=768 n_layer=12 n_seq=128 f=16 (SHARK_N_LAYERS=12 SHARK_SEQ_LEN=128)
+role=THE DEALER (party 2). The online parties still run, for the gate, and are NOT polled here
+freeze_leader_party=0

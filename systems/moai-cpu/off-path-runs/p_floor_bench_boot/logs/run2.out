@@ -1,0 +1,282 @@
+----------------------BATCH ENCODE ENCRYPT------------------
+Task: test batch input + encoding + encrypting in CKKS scheme: 
+Set encryption parameters and print
+/
+| Encryption parameters :
+|   scheme: CKKS
+|   poly_modulus_degree: 65536
+|   coeff_modulus size: 200 (60 + 40 + 40 + 60) bits
+\
+Number of matrices in one batch = 256
+Matrix X size = 128 * 768
+encode + encrypt time = 27.9092
+Modulus chain index for the result: 2
+Decrypt + decode result: 
+1-th ciphertext: 1 1 1 1 1 ... 128 128 128 128 128 
+2-th ciphertext: 1 1 1 1 1 ... 128 128 128 128 128 
+3-th ciphertext: 1 1 1 1 1 ... 128 128 128 128 128 
+4-th ciphertext: 1 1 1 1 1 ... 128 128 128 128 128 
+5-th ciphertext: 1 1 1 1 1 ... 128 128 128 128 128 
+......
+764-th ciphertext: 1 1 1 1 1 ... 128 128 128 128 128 
+765-th ciphertext: 1 1 1 1 1 ... 128 128 128 128 128 
+766-th ciphertext: 1 1 1 1 1 ... 128 128 128 128 128 
+767-th ciphertext: 1 1 1 1 1 ... 128 128 128 128 128 
+768-th ciphertext: 1 1 1 1 1 ... 128 128 128 128 128 
+
+----------------------CT-PT MATRIX MULTIPLICATION------------------
+Task: test Ct-Pt matrix multiplication in CKKS scheme: 
+Set encryption parameters and print
+/
+| Encryption parameters :
+|   scheme: CKKS
+|   poly_modulus_degree: 32768
+|   coeff_modulus size: 200 (60 + 40 + 40 + 60) bits
+\
+Number of matrices in one batch = 128
+Matrix X size = 128 * 768
+encode and encrypt X. 
+Modulus chain index for enc x: 2
+Matrix W size = 768 * 64
+Encrypted col-packing X * ecd W = Encrypted col-packing XW. 
+Ct-Pt matrix multiplication time = 53.2319
+Modulus chain index for the result: 1
+Decrypt + decode result: 
+1-th ciphertext: 6.00001 6.00001 6.00001 6.00001 6.00001 ... 768.001 768.001 768.001 768.001 768.001 
+2-th ciphertext: 6.00001 6.00001 6.00001 6.00001 6.00001 ... 768.001 768.001 768.001 768.001 768.001 
+3-th ciphertext: 6.00001 6.00001 6.00001 6.00001 6.00001 ... 768.001 768.001 768.001 768.001 768.001 
+4-th ciphertext: 6.00001 6.00001 6.00001 6.00001 6.00001 ... 768.001 768.001 768.001 768.001 768.001 
+5-th ciphertext: 6.00001 6.00001 6.00001 6.00001 6.00001 ... 768.001 768.001 768.001 768.001 768.001 
+......
+60-th ciphertext: 6.00001 6.00001 6.00001 6.00001 6.00001 ... 768.001 768.001 768.001 768.001 768.001 
+61-th ciphertext: 6.00001 6.00001 6.00001 6.00001 6.00001 ... 768.001 768.001 768.001 768.001 768.001 
+62-th ciphertext: 6.00001 6.00001 6.00001 6.00001 6.00001 ... 768.001 768.001 768.001 768.001 768.001 
+63-th ciphertext: 6.00001 6.00001 6.00001 6.00001 6.00001 ... 768.001 768.001 768.001 768.001 768.001 
+64-th ciphertext: 6.00001 6.00001 6.00001 6.00001 6.00001 ... 768.001 768.001 768.001 768.001 768.001 
+
+----------------------CT-CT MATRIX MULTIPLICATION------------------
+Task: test column packing Ct-Ct matrix multiplication in CKKS scheme: 
+Set encryption parameters and print
+/
+| Encryption parameters :
+|   scheme: CKKS
+|   poly_modulus_degree: 32768
+|   coeff_modulus size: 240 (60 + 40 + 40 + 40 + 60) bits
+\
+16384
+Number of matrices in one batch = 128
+Matrix X size = 128 * 64
+Modulus chain index for enc x: 3
+decrypt + decode result of 1-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 2-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 3-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 4-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 5-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 6-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 7-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 8-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 9-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 10-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 11-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 12-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 13-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 14-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 15-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 16-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 17-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 18-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 19-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 20-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 21-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 22-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 23-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 24-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 25-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 26-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 27-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 28-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 29-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 30-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 31-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 32-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 33-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 34-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 35-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 36-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 37-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 38-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 39-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 40-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 41-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 42-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 43-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 44-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 45-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 46-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 47-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 48-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 49-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 50-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 51-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 52-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 53-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 54-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 55-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 56-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 57-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 58-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 59-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 60-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 61-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 62-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 63-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+decrypt + decode result of 64-th ciphertext: 
+1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 
+Matrix W size = 128 * 64
+Modulus chain index for enc w: 3
+Encrypted col-packing X * (Encrypted col-packing W)^T = Encrypted diag-packing XW^T 
+column packing Ct-Ct matrix multiplication time = 307.45
+Modulus chain index for the result: 2
+Decrypt + decode result: 
+1-th ciphertext: 0.640001 0.640001 0.640001 0.640001 0.640001 ... 81.9201 81.9201 81.9201 81.9201 81.9201 
+2-th ciphertext: 1.28029 1.28 1.28001 1.28 1.28 ... 0.640001 0.640001 0.640001 0.640001 0.640001 
+3-th ciphertext: 1.91982 1.92004 1.91999 1.92 1.92 ... 1.28 1.28 1.28 1.28 1.28 
+4-th ciphertext: 2.55978 2.55994 2.56 2.56 2.56 ... 1.92 1.92 1.92 1.92 1.92 
+5-th ciphertext: 3.19978 3.19994 3.2 3.20001 3.2 ... 2.56 2.56 2.56 2.56 2.56 
+......
+124-th ciphertext: 79.3599 79.3601 79.3601 79.3601 79.3601 ... 78.7201 78.7201 78.7201 78.7201 78.7201 
+125-th ciphertext: 79.9999 80.0001 80.0001 80.0001 80.0001 ... 79.3601 79.3601 79.3601 79.3601 79.3601 
+126-th ciphertext: 80.6399 80.6401 80.6401 80.6401 80.6401 ... 80.0001 80.0001 80.0001 80.0001 80.0001 
+127-th ciphertext: 81.2801 81.2802 81.2801 81.2801 81.2801 ... 80.6401 80.6401 80.6401 80.6401 80.6401 
+128-th ciphertext: 81.92 81.9201 81.9201 81.9201 81.9201 ... 81.2801 81.2801 81.2801 81.2801 81.2801 
+
+Task: test diag-packing Ct-Ct matrix multiplication in CKKS scheme: 
+scale of encrypted w = 40, scale of encrypted xw^T = 40
+Modulus chain index for encrypted w: 2
+Modulus chain index for encrypted xw^T: 2
+Encrypted diag-packing XW^T * Encrypted col-packing W = Encrypted diag-packing (XW^T)W. 
+diag packing Ct-Ct matrix multiplication time = 46.6389
+Modulus chain index for the result: 1
+Decrypt + decode result: 
+1-th ciphertext: 4526.5 4526.52 4526.51 4526.51 4526.51 ... 4526.51 4526.51 4526.51 4526.51 4526.51 
+2-th ciphertext: 4526.5 4526.52 4526.51 4526.51 4526.51 ... 4526.51 4526.51 4526.51 4526.51 4526.51 
+3-th ciphertext: 4526.5 4526.52 4526.51 4526.51 4526.51 ... 4526.51 4526.51 4526.51 4526.51 4526.51 
+4-th ciphertext: 4526.5 4526.52 4526.51 4526.51 4526.51 ... 4526.51 4526.51 4526.51 4526.51 4526.51 
+5-th ciphertext: 4526.5 4526.52 4526.51 4526.51 4526.51 ... 4526.51 4526.51 4526.51 4526.51 4526.51 
+......
+60-th ciphertext: 4526.5 4526.52 4526.51 4526.51 4526.51 ... 4526.51 4526.51 4526.51 4526.51 4526.51 
+61-th ciphertext: 4526.5 4526.52 4526.51 4526.51 4526.51 ... 4526.51 4526.51 4526.51 4526.51 4526.51 
+62-th ciphertext: 4526.5 4526.52 4526.51 4526.51 4526.51 ... 4526.51 4526.51 4526.51 4526.51 4526.51 
+63-th ciphertext: 4526.5 4526.52 4526.51 4526.51 4526.51 ... 4526.51 4526.51 4526.51 4526.51 4526.51 
+64-th ciphertext: 4526.5 4526.52 4526.51 4526.51 4526.51 ... 4526.51 4526.51 4526.51 4526.51 4526.51 
+
+----------------------FULL SCHEME------------------
+Task: test BERT in CKKS scheme: 
+FLOOR_BOOT|begin|note=T=1 bootstrap-instant resident target; deltas are VmRSS
+FLOOR_BOOT|after_start|vmrss_kb=4786260|vmhwm_kb=4786260
+-0.386413 -0.0460502
+Set encryption parameters and print
+/
+| Encryption parameters :
+|   scheme: CKKS
+|   poly_modulus_degree: 65536
+|   coeff_modulus size: 1743 (51 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 46 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 51 + 58) bits
+\
+FLOOR_BOOT|ctx_pub|vmrss_kb=7608600|vmhwm_kb=7626872
+FLOOR_BOOT|boot_context|vmrss_kb=8991804|vmhwm_kb=8991804
+FLOOR_BOOT|stage_keys|count=15
+FLOOR_BOOT|boot_after_stage|vmrss_kb=28345496|vmhwm_kb=28345496
+FLOOR_BOOT|chunk|count=128|limbs=32
+FLOOR_BOOT|boot_after_chunk|vmrss_kb=32699108|vmhwm_kb=32699108
+FLOOR_BOOT|thread_ws|count=13|limbs=35+12x32
+FLOOR_BOOT|boot_instant|vmrss_kb=33164012|vmhwm_kb=33164012
+FLOOR_BOOT_SUMMARY|ctx_pub_kb=7608600|relin_kb=1383204|keys15_kb=19353692|chunk_kb=4353612|thread_kb=464904|instant_kb=33164012|target_kb=25555412
+FLOOR_BOOT|boot_after_keyswitch|vmrss_kb=33180400|vmhwm_kb=33180400
+FLOOR_BOOT|keyswitch_step_kb=16388
+
+	Command being timed: "podman exec -w /root/moai/build -e SNNI_FLOOR_BOOT=1 -e OMP_NUM_THREADS=1 moai-floor-boot /root/moai/build/test"
+	User time (seconds): 0.46
+	System time (seconds): 0.60
+	Percent of CPU this job got: 0%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 9:00.31
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 40948
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 3865
+	Voluntary context switches: 29313
+	Involuntary context switches: 21
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 424
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

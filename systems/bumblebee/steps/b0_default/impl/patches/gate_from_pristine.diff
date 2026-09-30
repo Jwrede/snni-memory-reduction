@@ -1,0 +1,116 @@
+--- pristine/examples/cpp/bert_bench/op_bench.cc	2026-07-29 22:03:38.967476873 +0000
++++ stepped/examples/cpp/bert_bench/op_bench.cc	2026-07-29 23:15:30.274213095 +0000
+@@ -32,6 +32,7 @@
+ 
+ #include "libspu/kernel/hal/constants.h"
+ #include "libspu/kernel/hal/polymorphic.h"
++#include "libspu/kernel/hal/public_helper.h"
+ #include "libspu/kernel/hal/shape_ops.h"
+ #include "libspu/kernel/hal/type_cast.h"
+ 
+@@ -73,6 +74,39 @@
+     fflush(stderr);
+ }
+ 
++// --------------- Gate observable ---------------
++//
++// Writes a revealed tensor where the harness asked for it (BB_GATE_FILE), one value per line, and
++// prints a one-line checksum for every party.
++//
++// IT GOES TO ITS OWN FILE, NOT TO stderr, and that is not tidiness. brpc runs logging threads that
++// write to fd 2 throughout the run, and stderr is unbuffered, so 98304 fprintf calls are 98304
++// separate writes that another thread can splice a newline into. Measured on the first gate-check
++// run: the observable arrived split, and recovering it with `grep ... | head -1` returned 19834 of
++// 98304 values while every size and exit code looked entirely normal.
++static void emit_gate(spu::SPUContext* ctx, const spu::Value& secret, int rank,
++                      const char* tag, bool is_gate) {
++    auto pub = secret.isPublic() ? secret : hal::reveal(ctx, secret);
++    auto host = hal::dump_public_as<float>(ctx, pub);
++    double checksum = 0.0;
++    for (auto v : host) checksum += static_cast<double>(v);
++
++    if (is_gate && rank == 0) {
++        const char* gpath = getenv("BB_GATE_FILE");
++        FILE* gf = (gpath != nullptr) ? fopen(gpath, "w") : nullptr;
++        if (gf == nullptr) {
++            fprintf(stderr, "GATEFAIL|rank=0|no writable BB_GATE_FILE\n");
++        } else {
++            for (auto v : host) fprintf(gf, "%.9e\n", static_cast<double>(v));
++            fflush(gf);
++            fclose(gf);
++            fprintf(stderr, "GATE|%s|rank=0|n=%zu|file=%s\n", tag, host.size(), gpath);
++        }
++    }
++    fprintf(stderr, "GATESUM|%s|rank=%d|n=%zu|%.9e\n", tag, rank, host.size(), checksum);
++    fflush(stderr);
++}
++
+ // --------------- Random tensor creation ---------------
+ 
+ static std::vector<float> rand_floats(size_t n, unsigned seed = 42) {
+@@ -284,6 +318,16 @@
+ 
+     fprintf(stderr, "CONFIG|rank=%d|n_layers=%d|seq_len=%d|hidden=%d|heads=%d|max_concurrency=%d\n",
+             rank, n_layers, seq_len, hidden, n_heads, max_concurrency);
++
++    // SETUP MARKER, not a lever. Every plaintext this benchmark feeds the protocol comes from
++    // std::mt19937 with a seed fixed in the source (rand_floats/make_secret), so the INPUT side is
++    // reproducible by construction and the harness can prove that the binary it ran is the one
++    // that says so. Whether the PROTOCOL is reproducible is a separate question, answered by
++    // running the system twice unchanged and comparing GATE|logits| byte for byte; the secret
++    // shares and the OT/HE randomness are drawn inside SPU and yacl, not here.
++    //
++    // Fixed inputs exist so that the gate can exist. They are not a deployment configuration.
++    fprintf(stderr, "SEEDED|mt19937|weights=100..1200|input=9999|rank=%d\n", rank);
+     fflush(stderr);
+ 
+     // Create network link context (two separate processes via brpc)
+@@ -357,11 +401,37 @@
+                            layers[i].w_up, layers[i].b_up,
+                            layers[i].w_down, layers[i].b_down,
+                            layers[i].ln2_g, layers[i].ln2_b);
++
++            // THE GATE OBSERVABLE IS THE FIRST LAYER'S OUTPUT, and that is a measured decision
++            // rather than a convenient one. See emit_gate() and the MANIFEST: the 12-layer output
++            // of this benchmark is in fixed-point ring WRAPAROUND, so two unchanged runs of it
++            // disagree by O(1) even though the protocol error is ~1 ULP. Measured on this image:
++            //   N=1   two runs   1.668388728e+05 vs 1.668378700e+05   6.0e-6 relative
++            //   N=12  two runs  -1.248762345e+12 vs -3.709103419e+11  chaotic
++            // Layer 1 is the deepest point at which this benchmark's arithmetic is still
++            // numerically meaningful, so it is where a reduction can be checked against the
++            // baseline at all.
++            if (i == 0) {
++                emit_gate(ctx.get(), x, rank, "layer1", true);
++            }
+         }
+ 
+-        // Reveal output
++        // Reveal output. Kept because it is what the stock benchmark does and therefore part of
++        // the measured work, but its VALUE is evidence, not the gate: at 12 layers it is wrapped.
+         auto result = hal::reveal(ctx.get(), x);
+         mem(rank, "main", "after_output", -1);
++        emit_gate(ctx.get(), result, rank, "final", false);
++
++        // An exact, data-independent invariant beside the numeric one. The campaign's standing
++        // check is two mechanisms for one quantity: a change to the protocol's transcript shows up
++        // here byte-exactly even where the numeric gate has a tolerance.
++        // Written the way the library itself reads these fields (`conn->GetStats()->recv_bytes`
++        // in cheetah_dot.cc), so this does not depend on whether they are plain integers or atomics.
++        auto st = lctx->GetStats();
++        fprintf(stderr, "COMM|rank=%d|sent=%llu|recv=%llu\n", rank,
++                (unsigned long long)(st->sent_bytes),
++                (unsigned long long)(st->recv_bytes));
++        fflush(stderr);
+     }
+ 
+     return 0;
+--- pristine/examples/cpp/bert_bench/BUILD.bazel	2026-07-29 22:03:38.973477104 +0000
++++ stepped/examples/cpp/bert_bench/BUILD.bazel	2026-07-29 22:03:38.985477567 +0000
+@@ -11,6 +11,7 @@
+         "//libspu/mpc/cheetah:protocol",
+         "//libspu/kernel/hal:polymorphic",
+         "//libspu/kernel/hal:constants",
++        "//libspu/kernel/hal:public_helper",
+         "//libspu/kernel/hal:type_cast",
+         "//libspu/kernel/hal:shape_ops",
+         "//libspu/kernel/hal/intrinsic/nn:activation",

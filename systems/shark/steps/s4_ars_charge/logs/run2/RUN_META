@@ -1,0 +1,22 @@
+step=s4_ars_charge
+run=2
+date_utc=2026-09-29T23:02:28Z
+machine=palma:zen2-128C-496G node=r13n12
+slurm_job_id=47055165
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth_requested=1
+pm_depth_max=6
+pm_depth=1
+attrib_host=pmrec_pagemap
+attrib_device=off
+freeze_mode=maxparty
+recorder_ar=/scratch/tmp/j_wred02/snni_campaign/recorder_builds/c1-pregit-20260730 pmrec_md5=3201e19fb818a73cbaede55a7caaeafe pmsample_md5=34d563faf5444d77cd70cd3ef1e4de4d
+image=/scratch/tmp/j_wred02/snni_campaign/shark/sif/shark-s4_ars_charge.sif
+image_digest=79489299c76d58c0d21e223797cc31082bc238ea0f94dc53a7a05ff143f5b6af
+lib_fingerprint=d0bdb796f7f3512414b20220ffd44691
+omp_num_threads=16
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base n_embd=768 n_layer=12 n_seq=128 f=16 (SHARK_N_LAYERS=12 SHARK_SEQ_LEN=128)
+role=ONLINE parties 0 and 1 (server + client); the dealer runs first and is NOT measured
+freeze_leader_party=1

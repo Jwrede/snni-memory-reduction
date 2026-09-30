@@ -1,0 +1,43 @@
+=== SHAFT GPU default smoke test ===
+device=cuda layers=12 seq=128 threads=8
+CUDA_VISIBLE_DEVICES=0
+SNNI_ATTRIB|recording=on|mode=state
+SNNI_ATTRIB|rank=0|pid=3117169|empty,skipped
+torch 2.1.2 cuda_avail True name NVIDIA H200
+name, memory.total [MiB], memory.used [MiB]
+NVIDIA H200, 143771 MiB, 0 MiB
+--- exit code: 0 ---
+=== stdout ===
+comm byte: 10.46 GB, round: 1496
+TRANSCRIPT|party=0|bytes=11229212672|rounds=1496
+TRANSCRIPT|party=1|bytes=11229212672|rounds=1496
+Prediction: 0
+GATE|logits|4.2106628418e-01 -1.2277221680e-01
+Inference time: 11.27s
+Peak VRAM (party0): allocated=5394.6 MB, reserved=6808.0 MB
+=== GPU peak markers ===
+GPUINFO|party=0|device=cuda|name=NVIDIA H200|visible=0
+GPUINFO|party=1|device=cuda|name=NVIDIA H200|visible=0
+GPUPEAK|party=0|peak_alloc_kb=5524040|peak_reserved_kb=6971392
+GPUPEAK|party=1|peak_alloc_kb=5524040|peak_reserved_kb=6971392
+=== any FATAL/Traceback ===
+graphop_markers_gpu: Graph.forward instrumented (cuda=True)
+embed_chunk_gpu: Embedding.forward chunked (chunks=1, cuda=True)
+graphop_markers_gpu: Graph.forward instrumented (cuda=True)
+embed_chunk_gpu: Embedding.forward chunked (chunks=1, cuda=True)
+graphop_markers_gpu: Graph.forward instrumented (cuda=True)
+embed_chunk_gpu: Embedding.forward chunked (chunks=1, cuda=True)
+GPUINFO|party=0|device=cuda|name=NVIDIA H200|visible=0
+GPUINFO|party=1|device=cuda|name=NVIDIA H200|visible=0
+CONFIG|party=0|n_layers=12|seq_len=128|model=andeskyl/bert-base-cased-sst2|device=cuda
+CONFIG|party=1|n_layers=12|seq_len=128|model=andeskyl/bert-base-cased-sst2|device=cuda
+/opt/conda/lib/python3.10/site-packages/torch/onnx/utils.py:1686: UserWarning: The exported ONNX model failed ONNX shape inference. The model will not be executable by the ONNX Runtime. If this is unintended and you believe there is a bug, please report an issue at https://github.com/pytorch/pytorch/issues. Error reported by strict ONNX shape inference: [ShapeInferenceError] (op_type:Dropout, node name: /bert/embeddings/dropout/Dropout): training_mode typestr: T2, has unsupported type: tensor(int64) (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/jit/serialization/export.cpp:1415.)
+/opt/conda/lib/python3.10/site-packages/torch/onnx/utils.py:1686: UserWarning: The exported ONNX model failed ONNX shape inference. The model will not be executable by the ONNX Runtime. If this is unintended and you believe there is a bug, please report an issue at https://github.com/pytorch/pytorch/issues. Error reported by strict ONNX shape inference: [ShapeInferenceError] (op_type:Dropout, node name: /bert/embeddings/dropout/Dropout): training_mode typestr: T2, has unsupported type: tensor(int64) (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/jit/serialization/export.cpp:1415.)
+MEM|0|-1|main|after_model_cuda|3188816|1790712781697|3371680
+GPU|0|-1|main|after_model_cuda|846486|884736|1790712781697
+/root/shaft/crypten/mpc/provider/tfp_provider.py:62: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+MEM|1|-1|main|after_model_cuda|2318392|1790712783196|2872184
+GPU|1|-1|main|after_model_cuda|846486|884736|1790712783196
+/root/shaft/crypten/mpc/provider/tfp_provider.py:62: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+/root/shaft/crypten/mpc/provider/tfp_provider.py:29: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+/root/shaft/crypten/mpc/provider/tfp_provider.py:29: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)

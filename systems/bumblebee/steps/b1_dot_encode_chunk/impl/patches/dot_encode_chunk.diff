@@ -1,0 +1,388 @@
+--- a/libspu/mpc/cheetah/arith/matmat_prot.h
++++ b/libspu/mpc/cheetah/arith/matmat_prot.h
+@@ -59,6 +59,54 @@
+   void EncodeRHS(const NdArrayRef& rhs_mat, const Meta& meta, bool need_encrypt,
+                  absl::Span<RLWEPt> out) const;
+ 
++  // ---------------------------------------------------------------------------
++  // SLICED ENCODE AND COMPUTE (campaign step b1_dot_encode_chunk).
++  //
++  // The unsliced EncodeLHS/EncodeRHS materialise the WHOLE encoded plaintext
++  // side of a matmul before the first multiplication reads any of it. For
++  // BERT-base's FFN up-projection at these parameters that is 12 x 3072 =
++  // 36,864 plaintexts of 8192 x 3 x 8 B = 7.25 GB, and it is the largest object
++  // in the measured baseline's peak.
++  //
++  // Nothing about the protocol requires them to coexist. `DoCompute` already
++  // walks the encoded side one OUTER block at a time -- rows of the row-major
++  // LHS, columns of the column-major RHS -- and each output entry accumulates
++  // over the INNER index only. So the encoded side can be produced one slice of
++  // outer blocks at a time and discarded after its slice is consumed.
++  //
++  // The arithmetic is unchanged, not merely equivalent: each out[i,k] still
++  // accumulates over j in ascending order, and slicing only reorders
++  // INDEPENDENT accumulators. The result is bit-identical, and no protocol
++  // randomness is involved -- encoding is deterministic arithmetic on values
++  // the party already holds. The transcript is untouched: this changes when a
++  // plaintext is built, not what is sent.
++  //
++  // A slice is a contiguous window of `out` in both layouts, because the outer
++  // block index is in both cases the one that strides by the inner count.
++  int64_t GetOuterBlocks(const Meta& meta, bool for_lhs) const;
++  int64_t GetInnerBlocks(const Meta& meta) const;
++
++  void EncodeLHSSlice(const NdArrayRef& lhs_mat, const Meta& meta,
++                      bool need_encrypt, int64_t outer_bgn, int64_t outer_end,
++                      absl::Span<RLWEPt> out) const;
++
++  void EncodeRHSSlice(const NdArrayRef& rhs_mat, const Meta& meta,
++                      bool need_encrypt, int64_t outer_bgn, int64_t outer_end,
++                      absl::Span<RLWEPt> out) const;
++
++  // Accumulate into out_mat the contribution of the given slice. The caller
++  // releases out_mat once, before the first slice: releasing per slice would
++  // discard the previous slices' accumulation.
++  void ComputeLHSSlice(absl::Span<const RLWEPt> lhs_slice,
++                       absl::Span<const RLWECt> rhs_mat, const Meta& meta,
++                       int64_t outer_bgn, int64_t outer_end,
++                       absl::Span<RLWECt> out_mat) const;
++
++  void ComputeRHSSlice(absl::Span<const RLWECt> lhs_mat,
++                       absl::Span<const RLWEPt> rhs_slice, const Meta& meta,
++                       int64_t outer_bgn, int64_t outer_end,
++                       absl::Span<RLWECt> out_mat) const;
++
+   bool IsValidMeta(const Meta& meta) const;
+ 
+   // Parse the polynomails into matmul result without any packing
+@@ -132,6 +180,14 @@
+                     bool need_encrypt, LayoutType layout,
+                     absl::Span<RLWEPt> out) const;
+ 
++  // EncodeMatrix restricted to outer blocks [outer_bgn, outer_end). `out` is
++  // the slice, indexed from zero, not the full array.
++  template <typename Indexer>
++  void EncodeMatrixSlice(const NdArrayRef& mat, const Meta& meta, int pivot,
++                         bool need_encrypt, LayoutType layout,
++                         int64_t outer_bgn, int64_t outer_end,
++                         absl::Span<RLWEPt> out) const;
++
+   int64_t poly_deg_{0};
+   bool disable_pack_ = false;
+   seal::SEALContext context_;
+--- a/libspu/mpc/cheetah/arith/matmat_prot.cc
++++ b/libspu/mpc/cheetah/arith/matmat_prot.cc
+@@ -283,6 +283,97 @@
+   });
+ }
+ 
++// ---------------------------------------------------------------------------
++// Sliced encode (campaign step b1_dot_encode_chunk). See matmat_prot.h.
++
++int64_t MatMatProtocol::GetInnerBlocks(const Meta& meta) const {
++  auto subshape = GetSubMatShape(meta);
++  return CeilDiv(meta.dims[1], subshape[1]);
++}
++
++int64_t MatMatProtocol::GetOuterBlocks(const Meta& meta, bool for_lhs) const {
++  auto subshape = GetSubMatShape(meta);
++  // The LHS is stored row-major and its outer index is the row block (dim 0);
++  // the RHS is stored column-major and its outer index is the column block
++  // (dim 2). Those are exactly the indices DoCompute carries in its outer loop.
++  const int d = for_lhs ? 0 : 2;
++  return CeilDiv(meta.dims[d], subshape[d]);
++}
++
++template <typename Indexer>
++void MatMatProtocol::EncodeMatrixSlice(const NdArrayRef& mat, const Meta& meta,
++                                       int pivot, bool need_encrypt,
++                                       LayoutType layout, int64_t outer_bgn,
++                                       int64_t outer_end,
++                                       absl::Span<RLWEPt> out) const {
++  const int R = pivot;
++  const int C = pivot + 1;
++  auto subshape = GetSubMatShape(meta);
++  int64_t num_row_blocks = CeilDiv(meta.dims[R], subshape[R]);
++  int64_t num_col_blocks = CeilDiv(meta.dims[C], subshape[C]);
++
++  // row_major: poly_idx = rblk * num_col_blocks + cblk, so the outer index is
++  // rblk. col_major: poly_idx = cblk * num_row_blocks + rblk, so it is cblk.
++  // Either way poly_idx = outer * num_inner + inner, which is what makes a
++  // slice of outer blocks a contiguous window and lets `out` be indexed from
++  // zero here.
++  const bool outer_is_row = (layout == LayoutType::row_major);
++  const int64_t num_outer = outer_is_row ? num_row_blocks : num_col_blocks;
++  const int64_t num_inner = outer_is_row ? num_col_blocks : num_row_blocks;
++  SPU_ENFORCE(outer_bgn >= 0 && outer_bgn <= outer_end &&
++              outer_end <= num_outer);
++  SPU_ENFORCE_EQ(static_cast<int64_t>(out.size()),
++                 (outer_end - outer_bgn) * num_inner);
++
++  Shape2D mat_shape = {meta.dims[R], meta.dims[C]};
++  Shape2D submat_shape = {subshape[R], subshape[C]};
++
++  Indexer indexer(subshape, poly_deg_);
++  const int64_t num_jobs = (outer_end - outer_bgn) * num_inner;
++
++  yacl::parallel_for(0, num_jobs, [&](int64_t job_bgn, int64_t job_end) {
++    std::array<int64_t, 2> extents;
++    for (int64_t job_id = job_bgn; job_id < job_end; ++job_id) {
++      const int64_t outer = outer_bgn + job_id / num_inner;
++      const int64_t inner = job_id % num_inner;
++      const int64_t rblk = outer_is_row ? outer : inner;
++      const int64_t cblk = outer_is_row ? inner : outer;
++
++      int64_t row_start = rblk * subshape[R];
++      int64_t row_end = std::min(meta.dims[R], row_start + subshape[R]);
++      extents[0] = row_end - row_start;
++
++      int64_t col_start = cblk * subshape[C];
++      int64_t col_end = std::min(meta.dims[C], col_start + subshape[C]);
++      extents[1] = col_end - col_start;
++
++      auto flatten =
++          ConcatSubMatrix<Indexer>(mat, mat_shape, {row_start, col_start},
++                                   extents, submat_shape, poly_deg_, indexer);
++
++      vencoder_->Forward(flatten, &out[job_id], need_encrypt);
++    }
++  });
++}
++
++void MatMatProtocol::EncodeLHSSlice(const NdArrayRef& mat, const Meta& meta,
++                                    bool need_encrypt, int64_t outer_bgn,
++                                    int64_t outer_end,
++                                    absl::Span<RLWEPt> out) const {
++  EncodeMatrixSlice<LHSIndexer>(mat, meta, /*pivot*/ 0, need_encrypt,
++                                LayoutType::row_major, outer_bgn, outer_end,
++                                out);
++}
++
++void MatMatProtocol::EncodeRHSSlice(const NdArrayRef& mat, const Meta& meta,
++                                    bool need_encrypt, int64_t outer_bgn,
++                                    int64_t outer_end,
++                                    absl::Span<RLWEPt> out) const {
++  EncodeMatrixSlice<RHSIndexer>(mat, meta, /*pivot*/ 1, need_encrypt,
++                                LayoutType::col_major, outer_bgn, outer_end,
++                                out);
++}
++
+ template <>
+ void MatMatProtocol::FusedMulAddInplace(RLWECt& acc, const RLWECt& lhs,
+                                         const RLWEPt& rhs) const {
+@@ -730,4 +821,84 @@
+   DoCompute<RLWEPt, RLWECt, RLWECt>(lhs_mat, rhs_mat, meta, out_mat);
+ }
+ 
++// ---------------------------------------------------------------------------
++// Sliced compute (campaign step b1_dot_encode_chunk). See matmat_prot.h.
++//
++// Each of these is the corresponding branch of DoCompute with its outer loop
++// restricted to [outer_bgn, outer_end) and the sliced side indexed relative to
++// outer_bgn. The inner accumulation over j is untouched and still ascending, so
++// every out[i,k] receives exactly the same terms in exactly the same order as
++// the unsliced code. Slicing reorders whole accumulators, never the summands
++// inside one, which is why the result is bit-identical rather than merely
++// numerically close.
++//
++// out_mat is NOT released here. DoCompute's callers release it once before
++// accumulating; a release per slice would throw away the previous slices.
++
++void MatMatProtocol::ComputeRHSSlice(absl::Span<const RLWECt> lhs_mat,
++                                     absl::Span<const RLWEPt> rhs_slice,
++                                     const Meta& meta, int64_t outer_bgn,
++                                     int64_t outer_end,
++                                     absl::Span<RLWECt> out_mat) const {
++  auto subshape = GetSubMatShape(meta);
++  SPU_ENFORCE_EQ(lhs_mat.size(), GetLeftSize(meta, subshape));
++  SPU_ENFORCE_EQ(out_mat.size(), GetOutSize(meta, subshape));
++
++  Shape3D nb;
++  for (int d : {0, 1, 2}) {
++    nb[d] = CeilDiv(meta.dims[d], subshape[d]);
++  }
++  SPU_ENFORCE(outer_bgn >= 0 && outer_bgn <= outer_end && outer_end <= nb[2]);
++  SPU_ENFORCE_EQ(static_cast<int64_t>(rhs_slice.size()),
++                 (outer_end - outer_bgn) * nb[1]);
++
++  yacl::parallel_for(outer_bgn, outer_end, [&](int64_t bgn, int64_t end) {
++    for (int64_t k = bgn; k < end; ++k) {
++      // RHS is stored column-major, and this slice starts at outer_bgn.
++      auto rhs_col = rhs_slice.data() + (k - outer_bgn) * nb[1];
++      for (int64_t i = 0; i < nb[0]; ++i) {
++        auto lhs_row = lhs_mat.data() + i * nb[1];
++        auto out_row = out_mat.data() + i * nb[2];
++        for (int64_t j = 0; j < nb[1]; ++j) {
++          FusedMulAddInplace<RLWECt, RLWECt, RLWEPt>(out_row[k], lhs_row[j],
++                                                     rhs_col[j]);
++        }
++      }
++    }
++  });
++}
++
++void MatMatProtocol::ComputeLHSSlice(absl::Span<const RLWEPt> lhs_slice,
++                                     absl::Span<const RLWECt> rhs_mat,
++                                     const Meta& meta, int64_t outer_bgn,
++                                     int64_t outer_end,
++                                     absl::Span<RLWECt> out_mat) const {
++  auto subshape = GetSubMatShape(meta);
++  SPU_ENFORCE_EQ(rhs_mat.size(), GetRightSize(meta, subshape));
++  SPU_ENFORCE_EQ(out_mat.size(), GetOutSize(meta, subshape));
++
++  Shape3D nb;
++  for (int d : {0, 1, 2}) {
++    nb[d] = CeilDiv(meta.dims[d], subshape[d]);
++  }
++  SPU_ENFORCE(outer_bgn >= 0 && outer_bgn <= outer_end && outer_end <= nb[0]);
++  SPU_ENFORCE_EQ(static_cast<int64_t>(lhs_slice.size()),
++                 (outer_end - outer_bgn) * nb[1]);
++
++  yacl::parallel_for(outer_bgn, outer_end, [&](int64_t bgn, int64_t end) {
++    for (int64_t i = bgn; i < end; ++i) {
++      // LHS is stored row-major, and this slice starts at outer_bgn.
++      auto lhs_row = lhs_slice.data() + (i - outer_bgn) * nb[1];
++      auto out_row = out_mat.data() + i * nb[2];
++      for (int64_t k = 0; k < nb[2]; ++k) {
++        auto rhs_col = rhs_mat.data() + k * nb[1];
++        for (int64_t j = 0; j < nb[1]; ++j) {
++          FusedMulAddInplace<RLWECt, RLWEPt, RLWECt>(out_row[k], lhs_row[j],
++                                                     rhs_col[j]);
++        }
++      }
++    }
++  });
++}
++
+ }  // namespace spu::mpc::cheetah
+--- a/libspu/mpc/cheetah/arith/cheetah_dot.cc
++++ b/libspu/mpc/cheetah/arith/cheetah_dot.cc
+@@ -13,9 +13,11 @@
+ // limitations under the License.
+ #include "libspu/mpc/cheetah/arith/cheetah_dot.h"
+ 
++#include <algorithm>
+ #include <future>
+ #include <unordered_map>
+ #include <utility>
++#include <vector>
+ 
+ #include "absl/types/span.h"
+ #include "seal/batchencoder.h"
+@@ -348,26 +350,99 @@
+     }
+   });
+ 
+-  // 2. encode the matrix for multiplication
+-  std::vector<RLWEPt> plain_mat(is_self_lhs ? lhs_n : rhs_n);
+-  if (is_self_lhs) {
+-    matmat_prot.EncodeLHS(prv_mat, meta, false, absl::MakeSpan(plain_mat));
+-  } else {
+-    matmat_prot.EncodeRHS(prv_mat, meta, false, absl::MakeSpan(plain_mat));
+-  }
++  // 2+3. ENCODE AND MULTIPLY ONE SLICE AT A TIME (campaign step
++  // b1_dot_encode_chunk).
++  //
++  // The stock code sizes `plain_mat` at the WHOLE encoded side and fills it
++  // before the first multiplication reads any of it. That array is the largest
++  // object in this system's measured baseline: for BERT-base's FFN
++  // up-projection the encoded side is 12 x 3072 = 36,864 plaintexts of
++  // 8192 x 3 x 8 B = 7.25 GB, and because SEAL's memory pool retains what it
++  // hands out, the whole run's resident peak ratchets up to it.
++  //
++  // Nothing needs them to coexist. Each output block accumulates over the INNER
++  // block index only, so an outer slice of the encoded side can be built, used
++  // and dropped before the next is built. This is a change to WHEN a plaintext
++  // exists, not to what is computed or to what is sent: same terms, same order
++  // per accumulator, same transcript, bit-identical result.
++  //
++  // THE SLICE IS SIZED IN BYTES, NOT IN BLOCKS. The encoded side's shape varies
++  // by more than two orders of magnitude across the operators of one layer
++  // (12 polynomials for a QK^T, 36,864 for an FFN up-projection), so a fixed
++  // block count would be most of the peak on one and pointless overhead on
++  // another. The budget below is the resident plaintext bytes a slice may hold;
++  // the block count follows from the polynomial size of the ring in use.
++  //
++  // 256 MiB: comfortably above the largest single INNER stripe this workload
++  // produces, so no operator is forced below one slice and the parallel_for
++  // inside a slice keeps thousands of jobs for 16 threads, and far below the
++  // 7.25 GB it replaces.
++  const int64_t kSliceBudgetBytes = 256L << 20;
++
++  const bool slice_lhs = is_self_lhs;
++  const int64_t num_outer = matmat_prot.GetOuterBlocks(meta, slice_lhs);
++  const int64_t num_inner = matmat_prot.GetInnerBlocks(meta);
++  SPU_ENFORCE_EQ(static_cast<int64_t>(is_self_lhs ? lhs_n : rhs_n),
++                 num_outer * num_inner);
++
++  // One encoded polynomial is poly_degree x (RNS primes at the ENCODE level) x
++  // 8 B. Taken from the context rather than assumed, because the two rings this
++  // campaign can run (FM64 and FM32) differ in both factors.
++  const int64_t poly_bytes = [&]() {
++    auto cdata = this_context.first_context_data();
++    return static_cast<int64_t>(cdata->parms().poly_modulus_degree()) *
++           static_cast<int64_t>(cdata->parms().coeff_modulus().size()) *
++           static_cast<int64_t>(sizeof(uint64_t));
++  }();
++
++  int64_t outer_per_slice = kSliceBudgetBytes / (num_inner * poly_bytes);
++  outer_per_slice = std::max<int64_t>(1, std::min(outer_per_slice, num_outer));
++
++  // The output accumulators are released ONCE, here, and not per slice: the
++  // slices accumulate into them.
++  for (auto &ct : result_cts) {
++    ct.release();
++  }
++
++  // The receive of the peer's ciphertexts overlapped the stock encode of the
++  // whole side. It cannot overlap a slice loop that consumes those very
++  // ciphertexts, so it is awaited first. What is lost is the overlap with the
++  // SMALLER side's transfer (12 ciphertexts for the FFN case), not with the
++  // encode work itself, which is unchanged in total.
++  io_task.get();
+ 
+-  yacl::parallel_for(0, plain_mat.size(), [&](size_t bgn, size_t end) {
+-    for (size_t i = bgn; i < end; ++i) {
+-      NttInplace(plain_mat[i], this_context);
++  std::vector<RLWEPt> plain_slice;
++  for (int64_t obgn = 0; obgn < num_outer; obgn += outer_per_slice) {
++    const int64_t oend = std::min(num_outer, obgn + outer_per_slice);
++    plain_slice.resize((oend - obgn) * num_inner);
++
++    if (slice_lhs) {
++      matmat_prot.EncodeLHSSlice(prv_mat, meta, false, obgn, oend,
++                                 absl::MakeSpan(plain_slice));
++    } else {
++      matmat_prot.EncodeRHSSlice(prv_mat, meta, false, obgn, oend,
++                                 absl::MakeSpan(plain_slice));
+     }
+-  });
+-  io_task.get();
+ 
+-  // 3. HE multiplications
+-  if (is_self_lhs) {
+-    matmat_prot.Compute(plain_mat, enc_mat, meta, result_cts);
+-  } else {
+-    matmat_prot.Compute(enc_mat, plain_mat, meta, result_cts);
++    yacl::parallel_for(0, plain_slice.size(), [&](size_t bgn, size_t end) {
++      for (size_t i = bgn; i < end; ++i) {
++        NttInplace(plain_slice[i], this_context);
++      }
++    });
++
++    if (slice_lhs) {
++      matmat_prot.ComputeLHSSlice(plain_slice, enc_mat, meta, obgn, oend,
++                                  result_cts);
++    } else {
++      matmat_prot.ComputeRHSSlice(enc_mat, plain_slice, meta, obgn, oend,
++                                  result_cts);
++    }
++
++    // Hand the slice's plaintexts back before building the next one. `resize`
++    // alone would keep the capacity, and a seal::Plaintext keeps its pool
++    // allocation until it is destroyed, so the whole point of slicing would be
++    // lost to the vector's own growth policy.
++    std::vector<RLWEPt>().swap(plain_slice);
+   }
+ }
+ 

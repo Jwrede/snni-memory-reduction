@@ -1,0 +1,17 @@
+step=s1_batch_check_stream
+run=2
+date_utc=2026-08-03T23:37:21Z
+machine=palma:zen2-128C-496G node=r13n01
+slurm_job_id=45756006
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+attrib_host=pmrec_pagemap
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/shark/sif/shark-s1_batch_check_stream.sif
+image_digest=3948f585bb855a05c2f63cbfc762c1dffc9b9c2c597676eb961460758c13592d
+lib_fingerprint=2a142d4904f6dc7933f5607fdad493eb
+omp_num_threads=16
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base n_embd=768 n_layer=12 n_seq=128 f=16 (SHARK_N_LAYERS=12 SHARK_SEQ_LEN=128)
+role=ONLINE parties 0 and 1 (server + client); the dealer runs first and is NOT measured
+freeze_leader_party=0

@@ -1,0 +1,199 @@
+SNNI_PMREC|depth_requested=5|depth_effective=5|clamped=0
+SNNI_PMREC|depth_requested=5|depth_effective=5|clamped=0
+CONFIG|rank=0|n_layers=12|seq_len=128|hidden=768|heads=12|max_concurrency=16
+SEEDED|mt19937|weights=100..1200|input=7777|rank=0
+I0930 11:13:54.996500 4002550     0 external/com_github_brpc_brpc/src/brpc/server.cpp:1181] Server[yacl::link::transport::internal::ReceiverServiceImpl] is serving on port=9530.
+W0930 11:13:54.996676 4002550     0 external/com_github_brpc_brpc/src/brpc/server.cpp:1187] Builtin services are disabled according to ServerOptions.has_builtin_services
+I0930 11:13:54.999469 4002572 4294977024 external/com_github_brpc_brpc/src/butil/iobuf_profiler.cpp:67] g_iobuf_profiler_sample_rate=100
+I0930 11:13:55.104518 4002568 4294977280 external/com_github_brpc_brpc/src/brpc/socket.cpp:2578] Checking Socket{id=0 addr=127.0.0.1:9531} (0x5567580d2300)
+I0930 11:13:58.105247 4002569 4294977281 external/com_github_brpc_brpc/src/brpc/socket.cpp:2638] Revived Socket{id=0 addr=127.0.0.1:9531} (0x5567580d2300) (Connectable)
+MEM|0|-1|main|after_init|49624|1790759639072
+MEM|0|-1|main|after_model_input|837520|1790759642429
+MEM|0|-1|main|after_embedding|837524|1790759642433
+# Layer 1/12 (rank 0)
+MEM|0|0|layer|begin|837524|1790759642433
+E0930 11:14:08.939617 4002598 12884919167 external/com_github_brpc_brpc/src/bthread/task_group_inl.h:91] _rq is full, capacity=4096
+MEM|0|0|mha|begin|4190788|1790759653723
+MEM|0|0|mha|after_qkv_linear|10459096|1790759658425
+MEM|0|0|mha|after_qk_matmul|10459136|1790759658531
+MEM|0|0|mha|after_softmax|11593604|1790759661775
+MEM|0|0|mha|after_av_matmul|11593604|1790759662008
+MEM|0|0|mha|after_all_heads|11612296|1790759679021
+MEM|0|0|mha|after_proj_linear|11612972|1790759680259
+MEM|0|0|layer|after_mha_residual|11612972|1790759680260
+MEM|0|0|ffn|begin|11617920|1790759682935
+MEM|0|0|ffn|after_up_linear|13697968|1790759686853
+MEM|0|0|ffn|after_gelu|15283164|1790759690015
+MEM|0|0|ffn|after_down_linear|15316956|1790759691897
+MEM|0|0|layer|after_ffn_residual|15316956|1790759691898
+GATE|layer1|rank=0|n=98304|file=/scratch/tmp/j_wred02/snni_campaign/bumblebee/results/p_input2_b0/run3/gate.txt
+GATESUM|layer1|rank=0|n=98304|1.003729492e+03
+# Layer 2/12 (rank 0)
+MEM|0|1|layer|begin|15317020|1790759691933
+MEM|0|1|mha|begin|15318828|1790759694290
+MEM|0|1|mha|after_qkv_linear|15320328|1790759696669
+MEM|0|1|mha|after_qk_matmul|15320328|1790759696776
+MEM|0|1|mha|after_softmax|15320580|1790759698077
+MEM|0|1|mha|after_av_matmul|15320580|1790759698172
+MEM|0|1|mha|after_all_heads|15321428|1790759712970
+MEM|0|1|mha|after_proj_linear|15321492|1790759713892
+MEM|0|1|layer|after_mha_residual|15321492|1790759713893
+MEM|0|1|ffn|begin|15322240|1790759716458
+MEM|0|1|ffn|after_up_linear|15323732|1790759719727
+MEM|0|1|ffn|after_gelu|15368916|1790759721607
+MEM|0|1|ffn|after_down_linear|15375496|1790759723942
+MEM|0|1|layer|after_ffn_residual|15375496|1790759723943
+# Layer 3/12 (rank 0)
+MEM|0|2|layer|begin|15375496|1790759723943
+MEM|0|2|mha|begin|15375688|1790759726408
+MEM|0|2|mha|after_qkv_linear|15375688|1790759728662
+MEM|0|2|mha|after_qk_matmul|15375688|1790759728773
+MEM|0|2|mha|after_softmax|15375944|1790759730070
+MEM|0|2|mha|after_av_matmul|15375944|1790759730162
+MEM|0|2|mha|after_all_heads|15376052|1790759743857
+MEM|0|2|mha|after_proj_linear|15376052|1790759744710
+MEM|0|2|layer|after_mha_residual|15376052|1790759744711
+MEM|0|2|ffn|begin|15376428|1790759747050
+MEM|0|2|ffn|after_up_linear|15378280|1790759749790
+MEM|0|2|ffn|after_gelu|15307376|1790759751942
+MEM|0|2|ffn|after_down_linear|15307956|1790759753862
+MEM|0|2|layer|after_ffn_residual|15307956|1790759753863
+# Layer 4/12 (rank 0)
+MEM|0|3|layer|begin|15307956|1790759753863
+MEM|0|3|mha|begin|15308348|1790759755949
+MEM|0|3|mha|after_qkv_linear|15308412|1790759758008
+MEM|0|3|mha|after_qk_matmul|15308412|1790759758117
+MEM|0|3|mha|after_softmax|15308412|1790759758919
+MEM|0|3|mha|after_av_matmul|15308412|1790759759016
+MEM|0|3|mha|after_all_heads|15308824|1790759771111
+MEM|0|3|mha|after_proj_linear|15308824|1790759771930
+MEM|0|3|layer|after_mha_residual|15308824|1790759771931
+MEM|0|3|ffn|begin|15308856|1790759774045
+MEM|0|3|ffn|after_up_linear|15308984|1790759776751
+MEM|0|3|ffn|after_gelu|15384568|1790759778042
+MEM|0|3|ffn|after_down_linear|15384692|1790759779969
+MEM|0|3|layer|after_ffn_residual|15384692|1790759779970
+# Layer 5/12 (rank 0)
+MEM|0|4|layer|begin|15384692|1790759779970
+MEM|0|4|mha|begin|15384692|1790759782077
+MEM|0|4|mha|after_qkv_linear|15384696|1790759784065
+MEM|0|4|mha|after_qk_matmul|15384696|1790759784173
+MEM|0|4|mha|after_softmax|15384764|1790759784982
+MEM|0|4|mha|after_av_matmul|15384764|1790759785072
+MEM|0|4|mha|after_all_heads|15384932|1790759797129
+MEM|0|4|mha|after_proj_linear|15384932|1790759797937
+MEM|0|4|layer|after_mha_residual|15384932|1790759797938
+MEM|0|4|ffn|begin|15384932|1790759800048
+MEM|0|4|ffn|after_up_linear|15384932|1790759802685
+MEM|0|4|ffn|after_gelu|15400484|1790759803479
+MEM|0|4|ffn|after_down_linear|15400772|1790759805336
+MEM|0|4|layer|after_ffn_residual|15400772|1790759805337
+# Layer 6/12 (rank 0)
+MEM|0|5|layer|begin|15400772|1790759805337
+MEM|0|5|mha|begin|15401128|1790759807448
+MEM|0|5|mha|after_qkv_linear|15401128|1790759809461
+MEM|0|5|mha|after_qk_matmul|15401128|1790759809564
+MEM|0|5|mha|after_softmax|15401128|1790759810903
+MEM|0|5|mha|after_av_matmul|15401128|1790759810993
+MEM|0|5|mha|after_all_heads|15401128|1790759824900
+MEM|0|5|mha|after_proj_linear|15401128|1790759825742
+MEM|0|5|layer|after_mha_residual|15401128|1790759825743
+MEM|0|5|ffn|begin|15401128|1790759827849
+MEM|0|5|ffn|after_up_linear|15401128|1790759830441
+MEM|0|5|ffn|after_gelu|15403412|1790759831208
+MEM|0|5|ffn|after_down_linear|15403412|1790759833086
+MEM|0|5|layer|after_ffn_residual|15403412|1790759833086
+# Layer 7/12 (rank 0)
+MEM|0|6|layer|begin|15403412|1790759833087
+MEM|0|6|mha|begin|15403412|1790759835201
+MEM|0|6|mha|after_qkv_linear|15403472|1790759837378
+MEM|0|6|mha|after_qk_matmul|15403472|1790759837492
+MEM|0|6|mha|after_softmax|15403472|1790759838290
+MEM|0|6|mha|after_av_matmul|15403472|1790759838383
+MEM|0|6|mha|after_all_heads|15403740|1790759850551
+MEM|0|6|mha|after_proj_linear|15403740|1790759851360
+MEM|0|6|layer|after_mha_residual|15403740|1790759851361
+MEM|0|6|ffn|begin|15403740|1790759853449
+MEM|0|6|ffn|after_up_linear|15403864|1790759856067
+MEM|0|6|ffn|after_gelu|15282228|1790759858691
+MEM|0|6|ffn|after_down_linear|15286832|1790759860567
+MEM|0|6|layer|after_ffn_residual|15286832|1790759860567
+# Layer 8/12 (rank 0)
+MEM|0|7|layer|begin|15286832|1790759860568
+MEM|0|7|mha|begin|15286836|1790759862693
+MEM|0|7|mha|after_qkv_linear|15286836|1790759864750
+MEM|0|7|mha|after_qk_matmul|15286836|1790759864862
+MEM|0|7|mha|after_softmax|15286836|1790759865662
+MEM|0|7|mha|after_av_matmul|15286836|1790759865755
+MEM|0|7|mha|after_all_heads|15293960|1790759878583
+MEM|0|7|mha|after_proj_linear|15293960|1790759879405
+MEM|0|7|layer|after_mha_residual|15293960|1790759879406
+MEM|0|7|ffn|begin|15294100|1790759881493
+MEM|0|7|ffn|after_up_linear|15294100|1790759884130
+MEM|0|7|ffn|after_gelu|15408668|1790759886343
+MEM|0|7|ffn|after_down_linear|15408668|1790759888229
+MEM|0|7|layer|after_ffn_residual|15408668|1790759888230
+# Layer 9/12 (rank 0)
+MEM|0|8|layer|begin|15408668|1790759888230
+MEM|0|8|mha|begin|15408968|1790759890359
+MEM|0|8|mha|after_qkv_linear|15408968|1790759892377
+MEM|0|8|mha|after_qk_matmul|15408968|1790759892490
+MEM|0|8|mha|after_softmax|15408968|1790759893283
+MEM|0|8|mha|after_av_matmul|15408968|1790759893373
+MEM|0|8|mha|after_all_heads|15409164|1790759906029
+MEM|0|8|mha|after_proj_linear|15409164|1790759906877
+MEM|0|8|layer|after_mha_residual|15409164|1790759906878
+MEM|0|8|ffn|begin|15409356|1790759908949
+MEM|0|8|ffn|after_up_linear|15409356|1790759911551
+MEM|0|8|ffn|after_gelu|15411320|1790759912316
+MEM|0|8|ffn|after_down_linear|15411572|1790759914172
+MEM|0|8|layer|after_ffn_residual|15411572|1790759914172
+# Layer 10/12 (rank 0)
+MEM|0|9|layer|begin|15411572|1790759914172
+MEM|0|9|mha|begin|15411632|1790759916294
+MEM|0|9|mha|after_qkv_linear|15411632|1790759918390
+MEM|0|9|mha|after_qk_matmul|15411632|1790759918499
+MEM|0|9|mha|after_softmax|15411632|1790759919826
+MEM|0|9|mha|after_av_matmul|15411632|1790759919918
+MEM|0|9|mha|after_all_heads|15411632|1790759931500
+MEM|0|9|mha|after_proj_linear|15411632|1790759932348
+MEM|0|9|layer|after_mha_residual|15411632|1790759932349
+MEM|0|9|ffn|begin|15411632|1790759934445
+MEM|0|9|ffn|after_up_linear|15411632|1790759937043
+MEM|0|9|ffn|after_gelu|15413340|1790759937828
+MEM|0|9|ffn|after_down_linear|15413340|1790759939704
+MEM|0|9|layer|after_ffn_residual|15413340|1790759939704
+# Layer 11/12 (rank 0)
+MEM|0|10|layer|begin|15413340|1790759939704
+MEM|0|10|mha|begin|15413528|1790759941825
+MEM|0|10|mha|after_qkv_linear|15413528|1790759943812
+MEM|0|10|mha|after_qk_matmul|15413528|1790759943923
+MEM|0|10|mha|after_softmax|15413528|1790759944731
+MEM|0|10|mha|after_av_matmul|15413528|1790759944823
+MEM|0|10|mha|after_all_heads|15413528|1790759958661
+MEM|0|10|mha|after_proj_linear|15413528|1790759959481
+MEM|0|10|layer|after_mha_residual|15413528|1790759959482
+MEM|0|10|ffn|begin|15413528|1790759962144
+MEM|0|10|ffn|after_up_linear|15413528|1790759964767
+MEM|0|10|ffn|after_gelu|15349868|1790759966255
+MEM|0|10|ffn|after_down_linear|15349868|1790759968140
+MEM|0|10|layer|after_ffn_residual|15349868|1790759968140
+# Layer 12/12 (rank 0)
+MEM|0|11|layer|begin|15349868|1790759968140
+MEM|0|11|mha|begin|15349868|1790759970271
+MEM|0|11|mha|after_qkv_linear|15349868|1790759972362
+MEM|0|11|mha|after_qk_matmul|15349868|1790759972470
+MEM|0|11|mha|after_softmax|15349868|1790759973271
+MEM|0|11|mha|after_av_matmul|15349868|1790759973363
+MEM|0|11|mha|after_all_heads|15350052|1790759986016
+MEM|0|11|mha|after_proj_linear|15350052|1790759986824
+MEM|0|11|layer|after_mha_residual|15350052|1790759986825
+MEM|0|11|ffn|begin|15350052|1790759988928
+MEM|0|11|ffn|after_up_linear|15350068|1790759991546
+MEM|0|11|ffn|after_gelu|15415320|1790759992356
+MEM|0|11|ffn|after_down_linear|15415320|1790759994176
+MEM|0|11|layer|after_ffn_residual|15415320|1790759994177
+MEM|0|-1|main|after_output|15415320|1790759994183
+GATESUM|final|rank=0|n=98304|-4.623200333e+03
+COMM|rank=0|sent=3744716986|recv=2942104286
+I0930 11:19:54.215822 4002550     0 external/com_github_brpc_brpc/src/brpc/server.cpp:1241] Server[yacl::link::transport::internal::ReceiverServiceImpl] is going to quit

@@ -1,0 +1,131 @@
+--- a/include/shark/utils/comm.hpp	2026-07-30 00:27:30.371282262 +0000
++++ b/include/shark/utils/comm.hpp	2026-07-30 00:27:46.521916845 +0000
+@@ -3,6 +3,7 @@
+ #include <cstdint>
+ #include <fstream>
+ #include <string>
++#include <vector>
+ 
+ #include <shark/types/u128.hpp>
+ #include <shark/types/span.hpp>
+@@ -41,6 +42,17 @@
+     {
+     public:
+         std::fstream file;
++        /* s1 lever, read path only: an 8 MiB stream buffer.
++
++           The streaming reload is served by libstdc++'s default filebuf buffer, which is BUFSIZ
++           (8 KiB). Every key sub-array is a few hundred bytes, so consuming a ~56 GB preprocessing
++           file that way costs about 6.8 million read() syscalls, and that -- not the bytes -- is
++           what made the unbuffered reload cost +26.9% of program time (measured, jobs
++           45509849-51). One 8 MiB buffer turns it into about 7,000 reads.
++
++           It is 8 MiB of resident memory against a 2.9 GB peak, and it changes no byte read and no
++           order in which bytes are read. */
++        std::vector<char> _iobuf;
+ 
+         FileBuf(std::string filename, FileMode f)
+         {
+@@ -49,7 +61,13 @@
+             if (f == F_WR_ONLY)
+                 this->file.open(filename, std::ios::out | std::ios::binary);
+             else
++            {
++                /* pubsetbuf must precede open for libstdc++'s basic_filebuf. */
++                this->_iobuf.resize(8ull << 20);
++                this->file.rdbuf()->pubsetbuf(this->_iobuf.data(),
++                                              (std::streamsize)this->_iobuf.size());
+                 this->file.open(filename, std::ios::in | std::ios::binary);
++            }
+         }
+ 
+         void read(char *buf, u64 bytes)
+--- a/src/protocols/lrs.cpp	2026-07-30 08:57:18.275981666 +0000
++++ b/src/protocols/lrs.cpp	2026-07-30 08:58:14.130140880 +0000
+@@ -9,7 +9,7 @@
+     {
+         namespace lrs
+         {
+-            void gen(const shark::span<u64> &X, shark::span<u64> &Y, int f)
++            static void gen_chunk(const shark::span<u64> &X, shark::span<u64> &Y, int f)
+             {
+                 always_assert(X.size() == Y.size());
+                 randomize(Y);
+@@ -41,7 +41,7 @@
+                 send_authenticated_ashare(T);
+             }
+ 
+-            void eval(const shark::span<u64> &X, shark::span<u64> &Y, int f)
++            static void eval_chunk(const shark::span<u64> &X, shark::span<u64> &Y, int f)
+             {
+                 always_assert(X.size() == Y.size());
+ 
+@@ -82,19 +82,60 @@
+                     Y_tag[i] = ring_key * (X[i] >> f) + T_tag[i * 4 + idx];
+                 }
+ 
+-                Y = authenticated_reconstruct(Y_share, Y_tag);
+-
++                /* WRITE THROUGH Y, do not move-assign over it. Under charging, Y is an
++                   UNMANAGED view into the caller's output buffer, and `Y = <rvalue span>` would
++                   rebind the view to a fresh buffer and deliver nothing to the caller -- a silent
++                   wrong answer rather than an error. Copying costs one pass over at most 98,304
++                   u64 per charge. */
++                auto Yr = authenticated_reconstruct(Y_share, Y_tag);
++                for (u64 i = 0; i < Yr.size(); ++i)
++                {
++                    Y[i] = Yr[i];
++                }
+             }
+ 
++            /* s4_ars_chunk: evaluate a truncation in fixed-size charges.
++
++               A truncation is ELEMENTWISE, but `lrs` materialises every element's FSS key material
++               before touching any of it: `recv_dcfbit(X.size(), 64)` and `recv_dcfbit(X.size(), f)`
++               allocate one key per element up front, at 1616 B and 491 B of sub-arrays each. For
++               the two 128x3072 truncations of a BERT-base layer that is 393,216 keys, about 828 MB
++               of sub-arrays BELOW the campaign's 64 KiB recorder floor plus 75.5 MB of
++               `span<DCFBitKey>` above it -- together 78% of the peak this step was chosen from.
++
++               Charging it in blocks bounds that working set by the block size instead of by the
++               operand width. Nothing else changes: the same keys are generated, consumed and
++               applied to the same elements in the same order, and the arithmetic is per element, so
++               the result is bit-identical.
++
++               THE DEALER IS CHARGED BY THE SAME LOOP, which is what keeps the key file aligned. The
++               charge boundary decides the ORDER in which key material is written and read, so the
++               generator and both evaluators have to agree on it; they do, because this is one
++               function and all three parties run it.
++
++               98,304 is 128 x 768, the output width of a 768-wide linear at sequence length 128,
++               and the granularity this system's protocol target is derived at. Operations at or
++               below it -- every truncation outside the FFN -- run in a single charge exactly as
++               before, so their stream layout is untouched. */
++            static const u64 LRS_CHARGE = 98304;
++
+             void call(const shark::span<u64> &X, shark::span<u64> &Y, int f)
+             {
+-                if (party == DEALER)
+-                {
+-                    gen(X, Y, f);
+-                }
+-                else
++                always_assert(X.size() == Y.size());
++                u64 n = X.size();
++                for (u64 off = 0; off < n; off += LRS_CHARGE)
+                 {
+-                    eval(X, Y, f);
++                    u64 m = (n - off < LRS_CHARGE) ? (n - off) : LRS_CHARGE;
++                    shark::span<u64> Xc(X.data() + off, m);
++                    shark::span<u64> Yc(Y.data() + off, m);
++                    if (party == DEALER)
++                    {
++                        gen_chunk(Xc, Yc, f);
++                    }
++                    else
++                    {
++                        eval_chunk(Xc, Yc, f);
++                    }
+                 }
+             }
+ 

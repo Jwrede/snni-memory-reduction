@@ -1,0 +1,51 @@
+f3c6addf7a1a3fc0ba15de54e314c2e875b8b5d9b65458d16e7dca13db2f56f6
+Saved working directory and index state WIP on ndss: 47c5560 update param
+?? examples/cpp/
+47c5560d069543591f3b0176eb530ede28e33fc3
+libspu/mpc/cheetah/ot/yacl/yacl_ote_adapter.h:111:  yc::LpnParam pre_lpn_param_{470016, 32768, 918,
+libspu/mpc/cheetah/ot/yacl/yacl_ote_adapter.h:114:  yc::LpnParam lpn_param_{10485760, 452000, 1280,
+libspu/mpc/cheetah/arith/cheetah_mul.cc:64:  static constexpr size_t kPolyDegree = 8192;
+Starting local Bazel server and connecting to it...
+Loading: 
+DEBUG: /root/.cache/bazel/_bazel_root/71cb36138a10c9dda331e9568cff105e/external/xla/third_party/repo.bzl:132:14: 
+Warning: skipping import of repository 'llvm-raw' because it already exists.
+DEBUG: /root/.cache/bazel/_bazel_root/71cb36138a10c9dda331e9568cff105e/external/tsl/third_party/repo.bzl:132:14: 
+Warning: skipping import of repository 'com_google_absl' because it already exists.
+DEBUG: /root/.cache/bazel/_bazel_root/71cb36138a10c9dda331e9568cff105e/external/tsl/third_party/repo.bzl:132:14: 
+Warning: skipping import of repository 'pybind11_bazel' because it already exists.
+DEBUG: /root/.cache/bazel/_bazel_root/71cb36138a10c9dda331e9568cff105e/external/tsl/third_party/repo.bzl:132:14: 
+Warning: skipping import of repository 'com_google_protobuf' because it already exists.
+DEBUG: /root/.cache/bazel/_bazel_root/71cb36138a10c9dda331e9568cff105e/external/tsl/third_party/repo.bzl:132:14: 
+Warning: skipping import of repository 'com_google_googletest' because it already exists.
+DEBUG: /root/.cache/bazel/_bazel_root/71cb36138a10c9dda331e9568cff105e/external/tsl/third_party/repo.bzl:132:14: 
+Warning: skipping import of repository 'com_github_gflags_gflags' because it already exists.
+DEBUG: /root/.cache/bazel/_bazel_root/71cb36138a10c9dda331e9568cff105e/external/tsl/third_party/repo.bzl:132:14: 
+Warning: skipping import of repository 'com_github_grpc_grpc' because it already exists.
+DEBUG: /root/.cache/bazel/_bazel_root/71cb36138a10c9dda331e9568cff105e/external/tsl/third_party/repo.bzl:132:14: 
+Warning: skipping import of repository 'zlib' because it already exists.
+DEBUG: /root/.cache/bazel/_bazel_root/71cb36138a10c9dda331e9568cff105e/external/tsl/third_party/repo.bzl:132:14: 
+Warning: skipping import of repository 'nvtx_archive' because it already exists.
+DEBUG: /root/.cache/bazel/_bazel_root/71cb36138a10c9dda331e9568cff105e/external/tsl/third_party/repo.bzl:132:14: 
+Warning: skipping import of repository 'pybind11' because it already exists.
+DEBUG: /root/.cache/bazel/_bazel_root/71cb36138a10c9dda331e9568cff105e/external/tsl/third_party/repo.bzl:132:14: 
+Warning: skipping import of repository 'upb' because it already exists.
+DEBUG: /root/.cache/bazel/_bazel_root/71cb36138a10c9dda331e9568cff105e/external/xla/third_party/repo.bzl:132:14: 
+Warning: skipping import of repository 'jsoncpp_git' because it already exists.
+Loading: 
+Loading: 
+Loading: 1 packages loaded
+Analyzing: target //examples/cpp/floor_bench:floor_bench (2 packages loaded, 0 targets configured)
+Analyzing: target //examples/cpp/floor_bench:floor_bench (119 packages loaded, 4608 targets configured)
+Analyzing: target //examples/cpp/floor_bench:floor_bench (128 packages loaded, 11090 targets configured)
+INFO: Analyzed target //examples/cpp/floor_bench:floor_bench (129 packages loaded, 11648 targets configured).
+INFO: Found 1 target...
+[6 / 954] [Prepa] BazelWorkspaceStatusAction stable-status.txt ... (3 actions, 0 running)
+[1,220 / 1,222] Compiling examples/cpp/floor_bench/floor_bench.cc; 0s processwrapper-sandbox
+[1,221 / 1,222] [Prepa] Linking examples/cpp/floor_bench/floor_bench
+Target //examples/cpp/floor_bench:floor_bench up-to-date:
+  bazel-bin/examples/cpp/floor_bench/floor_bench
+INFO: Elapsed time: 16.343s, Critical Path: 10.79s
+INFO: 6 processes: 4 internal, 2 processwrapper-sandbox.
+INFO: Build completed successfully, 6 total actions
+BUILD rc=0
+ff6ec153ebf0a1c866b725f67efc9169  /home/j_wred02/bench/bb_floor_bench/floor_bench.bin

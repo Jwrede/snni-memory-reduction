@@ -1,0 +1,26 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m24x_x_stream_matmul.sif
+
+# MOAI-CPU m25x_boot_chunk_64 (2026-09-24): the m24x_x_stream_matmul line PLUS one lever (patch_boot_chunk_64.py). predicted peak after X streaming: the bootstrap plateau (~49-51 GiB with the threshold; m24r), where the chunk temporaries are the largest reducible object; halving the chunk measured -4 GiB per bootstrap on the m23r base (m24t).
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_boot_chunk_64.py /opt/patch_boot_chunk_64.py
+
+%post
+    set -e
+    python3 /opt/patch_boot_chunk_64.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in phase_split chunked_bootstrap boot_input_spill pool_threshold_256k "boot_chunk_64"; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m25x_boot_chunk_64
+    snni.base m24x_x_stream_matmul

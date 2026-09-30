@@ -1,0 +1,47 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m1_pool_threshold.sif
+
+# MOAI-CPU m1_pool_tiling: port the moai_waterfall/palma_campaign ct_ct diagpacking (scoped
+# MemoryPoolThresholdMT rotation pool + CT_CT_TILE_SIZE=16 tiling + malloc_trim) onto m1. PROBE,
+# parallel to the m1-m5 memory line, does NOT touch that line. diagpacking active ops are
+# byte-identical to ours (verified op-for-op), colpacking untouched, so the gate stays bitwise m0.
+# Tests whether pool+tiling on the rotation-heavy path recovers the per-step runtime churn; peak
+# expected neutral-to-lower (palma measured it so). Threads via the plain omp pragma (our
+# OMP_NUM_THREADS), NOT palma's 48-thread override.
+#
+# ONE EDIT (patch_pool_tiling_matmul.py, self-validating). Project rebuild only; SEAL (threshold pool
+# default) inherited from the base.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_pool_tiling_matmul.py /opt/patch_pool_tiling_matmul.py
+
+%post
+    set -e
+    python3 /opt/patch_pool_tiling_matmul.py /root/moai
+
+    cd /root/moai
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+
+    strings -a /root/moai/build/test | grep -q 'SEEDED|seal_prng|' \
+        || { echo "FAILED: no SEAL seed marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'WORKLOAD|model=bert-base' \
+        || { echo "FAILED: no workload marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|pool_threshold' \
+        || { echo "FAILED: the inherited pool_threshold lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|pool_tiling_matmul' \
+        || { echo "FAILED: the pool_tiling_matmul lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'POOLREC|profile_installed' \
+        || { echo "FAILED: the recording pool is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|minimal_att_keys' \
+        && { echo "FAILED: m1_pool_tiling must NOT carry minimal_att_keys"; exit 4; }
+
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m1_pool_tiling
+    snni.base m1_pool_threshold

@@ -1,0 +1,41 @@
+=== SHAFT GPU default smoke test ===
+device=cuda layers=12 seq=128 threads=8
+CUDA_VISIBLE_DEVICES=0
+SNNI_ATTRIB|recording=on|mode=state
+SNNI_ATTRIB|rank=0|pid=2395480|empty,skipped
+torch 2.1.2 cuda_avail True name NVIDIA H200 MIG 2g.35gb
+name, memory.total [MiB], memory.used [MiB]
+NVIDIA H200, 143771 MiB, 676 MiB
+--- exit code: 0 ---
+=== stdout ===
+comm byte: 10.46 GB, round: 1496
+Prediction: 0
+GATE|logits|1.9624328613e-01 1.0293579102e-01
+Inference time: 13.37s
+Peak VRAM (party0): allocated=1879.3 MB, reserved=2350.0 MB
+=== GPU peak markers ===
+GPUINFO|party=1|device=cuda|name=NVIDIA H200 MIG 2g.35gb|visible=0
+GPUINFO|party=0|device=cuda|name=NVIDIA H200 MIG 2g.35gb|visible=0
+GPUPEAK|party=0|peak_alloc_kb=1924403|peak_reserved_kb=2406400
+GPUPEAK|party=1|peak_alloc_kb=1924403|peak_reserved_kb=2406400
+=== any FATAL/Traceback ===
+graphop_markers_gpu: Graph.forward instrumented (cuda=True)
+embed_chunk_gpu: Embedding.forward chunked (chunks=1, cuda=True)
+matmul_limb_loop_gpu: patched CUDALongTensor matmul (nb=4, bks=16)
+graphop_markers_gpu: Graph.forward instrumented (cuda=True)
+embed_chunk_gpu: Embedding.forward chunked (chunks=1, cuda=True)
+matmul_limb_loop_gpu: patched CUDALongTensor matmul (nb=4, bks=16)
+graphop_markers_gpu: Graph.forward instrumented (cuda=True)
+embed_chunk_gpu: Embedding.forward chunked (chunks=1, cuda=True)
+matmul_limb_loop_gpu: patched CUDALongTensor matmul (nb=4, bks=16)
+GPUINFO|party=1|device=cuda|name=NVIDIA H200 MIG 2g.35gb|visible=0
+CONFIG|party=1|n_layers=12|seq_len=128|model=andeskyl/bert-base-cased-sst2|device=cuda
+GPUINFO|party=0|device=cuda|name=NVIDIA H200 MIG 2g.35gb|visible=0
+CONFIG|party=0|n_layers=12|seq_len=128|model=andeskyl/bert-base-cased-sst2|device=cuda
+/opt/conda/lib/python3.10/site-packages/torch/onnx/utils.py:1686: UserWarning: The exported ONNX model failed ONNX shape inference. The model will not be executable by the ONNX Runtime. If this is unintended and you believe there is a bug, please report an issue at https://github.com/pytorch/pytorch/issues. Error reported by strict ONNX shape inference: [ShapeInferenceError] (op_type:Dropout, node name: /bert/embeddings/dropout/Dropout): training_mode typestr: T2, has unsupported type: tensor(int64) (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/jit/serialization/export.cpp:1415.)
+/opt/conda/lib/python3.10/site-packages/torch/onnx/utils.py:1686: UserWarning: The exported ONNX model failed ONNX shape inference. The model will not be executable by the ONNX Runtime. If this is unintended and you believe there is a bug, please report an issue at https://github.com/pytorch/pytorch/issues. Error reported by strict ONNX shape inference: [ShapeInferenceError] (op_type:Dropout, node name: /bert/embeddings/dropout/Dropout): training_mode typestr: T2, has unsupported type: tensor(int64) (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/jit/serialization/export.cpp:1415.)
+MEM|0|-1|main|after_model_cuda|1714444|1785493401069
+GPU|0|-1|main|after_model_cuda|846486|884736|1785493401069
+/root/shaft/crypten/mpc/provider/tfp_provider.py:62: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+MEM|1|-1|main|after_model_cuda|1772880|1785493401956
+GPU|1|-1|main|after_model_cuda|846486|884736|1785493401956

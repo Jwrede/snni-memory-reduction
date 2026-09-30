@@ -1,0 +1,14 @@
+census taken at 1790585994401 136865344 (ts rss_kb)
+records by kind: {0: 1, 1: 3544317, 3: 202, 4: 49, 5: 383, 6: 1, 7: 4, 8: 243, 9: 22, 10: 1, 12: 1, 13: 1, 16: 3698, 17: 270225}
+270225 sampled objects, 3698 distinct allocation buckets
+wrote 270225 sampled objects, 139052768808 bytes
+unsampled objects NOT enumerated (pass --with-unsampled for a second pass); join_residency.py will report their pages as unaccounted rather than as 'unsampled'
+JOIN|objects=270225|joined_bytes=139052768808|anon_present=140316938240|runtime_retained=1264169432
+   90498.95 MB  github.com/tuneinsight/lattigo/v6/core/rlwe.NewElement
+   43147.34 MB  github.com/tuneinsight/lattigo/v6/ring/ringqp.Ring.NewPoly
+    1674.05 MB  github.com/tuneinsight/lattigo/v6/schemes/ckks.newEvaluatorBuffers
+    1655.18 MB  github.com/tuneinsight/lattigo/v6/utils/structs.Matrix[go.shape.uint64].CopyNew
+    1264.17 MB  go:runtime_retained
+     677.38 MB  github.com/tuneinsight/lattigo/v6/ring.(*BasisExtender).ShallowCopy
+     595.07 MB  github.com/tuneinsight/lattigo/v6/core/rlwe.NewEvaluatorBuffers
+     328.73 MB  github.com/tuneinsight/lattigo/v6/core/rlwe.(*Element[go.shape.struct { Coeffs github.com/tuneinsight/lattigo/v6/utils/structs.Matrix[uint64] }]).Resize

@@ -1,0 +1,105 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+# BumbleBee step p_input2_b4. OpenBumbleBee pinned at 47c5560d069543591f3b0176eb530ede28e33fc3.
+#
+# /opt, not /tmp: apptainer bind-mounts the host /tmp over the container's during %post, so a file
+# staged into /tmp by %files is invisible to the very section that consumes it.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/bumblebee/build/p_input2_b4/tree /opt/overlay
+
+%post
+    set -e
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get install -y gcc-11 g++-11 libasan6 git wget curl unzip autoconf make \
+        lld-15 cmake ninja-build nasm procps binutils python3 python3-dev python3-pip
+    apt-get clean
+    ln -sf /usr/bin/python3 /usr/bin/python
+    pip3 install --no-cache-dir numpy
+    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 100
+    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 100
+    update-alternatives --install /usr/bin/ld.lld ld.lld /usr/bin/ld.lld-15 100
+
+    wget -qO /usr/bin/bazel \
+        https://github.com/bazelbuild/bazelisk/releases/download/v1.20.0/bazelisk-linux-amd64
+    chmod +x /usr/bin/bazel
+
+    cd /root
+    git clone https://github.com/AntCPLab/OpenBumbleBee.git
+    cd OpenBumbleBee
+    git checkout 47c5560d069543591f3b0176eb530ede28e33fc3
+
+    # THE STEP'S OWN SOURCE. Paths in the overlay mirror the tree, so this is the whole of what
+    # makes this step different from its parent.
+    test -d /opt/overlay
+    cp -rv /opt/overlay/. /root/OpenBumbleBee/
+    rm -rf /opt/overlay
+
+    # -g, full debug info, and NOT -g1. This was measured rather than assumed: a first build used
+    # -g1 on the argument that line tables are all a symboliser reads, and the resulting baseline
+    # named its dominant 6.5 GB object
+    #     int128.cc:?:base_of_encoded_value(unsigned char, _Unwind_Context*) [clone .cold]
+    # which is a libgcc unwinder symbol with no line, i.e. nearest-symbol garbage, for an address
+    # that lies in this very binary. That is exactly the failure README.md describes: without
+    # real debug info a symboliser returns chains that read like call stacks and are not.
+    # Debug sections are not resident, so this costs image size and nothing else.
+    # --strip=never so that the linker keeps what the compiler emitted.
+    # LINK libstdc++ DYNAMICALLY, overriding SPU's own .bazelrc, and this is a measurement
+    # requirement rather than a preference. SPU sets
+    #     build:linux --action_env=BAZEL_LINKOPTS=-static-libstdc++:-static-libgcc
+    #     build:linux --action_env=BAZEL_LINKLIBS=-l%:libstdc++.a:-l%:libgcc.a
+    # so  is DEFINED INSIDE the binary and every C++ allocation is bound to it at link
+    # time. LD_PRELOAD cannot interpose on that, so the campaign's recorder never sees the call
+    # sites: it catches the malloc inside the internal operator new instead, one frame too deep and
+    # at the SAME address for every allocation in the program.
+    #
+    # Measured, before this override: 6.10 GB of a 6.66 GB attributed total sat on one site that
+    # resolves to  with 161 allocations. That is not an object, it is
+    # "every C++ allocation", and it cannot be a step target any more than an  entry can.
+    # It is the exact failure README.md records ("C++ hides call sites behind operator new ...
+    # 956 allocations collapsed onto one site"), reached by a different route: static linkage rather
+    # than a malloc wrapper.
+    #
+    #  and not an empty BAZEL_LINKLIBS: empty removes the C++ runtime from the link
+    # line altogether and the link fails on std::cerr, __cxa_end_catch and friends. This is bazel's
+    # own unix default, i.e. dynamic linkage.
+    #
+    # Dynamic linkage changes where libstdc++'s text lives, not what the protocol allocates.
+    bazel build -c opt --copt=-g --strip=never \
+        --action_env=BAZEL_LINKOPTS= --action_env=BAZEL_LINKLIBS=-lstdc++:-lm \
+        --disk_cache=/mnt/cache --repository_cache=/mnt/repo \
+        --jobs=12 --local_ram_resources=HOST_RAM*.7 \
+        //examples/cpp/bert_bench:op_bench
+
+    mkdir -p /opt/bumblebee
+    cp -L bazel-bin/examples/cpp/bert_bench/op_bench /opt/bumblebee/op_bench
+    chmod +x /opt/bumblebee/op_bench
+    # Keep the source that produced the binary IN the image, so a check of what this step ran does
+    # not depend on any file outside it.
+    mkdir -p /opt/bumblebee/src
+    cp -r /root/OpenBumbleBee/examples/cpp/bert_bench /opt/bumblebee/src/
+    cp -r /root/OpenBumbleBee/libspu/mpc/cheetah /opt/bumblebee/src/cheetah
+
+    bazel shutdown || true
+    # The bazel OUTPUT BASE is scratch, not artifact: it is tens of GB of intermediate objects, and
+    # every step image would otherwise carry a copy. The reusable part of it is already in the
+    # bind-mounted disk cache, which lives outside the image.
+    # THE CLEANUP MUST NOT BE ABLE TO FAIL THE BUILD. It once did, and it cost a 15-minute job
+    # whose compile and link had already SUCCEEDED: bazel's foreign_cc rules leave openssl's copied
+    # outputs read-only,  under fakeroot reports "Permission denied" on them, and 
+    # then aborts %post after the binary was already in place. Make the tree writable first and
+    # swallow the result: nothing here produces the artifact, it only makes it smaller.
+    chmod -R u+w /root/.cache/bazel 2>/dev/null || true
+    rm -rf /root/.cache/bazel /root/OpenBumbleBee/bazel-* /root/.cache/bazelisk 2>/dev/null || true
+    rm -rf /root/OpenBumbleBee/.git 2>/dev/null || true
+    rm -rf /var/lib/apt/lists/* 2>/dev/null || true
+    # The one thing in this section that IS load-bearing: the binary has to exist.
+    test -x /opt/bumblebee/op_bench
+
+%labels
+    campaign snni-memory-reduction
+    system bumblebee
+    step p_input2_b4
+    upstream OpenBumbleBee@47c5560d069543591f3b0176eb530ede28e33fc3

@@ -1,0 +1,29 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m12_enc_X_v_shrink.sif
+
+# MOAI-CPU m13_park_att_keys: the m12_enc_X_v_shrink line PLUS one lever (patch_park_att_keys.py). Built FROM the m12_enc_X_v_shrink sif;
+# only moai is rebuilt. gal_keys (17.2 GB, read only by the attention block) parked on disk between attention blocks. PAID (I/O, seconds).
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_park_att_keys.py /opt/patch_park_att_keys.py
+
+%post
+    set -e
+    python3 /opt/patch_park_att_keys.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in phase_split chunked_bootstrap ct_capacity_shrink "FFN time" park_att_keys; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    strings -a build/test | grep -q "logn + 1" \
+        && { echo "FAILED: logn + 1 still in binary (full_3 fix not applied)" >&2; exit 1; } || true
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m13_park_att_keys
+    snni.base m12_enc_X_v_shrink

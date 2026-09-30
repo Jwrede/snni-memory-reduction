@@ -1,0 +1,17 @@
+69332cd2c4af6add70878e938330297f  /root/shark/build/benchmark-bert_instrumented
+=== phase 1: dealer (party 2), NOT measured ===
+dealer rc=0  wall=312s
+server.dat 56416290832
+client.dat 55736936464
+=== phase 2: server (0) + client (1), MEASURED ===
+=== party0 rc=0  party1 rc=0  online wall=100s ===
+GATEQ|party=0|n=98304|nonzero=98304|differing_from_first=98303
+GATEQ|party=1|n=98304|nonzero=98304|differing_from_first=98303
+LEVER|s3_key_stream|oneShot=0|party=0
+LEVER|s4_ars_charge|lrs_charge=98304|party=0
+LEVER|s1_batch_check_stream|per_layer=1|party=0
+LEVER|s2_layer_weights|per_layer=1|party=0
+LEVER|s3_key_stream|oneShot=0|party=1
+LEVER|s4_ars_charge|lrs_charge=98304|party=1
+LEVER|s1_batch_check_stream|per_layer=1|party=1
+LEVER|s2_layer_weights|per_layer=1|party=1

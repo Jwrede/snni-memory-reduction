@@ -1,0 +1,275 @@
+diff --git a/GPU-MPC/ext/sytorch/CMakeLists.txt b/GPU-MPC/ext/sytorch/CMakeLists.txt
+index 544e70a..f2c611d 100755
+--- a/GPU-MPC/ext/sytorch/CMakeLists.txt
++++ b/GPU-MPC/ext/sytorch/CMakeLists.txt
+@@ -18,7 +18,7 @@ if(APPLE)
+ endif()
+ 
+ set(CMAKE_CXX_STANDARD 17)
+-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-write-strings -Wno-unused-result -maes -Wno-ignored-attributes -march=native -Wno-deprecated-declarations -fopenmp")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-write-strings -Wno-unused-result -maes -Wno-ignored-attributes -march=x86-64-v3 -Wno-deprecated-declarations -fopenmp")
+ find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+ find_package(Threads REQUIRED)
+ find_package(CUDAToolkit REQUIRED)
+diff --git a/GPU-MPC/ext/sytorch/examples/bertbenchmark.cpp b/GPU-MPC/ext/sytorch/examples/bertbenchmark.cpp
+index bd2e01e..00e2f24 100644
+--- a/GPU-MPC/ext/sytorch/examples/bertbenchmark.cpp
++++ b/GPU-MPC/ext/sytorch/examples/bertbenchmark.cpp
+@@ -26,6 +26,10 @@
+ #include <sytorch/backend/float.h>
+ #include <sytorch/layers/layers.h>
+ #include <sytorch/module.h>
++
++// D5 (dealer waterfall): weight lazy per-layer alloc flag (see layers.h). Enabled for the dealer.
++bool g_lazyWeights = false;
++unsigned long long g_weightSeedCtr = 0;
+ #include <llama/utils.h>
+ #include <llama/api.h>
+ 
+@@ -199,11 +203,11 @@ int main(int __argc, char **__argv)
+     sytorch_init();
+ 
+     // bert tiny
+-    const u64 n_embd = 128;
++    const u64 n_embd = 768;
+     const u64 n_head = n_embd / 64;
+-    const u64 n_layer = 2;
++    const u64 n_layer = 12;
+     const u64 scale = 12;
+-    const u64 bw = 37;
++    const u64 bw = 51;
+     const u64 n_seq = 128;
+ 
+     // bert base
+@@ -234,6 +238,10 @@ int main(int __argc, char **__argv)
+     LlamaConfig::bitlength = bw;
+     LlamaConfig::party = party;
+ 
++    // D5 (dealer waterfall): only the dealer runs weight lazy-alloc (it never loads real weights;
++    // net.load() is guarded by party != DEALER below, so dummy weights are pure S1 waste here).
++    g_lazyWeights = (party == DEALER);
++
+     llama->init(ip, true);
+ 
+     BERT<u64> net(n_layer, n_head, n_embd);
+diff --git a/GPU-MPC/ext/sytorch/ext/bitpack/CMakeLists.txt b/GPU-MPC/ext/sytorch/ext/bitpack/CMakeLists.txt
+index 7f6fe45..53de6a3 100644
+--- a/GPU-MPC/ext/sytorch/ext/bitpack/CMakeLists.txt
++++ b/GPU-MPC/ext/sytorch/ext/bitpack/CMakeLists.txt
+@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
+ project(bitpack)
+ 
+ set(CMAKE_CXX_STANDARD 17)
+-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -maes -Wno-ignored-attributes -march=native")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -maes -Wno-ignored-attributes -march=x86-64-v3")
+ 
+ add_library(${PROJECT_NAME} STATIC
+     src/bitpack/bitpack.cpp
+diff --git a/GPU-MPC/ext/sytorch/ext/cryptoTools/CMakeLists.txt b/GPU-MPC/ext/sytorch/ext/cryptoTools/CMakeLists.txt
+index 6660169..51835a7 100644
+--- a/GPU-MPC/ext/sytorch/ext/cryptoTools/CMakeLists.txt
++++ b/GPU-MPC/ext/sytorch/ext/cryptoTools/CMakeLists.txt
+@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
+ project(cryptoTools)
+ 
+ set(CMAKE_CXX_STANDARD 17)
+-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -maes -Wno-ignored-attributes -march=native")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -maes -Wno-ignored-attributes -march=x86-64-v3")
+ 
+ add_library(${PROJECT_NAME} STATIC
+     cryptoTools/Common/Defines.cpp
+diff --git a/GPU-MPC/ext/sytorch/ext/llama/CMakeLists.txt b/GPU-MPC/ext/sytorch/ext/llama/CMakeLists.txt
+index 18772a1..1e650a5 100644
+--- a/GPU-MPC/ext/sytorch/ext/llama/CMakeLists.txt
++++ b/GPU-MPC/ext/sytorch/ext/llama/CMakeLists.txt
+@@ -23,7 +23,7 @@ cmake_minimum_required(VERSION 3.16)
+ project(LLAMA)
+ 
+ set(CMAKE_CXX_STANDARD 17)
+-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-write-strings -Wno-unused-result -maes -Wno-ignored-attributes -march=native -Wno-deprecated-declarations -fopenmp")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-write-strings -Wno-unused-result -maes -Wno-ignored-attributes -march=x86-64-v3 -Wno-deprecated-declarations -fopenmp")
+ find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+ find_package(Threads REQUIRED)
+ 
+diff --git a/GPU-MPC/ext/sytorch/ext/llama/api.cpp b/GPU-MPC/ext/sytorch/ext/llama/api.cpp
+index 052a2f6..1bde795 100644
+--- a/GPU-MPC/ext/sytorch/ext/llama/api.cpp
++++ b/GPU-MPC/ext/sytorch/ext/llama/api.cpp
+@@ -2410,6 +2410,9 @@ void Select(int32_t size, int bin, GroupElement *s, GroupElement *x, GroupElemen
+             server->send_select_key(keys[i].first);
+             client->send_select_key(keys[i].second);
+         }
++        delete[] keys; // D2 (dealer waterfall): key array is sent and never re-read; the
++                       // evaluator branch already frees its copy. Dealer branch leaked it -
++                       // the shared Select leak behind the GeLU (2x/op) and SoftMax ramp.
+     }
+     else
+     {
+@@ -2868,6 +2871,8 @@ void TruncateReduce(int size, int bin, GroupElement *x, GroupElement *y, int sca
+             client->send_truncate_reduce_key(keys[i].second);
+             freeTruncateReduceKeyPackPair(keys[i]);
+         }
++        delete[] keys; // D3 (dealer waterfall): payloads are freed per-item above, but the
++                       // array backbone leaked. Softmax-path residual (nExp -> TruncateReduce).
+     }
+     else
+     {
+diff --git a/GPU-MPC/ext/sytorch/ext/llama/include/llama/input_prng.h b/GPU-MPC/ext/sytorch/ext/llama/include/llama/input_prng.h
+index 4234c5a..fb47464 100644
+--- a/GPU-MPC/ext/sytorch/ext/llama/include/llama/input_prng.h
++++ b/GPU-MPC/ext/sytorch/ext/llama/include/llama/input_prng.h
+@@ -48,6 +48,12 @@ SOFTWARE.
+ void input_prng_init();
+ void input_layer(GroupElement *x, GroupElement *x_mask, int size, int owner);
+ 
++// The dealer's input masks are a deterministic function of a running counter:
++// get_input_mask_pair(idx, owner) encrypts (counter[owner-SERVER] + idx). Exposing it lets a
++// layer be masked at ITS OWN turn instead of in one up-front pass, by restoring the counter
++// value that layer would have seen. Same masks, same keys, one layer resident at a time.
++extern int counter[2];
++
+ #define TIME_THIS_BLOCK_FOR_INPUT_IF(x, condition, accumulator) \
+ {\
+     if (condition) {\
+diff --git a/GPU-MPC/ext/sytorch/ext/sci/extern/SEAL b/GPU-MPC/ext/sytorch/ext/sci/extern/SEAL
+--- a/GPU-MPC/ext/sytorch/ext/sci/extern/SEAL
++++ b/GPU-MPC/ext/sytorch/ext/sci/extern/SEAL
+@@ -1 +1 @@
+-Subproject commit 1d5c8169aa5aca9deb75c4079e53ea8d5e94007d
++Subproject commit 1d5c8169aa5aca9deb75c4079e53ea8d5e94007d-dirty
+diff --git a/GPU-MPC/ext/sytorch/include/sytorch/backend/llama_base.h b/GPU-MPC/ext/sytorch/include/sytorch/backend/llama_base.h
+index ffb632b..86d8105 100644
+--- a/GPU-MPC/ext/sytorch/include/sytorch/backend/llama_base.h
++++ b/GPU-MPC/ext/sytorch/include/sytorch/backend/llama_base.h
+@@ -199,10 +199,29 @@ public:
+                                  auto bias = layer->getbias();
+                                  if (LlamaConfig::party == 1)
+                                  {
+-                                     input_layer(nullptr, weights.data, weights.size, 2);
+-                                     if (layer->useBias)
++                                     // d5: for a large FC weight, do NOT mask here. Record the
++                                     // counter this layer would have used, advance the counter
++                                     // exactly as the masking would have, and release the buffer.
++                                     // The layer masks itself at its own matmul with that counter
++                                     // restored, so masks and keys are byte-identical while only
++                                     // one layer's weights are resident at a time.
++                                     auto *fc = dynamic_cast<FC<T> *>(layer);
++                                     if (fc != nullptr && g_lazyWeights &&
++                                         (u64)fc->in * (u64)fc->out > LAZY_W_MIN_ELEMS)
++                                     {
++                                         fc->maskCtr = counter[2 - SERVER];
++                                         counter[2 - SERVER] += weights.size;
++                                         if (layer->useBias)
++                                             counter[2 - SERVER] += bias.size;
++                                         fc->weight.freeData();
++                                     }
++                                     else
+                                      {
+-                                         input_layer(nullptr, bias.data, bias.size, 2);
++                                         input_layer(nullptr, weights.data, weights.size, 2);
++                                         if (layer->useBias)
++                                         {
++                                             input_layer(nullptr, bias.data, bias.size, 2);
++                                         }
+                                      }
+                                  }
+                                  else
+diff --git a/GPU-MPC/ext/sytorch/include/sytorch/layers/layers.h b/GPU-MPC/ext/sytorch/include/sytorch/layers/layers.h
+index f870de8..7b4563b 100644
+--- a/GPU-MPC/ext/sytorch/include/sytorch/layers/layers.h
++++ b/GPU-MPC/ext/sytorch/include/sytorch/layers/layers.h
+@@ -24,8 +24,23 @@
+ #include <llama/assert.h>
+ #include <sytorch/backend/default.h>
+ #include <string>
++#include <cstring>
+ #include <omp.h>
+ 
++// D5 (dealer waterfall): weight lazy per-layer alloc. When set, large FC weights are NOT held
++// resident between ops - they are shrunk to a 1x1 stub after init and re-materialised (zeroed,
++// deterministic) just before each matmul, then shrunk again. Attacks the ~0.65 GiB base
++// (all 12 layers' weights resident from net.init). SIGMA-D6 analog. Zeroed weights are legit:
++// dealer memory is data-independent; correctness proven by determinism (two lazy runs identical),
++// not md5-identity to the eager-randomised baseline.
++extern bool g_lazyWeights;
++// Each FC layer draws its weights from its OWN deterministically seeded stream, in BOTH modes.
++// That is what makes the lazy path able to regenerate byte-identical weights on demand: the
++// eager path draws from one shared prngWeights stream, and a layer's slice of that stream cannot
++// be reproduced later without replaying every draw before it.
++extern unsigned long long g_weightSeedCtr;
++static const unsigned long long LAZY_W_MIN_ELEMS = 100000ULL;
++
+ template <typename T>
+ bool shapesOkay(std::vector<Tensor<T> *> &a)
+ {
+@@ -580,6 +595,15 @@ public:
+     Tensor2D<T> Vw;
+     Tensor1D<T> Vb;
+ 
++    // This layer's own weight seed and the scale it was initialised with, so _forward can
++    // reproduce exactly the draws _initScale made.
++    unsigned long long wseed = 0;
++    u64 wscale = 0;
++
++    // d5: >=0 when the up-front pass skipped masking this layer. The value is the mask counter
++    // that pass would have used, so masking later reproduces byte-identical masks.
++    long maskCtr = -1;
++
+     FC(u64 in, u64 out, bool useBias = false) : Layer<T>("FC"), in(in), out(out), weight(in, out), bias(out), inp({0, 0, 0, 0}), weightGrad(in, out), Vw(in, out), Vb(out)
+     {
+         this->doTruncationForward = true;
+@@ -589,6 +613,12 @@ public:
+     void _initScale(u64 scale)
+     {
+         double xavier = 1.0 / sqrt(in);
++        // Per-layer seeding is applied UNCONDITIONALLY, so the eager and lazy runs draw the same
++        // values and therefore generate byte-identical keys. Making it conditional would make the
++        // lever change the computation, which is exactly what the correctness gate rejects.
++        this->wseed = ++g_weightSeedCtr;
++        this->wscale = scale;
++        prngWeights.SetSeed(osuCrypto::toBlock(0, this->wseed));
+         weight.randomize(xavier * (1ULL << scale));
+         if (this->useBias)
+             bias.randomize(xavier * (1ULL << (2 * scale)));
+@@ -607,7 +637,25 @@ public:
+     {
+         auto a_2d = a.as_2d();
+         auto act_2d = this->activation.as_2d();
++        // d5: this layer was skipped by the up-front masking pass. Bring the buffer back and
++        // mask it now at the counter value that pass would have used, so the masks -- and hence
++        // the generated keys -- are identical while only one layer is resident at a time.
++        if (maskCtr >= 0)
++        {
++            weight.ensureData();
++            int saved = counter[2 - SERVER];
++            counter[2 - SERVER] = (int)maskCtr;
++            input_layer(nullptr, weight.data, weight.size(), 2);
++            if (this->useBias)
++                input_layer(nullptr, bias.data, bias.size(), 2);
++            counter[2 - SERVER] = saved;
++        }
+         this->backend->matmul(a_2d, weight, act_2d, this->useBias, bias, this->isFirst);
++        // Drop this layer's weight once its matmul has consumed it. Unlike the earlier lazy
++        // lever, the weight is never shrunk BEFORE use, so nothing can observe a 1x1 weight
++        // between init and forward. The dealer runs the graph once, so it is never needed again.
++        if (g_lazyWeights && (u64)in * (u64)out > LAZY_W_MIN_ELEMS)
++            weight.freeData();
+         this->activation.d_data = act_2d.d_data;
+     }
+ 
+diff --git a/GPU-MPC/ext/sytorch/include/sytorch/tensor.h b/GPU-MPC/ext/sytorch/include/sytorch/tensor.h
+index 544def4..9ee4715 100644
+--- a/GPU-MPC/ext/sytorch/include/sytorch/tensor.h
++++ b/GPU-MPC/ext/sytorch/include/sytorch/tensor.h
+@@ -549,6 +549,11 @@ public:
+         return TensorRef<T>(data, size());
+     }
+ 
++    // Release / recreate the buffer WITHOUT changing d1,d2. resize(1,1) also frees but changes
++    // the shape, and code that reads weights.size would then see the wrong extent.
++    void freeData() { always_assert(this->isOwner); delete[] data; data = nullptr; }
++    void ensureData() { always_assert(this->isOwner); if (data == nullptr) data = new T[this->d1 * this->d2](); }
++
+     void resize(u64 d1, u64 d2)
+     {
+         always_assert(this->isOwner);

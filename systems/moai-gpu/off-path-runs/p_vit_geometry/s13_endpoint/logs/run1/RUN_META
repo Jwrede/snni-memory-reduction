@@ -1,0 +1,17 @@
+step=p_vit_s13_endpoint
+run=1
+date_utc=2026-08-20T19:46:52Z
+machine=palma:gpuh200 node=r18n04
+slurm_job_id=46339650
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth=2
+attrib_host=off
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/moai-gpu/sif/moai-gpu-p_vit_s13_endpoint.sif
+image_digest=69684478d0ee36a81dd1ab364d019199800561ec3bb5fffe447ff4d39e387d25
+omp_num_threads=8
+model=BERT-base ONE encoder layer n_seq=128 batch=256 logN=16
+role=single server process, non-interactive FHE
+attrib_device_actual=off
+gpu=NVIDIA H200, GPU-c9af9a63-7fed-8aa5-e7be-20da10c69c0a

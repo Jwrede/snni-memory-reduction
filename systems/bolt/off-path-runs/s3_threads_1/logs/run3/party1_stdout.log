@@ -1,0 +1,79 @@
+>>> Evaluating Bert
+-> Role: 2
+-> Address: 127.0.0.1
+-> Port: 8241
+<<<
+
+> Setup Linear
+> HE instance initialized: 
+-> Poly Mod Degree: 8192
+-> Coeff Mod: 54 54 55 55 
+-> Plaintext Mod: 536903681(29 bits)
+
+> HE instance initialized: 
+-> Poly Mod Degree: 8192
+-> Coeff Mod: 60 60 60 
+-> Plaintext Mod: 557057(19 bits)
+
+> HE instance initialized: 
+-> Poly Mod Degree: 8192
+-> Coeff Mod: 54 54 55 55 
+-> Plaintext Mod: 4295049217(32 bits)
+
+> Setup NonLinear
+> Bert intialized done!
+
+==>> Inference sample #0
+> Loading inputs
+> Repacking to column
+> Send to client
+> --- Entering Attention Layers ---
+-> Sharing Pooling and Classification params...
+-> Layer - Pooling
+-> Layer - Classification
+> [TIMING]: linear1 takes 442.99 sec
+> [TIMING]: linear2 takes 9.28834 sec
+> [TIMING]: linear3 takes 35.2982 sec
+> [TIMING]: linear4 takes 27.8738 sec
+> [TIMING]: softmax takes 47.517 sec
+> [TIMING]: pruning takes 0.00722317 sec
+> [TIMING]: mul v takes 492.204 sec
+> [TIMING]: gelu takes 39.1778 sec
+> [TIMING]: ln_1 takes 23.7202 sec
+> [TIMING]: ln_2 takes 20.7972 sec
+> [TIMING]: tanh takes 0.463493 sec
+> [TIMING]: repacking takes 0.0745159 sec
+> [TIMING]: gt_sub takes 21.6518 sec
+> [TIMING]: shift takes 11.4846 sec
+> [TIMING]: conversion takes 1011.74 sec
+> [TIMING]: ln_share takes 0.0202881 sec
+> [TIMING]: Pool/Class takes 2.44529 sec
+> [NETWORK]: Linear 1 consumes: 53297417 bytes
+> [NETWORK]: Linear 2 consumes: 37768752 bytes
+> [NETWORK]: Linear 3 consumes: 37768752 bytes
+> [NETWORK]: Linear 4 consumes: 151075008 bytes
+> [NETWORK]: Softmax consumes: 9107802624 bytes
+> [NETWORK]: GELU consumes: 9258958848 bytes
+> [NETWORK]: Layer Norm 1 consumes: 3788873448 bytes
+> [NETWORK]: Layer Norm 2 consumes: 3788873301 bytes
+> [NETWORK]: Tanh consumes: 8724480 bytes
+> [NETWORK]: Softmax * V: 106594957 bytes
+> [NETWORK]: Pruning: 0 bytes
+> [NETWORK]: Shift consumes: 2105315328 bytes
+> [NETWORK]: gt_sub consumes: 3382149120 bytes
+> [NETWORK]: Pooling / C consumes: 306868212 bytes
+> [NETWORK]: Linear 1 consumes: 23 rounds
+> [NETWORK]: Linear 2 consumes: 24 rounds
+> [NETWORK]: Linear 3 consumes: 24 rounds
+> [NETWORK]: Linear 4 consumes: 24 rounds
+> [NETWORK]: Softmax consumes: 89088 rounds
+> [NETWORK]: GELU consumes: 33792 rounds
+> [NETWORK]: Layer Norm 1 consumes: 83736 rounds
+> [NETWORK]: Layer Norm 2 consumes: 83736 rounds
+> [NETWORK]: Tanh consumes: 3520 rounds
+> [NETWORK]: Softmax * V: 24 rounds
+> [NETWORK]: Pruning: 0 rounds
+> [NETWORK]: Shift consumes: 18368 rounds
+> [NETWORK]: gt_sub consumes: 16864 rounds
+> [NETWORK]: Pooling / C consumes: 988 rounds
+-> End to end takes: 1174.66sec

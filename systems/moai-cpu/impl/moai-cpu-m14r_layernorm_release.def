@@ -1,0 +1,28 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m13r_rtn2_release_ln2.sif
+
+# MOAI-CPU m14r_layernorm_release (re-measurement line, corrected order 2026-09-24): the m13r_rtn2_release_ln2 line PLUS one lever (patch_layernorm_release.py). predicted: the LN1 window (90.9 in m10r) is the peak once the bootstraps are released; the layernorm's dead input copy is its largest free fix. This image carries the same cumulative lever set as m14r_tiled_ffn (built in the other order); built to verify that the binaries coincide (md5), the m14r_tiled_ffn run is the position-14 measurement.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_layernorm_release.py /opt/patch_layernorm_release.py
+
+%post
+    set -e
+    python3 /opt/patch_layernorm_release.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in phase_split chunked_bootstrap ct_capacity_shrink dead_boot_keys_release "layernorm_release"; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    strings -a build/test | grep -q "logn + 1" \
+        && { echo "FAILED: logn + 1 still in binary (full_3 fix not applied)" >&2; exit 1; } || true
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m14r_layernorm_release
+    snni.base m13r_rtn2_release_ln2

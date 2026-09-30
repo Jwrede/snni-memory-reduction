@@ -1,0 +1,118 @@
+--- a/GPU-MPC/experiments/sigma/sigma.cu
++++ b/GPU-MPC/experiments/sigma/sigma.cu
+@@ -31,6 +31,64 @@
+     return std::to_string(bytes) + " B (" + std::to_string((float)bytes / (1024.0f * 1024.0f * 1024.0f)) + " GB)";
+ }
+ 
++// ---------------------------------------------------------------------------------------------
++// DETERMINISTIC NON-ZERO INPUT AND WEIGHTS, so that the output is sensitive to whether the
++// computation changed. Without this the run computes zero from zero and every step of every
++// waterfall reports the same trivially-correct answer, which is a check that cannot fail.
++//
++// A fixed arithmetic sequence rather than rand(): the values must be identical on both parties
++// and in every run of every step, and they must not consume the RNG stream the protocol uses.
++static inline u64 snni_fixed_value(u64 i, u64 scale, i64 den)
++{
++    // `den` maps the -1000..1000 sequence onto a fixed-point range: den=1000 gives +-1.0 (since
++    // 1.0 is 1<<scale), den=28000 gives about +-0.036, which is 1/sqrt(768), the Xavier scale for
++    // this width.
++    //
++    // THE FIRST VERSION OF THIS DIVIDED BY 1000000 AND PRODUCED A USELESS GATE. That yielded values
++    // in [-5, 4] against a 1.0 of 4096, so every input and weight was numerically zero, twelve
++    // layers of fixed-point truncation collapsed the output to exact zeros, and the observable came
++    // out as 98304 zeros. It would have reproduced perfectly across runs, so the determinism check
++    // would have PASSED on an observable with no sensitivity to the computation at all -- the same
++    // defect as the `argmax 0, 0` this patch was written to replace, one level further in.
++    //
++    // Magnitudes still have to stay small enough that twelve layers of accumulation cannot wrap the
++    // 50-bit ring, which is the truncation wraparound that made SHAFT-GPU's logits span 3.8x.
++    i64 v = (i64)((i * 2654435761ULL) % 2001) - 1000;   // -1000 .. 1000
++    return (u64)((v * (i64)(1ULL << scale)) / den);
++}
++
++template <typename T>
++static void snni_fill_deterministic(SytorchModule<T> *net, Tensor<T> &input, u64 scale)
++{
++    for (u64 i = 0; i < input.size(); ++i)
++        input.data[i] = (T)snni_fixed_value(i, scale, 1000);      // +-1.0
++
++    u64 k = 0, wt = 0, welems = 0, nodes = 0;
++    topologicalApply(net->root, [&](LayerGraphNode<T> *node, LayerGraphNode<T> *_root) {
++        ++nodes;
++        auto w = node->layer->getweights();
++        // Layers without parameters return a null ref, not an empty tensor.
++        if (w.data != nullptr)
++        {
++            ++wt;
++            welems += w.size;
++            for (u64 i = 0; i < w.size; ++i) w.data[i] = (T)snni_fixed_value(k++, scale, 28000);
++        }
++        auto b = node->layer->getbias();
++        if (b.data != nullptr)
++            for (u64 i = 0; i < b.size; ++i) b.data[i] = (T)snni_fixed_value(k++, scale, 28000);
++    });
++
++    // THE FILL REPORTS WHAT IT ACTUALLY DID, rather than leaving it to be inferred from the output.
++    // The first version of this patch produced an all-zero observable and I assumed the magnitudes
++    // were the cause; correcting them changed nothing, which means the assumption was untested. A
++    // fill that silently reaches no weights looks exactly like a fill that works, so it says so.
++    fprintf(stderr, "FILL|nodes=%lu|weight_tensors=%lu|weight_elems=%lu|input_elems=%lu|"
++                    "input[0]=%ld|input[1]=%ld\n",
++            (unsigned long)nodes, (unsigned long)wt, (unsigned long)welems,
++            (unsigned long)input.size(), (long)(i64)input.data[0], (long)(i64)input.data[1]);
++}
++
+ int main(int __argc, char **__argv)
+ {
+     sytorch_init();
+@@ -167,7 +225,15 @@
+         net->init(scale, input);
+         net->zero();
+     }
+-    srand(time(NULL));
++    // PINNED, not clock-seeded. A gate compares each step against the BASELINE's output, and
++    // that comparison is meaningless unless the system produces the same output twice.
++    // Declared in MANIFEST.md beside the gate tier; it exists so the gate can exist, and it is
++    // NOT how the protocol would be deployed.
++    srand(0x5EEDU);
++    fprintf(stderr, "SEEDED|srand=0x5eed|party=%d\n", party);
++
++    // Values are set AFTER the per-model init/zero above, so this one call covers every model.
++    snni_fill_deterministic(net, input, scale);
+     std::string outDir = "output/P" + std::to_string(party) + "/models/";
+     makeDir(outDir);
+     auto inferenceDir = outDir + model + "-" + std::to_string(n_seq) + "/";
+@@ -211,6 +277,33 @@
+     auto maxIdx = signedAct.argmax(0);
+     printf("%d, %ld\n", maxIdx, activation.data[maxIdx]);
+ 
++    // THE GATE OBSERVABLE: the whole output vector, not the argmax. A label is one bit and would
++    // pass two runs whose values differed materially, which is exactly what this gate exists to
++    // catch. Raw ring elements printed exactly, so the comparison is byte-for-byte and no
++    // formatting choice can hide a difference.
++    fprintf(stderr, "GATE|logits|n=%lu|", (unsigned long)activation.size());
++    for (u64 i = 0; i < activation.size(); ++i)
++        fprintf(stderr, "%ld%s", (long)((i64 *)activation.data)[i],
++                i + 1 < activation.size() ? "," : "");
++    fprintf(stderr, "\n");
++
++    // THE GATE MUST BE SENSITIVE, NOT MERELY PRESENT. An all-zero output reproduces perfectly
++    // across runs, so a determinism check would pass on it while the observable carried no
++    // information about the computation whatsoever. That already happened once here: the first
++    // version of this patch scaled its fill down so far that every value truncated to zero, and the
++    // run emitted 98304 zeros and exited 0. So the program says so itself rather than leaving a
++    // reader to notice.
++    {
++        u64 nz = 0;
++        for (u64 i = 0; i < activation.size(); ++i)
++            if (((i64 *)activation.data)[i] != 0) ++nz;
++        fprintf(stderr, "GATE_NONZERO|%lu/%lu\n", (unsigned long)nz,
++                (unsigned long)activation.size());
++        if (nz == 0)
++            fprintf(stderr, "GATE_DEGENERATE|the output is entirely zero, so this observable "
++                            "cannot detect a change in the computation\n");
++    }
++
+     ss.clear();
+ 
+     ss << "Total time=" + std::to_string(elapsed.count()) + " us";

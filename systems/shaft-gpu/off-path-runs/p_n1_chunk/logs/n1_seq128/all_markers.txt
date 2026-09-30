@@ -1,0 +1,579 @@
+graphop_markers_gpu: Graph.forward instrumented (cuda=True)
+embed_chunk_gpu: Embedding.forward chunked (chunks=16, cuda=True)
+matmul_limb_loop_gpu: patched CUDALongTensor matmul (nb=4, bks=16)
+graphop_markers_gpu: Graph.forward instrumented (cuda=True)
+embed_chunk_gpu: Embedding.forward chunked (chunks=16, cuda=True)
+matmul_limb_loop_gpu: patched CUDALongTensor matmul (nb=4, bks=16)
+INFO:root:==================
+INFO:root:DistributedCommunicator with rank 1
+INFO:root:==================
+graphop_markers_gpu: Graph.forward instrumented (cuda=True)
+embed_chunk_gpu: Embedding.forward chunked (chunks=16, cuda=True)
+matmul_limb_loop_gpu: patched CUDALongTensor matmul (nb=4, bks=16)
+INFO:root:==================
+INFO:root:DistributedCommunicator with rank 0
+INFO:root:==================
+INFO:root:World size = 2
+INFO:root:World size = 2
+/root/shaft/crypten/__init__.py:66: RuntimeWarning: CrypTen is already initialized.
+  warnings.warn("CrypTen is already initialized.", RuntimeWarning)
+/root/shaft/crypten/__init__.py:66: RuntimeWarning: CrypTen is already initialized.
+  warnings.warn("CrypTen is already initialized.", RuntimeWarning)
+SEEDED|party=0|next=0xdeadbeef global=0x5eed
+SEEDED|party=1|next=0xdeadbef0 global=0x5eed
+GPUINFO|party=1|device=cuda|name=NVIDIA H200|visible=0
+GPUINFO|party=0|device=cuda|name=NVIDIA H200|visible=0
+CONFIG|party=1|n_layers=1|seq_len=128|model=andeskyl/bert-base-cased-sst2|device=cuda
+MEM|1|-1|main|after_init|432356|1785684737826|432356
+GPU|1|-1|main|after_init|0|0|1785684737826
+CONFIG|party=0|n_layers=1|seq_len=128|model=andeskyl/bert-base-cased-sst2|device=cuda
+MEM|0|-1|main|after_init|430192|1785684737827|430192
+GPU|0|-1|main|after_init|0|0|1785684737827
+MEM|0|-1|main|after_model_load|605936|1785684738409|605936
+GPU|0|-1|main|after_model_load|0|0|1785684738409
+MEM|1|-1|main|after_model_load|608184|1785684738410|608184
+GPU|1|-1|main|after_model_load|0|0|1785684738410
+[W shape_type_inference.cpp:1974] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1974] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1974] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+/opt/conda/lib/python3.10/site-packages/torch/onnx/utils.py:1686: UserWarning: The exported ONNX model failed ONNX shape inference. The model will not be executable by the ONNX Runtime. If this is unintended and you believe there is a bug, please report an issue at https://github.com/pytorch/pytorch/issues. Error reported by strict ONNX shape inference: [ShapeInferenceError] (op_type:Dropout, node name: /bert/embeddings/dropout/Dropout): training_mode typestr: T2, has unsupported type: tensor(int64) (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/jit/serialization/export.cpp:1415.)
+  _C._check_onnx_proto(proto)
+/root/shaft/crypten/nn/onnx_converter.py:183: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/tensor_numpy.cpp:206.)
+  param = torch.from_numpy(numpy_helper.to_array(node))
+[W shape_type_inference.cpp:1974] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1974] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+[W shape_type_inference.cpp:1974] Warning: The shape inference of shaft::Embedding type is missing, so it may result in wrong shape inference for the exported graph. Please consider adding it in symbolic function. (function UpdateReliable)
+MEM|1|-1|main|after_model_convert|909788|1785684740146|1125260
+GPU|1|-1|main|after_model_convert|0|0|1785684740146
+/opt/conda/lib/python3.10/site-packages/torch/onnx/utils.py:1686: UserWarning: The exported ONNX model failed ONNX shape inference. The model will not be executable by the ONNX Runtime. If this is unintended and you believe there is a bug, please report an issue at https://github.com/pytorch/pytorch/issues. Error reported by strict ONNX shape inference: [ShapeInferenceError] (op_type:Dropout, node name: /bert/embeddings/dropout/Dropout): training_mode typestr: T2, has unsupported type: tensor(int64) (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/jit/serialization/export.cpp:1415.)
+  _C._check_onnx_proto(proto)
+/root/shaft/crypten/nn/onnx_converter.py:183: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/tensor_numpy.cpp:206.)
+  param = torch.from_numpy(numpy_helper.to_array(node))
+MEM|0|-1|main|after_model_convert|906316|1785684740450|1126344
+GPU|0|-1|main|after_model_convert|0|0|1785684740450
+MEM|1|-1|main|after_model_encrypt|1076948|1785684740787|1600104
+GPU|1|-1|main|after_model_encrypt|0|0|1785684740787
+MEM|1|-1|main|after_model_cuda|974640|1785684741014|1600104
+GPU|1|-1|main|after_model_cuda|237207|253952|1785684741014
+MEM|1|-1|main|after_input_encrypt|974700|1785684741015|1600104
+GPU|1|-1|main|after_input_encrypt|237210|253952|1785684741015
+MEM|1|-1|graphop|bert.Shape.Shape|974748|1785684741018|1600104
+GPU|1|-1|graphop|bert.Shape.Shape|237211|253952|1785684741018
+MEM|0|-1|main|after_model_encrypt|1093908|1785684741035|1596724
+GPU|0|-1|main|after_model_encrypt|0|0|1785684741035
+MEM|1|-1|graphop|bert.Gather.Gather|986372|1785684741084|1600104
+GPU|1|-1|graphop|bert.Gather.Gather|237211|253952|1785684741084
+MEM|1|-1|graphop|bert.embeddings.Unsqueeze.Unsqueeze|986388|1785684741085|1600104
+GPU|1|-1|graphop|bert.embeddings.Unsqueeze.Unsqueeze|237211|253952|1785684741085
+MEM|1|-1|graphop|bert.embeddings.Unsqueeze_1.Unsqueeze|986424|1785684741085|1600104
+GPU|1|-1|graphop|bert.embeddings.Unsqueeze_1.Unsqueeze|237211|253952|1785684741085
+MEM|1|-1|graphop|bert.embeddings.Unsqueeze_2.Unsqueeze|986440|1785684741086|1600104
+GPU|1|-1|graphop|bert.embeddings.Unsqueeze_2.Unsqueeze|237211|253952|1785684741086
+MEM|1|-1|graphop|bert.embeddings.Unsqueeze_3.Unsqueeze|986440|1785684741086|1600104
+GPU|1|-1|graphop|bert.embeddings.Unsqueeze_3.Unsqueeze|237211|253952|1785684741086
+MEM|1|-1|graphop|bert.embeddings.Slice.Slice|988048|1785684741106|1600104
+GPU|1|-1|graphop|bert.embeddings.Slice.Slice|237211|253952|1785684741106
+/root/shaft/crypten/mpc/provider/tfp_provider.py:62: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+  v = torch.nn.functional.one_hot(r, num_classes=length)
+MEM|0|-1|main|after_model_cuda|991960|1785684741239|1596724
+GPU|0|-1|main|after_model_cuda|237207|253952|1785684741239
+MEM|0|-1|main|after_input_encrypt|991972|1785684741241|1596724
+GPU|0|-1|main|after_input_encrypt|237210|253952|1785684741241
+MEM|0|-1|graphop|bert.Shape.Shape|992016|1785684741243|1596724
+GPU|0|-1|graphop|bert.Shape.Shape|237211|253952|1785684741243
+MEM|0|-1|graphop|bert.Gather.Gather|1003660|1785684741252|1596724
+GPU|0|-1|graphop|bert.Gather.Gather|237211|253952|1785684741252
+MEM|0|-1|graphop|bert.embeddings.Unsqueeze.Unsqueeze|1003672|1785684741253|1596724
+GPU|0|-1|graphop|bert.embeddings.Unsqueeze.Unsqueeze|237211|253952|1785684741253
+MEM|0|-1|graphop|bert.embeddings.Unsqueeze_1.Unsqueeze|1003708|1785684741253|1596724
+GPU|0|-1|graphop|bert.embeddings.Unsqueeze_1.Unsqueeze|237211|253952|1785684741253
+MEM|0|-1|graphop|bert.embeddings.Unsqueeze_2.Unsqueeze|1003720|1785684741253|1596724
+GPU|0|-1|graphop|bert.embeddings.Unsqueeze_2.Unsqueeze|237211|253952|1785684741253
+MEM|0|-1|graphop|bert.embeddings.Unsqueeze_3.Unsqueeze|1003720|1785684741254|1596724
+GPU|0|-1|graphop|bert.embeddings.Unsqueeze_3.Unsqueeze|237211|253952|1785684741254
+MEM|0|-1|graphop|bert.embeddings.Slice.Slice|1005188|1785684741256|1596724
+GPU|0|-1|graphop|bert.embeddings.Slice.Slice|237211|253952|1785684741256
+/root/shaft/crypten/mpc/provider/tfp_provider.py:62: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+  v = torch.nn.functional.one_hot(r, num_classes=length)
+/root/shaft/crypten/mpc/provider/tfp_provider.py:29: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+  c = getattr(torch, op)(a, b, *args, **kwargs)
+/root/shaft/crypten/mpc/provider/tfp_provider.py:29: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+  c = getattr(torch, op)(a, b, *args, **kwargs)
+/root/shaft/crypten/mpc/primitives/beaver.py:82: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+  c._tensor += getattr(torch, op)(epsilon, b._tensor, *args, **kwargs)
+/root/shaft/crypten/mpc/primitives/beaver.py:82: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+  c._tensor += getattr(torch, op)(epsilon, b._tensor, *args, **kwargs)
+/root/shaft/crypten/mpc/primitives/beaver.py:83: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+  c._tensor += getattr(torch, op)(a._tensor, delta, *args, **kwargs)
+/root/shaft/crypten/mpc/primitives/beaver.py:83: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+  c._tensor += getattr(torch, op)(a._tensor, delta, *args, **kwargs)
+/root/shaft/crypten/mpc/primitives/beaver.py:84: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+  c += getattr(torch, op)(epsilon, delta, *args, **kwargs)
+/root/shaft/crypten/mpc/primitives/beaver.py:84: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+  c += getattr(torch, op)(epsilon, delta, *args, **kwargs)
+MEM|0|-1|graphop|bert.embeddings.word_embeddings.Embedding.Embedding|1142224|1785684742722|1596724
+GPU|0|-1|graphop|bert.embeddings.word_embeddings.Embedding.Embedding|270747|288768|1785684742722
+MEM|1|-1|graphop|bert.embeddings.word_embeddings.Embedding.Embedding|1141700|1785684742739|1600104
+GPU|1|-1|graphop|bert.embeddings.word_embeddings.Embedding.Embedding|270747|288768|1785684742739
+MEM|0|-1|graphop|bert.embeddings.token_type_embeddings.Embedding.Embedding|1148812|1785684743624|1596724
+GPU|0|-1|graphop|bert.embeddings.token_type_embeddings.Embedding.Embedding|271515|288768|1785684743624
+MEM|0|-1|graphop|bert.embeddings.Add.Add|1148816|1785684743625|1596724
+GPU|0|-1|graphop|bert.embeddings.Add.Add|272283|288768|1785684743625
+MEM|0|-1|graphop|bert.embeddings.position_embeddings.Embedding.Embedding|1177864|1785684743646|1596724
+GPU|0|-1|graphop|bert.embeddings.position_embeddings.Embedding.Embedding|273051|288768|1785684743646
+MEM|0|-1|graphop|bert.embeddings.Add_1.Add|1177864|1785684743647|1596724
+GPU|0|-1|graphop|bert.embeddings.Add_1.Add|273819|290816|1785684743647
+MEM|1|-1|graphop|bert.embeddings.token_type_embeddings.Embedding.Embedding|1148368|1785684743715|1600104
+GPU|1|-1|graphop|bert.embeddings.token_type_embeddings.Embedding.Embedding|271515|288768|1785684743715
+MEM|1|-1|graphop|bert.embeddings.Add.Add|1148372|1785684743716|1600104
+GPU|1|-1|graphop|bert.embeddings.Add.Add|272283|288768|1785684743716
+MEM|1|-1|graphop|bert.embeddings.position_embeddings.Embedding.Embedding|1177504|1785684743724|1600104
+GPU|1|-1|graphop|bert.embeddings.position_embeddings.Embedding.Embedding|273051|288768|1785684743724
+MEM|1|-1|graphop|bert.embeddings.Add_1.Add|1177504|1785684743725|1600104
+GPU|1|-1|graphop|bert.embeddings.Add_1.Add|273819|290816|1785684743725
+/root/shaft/crypten/mpc/primitives/arithmetic.py:372: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+  result.share = getattr(torch, op)(result.share, y, *args, **kwargs)
+/root/shaft/crypten/mpc/primitives/arithmetic.py:372: UserWarning: Defining your `__torch_function__` as a plain method is deprecated and will be an error in future, please define it as a classmethod. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400410390/work/torch/csrc/utils/python_arg_parser.cpp:368.)
+  result.share = getattr(torch, op)(result.share, y, *args, **kwargs)
+MEM|1|-1|graphop|bert.embeddings.LayerNorm.LayerNormalization.LayerNormalization|1220316|1785684743801|1600104
+MEM|0|-1|graphop|bert.embeddings.LayerNorm.LayerNormalization.LayerNormalization|1220732|1785684743801|1596724
+GPU|1|-1|graphop|bert.embeddings.LayerNorm.LayerNormalization.LayerNormalization|274587|299008|1785684743801
+GPU|0|-1|graphop|bert.embeddings.LayerNorm.LayerNormalization.LayerNormalization|274587|299008|1785684743801
+MEM|1|-1|graphop|bert.embeddings.dropout.Dropout.Dropout|1220396|1785684743802|1600104
+MEM|0|-1|graphop|bert.embeddings.dropout.Dropout.Dropout|1220840|1785684743803|1596724
+GPU|1|-1|graphop|bert.embeddings.dropout.Dropout.Dropout|275355|299008|1785684743802
+GPU|0|-1|graphop|bert.embeddings.dropout.Dropout.Dropout|275355|299008|1785684743803
+MEM|1|-1|graphop|bert.Unsqueeze.Unsqueeze|1220436|1785684743803|1600104
+MEM|0|-1|graphop|bert.Unsqueeze.Unsqueeze|1220872|1785684743803|1596724
+GPU|1|-1|graphop|bert.Unsqueeze.Unsqueeze|275355|299008|1785684743803
+GPU|0|-1|graphop|bert.Unsqueeze.Unsqueeze|275355|299008|1785684743803
+MEM|1|-1|graphop|bert.Unsqueeze_1.Unsqueeze|1220460|1785684743804|1600104
+GPU|1|-1|graphop|bert.Unsqueeze_1.Unsqueeze|275355|299008|1785684743804
+MEM|0|-1|graphop|bert.Unsqueeze_1.Unsqueeze|1220908|1785684743804|1596724
+MEM|1|-1|graphop|bert.Unsqueeze_2.Unsqueeze|1220460|1785684743804|1600104
+GPU|0|-1|graphop|bert.Unsqueeze_1.Unsqueeze|275355|299008|1785684743804
+GPU|1|-1|graphop|bert.Unsqueeze_2.Unsqueeze|275355|299008|1785684743804
+MEM|0|-1|graphop|bert.Unsqueeze_2.Unsqueeze|1220908|1785684743804|1596724
+MEM|1|-1|graphop|bert.Unsqueeze_3.Unsqueeze|1220460|1785684743804|1600104
+GPU|0|-1|graphop|bert.Unsqueeze_2.Unsqueeze|275355|299008|1785684743804
+GPU|1|-1|graphop|bert.Unsqueeze_3.Unsqueeze|275355|299008|1785684743804
+MEM|0|-1|graphop|bert.Unsqueeze_3.Unsqueeze|1220908|1785684743805|1596724
+MEM|1|-1|graphop|bert.Unsqueeze_4.Unsqueeze|1220460|1785684743805|1600104
+GPU|0|-1|graphop|bert.Unsqueeze_3.Unsqueeze|275355|299008|1785684743805
+GPU|1|-1|graphop|bert.Unsqueeze_4.Unsqueeze|275355|299008|1785684743805
+MEM|0|-1|graphop|bert.Unsqueeze_4.Unsqueeze|1220908|1785684743805|1596724
+MEM|1|-1|graphop|bert.Unsqueeze_5.Unsqueeze|1220480|1785684743805|1600104
+GPU|0|-1|graphop|bert.Unsqueeze_4.Unsqueeze|275355|299008|1785684743805
+GPU|1|-1|graphop|bert.Unsqueeze_5.Unsqueeze|275355|299008|1785684743805
+MEM|0|-1|graphop|bert.Unsqueeze_5.Unsqueeze|1220916|1785684743805|1596724
+GPU|0|-1|graphop|bert.Unsqueeze_5.Unsqueeze|275355|299008|1785684743805
+MEM|0|-1|graphop|bert.Concat.Concat|1221012|1785684743806|1596724
+MEM|1|-1|graphop|bert.Concat.Concat|1220584|1785684743806|1600104
+GPU|0|-1|graphop|bert.Concat.Concat|275355|299008|1785684743806
+GPU|1|-1|graphop|bert.Concat.Concat|275355|299008|1785684743806
+MEM|0|-1|graphop|bert.Reshape.Reshape|1221060|1785684743806|1596724
+MEM|1|-1|graphop|bert.Reshape.Reshape|1220628|1785684743807|1600104
+GPU|0|-1|graphop|bert.Reshape.Reshape|275355|299008|1785684743806
+GPU|1|-1|graphop|bert.Reshape.Reshape|275355|299008|1785684743807
+MEM|0|-1|graphop|bert.Shape_1.Shape|1221080|1785684743807|1596724
+MEM|1|-1|graphop|bert.Shape_1.Shape|1220640|1785684743807|1600104
+GPU|0|-1|graphop|bert.Shape_1.Shape|275356|299008|1785684743807
+GPU|1|-1|graphop|bert.Shape_1.Shape|275356|299008|1785684743807
+MEM|0|-1|graphop|bert.ConstantOfShape.ConstantOfShape|1221080|1785684743807|1596724
+MEM|1|-1|graphop|bert.ConstantOfShape.ConstantOfShape|1220640|1785684743808|1600104
+GPU|0|-1|graphop|bert.ConstantOfShape.ConstantOfShape|275356|299008|1785684743807
+GPU|1|-1|graphop|bert.ConstantOfShape.ConstantOfShape|275356|299008|1785684743808
+MEM|0|-1|graphop|bert.Mul.Mul|1221148|1785684743808|1596724
+MEM|1|-1|graphop|bert.Mul.Mul|1220648|1785684743808|1600104
+GPU|0|-1|graphop|bert.Mul.Mul|275356|299008|1785684743808
+GPU|1|-1|graphop|bert.Mul.Mul|275356|299008|1785684743808
+MEM|0|-1|graphop|bert.Equal.Equal|1221216|1785684743808|1596724
+MEM|1|-1|graphop|bert.Equal.Equal|1220716|1785684743808|1600104
+GPU|0|-1|graphop|bert.Equal.Equal|275357|299008|1785684743808
+GPU|1|-1|graphop|bert.Equal.Equal|275357|299008|1785684743808
+MEM|0|-1|graphop|bert.Where.Where|1221220|1785684743809|1596724
+MEM|1|-1|graphop|bert.Where.Where|1220784|1785684743809|1600104
+GPU|0|-1|graphop|bert.Where.Where|275357|299008|1785684743809
+GPU|1|-1|graphop|bert.Where.Where|275357|299008|1785684743809
+MEM|0|-1|graphop|bert.Expand.Expand|1221228|1785684743810|1596724
+MEM|1|-1|graphop|bert.Expand.Expand|1220788|1785684743810|1600104
+GPU|0|-1|graphop|bert.Expand.Expand|275357|299008|1785684743810
+MEM|0|-1|graphop|bert.Cast.Cast|1221228|1785684743810|1596724
+GPU|1|-1|graphop|bert.Expand.Expand|275357|299008|1785684743810
+MEM|1|-1|graphop|bert.Cast.Cast|1220816|1785684743810|1600104
+GPU|0|-1|graphop|bert.Cast.Cast|275357|299008|1785684743810
+GPU|1|-1|graphop|bert.Cast.Cast|275357|299008|1785684743810
+MEM|0|-1|graphop|bert.Sub.Sub|1221268|1785684743811|1596724
+MEM|1|-1|graphop|bert.Sub.Sub|1220864|1785684743811|1600104
+GPU|0|-1|graphop|bert.Sub.Sub|275485|299008|1785684743811
+MEM|0|-1|graphop|bert.Cast_1.Cast|1221312|1785684743811|1596724
+GPU|1|-1|graphop|bert.Sub.Sub|275485|299008|1785684743811
+GPU|0|-1|graphop|bert.Cast_1.Cast|275485|299008|1785684743811
+MEM|1|-1|graphop|bert.Cast_1.Cast|1220900|1785684743811|1600104
+MEM|0|-1|graphop|bert.Cast_2.Cast|1221328|1785684743812|1596724
+GPU|1|-1|graphop|bert.Cast_1.Cast|275485|299008|1785684743811
+GPU|0|-1|graphop|bert.Cast_2.Cast|275485|299008|1785684743812
+MEM|1|-1|graphop|bert.Cast_2.Cast|1220900|1785684743812|1600104
+GPU|1|-1|graphop|bert.Cast_2.Cast|275485|299008|1785684743812
+MEM|0|-1|graphop|bert.Where_1.Where|1221328|1785684743815|1596724
+MEM|1|-1|graphop|bert.Where_1.Where|1220904|1785684743815|1600104
+GPU|0|-1|graphop|bert.Where_1.Where|275613|299008|1785684743815
+GPU|1|-1|graphop|bert.Where_1.Where|275613|299008|1785684743815
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Shape.Shape|1221328|1785684743815|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Shape.Shape|1220904|1785684743815|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Shape.Shape|275614|299008|1785684743815
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Shape.Shape|275614|299008|1785684743815
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Gather.Gather|1221336|1785684743816|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Gather.Gather|1220912|1785684743816|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Gather.Gather|275614|299008|1785684743816
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Gather.Gather|275614|299008|1785684743816
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_1.Shape|1221336|1785684743816|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_1.Shape|1220912|1785684743816|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_1.Shape|275614|299008|1785684743816
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_1.Shape|275614|299008|1785684743816
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_1.Gather|1221340|1785684743817|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_1.Gather|1220912|1785684743817|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_1.Gather|275614|299008|1785684743817
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_1.Gather|275614|299008|1785684743817
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.query.Transpose.Transpose|1221344|1785684743817|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.query.Transpose.Transpose|1220916|1785684743817|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.query.Transpose.Transpose|275614|299008|1785684743817
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.query.Transpose.Transpose|275614|299008|1785684743817
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.query.MatMul.MatMul|1222660|1785684743827|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.query.MatMul.MatMul|1221608|1785684743827|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.query.MatMul.MatMul|276382|321536|1785684743827
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.query.MatMul.MatMul|276382|321536|1785684743827
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.query.Add.Add|1222688|1785684743827|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.query.Add.Add|1221660|1785684743827|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.query.Add.Add|277150|321536|1785684743827
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.query.Add.Add|277150|321536|1785684743827
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_2.Shape|1222728|1785684743828|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_2.Shape|1221696|1785684743828|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_2.Shape|277151|321536|1785684743828
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_2.Shape|277151|321536|1785684743828
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_2.Gather|1222764|1785684743829|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_2.Gather|1221708|1785684743829|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_2.Gather|277151|321536|1785684743829
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_2.Gather|277151|321536|1785684743829
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_3.Shape|1222764|1785684743829|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_3.Shape|1221708|1785684743829|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_3.Shape|277151|321536|1785684743829
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_3.Shape|277151|321536|1785684743829
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_3.Gather|1222764|1785684743830|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_3.Gather|1221708|1785684743830|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_3.Gather|277151|321536|1785684743830
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_3.Gather|277151|321536|1785684743830
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze.Unsqueeze|1222764|1785684743830|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze.Unsqueeze|1221708|1785684743830|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze.Unsqueeze|277151|321536|1785684743830
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze.Unsqueeze|277151|321536|1785684743830
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_1.Unsqueeze|1222764|1785684743830|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_1.Unsqueeze|1221708|1785684743830|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_1.Unsqueeze|277151|321536|1785684743830
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_1.Unsqueeze|277151|321536|1785684743830
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_2.Unsqueeze|1222764|1785684743831|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_2.Unsqueeze|1221708|1785684743831|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_2.Unsqueeze|277151|321536|1785684743831
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_2.Unsqueeze|277151|321536|1785684743831
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_3.Unsqueeze|1222764|1785684743831|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_3.Unsqueeze|1221708|1785684743831|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_3.Unsqueeze|277151|321536|1785684743831
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_3.Unsqueeze|277151|321536|1785684743831
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Concat.Concat|1222764|1785684743831|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Concat.Concat|1221708|1785684743831|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Concat.Concat|277152|321536|1785684743831
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Concat.Concat|277152|321536|1785684743831
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Reshape.Reshape|1222764|1785684743832|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Reshape.Reshape|1221708|1785684743832|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Reshape.Reshape|277152|321536|1785684743832
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Reshape.Reshape|277152|321536|1785684743832
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Transpose.Transpose|1222764|1785684743833|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Transpose.Transpose|277152|321536|1785684743833
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Transpose.Transpose|1221708|1785684743833|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Transpose.Transpose|277152|321536|1785684743833
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.key.Transpose.Transpose|1222768|1785684743833|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.key.Transpose.Transpose|1221740|1785684743833|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.key.Transpose.Transpose|277152|321536|1785684743833
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.key.Transpose.Transpose|277152|321536|1785684743833
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.key.MatMul.MatMul|1221748|1785684743842|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.key.MatMul.MatMul|1222800|1785684743842|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.key.MatMul.MatMul|277920|323584|1785684743842
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.key.MatMul.MatMul|277920|323584|1785684743842
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.key.Add.Add|1221752|1785684743842|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.key.Add.Add|1222804|1785684743842|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.key.Add.Add|278688|323584|1785684743842
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.key.Add.Add|278688|323584|1785684743842
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_4.Shape|1221752|1785684743843|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_4.Shape|1222804|1785684743843|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_4.Shape|278688|323584|1785684743843
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_4.Shape|278688|323584|1785684743843
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_4.Gather|1221752|1785684743844|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_4.Gather|1222804|1785684743844|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_4.Gather|278688|323584|1785684743844
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_4.Gather|278688|323584|1785684743844
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_5.Shape|1221752|1785684743844|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_5.Shape|1222804|1785684743844|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_5.Shape|278689|323584|1785684743844
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_5.Shape|278689|323584|1785684743844
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_5.Gather|1221756|1785684743845|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_5.Gather|1222808|1785684743845|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_5.Gather|278689|323584|1785684743845
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_5.Gather|278689|323584|1785684743845
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_4.Unsqueeze|1221756|1785684743845|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_4.Unsqueeze|1222808|1785684743845|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_4.Unsqueeze|278689|323584|1785684743845
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_4.Unsqueeze|278689|323584|1785684743845
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_5.Unsqueeze|1221760|1785684743845|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_5.Unsqueeze|1222808|1785684743845|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_5.Unsqueeze|278689|323584|1785684743845
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_5.Unsqueeze|278689|323584|1785684743845
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_6.Unsqueeze|1221760|1785684743846|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_6.Unsqueeze|1222812|1785684743846|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_6.Unsqueeze|278689|323584|1785684743846
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_6.Unsqueeze|278689|323584|1785684743846
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_7.Unsqueeze|1221764|1785684743846|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_7.Unsqueeze|1222812|1785684743846|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_7.Unsqueeze|278689|323584|1785684743846
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_7.Unsqueeze|278689|323584|1785684743846
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Concat_1.Concat|1222816|1785684743846|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Concat_1.Concat|1221776|1785684743846|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Concat_1.Concat|278689|323584|1785684743846
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Concat_1.Concat|278689|323584|1785684743846
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Reshape_1.Reshape|1221776|1785684743847|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Reshape_1.Reshape|278689|323584|1785684743847
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Reshape_1.Reshape|1222828|1785684743847|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Reshape_1.Reshape|278689|323584|1785684743847
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.value.Transpose.Transpose|1221776|1785684743848|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.value.Transpose.Transpose|278689|323584|1785684743848
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.value.Transpose.Transpose|1222828|1785684743848|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.value.Transpose.Transpose|278689|323584|1785684743848
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.value.MatMul.MatMul|1222832|1785684743856|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.value.MatMul.MatMul|279457|325632|1785684743856
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.value.MatMul.MatMul|1221780|1785684743856|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.value.MatMul.MatMul|279457|325632|1785684743856
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.value.Add.Add|1222836|1785684743856|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.value.Add.Add|280225|325632|1785684743856
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.value.Add.Add|1221784|1785684743857|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.value.Add.Add|280225|325632|1785684743857
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_6.Shape|1222836|1785684743857|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_6.Shape|280226|325632|1785684743857
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_6.Shape|1221784|1785684743857|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_6.Shape|280226|325632|1785684743857
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_6.Gather|1222836|1785684743858|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_6.Gather|280226|325632|1785684743858
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_6.Gather|1221784|1785684743858|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_6.Gather|280226|325632|1785684743858
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_7.Shape|1222836|1785684743858|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_7.Shape|280226|325632|1785684743858
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_7.Shape|1221784|1785684743858|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_7.Shape|280226|325632|1785684743858
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_7.Gather|1222840|1785684743859|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Gather_7.Gather|280226|325632|1785684743859
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_7.Gather|1221784|1785684743859|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_8.Unsqueeze|1222840|1785684743859|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Gather_7.Gather|280226|325632|1785684743859
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_8.Unsqueeze|280226|325632|1785684743859
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_8.Unsqueeze|1221784|1785684743859|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_9.Unsqueeze|1222844|1785684743859|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_8.Unsqueeze|280226|325632|1785684743859
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_9.Unsqueeze|280226|325632|1785684743859
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_9.Unsqueeze|1221800|1785684743860|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_10.Unsqueeze|1222876|1785684743860|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_9.Unsqueeze|280226|325632|1785684743860
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_10.Unsqueeze|280226|325632|1785684743860
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_10.Unsqueeze|1221820|1785684743860|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_11.Unsqueeze|1222884|1785684743860|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_10.Unsqueeze|280226|325632|1785684743860
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_11.Unsqueeze|280226|325632|1785684743860
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_11.Unsqueeze|1221820|1785684743860|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Concat_2.Concat|1222884|1785684743860|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_11.Unsqueeze|280226|325632|1785684743860
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Concat_2.Concat|280227|325632|1785684743860
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Concat_2.Concat|1221820|1785684743861|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Concat_2.Concat|280227|325632|1785684743861
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Reshape_2.Reshape|1222884|1785684743861|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Reshape_2.Reshape|280227|325632|1785684743861
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Reshape_2.Reshape|1221820|1785684743861|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Reshape_2.Reshape|280227|325632|1785684743861
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Transpose_1.Transpose|1222884|1785684743862|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Transpose_1.Transpose|280227|325632|1785684743862
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Transpose_1.Transpose|1221820|1785684743862|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Transpose_1.Transpose|280227|325632|1785684743862
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_8.Shape|1222884|1785684743862|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Shape_8.Shape|280227|325632|1785684743862
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_8.Shape|1221820|1785684743863|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Shape_8.Shape|280227|325632|1785684743863
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Slice.Slice|1222884|1785684743863|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Slice.Slice|280227|325632|1785684743863
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Slice.Slice|1221820|1785684743863|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Slice.Slice|280227|325632|1785684743863
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Cast.Cast|1222916|1785684743863|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Cast.Cast|280228|325632|1785684743863
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Cast.Cast|1221852|1785684743864|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Cast.Cast|280228|325632|1785684743864
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Sqrt.Sqrt|1246468|1785684743885|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Sqrt.Sqrt|280228|325632|1785684743885
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Div.Div|1246532|1785684743885|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Sqrt.Sqrt|1245464|1785684743885|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Div.Div|280229|325632|1785684743885
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Sqrt.Sqrt|280228|325632|1785684743885
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Div.Div|1245464|1785684743886|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Div.Div|280229|325632|1785684743886
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Transpose_2.Transpose|1246536|1785684743886|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Transpose_2.Transpose|280229|325632|1785684743886
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Transpose_2.Transpose|1245468|1785684743887|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Sqrt_1.Sqrt|1246552|1785684743887|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Sqrt_1.Sqrt|280229|325632|1785684743887
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Transpose_2.Transpose|280229|325632|1785684743887
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Sqrt_1.Sqrt|1245488|1785684743887|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Sqrt_1.Sqrt|280229|325632|1785684743887
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Mul.Mul|1246552|1785684743887|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Mul.Mul|280997|325632|1785684743887
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Sqrt_2.Sqrt|1246552|1785684743888|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Sqrt_2.Sqrt|280998|325632|1785684743888
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Mul.Mul|1245488|1785684743888|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Mul.Mul|280997|325632|1785684743888
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Sqrt_2.Sqrt|1245488|1785684743888|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Mul_1.Mul|1246568|1785684743888|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Sqrt_2.Sqrt|280998|325632|1785684743888
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Mul_1.Mul|281766|325632|1785684743888
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Mul_1.Mul|1245508|1785684743889|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Mul_1.Mul|281766|325632|1785684743889
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.MatMul.MatMul|1246680|1785684743896|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.MatMul.MatMul|283302|329728|1785684743896
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.MatMul.MatMul|1245684|1785684743896|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.MatMul.MatMul|283302|329728|1785684743896
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Add.Add|1246684|1785684743897|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Add.Add|284838|329728|1785684743897
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Add.Add|1245688|1785684743897|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Add.Add|284838|329728|1785684743897
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Softmax.Softmax|1263064|1785684744145|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Softmax.Softmax|1260764|1785684744145|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Softmax.Softmax|286887|432128|1785684744145
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Softmax.Softmax|286887|432128|1785684744145
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.MatMul_1.MatMul|1263072|1785684744154|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.MatMul_1.MatMul|287655|432128|1785684744154
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.MatMul_1.MatMul|1260772|1785684744154|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.MatMul_1.MatMul|287655|432128|1785684744154
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Transpose_3.Transpose|1263076|1785684744154|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Transpose_3.Transpose|287655|432128|1785684744154
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Transpose_3.Transpose|1260776|1785684744155|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_12.Unsqueeze|1263080|1785684744155|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Transpose_3.Transpose|287655|432128|1785684744155
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_12.Unsqueeze|287655|432128|1785684744155
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_12.Unsqueeze|1260784|1785684744155|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_13.Unsqueeze|1263088|1785684744156|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_13.Unsqueeze|287655|432128|1785684744156
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_14.Unsqueeze|1263088|1785684744156|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_12.Unsqueeze|287655|432128|1785684744155
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_14.Unsqueeze|287655|432128|1785684744156
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_13.Unsqueeze|1260784|1785684744156|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Concat_3.Concat|1263088|1785684744156|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_13.Unsqueeze|287655|432128|1785684744156
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Concat_3.Concat|287656|432128|1785684744156
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_14.Unsqueeze|1260784|1785684744156|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Unsqueeze_14.Unsqueeze|287655|432128|1785684744156
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Concat_3.Concat|1260784|1785684744157|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.self.Reshape_3.Reshape|1263088|1785684744157|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Concat_3.Concat|287656|432128|1785684744157
+GPU|0|0|graphop|bert.encoder.layer.0.attention.self.Reshape_3.Reshape|288424|432128|1785684744157
+MEM|0|0|graphop|bert.encoder.layer.0.attention.output.dense.Transpose.Transpose|1263088|1785684744157|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.output.dense.Transpose.Transpose|288424|432128|1785684744157
+MEM|1|0|graphop|bert.encoder.layer.0.attention.self.Reshape_3.Reshape|1260784|1785684744158|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.self.Reshape_3.Reshape|288424|432128|1785684744158
+MEM|1|0|graphop|bert.encoder.layer.0.attention.output.dense.Transpose.Transpose|1260784|1785684744158|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.output.dense.Transpose.Transpose|288424|432128|1785684744158
+MEM|0|0|graphop|bert.encoder.layer.0.attention.output.dense.MatMul.MatMul|1263088|1785684744168|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.output.dense.MatMul.MatMul|289192|434176|1785684744168
+MEM|1|0|graphop|bert.encoder.layer.0.attention.output.dense.MatMul.MatMul|1260784|1785684744168|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.output.dense.MatMul.MatMul|289192|434176|1785684744168
+MEM|0|0|graphop|bert.encoder.layer.0.attention.output.dense.Add.Add|1263088|1785684744169|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.output.dense.Add.Add|289960|434176|1785684744169
+MEM|1|0|graphop|bert.encoder.layer.0.attention.output.dense.Add.Add|1260788|1785684744169|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.output.dense.Add.Add|289960|434176|1785684744169
+MEM|0|0|graphop|bert.encoder.layer.0.attention.output.dropout.Dropout.Dropout|1263088|1785684744170|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.output.dropout.Dropout.Dropout|290728|434176|1785684744170
+MEM|0|0|graphop|bert.encoder.layer.0.attention.output.Add.Add|1263088|1785684744170|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.attention.output.dropout.Dropout.Dropout|1260788|1785684744170|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.attention.output.Add.Add|291496|434176|1785684744170
+GPU|1|0|graphop|bert.encoder.layer.0.attention.output.dropout.Dropout.Dropout|290728|434176|1785684744170
+MEM|1|0|graphop|bert.encoder.layer.0.attention.output.Add.Add|1260788|1785684744171|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.attention.output.Add.Add|291496|434176|1785684744171
+MEM|1|0|graphop|bert.encoder.layer.0.attention.output.LayerNorm.LayerNormalization.LayerNormalization|1260812|1785684744215|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.attention.output.LayerNorm.LayerNormalization.LayerNormalization|1263124|1785684744215|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.attention.output.LayerNorm.LayerNormalization.LayerNormalization|292264|438272|1785684744215
+GPU|1|0|graphop|bert.encoder.layer.0.attention.output.LayerNorm.LayerNormalization.LayerNormalization|292264|438272|1785684744215
+MEM|0|0|graphop|bert.encoder.layer.0.intermediate.dense.Transpose.Transpose|1263160|1785684744216|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.intermediate.dense.Transpose.Transpose|1260840|1785684744216|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.intermediate.dense.Transpose.Transpose|292264|438272|1785684744216
+GPU|0|0|graphop|bert.encoder.layer.0.intermediate.dense.Transpose.Transpose|292264|438272|1785684744216
+MEM|1|0|graphop|bert.encoder.layer.0.intermediate.dense.MatMul.MatMul|1293640|1785684744254|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.intermediate.dense.MatMul.MatMul|295336|438272|1785684744254
+MEM|0|0|graphop|bert.encoder.layer.0.intermediate.dense.MatMul.MatMul|1295984|1785684744255|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.intermediate.dense.MatMul.MatMul|295336|438272|1785684744255
+MEM|1|0|graphop|bert.encoder.layer.0.intermediate.dense.Add.Add|1293644|1785684744255|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.intermediate.dense.Add.Add|298408|438272|1785684744255
+MEM|0|0|graphop|bert.encoder.layer.0.intermediate.dense.Add.Add|1295984|1785684744256|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.intermediate.dense.Add.Add|298408|438272|1785684744256
+MEM|0|0|graphop|bert.encoder.layer.0.intermediate.intermediate_act_fn.GELU.GELU|1303608|1785684744464|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.intermediate.intermediate_act_fn.GELU.GELU|301480|606208|1785684744464
+MEM|1|0|graphop|bert.encoder.layer.0.intermediate.intermediate_act_fn.GELU.GELU|1301332|1785684744464|1600104
+MEM|0|0|graphop|bert.encoder.layer.0.output.dense.Transpose.Transpose|1303612|1785684744464|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.output.dense.Transpose.Transpose|301480|606208|1785684744464
+GPU|1|0|graphop|bert.encoder.layer.0.intermediate.intermediate_act_fn.GELU.GELU|301480|606208|1785684744464
+MEM|1|0|graphop|bert.encoder.layer.0.output.dense.Transpose.Transpose|1301336|1785684744465|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.output.dense.Transpose.Transpose|301480|606208|1785684744465
+MEM|0|0|graphop|bert.encoder.layer.0.output.dense.MatMul.MatMul|1303672|1785684744488|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.output.dense.MatMul.MatMul|302248|606208|1785684744488
+MEM|1|0|graphop|bert.encoder.layer.0.output.dense.MatMul.MatMul|1301396|1785684744489|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.output.dense.MatMul.MatMul|302248|606208|1785684744489
+MEM|0|0|graphop|bert.encoder.layer.0.output.dense.Add.Add|1303676|1785684744489|1596724
+GPU|0|0|graphop|bert.encoder.layer.0.output.dense.Add.Add|303016|606208|1785684744489
+MEM|1|0|graphop|bert.encoder.layer.0.output.dense.Add.Add|1301400|1785684744489|1600104
+GPU|1|0|graphop|bert.encoder.layer.0.output.dense.Add.Add|303016|606208|1785684744489
+MEM|0|0|graphop|bert.encoder.layer.0.output.dropout.Dropout.Dropout|1303680|1785684744491|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.output.dropout.Dropout.Dropout|1301404|1785684744491|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.output.dropout.Dropout.Dropout|303784|606208|1785684744491
+GPU|1|0|graphop|bert.encoder.layer.0.output.dropout.Dropout.Dropout|303784|606208|1785684744491
+MEM|0|0|graphop|bert.encoder.layer.0.output.Add.Add|1303684|1785684744492|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.output.Add.Add|1301408|1785684744492|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.output.Add.Add|304552|606208|1785684744492
+GPU|1|0|graphop|bert.encoder.layer.0.output.Add.Add|304552|606208|1785684744492
+MEM|0|0|graphop|bert.encoder.layer.0.output.LayerNorm.LayerNormalization.LayerNormalization|1303728|1785684744538|1596724
+MEM|1|0|graphop|bert.encoder.layer.0.output.LayerNorm.LayerNormalization.LayerNormalization|1301416|1785684744538|1600104
+GPU|0|0|graphop|bert.encoder.layer.0.output.LayerNorm.LayerNormalization.LayerNormalization|305320|610304|1785684744538
+MEM|0|-1|graphop|bert.pooler.Gather.Gather|1303728|1785684744539|1596724
+GPU|1|0|graphop|bert.encoder.layer.0.output.LayerNorm.LayerNormalization.LayerNormalization|305320|610304|1785684744538
+GPU|0|-1|graphop|bert.pooler.Gather.Gather|305320|610304|1785684744539
+MEM|1|-1|graphop|bert.pooler.Gather.Gather|1301428|1785684744539|1600104
+GPU|1|-1|graphop|bert.pooler.Gather.Gather|305320|610304|1785684744539
+MEM|1|-1|graphop|bert.pooler.dense.Gemm.Gemm|1306876|1785684744557|1600104
+MEM|0|-1|graphop|bert.pooler.dense.Gemm.Gemm|1309220|1785684744557|1596724
+GPU|1|-1|graphop|bert.pooler.dense.Gemm.Gemm|305326|610304|1785684744557
+GPU|0|-1|graphop|bert.pooler.dense.Gemm.Gemm|305326|610304|1785684744557
+MEM|0|-1|graphop|bert.pooler.activation.Tanh.Tanh|1309284|1785684744598|1596724
+MEM|1|-1|graphop|bert.pooler.activation.Tanh.Tanh|1306944|1785684744598|1600104
+GPU|0|-1|graphop|bert.pooler.activation.Tanh.Tanh|305332|610304|1785684744598
+GPU|1|-1|graphop|bert.pooler.activation.Tanh.Tanh|305332|610304|1785684744598
+MEM|0|-1|graphop|dropout.Dropout.Dropout|1309284|1785684744599|1596724
+GPU|0|-1|graphop|dropout.Dropout.Dropout|305338|610304|1785684744599
+MEM|1|-1|graphop|dropout.Dropout.Dropout|1306948|1785684744599|1600104
+GPU|1|-1|graphop|dropout.Dropout.Dropout|305338|610304|1785684744599
+MEM|1|-1|graphop|output.Gemm|1307232|1785684744607|1600104
+MEM|0|-1|graphop|output.Gemm|1309536|1785684744607|1596724
+GPU|1|-1|graphop|output.Gemm|305338|610304|1785684744607
+GPU|0|-1|graphop|output.Gemm|305338|610304|1785684744607
+MEM|1|-1|main|after_inference|1307236|1785684744607|1600104
+MEM|0|-1|main|after_inference|1309536|1785684744607|1596724
+GPU|1|-1|main|after_inference|269980|610304|1785684744607
+GPU|0|-1|main|after_inference|269980|610304|1785684744607
+MEM|0|-1|main|after_decrypt|1309536|1785684744608|1596724
+MEM|1|-1|main|after_decrypt|1307236|1785684744608|1600104
+GPU|0|-1|main|after_decrypt|269981|610304|1785684744608
+GPU|1|-1|main|after_decrypt|269981|610304|1785684744608
+GPUPEAK|party=0|peak_alloc_kb=496552|peak_reserved_kb=610304
+GPUPEAK|party=1|peak_alloc_kb=497064|peak_reserved_kb=610304
+MEM|1|-1|main|after_finalize|1307236|1785684744609|1600104
+GPU|1|-1|main|after_finalize|269981|610304|1785684744609
+MEM|0|-1|main|after_finalize|1319696|1785684744625|1596724
+GPU|0|-1|main|after_finalize|269981|610304|1785684744625

@@ -1,0 +1,37 @@
+step=p_seal_pool_new
+run=1
+date_utc=2026-08-14T14:43:23Z
+machine=palma:bigsmp node=r05n01
+slurm_job_id=46124468
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+pm_depth=5
+attrib_host=pmrec_pagemap
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/bolt/sif/bolt-p_seal_pool_new.sif
+image_digest=d0fc7a83cbc59b96fb92759a43d7eb49711aeb28fec8acbb429639b9a3c11d6c
+omp_num_threads=4
+snni_seed=0x5EED
+bolt_sample_id=0
+bolt_port=8468
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base seq=128 layers=12 num_class=2 (SST-2 quantised weights)
+protocol=BOLT 2PC, HE backend SEAL 4.1.1 (BFV), OT via SCI/KKOT, bitlength 37, NL_SCALE 12
+role=BOTH parties (ALICE r=1 weights, BOB r=2 input), measured together on one node
+parties: 3337872 3337916
+rc=0
+wall_s=1515
+polled_peak_kb=16531708
+################################# JOB REPORT ##################################
+Job ID: 46124468
+Cluster: palma2
+User/Group: j_wred02/u0dawin
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 72
+CPU Utilized: 03:08:25
+CPU Efficiency: 10.32% of 1-06:25:12 core-walltime
+Job Wall-clock time: 00:25:21
+Memory Utilized: 18.46 GB
+Memory Efficiency: 1.23% of 1.46 TB (1.46 TB/node)
+###############################################################################

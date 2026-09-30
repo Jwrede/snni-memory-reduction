@@ -1,0 +1,57 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m3_x_copy_release.sif
+
+# MOAI-CPU m4_enc_ecd_x_release: release enc_ecd_x (768 input CTs) across the peak, on top of
+# m3_x_copy_release. FREE fix, no accuracy/security/portability trade.
+#
+# WHY. At m3's peak (depth 10) the largest object is gal_keys_boot (62 GB, no free fix: all 47 keys
+# requested), so rule 6 looks to the next object WITH a free fix: batch_input/enc_ecd_x (54.7 GB
+# attributed). Source check: enc_ecd_x is created at :546, last read by single_att_block (attention),
+# then dead until its layer-2 reuse; the peak (after_bootstrap4) is inside that dead interval. Same
+# pattern as x_copy one level up. The old campaign carries this release in its base image
+# (operator-bench/moai_new/01_base_image: swap(enc_ecd_x)), so the lever is validated there; size is
+# uncertain here (enc_ecd_x is mod-switched 3x -> smaller than x_copy's 28 GB; the 54.7 GB attribution
+# includes pool-retained full-level chunks a plain release does not recover). Measurement decides.
+#
+# TWO EDITS (patch_enc_ecd_x_release.py, self-validating): swap(enc_ecd_x) after after_attention, and
+# resize(num_col) before the layer-2 reuse loop (beside m3's enc_ecd_x_copy.resize). Project only;
+# SEAL threshold+recording pool inherited from the base.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_enc_ecd_x_release.py /opt/patch_enc_ecd_x_release.py
+
+%post
+    set -e
+    python3 /opt/patch_enc_ecd_x_release.py /root/moai
+
+    cd /root/moai
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+
+    # ALL FOUR levers must be present, plus seed, workload, recording pool.
+    strings -a /root/moai/build/test | grep -q 'SEEDED|seal_prng|' \
+        || { echo "FAILED: no SEAL seed marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'WORKLOAD|model=bert-base' \
+        || { echo "FAILED: no workload marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|pool_threshold' \
+        || { echo "FAILED: the inherited pool_threshold lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|minimal_att_keys' \
+        || { echo "FAILED: the inherited minimal_att_keys lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|x_copy_release' \
+        || { echo "FAILED: the inherited x_copy_release lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|enc_ecd_x_release' \
+        || { echo "FAILED: the enc_ecd_x_release lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'POOLREC|profile_installed' \
+        || { echo "FAILED: the recording pool is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'SNNI_MM|profile=new' \
+        && { echo "FAILED: this variant must NOT carry MMProfNew"; exit 4; }
+
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m4_enc_ecd_x_release
+    snni.base m3_x_copy_release

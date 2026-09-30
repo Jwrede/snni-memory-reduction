@@ -1,0 +1,28 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m0_default.sif
+
+# MOAI-CPU x_m0_att_keys_release_last_layer (OFF-PATH refutation run, 2026-09-24): the BASELINE m0 PLUS one lever (patch_att_keys_release_last_layer.py) on the stock pool. Purpose: the m5 declaration in the corrected line needs `requires: m1_pool_threshold` + `refuted_as:` (PROCEDURE, rule 6 exception): on the stock pool a release returns a block to SEAL's free list, not to the kernel, so the peak cannot fall. This run measures exactly that for this lever. Not a waterfall step.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_att_keys_release_last_layer.py /opt/patch_att_keys_release_last_layer.py
+
+%post
+    set -e
+    python3 /opt/patch_att_keys_release_last_layer.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in 'SEEDED|seal_prng|' 'WORKLOAD|model=bert-base' 'LEVER|att_keys_release_last_layer'; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    strings -a build/test | grep -q 'LEVER|pool_threshold' \
+        && { echo "FAILED: this variant must NOT carry the pool threshold"; exit 4; } || true
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step x_m0_att_keys_release_last_layer
+    snni.base m0_default

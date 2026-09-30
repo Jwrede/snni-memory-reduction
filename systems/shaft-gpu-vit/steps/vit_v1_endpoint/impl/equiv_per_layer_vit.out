@@ -1,0 +1,4 @@
+  ok  head order is layernorm -> CLS slice -> classifier, as the driver assumes
+  ok  12 layers, seq 197: decomposition is bit-identical to the whole model (max |logit| 4.619384e+00)
+  info  patch grid gives 197 tokens (196 patches + 1 CLS)
+PASS: the ViT per-layer decomposition computes the same function, and the head order is the model's own

@@ -1,0 +1,104 @@
+diff --git a/tools/palma/conf/shaft-cpu.conf b/tools/palma/conf/shaft-cpu.conf
+index 636936ace..a537d2fa7 100644
+--- a/tools/palma/conf/shaft-cpu.conf
++++ b/tools/palma/conf/shaft-cpu.conf
+@@ -30,4 +30,14 @@ DERIVE=derive.sbatch
+ #
+ # The measured script is NOT modified for it. The signal handler is armed from `sitecustomize`,
+ # which rides in on PYTHONPATH, so `script_md5` is the published driver's either way.
+-CHANNELS="-:PMREC=1,SNNI_PY_CENSUS=1"
++#
++# EVERY POLLER FREEZES BOTH PARTIES (SNNI_PM_FREEZE_ALL_POLLERS=1, from 2026-09-29). The published
++# peak is the heavier party's, and on this line either party can be the heavier one. Under the
++# leader-only freeze the non-leader's snapshot was taken with that party running: s5_per_layer
++# run3's smaps copy landed at 1,530,192 kB against the party's 1,715,256 kB peak, 10.8% below, so
++# its table was refused. With this flag each poller stops both parties at its own party's new
++# maxima, one window at a time under a lock (tools/palma/measure.sh, snni_start_poller). The
++# measured program, image, levers and threads are unchanged; the extra pauses are totalled per
++# poller and subtracted from wall like the leader's. Runs measured before this date froze from
++# the leader only; a run that froze from every poller carries `freeze_all_pollers=1` in RUN_META.
++CHANNELS="-:PMREC=1,SNNI_PY_CENSUS=1,SNNI_PM_FREEZE_ALL_POLLERS=1"
+diff --git a/tools/palma/measure.sh b/tools/palma/measure.sh
+index 535de6107..571b96969 100644
+--- a/tools/palma/measure.sh
++++ b/tools/palma/measure.sh
+@@ -60,6 +60,8 @@ snni_run_meta() {
+         echo "pm_depth=${SNNI_PM_DEPTH:-1}"
+         echo "attrib_host=$([ -n "${PMREC:-}" ] && echo pmrec_pagemap || echo off)"
+         echo "attrib_device=$([ -n "${ATTRIB:-}" ] && echo torch_state || echo off)"
++        # Written only when set, so every other run's RUN_META is unchanged (see snni_start_poller).
++        [ -n "${SNNI_PM_FREEZE_ALL_POLLERS:-}" ] && echo "freeze_all_pollers=1"
+         local kv
+         for kv in "$@"; do echo "$kv"; done
+     } > "$res/RUN_META"
+@@ -152,20 +154,32 @@ snni_start_poller() {
+     # while others run is a protocol fault, not a pause. Followers get SNNI_PM_FREEZE stripped
+     # with `env -u` (not just left unset), since --export=ALL would otherwise let a follower thaw
+     # its party mid-capture.
++    #
++    # SNNI_PM_FREEZE_ALL_POLLERS=1 (opt-in, 2026-09-29): every party's poller freezes the whole
++    # party set at its own new maxima, so each party's capture is atomic at that party's peak and
++    # not only the leader's. The windows are serialised by a lock (SNNI_PM_FREEZE_LOCK, flock in
++    # poll_peak.sh), so no poller thaws the parties during another's capture. Each poller totals its
++    # own pauses in its trace. Unset, every poller is launched exactly as before.
+     local res="$1" outbase="$2"; shift 2
+     local all="$*" first="$1" p pids=""
+-    local lead=1
++    local lead=1 lock=""
++    if [ -n "${SNNI_PM_FREEZE_ALL_POLLERS:-}" ] && [ "$(echo "$all" | wc -w)" -gt 1 ]; then
++        lock="$res/freeze.lock"
++        echo "every poller freezes the party set [$all] (SNNI_PM_FREEZE_ALL_POLLERS=1, lock $lock)" \
++            >> "$res/poller_attach.log"
++    fi
+     for p in $all; do
+         local out="$res/$outbase"
+         [ "$(echo "$all" | wc -w)" -gt 1 ] && out="$res/${outbase}_$p"
+         # SNNI_PM_SAMPLE_BIN names another sampler binary (2026-09-18: pmsample_chain, which keys
+         # rows on the whole frame chain); the default stays so runs already in flight keep theirs.
+-        if [ "$lead" = 1 ]; then
++        if [ "$lead" = 1 ] || [ -n "$lock" ]; then
+             SNNI_PM_TABLE="${PMREC:+$res/pmtable_$p}" \
+             SNNI_PM_SAMPLE="${PMREC:+${SNNI_PM_SAMPLE_BIN:-$AR/pmsample}}" \
+             SNNI_PM_FULLSCAN="$SNNI_PM_FULLSCAN" \
+             SNNI_PM_FREEZE="$SNNI_PM_FREEZE" \
+             SNNI_PM_FREEZE_PIDS="$all" \
++            SNNI_PM_FREEZE_LOCK="$lock" \
+             SNNI_POOLREC_TABLE="${SNNI_POOLREC:+$res/pooltable_$p}" \
+             SNNI_MARKER_FILE="${SNNI_MARKER_SAMPLE:+$res/markers.txt}" \
+                 bash "$CAMP/poll_peak.sh" "$p" "$POLL_MS" "$out" \
+diff --git a/tools/poll_peak.sh b/tools/poll_peak.sh
+index a435d3311..b9adc1111 100755
+--- a/tools/poll_peak.sh
++++ b/tools/poll_peak.sh
+@@ -60,6 +60,14 @@ if [ -n "${SNNI_PM_FREEZE:-}" ]; then
+     # shellcheck disable=SC2086
+     trap 'kill -CONT $FREEZE_PIDS 2>/dev/null' EXIT INT TERM
+ fi
++# SNNI_PM_FREEZE_LOCK is set by snni_start_poller only under SNNI_PM_FREEZE_ALL_POLLERS=1, where
++# every party's poller freezes the whole party set at its own new maxima (2026-09-29, SHAFT-CPU
++# s5). The lock serialises the stopped windows, so one poller's SIGCONT cannot thaw the parties
++# during another poller's capture. Unset, nothing below changes.
++FREEZE_LOCK_FD=""
++if [ -n "${SNNI_PM_FREEZE:-}" ] && [ -n "${SNNI_PM_FREEZE_LOCK:-}" ]; then
++    exec {FREEZE_LOCK_FD}>>"$SNNI_PM_FREEZE_LOCK"
++fi
+ # SNNI_PM_FULLSCAN=1: pmsample scans every readable mapping, so the unnamed remainder is LOCATED
+ # rather than the subtraction anon-minus-named-heap. Costs address space, not RSS (+37% on 600 MB
+ # but 36x on a 512 GiB PROT_NONE reservation, the torch/CUDA shape), so unreadable mappings are
+@@ -98,6 +106,8 @@ snapshot_peak() {
+     # race, so objects/mappings/libraries describe one instant. It perturbs wall time only, and that
+     # is logged and totalled so it can be subtracted from the runtime axis.
+     if [ -n "${SNNI_PM_FREEZE:-}" ]; then
++        # Waiting for another poller's window is not this poller's pause, so the clock starts after.
++        [ -n "$FREEZE_LOCK_FD" ] && flock "$FREEZE_LOCK_FD"
+         fz0=$(date +%s%3N)
+         # shellcheck disable=SC2086
+         kill -STOP $FREEZE_PIDS 2>/dev/null && froze=1
+@@ -190,6 +200,7 @@ snapshot_peak() {
+         TOTAL_PAUSE_MS=$(( TOTAL_PAUSE_MS + pause_ms ))
+         echo "$ts $pause_ms" >> "$OUTDIR/peaks/PAUSE_INDEX"
+     fi
++    [ -n "$FREEZE_LOCK_FD" ] && flock -u "$FREEZE_LOCK_FD"
+ 
+     # ts, the labelling RSS, the pre/post readings, and the hold time. With freeze on, rss_pre and
+     # rss_post must be identical (the assertion the design rests on), so it is recorded.

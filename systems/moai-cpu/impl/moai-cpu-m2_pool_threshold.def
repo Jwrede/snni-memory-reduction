@@ -1,0 +1,164 @@
+Bootstrap: docker
+From: ubuntu:24.04
+
+# MOAI-CPU (SEAL 4.1 with a bootstrapping fork, non-interactive pure FHE), the PRIMARY system of
+# the pure-FHE paradigm on CPU, and ARION's partner in the closed arm.
+#
+# BUILT FROM PRISTINE UPSTREAM, not from the earlier campaign's image. That image exists and can
+# rebuild itself, which is tempting, and it is not usable as a baseline: it carries that campaign's
+# own instrumentation (`cleanup_main_log_rss`, `dump_live_breakdown`, `log_pool`) AND one of its
+# levers -- attention Galois keys are reused from disk when a phase file is present. A baseline
+# with a lever already in it measures a system that has already been optimised, and every later
+# step's reduction would be quoted against the wrong denominator.
+#
+# The image is therefore upstream at a pinned commit plus exactly the changes that ARE the measured
+# system: a pinned SEAL PRNG, a declared depth, phase markers, and a main() that calls only the
+# measured workload. See impl/pin_seed_and_gate.py for why each of those is not optional.
+
+# THIS VARIANT IS `m1_minimal_att_keys` PLUS THE RECORDING POOL PLUS EXACTLY ONE LEVER.
+#
+# A waterfall step is CUMULATIVE, so this image carries m1's lever as well; that is not a second
+# change riding along, it is the predecessor this step's delta is quoted against.
+#
+# THE RECORDING POOL IS NOT A LEVER HERE, IT IS THE INSTRUMENT OF THIS LINE. MANIFEST.md admits it
+# as part of the measured system on the condition that EVERY step carries it, and since 2026-08-28
+# both published rows do (m0 from p_prm0, m1 from p_prm1, the latter with a gate.txt bit-identical
+# to the pre-recorder run). An image without it would not be comparable to its own predecessor.
+#
+# THE LEVER: `SNNI_POOL_THRESHOLD`. A pool head whose item size is at or above the threshold frees
+# on return instead of caching; below it the policy is unchanged. Unset or 0 is the parent program
+# byte for byte, which is what makes the pair comparable and what `runtime_knob: yes` declares in
+# levers.env. It attacks `sealpool:retained`, 46.9% of m1's peak, which is memory the program
+# allocated, released, and the pool never gave back. See impl/patch_pool_threshold.py.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/pin_seed_and_gate.py /opt/pin_seed_and_gate.py
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_minimal_att_keys.py /opt/patch_minimal_att_keys.py
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_recording_pool.py /opt/patch_recording_pool.py
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_pool_threshold.py /opt/patch_pool_threshold.py
+
+%post
+    set -e
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get install -y --no-install-recommends \
+        git ca-certificates build-essential g++ make cmake pkg-config \
+        libntl-dev libssl-dev libgmp-dev python3 procps psmisc binutils
+    rm -rf /var/lib/apt/lists/*
+
+    cd /root
+    git clone https://github.com/dtc2025ag/MOAI.git moai
+    cd /root/moai
+    git rev-parse HEAD > /opt/moai_commit.txt
+
+    # The weight data ships in the repository, all twelve layers of it. If that ever stops being
+    # true the run would start and then read empty matrices, so it is checked here rather than
+    # eighteen hours into a measurement.
+    test -d /root/moai/data/layer_0
+    test -d /root/moai/data/layer_11
+    du -sh /root/moai/data
+
+    # SEAL first: the project links it with find_package(SEAL 4.1 REQUIRED), so a missing install
+    # is a cmake error rather than a link error, which is the clearer failure.
+    cd /root/moai/thirdparty/SEAL-4.1-bs
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    cmake --install build
+
+    # The seed, the depth knob, the markers and the workload selection, BEFORE the compile, so the
+    # binary that gets measured is the binary that carries them.
+    cd /root/moai
+    python3 /opt/pin_seed_and_gate.py /root/moai
+
+    # THE PREDECESSOR'S LEVER FIRST, because a waterfall step is cumulative and this step's delta
+    # is quoted against m1, not against the baseline.
+    python3 /opt/patch_minimal_att_keys.py /root/moai
+
+    # THEN THE INSTRUMENT. It edits SEAL's pool and pointer headers plus one install site in
+    # the program, none of which the lever above touches.
+    python3 /opt/patch_recording_pool.py /root/moai
+
+    # THEN THIS STEP'S LEVER, which edits the head construction the recorder itself introduced and
+    # refuses outright against a tree without it. Order mistakes fail here rather than shifting an
+    # edit: every anchor is checked and the count is asserted.
+    python3 /opt/patch_pool_threshold.py /root/moai
+
+    # `-g` so call sites are MEASURED rather than inferred: without debug info a symboliser returns
+    # the nearest exported symbol, which reads like a call stack and is not one. It changes no code
+    # generation and its sections are not resident.
+    #
+    # IT HAS TO GO INTO THE CMakeLists, NOT ONTO THE COMMAND LINE. This project SETS
+    # `CMAKE_CXX_FLAGS` itself, which overwrites whatever `-DCMAKE_CXX_FLAGS=` passes in; the first
+    # build of this image did exactly that, compiled cleanly, and failed the debug_info check
+    # afterwards. The check is what caught it -- without that check the image would have been
+    # accepted and every object name from this system would have been the nearest exported symbol
+    # rather than the allocating function.
+    sed -i 's|set(CMAKE_CXX_FLAGS "-lstdc++ -O3 -fopenmp")|set(CMAKE_CXX_FLAGS "-lstdc++ -O3 -fopenmp -g")|' CMakeLists.txt
+    grep -q 'fopenmp -g' CMakeLists.txt || { echo "FAILED: could not add -g to CMAKE_CXX_FLAGS"; exit 4; }
+    # SEAL AGAIN, AND THIS IS NOT REDUNDANT. The install above happened BEFORE the patches, and
+    # both the recorder and this lever live inside SEAL. Without this rebuild the project would
+    # link the unpatched install and the binary would carry neither, while every marker check on
+    # the program's own strings still passed.
+    cd /root/moai/thirdparty/SEAL-4.1-bs
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    cmake --install build
+
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+
+    # THE BINARY MUST CARRY WHAT THE SOURCE PROMISED. A build that quietly dropped a patch runs,
+    # measures, and produces a plausible number.
+    strings -a /root/moai/build/test | grep -q 'SEEDED|seal_prng|' \
+        || { echo "FAILED: no SEAL seed marker in the binary"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'WORKLOAD|model=bert-base' \
+        || { echo "FAILED: no workload marker in the binary"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'MEM|' \
+        || { echo "FAILED: no MEM marker in the binary"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'SNNI_PARAM|' \
+        || { echo "FAILED: no parameter marker in the binary"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|minimal_att_keys' \
+        || { echo "FAILED: no minimal_att_keys marker in the binary"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|pool_threshold' \
+        || { echo "FAILED: no pool_threshold marker in the binary"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'POOLREC|profile_installed' \
+        || { echo "FAILED: no recording pool in the binary"; exit 4; }
+    nm -C /root/moai/build/test 2>/dev/null | grep -q 'MemoryPoolHeadRecordingImmediate' \
+        || strings -a /root/moai/build/test | grep -q 'MemoryPoolHeadRecordingImmediate' \
+        || { echo "FAILED: the immediate-free head is not linked in"; exit 4; }
+    # NOTHING ELSE MAY RIDE ALONG.
+    # NOTHING ELSE MAY RIDE ALONG. Two levers in one image is how a line stops knowing which
+    # change did the work.
+    strings -a /root/moai/build/test | grep -q 'SNNI_MM|profile=new' \
+        && { echo "FAILED: this variant must NOT carry MMProfNew"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|x_copy_release' \
+        && { echo "FAILED: this variant must NOT carry x_copy_release"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|gelu_output_release' \
+        && { echo "FAILED: this variant must NOT carry gelu_output_release"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|rtn_release_early' \
+        && { echo "FAILED: this variant must NOT carry rtn_release_early"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|park_att_keys' \
+        && { echo "FAILED: this variant must NOT carry the PAID parking step"; exit 4; }
+    readelf -S /root/moai/build/test | grep -q debug_info \
+        || { echo "FAILED: no debug_info; call sites would be inferred rather than measured"; exit 4; }
+
+    # WHICH ALLOCATION ENTRY POINTS THIS BINARY USES. SEAL routes 64-byte-multiple blocks through
+    # aligned_alloc, which the recorder only started hooking on 2026-07-30; any table taken from a
+    # SEAL system before that is invalid rather than merely incomplete. The pattern allows an
+    # @VERSION suffix, without which it reports nothing for every glibc binary.
+    nm -D /root/moai/build/test \
+        | grep -E ' U (malloc|calloc|realloc|aligned_alloc|posix_memalign|memalign|valloc|_Znwm|_Znam)(@.*)?$' \
+        | tee /opt/moai_alloc_imports.txt
+    [ -s /opt/moai_alloc_imports.txt ] || { echo "FAILED: no allocator imports found at all"; exit 4; }
+
+    md5sum /root/moai/build/test > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%environment
+    export LC_ALL=C
+
+%runscript
+    echo "MOAI-CPU image. The harness launches /root/moai/build/test; see run_moai_cpu.sh."

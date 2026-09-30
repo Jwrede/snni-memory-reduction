@@ -1,0 +1,59 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m2_minimal_att_keys.sif
+
+# MOAI-CPU m3_x_copy_release: release enc_ecd_x_copy (768 residual-copy CTs) across the peak, on top
+# of m2_minimal_att_keys (pool-first line). FREE fix, no accuracy/security/portability trade.
+#
+# WHY NOW AND NOT BEFORE. The residual copy is dead from its last read (residual add, just after
+# after_bootstrap1) until its next-layer reuse, and the peak (after_bootstrap4) falls inside that
+# interval (m2 markers.txt: peak marker after_bootstrap4, residual add right after after_bootstrap1).
+# The retired m2_x_copy_release measured this release at -0.12% -- but on the STOCK pool, which never
+# returned freed blocks to the OS. m1_pool_threshold's threshold pool returns freed blocks >= 4 MiB,
+# so the same release should now lower the peak. Expected ~28 GB (the copy's resident size at the
+# peak, re-attributed 2026-09-03); refuted if the peak moves less than ~0.53 pp.
+#
+# WHY IT COMPOSES CLEANLY. Two edits in the project only (test_full_scheme.hpp): uncomment the
+# shipped release, and resize enc_ecd_x_copy back before its next-layer reuse (patch_x_copy_release.py
+# does both and self-validates the lifetime). SEAL (threshold + recording pool) is inherited unchanged
+# from the base, so only /root/moai is rebuilt and the run still writes a live object table.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_x_copy_release.py /opt/patch_x_copy_release.py
+
+%post
+    set -e
+
+    # The patch refuses at != 1 anchor match and checks release-before-reuse and residual-before-
+    # release, so a wrong base fails here rather than 20 h into a run.
+    python3 /opt/patch_x_copy_release.py /root/moai
+
+    # PROJECT ONLY. SEAL (threshold + recording pool) is already built and installed in the base.
+    cd /root/moai
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+
+    # ALL THREE levers must be present, plus the seed, the workload, and the recording pool.
+    strings -a /root/moai/build/test | grep -q 'SEEDED|seal_prng|' \
+        || { echo "FAILED: no SEAL seed marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'WORKLOAD|model=bert-base' \
+        || { echo "FAILED: no workload marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|pool_threshold' \
+        || { echo "FAILED: the inherited pool_threshold lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|minimal_att_keys' \
+        || { echo "FAILED: the inherited minimal_att_keys lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|x_copy_release' \
+        || { echo "FAILED: the x_copy_release lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'POOLREC|profile_installed' \
+        || { echo "FAILED: the recording pool is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'SNNI_MM|profile=new' \
+        && { echo "FAILED: this variant must NOT carry MMProfNew"; exit 4; }
+
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m3_x_copy_release
+    snni.base m2_minimal_att_keys

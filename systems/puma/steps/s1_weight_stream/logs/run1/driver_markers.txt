@@ -1,0 +1,22 @@
+SNNI_SCRIPT|md5=0de5327a3872f0863076bc7a7f3dda48
+WORKLOAD|model=bert-base-uncased|layers=12|seq=128|protocol=ABY3|field=FM64
+SEEDED|numpy+jax+spu_public|seed=0x5EED
+Some weights of the model checkpoint at bert-base-uncased were not used when initializing FlaxBertForSequenceClassification: {('cls', 'predictions', 'transform', 'LayerNorm', 'bias'), ('cls', 'predictions', 'transform', 'LayerNorm', 'scale'), ('cls', 'predictions', 'bias'), ('cls', 'predictions', 'transform', 'dense', 'kernel'), ('cls', 'predictions', 'transform', 'dense', 'bias')}
+- This IS expected if you are initializing FlaxBertForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing FlaxBertForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of FlaxBertForSequenceClassification were not initialized from the model checkpoint at bert-base-uncased and are newly initialized: {('classifier', 'bias'), ('classifier', 'kernel'), ('bert', 'pooler', 'dense', 'kernel'), ('bert', 'pooler', 'dense', 'bias')}
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Some weights of the model checkpoint at bert-base-uncased were not used when initializing FlaxBertForSequenceClassification: {('cls', 'predictions', 'transform', 'LayerNorm', 'bias'), ('cls', 'predictions', 'transform', 'LayerNorm', 'scale'), ('cls', 'predictions', 'bias'), ('cls', 'predictions', 'transform', 'dense', 'kernel'), ('cls', 'predictions', 'transform', 'dense', 'bias')}
+- This IS expected if you are initializing FlaxBertForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing FlaxBertForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of FlaxBertForSequenceClassification were not initialized from the model checkpoint at bert-base-uncased and are newly initialized: {('classifier', 'bias'), ('classifier', 'kernel'), ('bert', 'pooler', 'dense', 'kernel'), ('bert', 'pooler', 'dense', 'bias')}
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+REFERENCE|cpu_logits|0.37074780464172363|-0.035407684743404388
+MARK|cpu_reference_done|t=6.8
+EQUIV|stream_vs_whole|max_abs=0|max_rel=0
+MARK|spu_inference_done|t=279.7
+GATE|hidden_last|n=98304|sum=-810.58872985839844|absmax=8.2415122985839844
+GATE|logits|0.37030410766601562|-0.0359954833984375
+GATE_NONZERO|98304/98304
+REFERENCE|spu_vs_cpu|max_abs=0.00937247|max_rel=129.849|median_magnitude=0.177966
+MARK|done|t=279.7

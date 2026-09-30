@@ -1,0 +1,10 @@
+HE|subshape=128x64x1|lhs_polys=12|rhs_polys=36864|out_polys=3072|encrypt_lhs=1|carried_primes=3|ct_bytes=393216|pt_bytes=196608|rhs_dense=288|out_packed=48
+FLOOR|he|baseline|derived_bytes=0|rss_delta_kb=0|vmrss_kb=52432
+[2026-10-01 10:48:05.047] [info] [thread_pool.cc:30] Create a fixed thread pool with size 15
+HE|encrypted_activation|objects=12|object_bytes=4718592
+FLOOR|he|encrypted_activation|derived_bytes=4718592|rss_delta_kb=7332|vmrss_kb=59764
+HE|plaintext_weights_dense|objects=288|object_bytes=56623104
+FLOOR|he|plaintext_weights_dense|derived_bytes=56623104|rss_delta_kb=53100|vmrss_kb=112864
+HE|result_packed|objects=48|object_bytes=18874368
+FLOOR|he|result_packed|derived_bytes=18874368|rss_delta_kb=18656|vmrss_kb=131520
+FLOOR_SUMMARY|he|derived_bytes=80216064|rss_delta_kb=79088|rss_delta_bytes=80986112|ratio=1.0096

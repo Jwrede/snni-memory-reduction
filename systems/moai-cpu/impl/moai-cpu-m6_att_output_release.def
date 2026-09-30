@@ -1,0 +1,61 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m5_boot_layer_release.sif
+
+# MOAI-CPU m6_att_output_release: release att_output (the concatenated attention output) after its
+# only consumer, on top of m5_boot_layer_release. FREE fix, no accuracy/security/portability trade.
+#
+# WHY. Free-fix re-audit of the m5 peak (offline addr2line + vector/swap match in all_layer_test): the
+# big peak objects have no free fix (gal_keys_boot 62 + gal_keys 17 = keys -> paid phase-split;
+# bootstrap working set/temps = live/paid; relin = loop-local/paid; enc_ecd_x/copy = live next-layer).
+# The one overlooked free fix is att_output (~1.7 GB): declared :699, its only read is the matmul that
+# builds att_selfoutput (:712), never reused, and the peak (after_bootstrap4) is far later, yet it was
+# never swapped -- the other 9 all_layer_test ciphertext vectors all carry a release (att_block is
+# swapped at :709). Small (~0.8% of the 212 GB peak, just over the 0.53pp noise floor) but free, and
+# free-before-paid takes it before the paid phase-split. Size uncertain (attribution != releasable);
+# measurement decides.
+#
+# ONE EDIT (patch_att_output_release.py, self-validating): swap(att_output) after the att_selfoutput
+# matmul. No resize (att_output is never reused). Project only; SEAL inherited from the base.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_att_output_release.py /opt/patch_att_output_release.py
+
+%post
+    set -e
+    python3 /opt/patch_att_output_release.py /root/moai
+
+    cd /root/moai
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+
+    # ALL SIX levers must be present, plus seed, workload, recording pool.
+    strings -a /root/moai/build/test | grep -q 'SEEDED|seal_prng|' \
+        || { echo "FAILED: no SEAL seed marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'WORKLOAD|model=bert-base' \
+        || { echo "FAILED: no workload marker"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|pool_threshold' \
+        || { echo "FAILED: inherited pool_threshold missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|minimal_att_keys' \
+        || { echo "FAILED: inherited minimal_att_keys missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|x_copy_release' \
+        || { echo "FAILED: inherited x_copy_release missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|enc_ecd_x_release' \
+        || { echo "FAILED: inherited enc_ecd_x_release missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|boot_layer_release' \
+        || { echo "FAILED: inherited boot_layer_release missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'LEVER|att_output_release' \
+        || { echo "FAILED: the att_output_release lever is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'POOLREC|profile_installed' \
+        || { echo "FAILED: the recording pool is missing"; exit 4; }
+    strings -a /root/moai/build/test | grep -q 'SNNI_MM|profile=new' \
+        && { echo "FAILED: this variant must NOT carry MMProfNew"; exit 4; }
+
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m6_att_output_release
+    snni.base m5_boot_layer_release

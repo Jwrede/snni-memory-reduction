@@ -1,0 +1,52 @@
+Bootstrap: docker
+From: golang:1.24-bookworm
+
+# ARION with the Go attribution adapter (M15): baseline source at the SAME pinned commit plus
+# snni_heapdump.go, a SIGUSR1 handler around runtime/debug.WriteHeapDump, dormant unless
+# SNNI_HEAPDUMP_PATH is set. Used only for the p_goheap census, never for measurement runs.
+# `go build .`, not `go build main.go`, so the second-file adapter isn't silently excluded.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/arion/pin_workload.py /opt/pin_workload.py
+    /scratch/tmp/j_wred02/snni_campaign/arion/snni_heapdump.go /opt/snni_heapdump.go
+    /scratch/tmp/j_wred02/snni_campaign/arion/goheap_commit.txt /opt/goheap_commit.txt
+
+%post
+    set -e
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get install -y --no-install-recommends git procps psmisc binutils python3
+    rm -rf /var/lib/apt/lists/*
+
+    cd /root
+    git clone https://github.com/hangenba/Arion.git arion
+    cd /root/arion
+    git checkout "$(cat /opt/goheap_commit.txt)"
+    git rev-parse HEAD > /opt/arion_commit.txt
+    cmp /opt/arion_commit.txt /opt/goheap_commit.txt
+
+    test -d /root/arion/bert_base_data_5
+
+    python3 /opt/pin_workload.py /root/arion
+    cp /opt/snni_heapdump.go /root/arion/snni_heapdump.go
+
+    go mod tidy
+    go build -o arion .
+
+    strings -a /root/arion/arion | grep -q 'SNNI_PARAM|' \
+        || { echo "FAILED: no SNNI_PARAM marker in the binary"; exit 4; }
+    strings -a /root/arion/arion | grep -q 'WORKLOAD|model=' \
+        || { echo "FAILED: no WORKLOAD marker in the binary"; exit 4; }
+    strings -a /root/arion/arion | grep -q 'SNNI_HEAPDUMP|armed' \
+        || { echo "FAILED: the heapdump adapter is not in the binary"; exit 4; }
+
+    grep -E 'lattigo' /root/arion/go.mod > /opt/arion_lattigo.txt || true
+    cat /opt/arion_lattigo.txt
+    md5sum /root/arion/arion > /opt/arion_binary_md5.txt
+    cat /opt/arion_binary_md5.txt
+
+%environment
+    export LC_ALL=C
+
+%runscript
+    cd /root/arion && exec ./arion

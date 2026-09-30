@@ -1,0 +1,26 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m23s_pool_threshold_256k.sif
+
+# MOAI-CPU m24x_x_stream_matmul (2026-09-24): the m23s_pool_threshold_256k line PLUS one lever (patch_x_stream_matmul.py). predicted peak after the threshold: the attention block's matmul window (~54 GiB; m24r phase maxima), where the block's input X (12.1 GB, read by the Q/K matmuls and the enc_X_v copy) is the largest object with a fix that keeps the operations: streamed from disk one ciphertext at a time through a loop-swapped kernel (paid, I/O).
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_x_stream_matmul.py /opt/patch_x_stream_matmul.py
+
+%post
+    set -e
+    python3 /opt/patch_x_stream_matmul.py /root/moai
+    cd /root/moai
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in phase_split chunked_bootstrap boot_input_spill pool_threshold_256k "x_stream_matmul"; do
+        strings -a build/test | grep -q "$m" \
+            || { echo "FAILED: marker $m missing from binary" >&2; exit 1; }
+    done
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt
+    cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m24x_x_stream_matmul
+    snni.base m23s_pool_threshold_256k

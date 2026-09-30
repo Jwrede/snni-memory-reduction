@@ -1,0 +1,12 @@
+534b13468d5ed2ac631f405b989ab646  /root/shark/build/benchmark-bert_instrumented
+=== phase 1: dealer (party 2), MEASURED in this variant ===
+dealer pid=3323637
+dealer rc=0  wall=304s
+a152e457c214b9f07220894bd4e3b4df  server.dat
+52b46b8f09e638c60c4171c2b88b189a  client.dat
+server.dat 56416290832
+client.dat 55736936464
+=== phase 2: server (0) + client (1), MEASURED ===
+=== party0 rc=0  party1 rc=0  online wall=97s ===
+GATEQ|party=0|n=98304|nonzero=98304|differing_from_first=98303
+GATEQ|party=1|n=98304|nonzero=98304|differing_from_first=98303

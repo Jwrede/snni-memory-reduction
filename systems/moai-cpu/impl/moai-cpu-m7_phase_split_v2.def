@@ -1,0 +1,32 @@
+Bootstrap: localimage
+From: /scratch/tmp/j_wred02/snni_campaign/moai-cpu/sif/moai-cpu-m6_att_output_release.sif
+
+# MOAI-CPU m7_phase_split_v2: phase-split the bootstrap Galois keys (gal_keys_boot ~62 GB -> ~14-19 GB
+# resident, one phase at a time). v2 adds the SOFTMAX bootstrap phase-split (v1 missed it -> the softmax's
+# internal bootstrap crashed with "galois_keys is not valid" because the full key set was removed). Applies
+# BOTH patches fresh on the m6 base. Project rebuild only.
+
+%files
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_phase_split.py /opt/patch_phase_split.py
+    /scratch/tmp/j_wred02/snni_campaign/moai-cpu/patch_softmax_phase.py /opt/patch_softmax_phase.py
+
+%post
+    set -e
+    python3 /opt/patch_phase_split.py /root/moai
+    python3 /opt/patch_softmax_phase.py /root/moai
+    cd /root/moai
+    rm -rf build
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j "$(nproc)"
+    ls -la /root/moai/build/test
+    for m in 'SEEDED|seal_prng|' 'WORKLOAD|model=bert-base' 'LEVER|pool_threshold' 'LEVER|minimal_att_keys' \
+             'LEVER|x_copy_release' 'LEVER|enc_ecd_x_release' 'LEVER|boot_layer_release' 'LEVER|att_output_release' \
+             'LEVER|phase_split' 'POOLREC|profile_installed'; do
+        strings -a /root/moai/build/test | grep -q "$m" || { echo "FAILED: missing marker $m"; exit 4; }
+    done
+    md5sum /root/moai/build/test | awk '{print $1}' > /opt/moai_binary_md5.txt; cat /opt/moai_binary_md5.txt
+
+%labels
+    snni.system moai-cpu
+    snni.step m7_phase_split_v2
+    snni.base m6_att_output_release

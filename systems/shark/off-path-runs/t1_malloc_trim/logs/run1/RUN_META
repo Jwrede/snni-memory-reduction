@@ -1,0 +1,17 @@
+step=t1_malloc_trim
+run=1
+date_utc=2026-07-30T17:05:50Z
+machine=palma:zen2-128C-496G node=r13n05
+slurm_job_id=45519402
+policy_version=2026-07-29.1
+pm_min=65536 fullscan=1 freeze=1 poll_ms=15
+attrib_host=pmrec_pagemap
+attrib_device=off
+image=/scratch/tmp/j_wred02/snni_campaign/shark/sif/shark-t1_malloc_trim.sif
+image_digest=4935420aec762e0d316cec6870cdf438f7363ff3abe0f724fca664fd4127a304
+lib_fingerprint=d0bdb796f7f3512414b20220ffd44691
+omp_num_threads=4
+vram=NA (CPU system, single pool -- the degenerate case of the two-pool protocol)
+model=bert-base n_embd=768 n_layer=12 n_seq=128 f=16 (SHARK_N_LAYERS=12 SHARK_SEQ_LEN=128)
+role=ONLINE parties 0 and 1 (server + client); the dealer runs first and is NOT measured
+freeze_leader_party=0

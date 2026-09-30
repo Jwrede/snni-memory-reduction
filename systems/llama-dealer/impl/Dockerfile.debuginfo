@@ -1,0 +1,14 @@
+# LLAMA dealer image with debug info, for object naming.
+#
+# Change against stock: `-g` appended to the existing flags (stock bertbenchmark has no debug
+# sections; addr2line then returns nearest exported symbols). Debug sections are not PT_LOAD: no
+# code-generation or peak effect. Check: generated key files byte-identical to the stock build.
+# Built once (per-step rebuilds stay incremental). Server C has no egress: base must be a local image.
+FROM localhost/llama-00-default
+
+RUN cd /opt/EzPC/GPU-MPC/ext/sytorch/build && \
+    CUR="$(grep '^CMAKE_CXX_FLAGS:STRING=' CMakeCache.txt | cut -d= -f2-)" && \
+    cmake -DCMAKE_CXX_FLAGS:STRING="$CUR -g" . > /tmp/cmake.log 2>&1 && \
+    make -j"$(nproc)" bertbenchmark > /tmp/build.log 2>&1 && \
+    readelf -S bertbenchmark | grep -q debug_info && \
+    addr2line -f -C -e bertbenchmark "$(nm bertbenchmark | awk '/ T main$/{print "0x"$1; exit}')"
